@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.noo.wms.main.mapper.MainSQLMapper">
+
+	<!-- 관리자 로그인 -->
+	<select id="selectByAdminEmailAndPw" resultType="com.noo.wms.vo.AdminVo">
+		select * from Admin
+		where admin_email = #{admin_email}
+		and admin_password = #{admin_password}
+	</select>
+
+	<!-- 사원 회원가입 -->
+	<insert id="insertEmployee">
+		insert into Employee(
+			department_code,
+			employee_rank_code,
+			authority_code,
+			employee_email,
+			employee_password,
+			employee_name,
+			employee_state,
+			employee_join_date,
+			employee_leave_date
+		) values (
+			#{department_code},
+			'rank_code',
+			'1',
+			#{employee_email},
+			#{employee_password},
+			#{employee_name},
+			'T',
+			SYSDATE(),
+			null
+		)
+	</insert>
+		
+	<!-- 사원 로그인 -->
+	<select id="selectByEmployeeEmailAndPw" resultType="com.noo.wms.vo.EmployeeVo">
+		select * from Employee
+		where employee_email = #{employee_email}
+		and employee_password = #{employee_password}
+	</select>
+
+	<!-- 회원가입시 회사 코드 불러오기 -->	
+	<select id="selectCompanyCode" resultType="com.noo.wms.vo.CompanyVo">
+		select company_code from Company
+		order by company_code asc
+	</select>
+	
+	<!-- 회원가입시 회사코드로 부서코드 불러오기 -->
+	<select id="selectDepCodeByCompanyCode" resultType="com.noo.wms.vo.DepartmentVo">	
+		select * from Department
+		where company_code = #{company_code}
+	</select>
+	
+	<!-- 공지사항 작성 -->
+	<insert id="insertNotice">
+		insert into Notice(
+			admin_code,
+			notice_title,
+			notice_content,
+			notice_write_date
+		) values (
+			#{admin_code},
+			#{notice_title},
+			#{notice_content},
+			SYSDATE()
+		)
+	</insert>
+	
+	<!-- 공지사항 데이터 불러오기 -->
+	<select id="selectNotice" resultType="com.noo.wms.vo.NoticeVo">
+		select * from Notice
+		order by notice_code desc
+	</select>
+	
+</mapper>

@@ -87,7 +87,7 @@
 				content.style.maxHeight = content.scrollHeight + "px";  // 접혀있는 경우 펼치기
 			}
 		}
-    
+
     </script>
 
 </head>
@@ -98,7 +98,7 @@
                 <a href="../main/mainPage"><span class="textWhite mx-4">WMS</span></a>            
             </div>
             <div class="col textWhite">
-                <span>관리자 이름 <i class="bi bi-power"></i><!--logout button--> </span>                            
+                <span>관리자 이름 <a href="../main/logOutProcess"><i class="bi bi-power"></i></a><!--logout button--> </span>                            
             </div>
             <div class="col">
                 <div class="usermenu">

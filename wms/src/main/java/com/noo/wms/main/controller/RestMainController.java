@@ -2,6 +2,7 @@ package com.noo.wms.main.controller;
 
 import java.util.HashMap;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ public class RestMainController {
 	@Autowired
 	private MainServiceImpl mainService;
 	
+	//부서코드 불러오기
 	@RequestMapping("getDepCodeProcess")
 	public HashMap<String, Object> getDepCodeProcess(String company_code){
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -25,4 +27,5 @@ public class RestMainController {
 		
 		return map;
 	}
+
 }

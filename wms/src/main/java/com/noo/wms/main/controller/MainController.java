@@ -68,6 +68,14 @@ public class MainController {
 		return "redirect:/main/mainPage";
 	}
 	
+	//로그아웃
+	@RequestMapping("logOutProcess")
+	public String logOutProcess(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:/main/loginPage";
+	}
+	
 	//사원 회원가입페이지
 	@RequestMapping("registerPage")
 	public String registerPage(Model model) {

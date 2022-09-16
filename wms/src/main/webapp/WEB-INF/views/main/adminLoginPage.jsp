@@ -45,14 +45,14 @@
 	        </div>
 	        </form>
 	      </div>
-	      <div class="row">
+		  <!--<div class="row">
 	        <div class="col border-end border-dark text-end" style="font-size: 0.8rem;">
 	          <a>회원가입</a>
 	        </div>
 	        <div class="col text-start" style="font-size: 0.8rem;">
 	          <a onclick="location.href='../employee/findInfoPage'">계정정보 찾기</a>
 	        </div>
-	      </div>
+	      </div> -->
 	    </div>
 
 

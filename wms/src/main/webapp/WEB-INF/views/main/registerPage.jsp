@@ -101,9 +101,17 @@
 			function emailCheck(){
 				var employee_email = document.getElementById("employee_email");
 				var employee_email_alert = document.getElementById("employee_email_alert");
+				var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 				
 				if(employee_email.value == ""){
 					employee_email_alert.innerText = "필수 항목입니다.";
+					employee_email_alert.classList.add("text-danger");
+					employee_email.focus();
+					return;
+				}
+				
+				if(!emailRule.test(employee_email.value)){
+					employee_email_alert.innerText = "이메일 형식이 올바르지 않습니다";
 					employee_email_alert.classList.add("text-danger");
 					employee_email.focus();
 					return;

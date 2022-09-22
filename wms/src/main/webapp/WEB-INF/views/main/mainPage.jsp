@@ -75,7 +75,7 @@
 		<div class="col-6 border">
 		  <div class="row">
 		    <div class="col" style="background-color:#a9a9a9;">
-		      <i class="bi bi-exclamation-triangle-fill"></i>공지사항${employeeInfo.employee_code } ${adminInfo.admin_code }
+		      <i class="bi bi-exclamation-triangle-fill"></i>공지사항
 		      <c:if test="${adminInfo != null && adminInfo.authority_code == 0}">
 		      <i class="bi bi-gear-fill" style="float: right" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"></i>
 		      </c:if>

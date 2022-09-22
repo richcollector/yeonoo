@@ -71,18 +71,20 @@
 				xhr.send(); //AJAX로 리퀘스트함..
 			}
 			
-			function passwordRule(){
-				var employee_password = document.getElementById("employee_password");
-				var employee_password_alert = document.getElementById("employee_password_alert");
-				var pwRule = ^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,15}$;
-				
+  			function passwordRule(){
+  				var employee_password = document.getElementById("employee_password");
+  				var employee_password_alert = document.getElementById("employee_password_alert");
+  				var pwRule = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,15}$/;
+  				
 				if(!pwRule.test(employee_password.value)){
 					employee_password_alert.innerText = "비밀 번호는 숫자/문자/특수문자가 포함된 8~15자리 이내의 형식이어야합니다";
 					employee_password_alert.classList.add("text-danger");
 					employee_password.focus();
 					return;
+				} else {
+					employee_password_alert.innerHTML = "";
 				}
-			}
+			} 
 			
 			function passwordCheck(){
 				var employee_password = document.getElementById("employee_password");
@@ -123,7 +125,7 @@
 					return;
 				}
 				
-				if(!emailRule.test(employee_email.value)){
+ 				if(!emailRule.test(employee_email.value)){
 					employee_email_alert.innerText = "이메일 형식이 올바르지 않습니다";
 					employee_email_alert.classList.add("text-danger");
 					employee_email.focus();
@@ -253,7 +255,7 @@
 					<div class="col">
 				         <div>
 				             <label for="companyCode" class="form-label fw-bold">회사 코드</label>
-				         	 <select id="company_code" onchange="chageCompanySelect()" class="form-select" aria-label="Default select example">
+				         	 <select id="company_code" name="company_code" onchange="chageCompanySelect()" class="form-select" aria-label="Default select example">
 							   <option selected disabled>회사 코드를 선택해주세요.</option>
 							   <c:forEach items="${companyCodeDataList}" var="data">
 							     <option value="${data.companyVo.company_code }">${data.companyVo.company_code }</option>
@@ -274,14 +276,6 @@
 					</div>
 					<div id="employee_email_alert"></div>
 				</div>
-<!-- 			<div class="row mb-2">
-					<div class="col">
-				         <div>
-				             <label for="emailCheckCode" class="form-label fw-bold">인증 번호</label>
-				             <input id="emailCheckCode" type="text" class="form-control" placeholder="인증 번호를 입력해 주세요." aria-label="Username" aria-describedby="addon-wrapping">
-				         </div>
-					</div>
-				</div> -->
 			</div>
 			<div class="row mb-2">
 					<div class="col">

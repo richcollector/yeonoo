@@ -240,7 +240,7 @@
 					bodyTr.appendChild(pdCodeTd);
 					
 					var pdName = document.createElement("td");
-					pdName.innerText = "";
+					pdName.innerText = myLotList.product.product_name;
 					bodyTr.appendChild(pdName);
 					
 					var regDate = document.createElement("td");
@@ -257,6 +257,7 @@
 		xhr.send();
 		
 	}
+	
 	
 window.addEventListener("DOMContentLoaded" , function (){
 		

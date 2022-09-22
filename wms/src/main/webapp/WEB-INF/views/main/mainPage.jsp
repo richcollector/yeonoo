@@ -92,10 +92,12 @@
 		        </thead>
 		        <tbody>
 		        <c:forEach items="${noticeDataList}" var="data" begin="0" end="15">
+		        <c:if test="${(adminInfo.admin_code == data.noticeVo.admin_code) || (employeeInfo.company_code == data.noticeVo.company_code)}">
 		          <tr id="notice_title${data.noticeVo.notice_code }"> 
 		            <td><a onclick="location.href='noticedetailPage?notice_code=${data.noticeVo.notice_code}'">${data.noticeVo.notice_title }</a></td>
 		            <td><fmt:formatDate value="${data.noticeVo.notice_write_date }" dateStyle="short"/></td>
 		          </tr>
+		          </c:if>
 		          </c:forEach>
 		        </tbody>
 		      </table>
@@ -116,6 +118,7 @@
 	    <div class="row">
 	      <div class="col">
 	        <input type="hidden" name="admin_code" value="${adminInfo.admin_code }">
+	        <input type="hidden" name="company_code" value="${adminInfo.company_code }">	        
 	        <input type="text" class="form-control" name="notice_title" placeholder="제목을 입력해주세요">
 	      </div>
 	    </div>

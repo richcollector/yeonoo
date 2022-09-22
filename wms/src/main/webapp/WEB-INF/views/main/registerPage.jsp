@@ -71,6 +71,19 @@
 				xhr.send(); //AJAX로 리퀘스트함..
 			}
 			
+			function passwordRule(){
+				var employee_password = document.getElementById("employee_password");
+				var employee_password_alert = document.getElementById("employee_password_alert");
+				var pwRule = ^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,15}$;
+				
+				if(!pwRule.test(employee_password.value)){
+					employee_password_alert.innerText = "비밀 번호는 숫자/문자/특수문자가 포함된 8~15자리 이내의 형식이어야합니다";
+					employee_password_alert.classList.add("text-danger");
+					employee_password.focus();
+					return;
+				}
+			}
+			
 			function passwordCheck(){
 				var employee_password = document.getElementById("employee_password");
 				var employee_password_check = document.getElementById("employee_password_check");
@@ -274,7 +287,7 @@
 					<div class="col">
 				         <div>
 				             <label for="employee_password" class="form-label fw-bold">비밀번호</label>
-				             <input id="employee_password" name="employee_password" type="password" class="form-control" placeholder="비밀번호를 입력해주세요." aria-label="Username" aria-describedby="addon-wrapping">
+				             <input id="employee_password" onblur="passwordRule()" name="employee_password" type="password" class="form-control" placeholder="비밀번호를 입력해주세요." aria-label="Username" aria-describedby="addon-wrapping">
 				         </div>
 				         <div id="employee_password_alert"></div>
 				         

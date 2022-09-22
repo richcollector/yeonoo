@@ -34,13 +34,25 @@
 			SYSDATE(),
 			null
 		)
+		<selectKey keyColumn="employee_code" keyProperty="employee_code" resultType="com.noo.wms.vo.EmployeeVo" order="AFTER">
+		      select employee_code from Employee 
+    		  ORDER BY employee_code DESC LIMIT 1
+		</selectKey>
 	</insert>
 		
 	<!-- 사원 로그인 -->
 	<select id="selectByEmployeeEmailAndPw" resultType="com.noo.wms.vo.EmployeeVo">
-		select * from Employee
+		<!-- select * from Employee
 		where employee_email = #{employee_email}
-		and employee_password = #{employee_password}
+		and employee_password = #{employee_password} -->
+		
+		select *
+		from Employee e ,MailAuth m
+		where e.employee_code = m.employee_code
+		and e.employee_email = #{employee_email}
+		and e.employee_password = #{employee_password}
+		and m.auth_complete = 'Y'
+		
 	</select>
 
 	<!-- 회원가입시 회사 코드 불러오기 -->	
@@ -54,6 +66,33 @@
 		select * from Department
 		where company_code = #{company_code}
 	</select>
+	
+	<!-- 회원가입시 이메일 중복확인 -->
+	<select id="selectEmployeeEmailByEmail" resultType="com.noo.wms.vo.EmployeeVo">
+		select * from Employee
+		where employee_email = #{employee_email}
+	</select>
+	
+	<!-- 회원가입 메일 인증 -->
+	<insert id="insertMailAuth">
+		INSERT INTO MailAuth(
+			employee_code,
+			auth_key,
+			auth_complete,
+			auth_date
+		) VALUES (
+			#{employee_code}, 
+			#{auth_key},
+			'N',
+			null
+		)	
+	</insert>
+	
+	<update id="updateCompleteY">
+		UPDATE MailAuth 
+		SET auth_complete = 'Y' , auth_date = SYSDATE() 
+		WHERE auth_key = #{auth_key}
+	</update>
 	
 	<!-- 공지사항 작성 -->
 	<insert id="insertNotice">
@@ -75,5 +114,18 @@
 		select * from Notice
 		order by notice_code desc
 	</select>
+	
+	<!-- 공지사항 상세보기 -->
+	<select id="selectNoticeByNoticeCode" resultType="com.noo.wms.vo.NoticeVo">
+		select * from Notice
+		where notice_code = #{notice_code}
+	</select>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNoticeByNoticeCode">
+		delete from Notice
+		where notice_code = #{notice_code}
+	</delete>
+	
 	
 </mapper>

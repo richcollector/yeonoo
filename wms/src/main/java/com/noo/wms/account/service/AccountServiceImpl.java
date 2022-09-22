@@ -18,11 +18,11 @@ public class AccountServiceImpl {
 //		System.out.println(searchType);
 //		System.out.println(searchWord);
 		
-		int startList = (pageNum-1)*10 + 1;
+		int startList = (pageNum-1)*10;
 		
-		int listSize = pageNum*10;
+		System.out.println("스타투"+startList);
 		
-		ArrayList<AccountVo> accountList = accountSQLMapper.accountInfo(searchType , searchWord, startList, listSize);
+		ArrayList<AccountVo> accountList = accountSQLMapper.accountInfo(searchType , searchWord, startList);
 		
 		return accountList;
 	}

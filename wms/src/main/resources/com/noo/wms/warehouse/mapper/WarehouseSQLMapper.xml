@@ -29,11 +29,63 @@
 		#{warehouse_area_name})
 	</insert>
 	
-	<select id="areaList" resultType="com.noo.wms.vo.WarehouseVo">
-		SELECT * FROM Warehouse_Area
+	<select id="areaList" resultType="com.noo.wms.vo.AreaVo">
+		SELECT * FROM Warehouse_area
 		WHERE warehouse_code = #{warehouseCode}		
 	</select>
 	
+	<select id="rackList" resultType="com.noo.wms.vo.RackVo">
+		SELECT * FROM Warehouse_rack
+		WHERE warehouse_area_code = #{areaCode}
+	</select>
+	
+	<insert id="insertRack">
+		INSERT INTO Warehouse_rack(
+		warehouse_area_code,
+		warehouse_rack_name
+		)values(
+		#{warehouse_area_code},
+		#{warehouse_rack_name})
+	</insert>
+	
+	<select id="cellList" resultType="com.noo.wms.vo.CellVo">
+		SELECT * FROM Warehouse_cell
+		WHERE warehouse_rack_code = #{rackCode}
+	</select>
+	
+	<insert id="insertCell">
+		INSERT INTO Warehouse_cell(
+		warehouse_rack_code,
+		warehouse_cell_name
+		)values(
+		#{warehouse_rack_code},
+		#{warehouse_cell_name})
+	</insert>
+	
+	<update id="updateWarehouse">
+		UPDATE Warehouse
+		set warehouse_name = #{warehouse_name},
+			warehouse_classification = #{warehouse_classification}
+		WHERE warehouse_code = #{warehouse_code}
+	</update>
+	
+	<update id="updateArea">
+		UPDATE Warehouse_area
+		set warehouse_area_name = #{warehouse_area_name}
+		WHERE warehouse_area_code = #{warehouse_area_code}
+	</update>
+	
+	<update id="updateRack">
+		UPDATE Warehouse_rack
+		set warehouse_rack_name = #{warehouse_rack_name}
+		WHERE warehouse_rack_code = #{warehouse_rack_code}
+	</update>
+	
+	<update id="updateCell">
+		UPDATE Warehouse_cell
+		set warehouse_cell_name = #{warehouse_cell_name}
+		WHERE warehouse_cell_code = #{warehouse_cell_code}
+	</update>
 	
 	
 </mapper>

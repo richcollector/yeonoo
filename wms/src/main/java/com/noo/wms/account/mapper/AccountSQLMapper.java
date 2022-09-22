@@ -13,8 +13,7 @@ public interface AccountSQLMapper {
 	//불러오기
 	public ArrayList<AccountVo> accountInfo(@Param("searchType") String searchType, 
 											@Param("searchWord") String searchWord,
-											@Param("startList") int startList,
-											@Param("listSize") int listSize
+											@Param("startList") int startList
 											);
 	
 	public int accountInfoCount(@Param("searchType") String searchType, 

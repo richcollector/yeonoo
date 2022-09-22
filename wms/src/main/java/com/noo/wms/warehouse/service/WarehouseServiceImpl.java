@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.noo.wms.vo.AdminVo;
 import com.noo.wms.vo.AreaVo;
+import com.noo.wms.vo.CellVo;
+import com.noo.wms.vo.RackVo;
 import com.noo.wms.vo.WarehouseVo;
 import com.noo.wms.warehouse.mapper.WarehouseSQLMapper;
 
@@ -54,7 +56,7 @@ public class WarehouseServiceImpl {
 		
 		ArrayList<HashMap<String, Object>> aL = new ArrayList<HashMap<String, Object>>();
 		
-		ArrayList<AreaVo> aLVo = warehouseMapper.AreaList(warehouseCode);		
+		ArrayList<AreaVo> aLVo = warehouseMapper.areaList(warehouseCode);		
 		
 		for(AreaVo area : aLVo ) {
 			HashMap<String,Object> map = new HashMap<String,Object>();
@@ -68,6 +70,78 @@ public class WarehouseServiceImpl {
 		return aL;
 		
 	}
+	
+	public ArrayList<HashMap<String,Object>> rackList(String areaCode){
+		
+		ArrayList<HashMap<String, Object>> rL = new ArrayList<HashMap<String, Object>>();
+		
+		ArrayList<RackVo> rKVo = warehouseMapper.rackList(areaCode);
+		
+		for(RackVo rack : rKVo) {
+			HashMap<String,Object> map = new HashMap<String,Object>();
+			
+			map.put("rack",rack);
+			
+			rL.add(map);
+			
+		}
+		
+		return rL;
+		
+	}
+	
+	public void insertMyRack(RackVo rackVo) {
+			
+			warehouseMapper.insertRack(rackVo);
+			
+		}
+	
+	public ArrayList<HashMap<String,Object>> cellList(String rackCode){
+			
+			ArrayList<HashMap<String, Object>> cL = new ArrayList<HashMap<String, Object>>();
+			
+			ArrayList<CellVo> clVo = warehouseMapper.cellList(rackCode);
+			
+			for(CellVo cell : clVo) {
+				
+				HashMap<String,Object> map = new HashMap<String,Object>();
+				
+				map.put("cell",cell);
+				
+				cL.add(map);
+				
+			}
+			
+			return cL;
+					
+		}
+	
+	public void insertMyCell(CellVo cellVo) {
+		
+		warehouseMapper.insertCell(cellVo);
+		
+	}
+	
+	public void warehouseUpdate(WarehouseVo warehouseVo) {
+		
+		warehouseMapper.updateWarehouse(warehouseVo);
+	}
 
+	
+	public void areaUpdate(AreaVo areaVo) {
+		
+		warehouseMapper.updateArea(areaVo);
+	}
+	
+	public void rackUpdate(RackVo rackVo) {
+		
+		warehouseMapper.updateRack(rackVo);
+	}
+	
+	public void cellUpdate(CellVo cellVo) {
+		
+		warehouseMapper.updateCell(cellVo);
+	}
+	
 	
 }

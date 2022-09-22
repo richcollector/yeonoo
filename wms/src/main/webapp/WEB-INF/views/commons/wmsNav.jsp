@@ -87,7 +87,7 @@
 				content.style.maxHeight = content.scrollHeight + "px";  // 접혀있는 경우 펼치기
 			}
 		}
-
+    
     </script>
 
 </head>
@@ -98,7 +98,7 @@
                 <a href="../main/mainPage"><span class="textWhite mx-4">WMS</span></a>            
             </div>
             <div class="col textWhite">
-                <span>관리자 이름 <a href="../main/logOutProcess"><i class="bi bi-power"></i></a><!--logout button--> </span>                            
+                <span>관리자 이름 <a href="../main/logOutProcess"><i class="bi bi-power"></i></a><!--logout button--> </span>                           
             </div>
             <div class="col">
                 <div class="usermenu">
@@ -120,10 +120,11 @@
                     기준정보
                 </button>
                 <div class="usermenu-content">
-                        <a href="../company/companyInfoPage">회사정보(o)</a><br>
-                        <a href="../account/accountInfoPage">거래처정보(o)</a><br>
-                        <a href="">물품정보(x)</a><br>
-                        <a href="../warehouse/warehouseList">창고정보(△)</a>               
+                        <a href="../company/companyInfoPage">회사정보(△)</a><br>
+                        <a href="../account/accountInfoPage">거래처정보(△)</a><br>
+                        <a href="../employee/productInfoPage">물품정보(△)</a><br>
+                        <a href="../warehouse/warehouseList">창고정보(△)</a><br>
+                        <a href="../lot/lotManage">로트관리(△)</a>            
                 </div>          
                 </div>    
             </div>
@@ -133,9 +134,10 @@
                     영업관리
                 </button>
                 <div class="usermenu-content">
-                    <a href="">수주정보(x)</a><br>
-                    <a href="">출하정보(x)</a><br>            
-                    <a href="">단가정보(x)</a><br>      
+                    <a href="../employee/obtainOrderInfoPage">수주정보(△)</a><br>
+                    <a href="../employee/manufactureInfoPage">생산정보(△)</a><br>
+                    <a href="../employee/outboundInfoPage">출하정보(△)</a><br>            
+                    <a href="../employee/productPriceInfoPage">단가정보(△)</a><br>      
                     <a href="">수주대비출고(x)</a><br>
                     <a href="">매입대비매출(x)</a>
                 </div>          
@@ -147,7 +149,7 @@
                     구매관리
                 </button>
                 <div class="usermenu-content">
-                    <a href="">발주정보(x)</a>             
+                    <a href="../employee/purchaseInfoPage">발주정보(△)</a>             
                 </div>          
                 </div>               
             </div>

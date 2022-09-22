@@ -25,15 +25,13 @@ public class MainController {
 	//메인페이지
 	@RequestMapping("mainPage")
 	public String mainPage(Model model, HttpSession session) {
-		String admin_code = "";
 		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
-		if(adminInfo != null) {
-			admin_code = adminInfo.getAdmin_code();
-		}
+		EmployeeVo employeeInfo = (EmployeeVo)session.getAttribute("employeeInfo");
 		
-		model.addAttribute("noticeDataList" , mainService.getNoticeData());
+		model.addAttribute("employeeInfo" , employeeInfo);
 		model.addAttribute("adminInfo" , adminInfo);
-		model.addAttribute("admin_code" , admin_code);
+		model.addAttribute("noticeDataList" , mainService.getNoticeDataList());
+		
 		return "/main/mainPage";
 	}
 	
@@ -44,28 +42,10 @@ public class MainController {
 		return "/main/loginPage";
 	}
 	
-	//일반 로그인
-	@RequestMapping("loginProcess")
-	public String loginProcess(EmployeeVo employeeVo , HttpSession session) {
-		EmployeeVo employeeInfo = mainService.employeeLogin(employeeVo);
-		session.setAttribute("employeeInfo", employeeInfo);
-		
-		return "redirect:/main/mainPage";
-	}
-	
 	@RequestMapping("adminLoginPage")
 	public String adminLoginPage() {
 		
 		return "/main/adminLoginPage";
-	}
-	
-	//관리자 로그인
-	@RequestMapping("adminLoginProcess")
-	public String adminLoginProcess(AdminVo adminVo, HttpSession session) {
-		AdminVo adminInfo = mainService.adminLogin(adminVo);
-		session.setAttribute("adminInfo", adminInfo);
-		
-		return "redirect:/main/mainPage";
 	}
 	
 	//로그아웃
@@ -92,7 +72,20 @@ public class MainController {
 		
 		mainService.employeeRegister(employeeVo);
 		
-		return "redirect:/main/mainPage";
+		return "redirect:/main/loginPage";
+	}
+	
+	@RequestMapping("mailAuthProcess")
+	public String mailAuthProcess(String auth_key) {
+		
+		mainService.mailAuth(auth_key);
+		
+		return "/main/mailAuthComplete";
+	}
+	
+	@RequestMapping("mailAuthComplete")
+	public String mailAuthComplete() {
+		return "/main/mailAuthComplete";
 	}
 	
 	//공지사항 작성
@@ -100,6 +93,20 @@ public class MainController {
 	public String noticeRegister(NoticeVo noticeVo) {
 		mainService.noticeRegister(noticeVo);
 		
+		return "redirect:/main/mainPage";
+	}
+	
+	@RequestMapping("noticedetailPage")
+	public String noticedetailPage(Model model, String notice_code){
+		model.addAttribute("data",  mainService.getNoticeDetail(notice_code));
+		
+		return "/main/noticedetailPage";
+	}
+	
+	//공지사항 삭제
+	@RequestMapping("noticeDeleteProcess")
+	public String noticeDeleteProcess(String notice_code) {
+		mainService.deleteNotice(notice_code);
 		return "redirect:/main/mainPage";
 	}
 }

@@ -6,6 +6,7 @@ import com.noo.wms.vo.AdminVo;
 import com.noo.wms.vo.CompanyVo;
 import com.noo.wms.vo.DepartmentVo;
 import com.noo.wms.vo.EmployeeVo;
+import com.noo.wms.vo.MailAuthVo;
 import com.noo.wms.vo.NoticeVo;
 
 public interface MainSQLMapper {
@@ -25,9 +26,22 @@ public interface MainSQLMapper {
 	//회원가입시 회사코드로 부서코드 불러오기
 	public ArrayList<DepartmentVo> selectDepCodeByCompanyCode(String company_code);
 	
+	//회원가입시 이메일 중복 확인
+	public EmployeeVo selectEmployeeEmailByEmail(String employee_email);
+	
+	//메일 인증 T
+	public void insertMailAuth(MailAuthVo mailAuthVo);
+	public void updateCompleteY(String auth_key);
+	
 	//공지사항 작성
 	public void insertNotice(NoticeVo noticeVo);
 	
 	//공지사항 불러오기
 	public ArrayList<NoticeVo> selectNotice();
+	
+	//공지사항 상세보기
+	public NoticeVo selectNoticeByNoticeCode(String notice_code);
+	
+	//공지사항 삭제
+	public void deleteNoticeByNoticeCode(String notice_code);
 }

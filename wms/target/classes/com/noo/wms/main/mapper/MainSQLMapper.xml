@@ -100,11 +100,13 @@
 	<insert id="insertNotice">
 		insert into Notice(
 			admin_code,
+			company_code,
 			notice_title,
 			notice_content,
 			notice_write_date
 		) values (
 			#{admin_code},
+			#{company_code},
 			#{notice_title},
 			#{notice_content},
 			SYSDATE()

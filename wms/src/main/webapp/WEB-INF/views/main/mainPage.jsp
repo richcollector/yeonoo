@@ -91,7 +91,7 @@
 		          </tr>
 		        </thead>
 		        <tbody>
-		        <c:forEach items="${noticeDataList}" var="data">
+		        <c:forEach items="${noticeDataList}" var="data" begin="0" end="15">
 		          <tr id="notice_title${data.noticeVo.notice_code }"> 
 		            <td><a onclick="location.href='noticedetailPage?notice_code=${data.noticeVo.notice_code}'">${data.noticeVo.notice_title }</a></td>
 		            <td><fmt:formatDate value="${data.noticeVo.notice_write_date }" dateStyle="short"/></td>

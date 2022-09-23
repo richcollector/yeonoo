@@ -18,9 +18,9 @@ public class AccountServiceImpl {
 //		System.out.println(searchType);
 //		System.out.println(searchWord);
 		
-		int startList = (pageNum-1)*10;
+		int startList = (pageNum-1)*15;
 		
-		System.out.println("스타투"+startList);
+//		System.out.println("스타투"+startList);
 		
 		ArrayList<AccountVo> accountList = accountSQLMapper.accountInfo(searchType , searchWord, startList);
 		
@@ -33,6 +33,12 @@ public class AccountServiceImpl {
 		int accountList = accountSQLMapper.accountInfoCount(searchType , searchWord);
 		
 		return accountList;
+	}
+	
+	public AccountVo excelSelect (String account_code) {
+		AccountVo accountVo = accountSQLMapper.excelSelect(account_code);
+		
+		return accountVo;
 	}
 	
 	

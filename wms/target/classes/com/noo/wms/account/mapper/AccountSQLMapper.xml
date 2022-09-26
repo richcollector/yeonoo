@@ -40,11 +40,6 @@
 		</trim>
 	</select>
 	
-	<select id="excelSelect" resultType="com.noo.wms.vo.AccountVo">
-		SELECT * FROM Account
-		WHERE account_code = #{account_code}
-	</select>
-	
 	<insert id="insertAccountInfo">
 		INSERT into Account (
 		company_code,

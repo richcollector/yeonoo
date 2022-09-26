@@ -375,7 +375,6 @@
 			var loginButton = document.createElement("button");
 			loginButton.classList.add("btn");
 			loginButton.classList.add("btn-outline-primary");
-			loginButton.setAttribute("onclick","location.href='../main/loginPage'")
 			loginButton.innerText = "로그인 하기";
 			innerDiv1.appendChild(loginButton);
 		}

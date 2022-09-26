@@ -28,13 +28,6 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeServiceImpl employeeService;
 	
-	@RequestMapping("findInfoPage")
-	public String findInfoPage(Model model, String searchType, String searchWord,
-			@RequestParam(value="pageNum", defaultValue = "1") int pageNum) {
-		
-		return "/employee/findInfoPage";
-	}
-	
 	@RequestMapping("purchaseInfoPage")
 	public String purchaseInfoPage(Model model, String searchType, String searchWord,
 			@RequestParam(value="pageNum", defaultValue = "1") int pageNum) {

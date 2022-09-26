@@ -50,8 +50,8 @@
 		var accountAddressVal = document.getElementById("account_address").value;
 		var accountAddressDetailVal = document.getElementById("account_address_detail").value;
 		var accountCategoryVal = document.getElementById("account_category").value;
-// 		var accountMemoVal = document.getElementById("account_memo").value;
-// 		var accountRegistrationJpgVal = document.getElementById("account_registration_jpg").value;
+		var accountMemoVal = document.getElementById("account_memo").value;
+		var accountRegistrationJpgVal = document.getElementById("account_registration_jpg").value;
 
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -71,8 +71,8 @@
 				document.getElementById("account_address").value = "";
 				document.getElementById("account_address_detail").value = "";
 				document.getElementById("account_category").value = "";
-// 				document.getElementById("account_memo").value = "";
-// 				document.getElementById("account_registration_jpg").value = "";
+				document.getElementById("account_memo").value = "";
+				document.getElementById("account_registration_jpg").value = "";
 				
 				refreshAccountInfo();
 				
@@ -86,8 +86,7 @@
 				"&account_representative=" + accountRepresentativeVal + "&account_phone=" + accountPhoneVal + "&account_pax_number=" + accountPaxNumVal + 
 				"&account_email=" + accountEmailVal + "&account_email_tax=" + accountEmailTaxEmailVal + "&account_post_number=" + accountPostNumVal + 
 				"&account_address=" + accountAddressVal + "&account_address_detail=" + accountAddressDetailVal + "&account_category=" + accountCategoryVal +
-				"&account_memo=" + accountMemoVal
-// 				"&account_registration_jpg=" + accountRegistrationJpgVal
+				"&account_memo=" + accountMemoVal + "&account_registration_jpg=" + accountRegistrationJpgVal
 				);		
 		
 		
@@ -1364,12 +1363,12 @@
                                 </div>  
                             </div>
 
-<!--                             <div class="row my-3"> -->
-<!--                                 <div class="input-group"> -->
-<!--                                     <label class="input-group-text" for="inputGroupFile01">사업자등록증</label> -->
-<!--                                     <input id="account_registration_jpg" type="file" accept="image/*" class="form-control"> -->
-<!--                                 </div> -->
-<!--                             </div>                   -->
+                            <div class="row my-3">
+                                <div class="input-group">
+                                    <label class="input-group-text" for="inputGroupFile01">사업자등록증</label>
+                                    <input id="account_registration_jpg" type="file" accept="image/*" class="form-control">
+                                </div>
+                            </div>                  
                         </div>
                     </div>
                 </div>

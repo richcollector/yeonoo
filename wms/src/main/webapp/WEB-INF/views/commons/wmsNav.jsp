@@ -137,9 +137,7 @@
                     <a href="../employee/obtainOrderInfoPage">수주정보(△)</a><br>
                     <a href="../employee/manufactureInfoPage">생산정보(△)</a><br>
                     <a href="../employee/outboundInfoPage">출하정보(△)</a><br>            
-                    <a href="../employee/productPriceInfoPage">단가정보(△)</a><br>      
-                    <a href="">수주대비출고(x)</a><br>
-                    <a href="">매입대비매출(x)</a>
+                    <a href="../employee/productPriceInfoPage">단가정보(△)</a><br>
                 </div>          
                 </div>            
             </div>

@@ -917,7 +917,7 @@
 				trIn1.appendChild(td2);
 				
 				var inA1 = document.createElement("a");
-				inA1.setAttribute("href","javascript:refreshObtainOrderDetailInfo(inA1.innerText)");
+				inA1.setAttribute("href","javascript:refreshObtainOrderDetailInfo(this.innerText)");
 				inA1.setAttribute("value",commentData.obtain_order_code);
 				inA1.innerText = commentData.obtain_order_code;
 				inA1.setAttribute("style","color : blue;")

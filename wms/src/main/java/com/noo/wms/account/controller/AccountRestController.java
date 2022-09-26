@@ -97,6 +97,8 @@ public class AccountRestController {
 	@RequestMapping("insertAccountInfo")
 	public HashMap<String, Object> insertAccountInfo(AccountVo accountVo, MultipartFile account_registration_jpg) {
 		
+		System.out.println(account_registration_jpg);
+		
 		if(!account_registration_jpg.isEmpty()) {
 			//사업자등록증 폴더 생성
 			String folderName = "/uploadFilesWms/vendorLicenseImage/";

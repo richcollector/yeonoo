@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -21,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.noo.wms.account.service.AccountServiceImpl;
 import com.noo.wms.vo.AccountVo;
+import com.noo.wms.vo.AdminVo;
+import com.noo.wms.vo.EmployeeVo;
 
 @Controller
 @RequestMapping("/account/*")
@@ -30,9 +33,18 @@ public class AccountController {
 	private AccountServiceImpl accountService;
 
 	@RequestMapping("accountInfoPage")
-	public String accountInfoPage(Model model, String searchType, String searchWord,
+	public String accountInfoPage(HttpSession session, Model model, String searchType, String searchWord,
 									@RequestParam(value="pageNum", defaultValue = "1") int pageNum) {
-
+		
+		String company_code = null;
+		
+		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
+		EmployeeVo employeeInfo = (EmployeeVo)session.getAttribute("employeeInfo");
+		
+		if(adminInfo != null && employeeInfo != null) {
+			return "/main/loginPage";
+		}
+		
 		return "/account/accountInfoPage";
 	}
 	

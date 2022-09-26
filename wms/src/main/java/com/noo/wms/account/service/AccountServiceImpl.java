@@ -14,23 +14,19 @@ public class AccountServiceImpl {
 	@Autowired
 	private AccountSQLMapper accountSQLMapper;
 	
-	public ArrayList<AccountVo> accountInfo(String searchType, String searchWord, int pageNum){
-//		System.out.println(searchType);
-//		System.out.println(searchWord);
-		
+	public ArrayList<AccountVo> accountInfo(String searchType, String searchWord, int pageNum, String company_code){
+
 		int startList = (pageNum-1)*15;
 		
-//		System.out.println("스타투"+startList);
-		
-		ArrayList<AccountVo> accountList = accountSQLMapper.accountInfo(searchType , searchWord, startList);
-		
+		ArrayList<AccountVo> accountList = accountSQLMapper.accountInfo(searchType , searchWord, startList, company_code);
+		System.out.println(company_code);
 		return accountList;
 	}
 	
-	public int accountInfoCount(String searchType, String searchWord){
+	public int accountInfoCount(String searchType, String searchWord,  String company_code){
 //		System.out.println(searchType);
 //		System.out.println(searchWord);
-		int accountList = accountSQLMapper.accountInfoCount(searchType , searchWord);
+		int accountList = accountSQLMapper.accountInfoCount(searchType , searchWord , company_code);
 		
 		return accountList;
 	}

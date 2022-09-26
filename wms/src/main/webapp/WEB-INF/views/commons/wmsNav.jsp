@@ -121,7 +121,7 @@
                 </button>
                 <div class="usermenu-content">
                         <a href="../company/companyInfoPage">회사정보(△)</a><br>
-                        <a href="../account/accountInfoPage">거래처정보(△)</a><br>
+                        <a href="../account/accountInfoPage">거래처정보(o)</a><br>
                         <a href="../employee/productInfoPage">물품정보(△)</a><br>
                         <a href="../warehouse/warehouseList">창고정보(△)</a><br>
                         <a href="../lot/lotManage">로트관리(△)</a>            

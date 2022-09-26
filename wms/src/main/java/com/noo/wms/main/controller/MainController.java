@@ -109,4 +109,11 @@ public class MainController {
 		mainService.deleteNotice(notice_code);
 		return "redirect:/main/mainPage";
 	}
+	
+	//개인 정보 수정 페이지
+	@RequestMapping("userInfoUpdatePage")
+	public String userInfoUpdatePage() {
+		
+		return "/main/userInfoUpdatePage";
+	}
 }

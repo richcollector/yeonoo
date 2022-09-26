@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class AccountVo {
 	private String account_code;
+	private String company_code;
 	private String account_name;
 	private String account_registration_number;
 	private String account_corporate_registration_number;
@@ -27,13 +28,14 @@ public class AccountVo {
 		super();
 	}
 
-	public AccountVo(String account_code, String account_name, String account_registration_number,
+	public AccountVo(String account_code, String company_code, String account_name, String account_registration_number,
 			String account_corporate_registration_number, String account_representative, String account_phone,
 			String account_pax_number, String account_email, String account_email_tax, int account_post_number,
 			String account_address, String account_address_detail, String account_category, Date account_registration,
 			String account_memo, String account_registration_jpg) {
 		super();
 		this.account_code = account_code;
+		this.company_code = company_code;
 		this.account_name = account_name;
 		this.account_registration_number = account_registration_number;
 		this.account_corporate_registration_number = account_corporate_registration_number;
@@ -57,6 +59,14 @@ public class AccountVo {
 
 	public void setAccount_code(String account_code) {
 		this.account_code = account_code;
+	}
+
+	public String getCompany_code() {
+		return company_code;
+	}
+
+	public void setCompany_code(String company_code) {
+		this.company_code = company_code;
 	}
 
 	public String getAccount_name() {
@@ -178,10 +188,5 @@ public class AccountVo {
 	public void setAccount_registration_jpg(String account_registration_jpg) {
 		this.account_registration_jpg = account_registration_jpg;
 	}
-	
-	
-	
-	
-	
 	
 }

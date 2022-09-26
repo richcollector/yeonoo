@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
     
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
@@ -50,8 +50,8 @@
 		var accountAddressVal = document.getElementById("account_address").value;
 		var accountAddressDetailVal = document.getElementById("account_address_detail").value;
 		var accountCategoryVal = document.getElementById("account_category").value;
-		var accountMemoVal = document.getElementById("account_memo").value;
-		var accountRegistrationJpgVal = document.getElementById("account_registration_jpg").value;
+// 		var accountMemoVal = document.getElementById("account_memo").value;
+// 		var accountRegistrationJpgVal = document.getElementById("account_registration_jpg").value;
 
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -71,8 +71,8 @@
 				document.getElementById("account_address").value = "";
 				document.getElementById("account_address_detail").value = "";
 				document.getElementById("account_category").value = "";
-				document.getElementById("account_memo").value = "";
-				document.getElementById("account_registration_jpg").value = "";
+// 				document.getElementById("account_memo").value = "";
+// 				document.getElementById("account_registration_jpg").value = "";
 				
 				refreshAccountInfo();
 				
@@ -86,7 +86,8 @@
 				"&account_representative=" + accountRepresentativeVal + "&account_phone=" + accountPhoneVal + "&account_pax_number=" + accountPaxNumVal + 
 				"&account_email=" + accountEmailVal + "&account_email_tax=" + accountEmailTaxEmailVal + "&account_post_number=" + accountPostNumVal + 
 				"&account_address=" + accountAddressVal + "&account_address_detail=" + accountAddressDetailVal + "&account_category=" + accountCategoryVal +
-				"&account_memo=" + accountMemoVal + "&account_registration_jpg=" + accountRegistrationJpgVal
+				"&account_memo=" + accountMemoVal
+// 				"&account_registration_jpg=" + accountRegistrationJpgVal
 				);		
 		
 		
@@ -247,6 +248,76 @@
 		
 	}
 	
+ 	function excelDowunload(){
+
+	    var checkVal = new Array();
+	    
+        console.log(checkVal);
+	    
+	    var obj_length = document.getElementsByName("checkAccount").length;
+	    console.log(obj_length);
+	    
+        for (var i = 0; i < obj_length; i++) {
+
+            if (document.getElementsByName("checkAccount")[i].checked == true) {
+            	
+            	checkVal[i] = document.getElementsByName("checkAccount")[i].value;
+            }
+        }
+        
+// 		var params = "";
+// 		for(xxx of checkVal){
+// 			params += xxx;
+// 		}
+		
+		document.excelFo.code.value = checkVal;
+		
+		var excelForm = document.getElementById("excelForm");
+		excelForm.submit();
+		
+		refreshAccountInfo();
+        
+ 	}
+
+//  	function excelDowunload(){
+// // 	    var checkVal = new Array();
+	    
+// //         console.log(checkVal);
+	    
+// // 	    var obj_length = document.getElementsByName("checkAccount").length;
+// // 	    console.log(obj_length);
+	    
+// //         for (var i = 0; i < obj_length; i++) {
+
+// //             if (document.getElementsByName("checkAccount")[i].checked == true) {
+            	
+// //             	checkVal[i] = document.getElementsByName("checkAccount")[i].value;
+// //             }
+// //         }
+        
+// // 		var params = "";
+// // 		for(xxx of checkVal){
+// // 			params += "code=" + xxx + "&";
+// // 		}
+        
+// 		var xhr = new XMLHttpRequest();
+// // 		xhr.onreadystatechange = function () {
+// // 			if(xhr.readyState == 4 && xhr.status == 200){
+// // 				var result = JSON.parse(xhr.responseText);	
+					
+				
+// // 			}
+// // 		}
+		
+// 		xhr.open("get" , "../account/excel/download" , false);
+// // 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+// 		xhr.send();
+		
+// // 		refreshAccountInfo();
+        
+//  	}
+
+	
 	function deleteAccountInfo(){
 		
 	    var checkVal = new Array();
@@ -283,6 +354,7 @@
 		
 		
 	}
+	
 	
 	function allCheck(){
 
@@ -983,6 +1055,8 @@
 		xhr.send();	//AJAX로 리퀘스트함...
 		
  	}
+ 	
+
 
 	window.addEventListener("DOMContentLoaded" , function (){
 	//사실상 처음 실행하는 코드 모음...
@@ -1016,8 +1090,24 @@
 		            		삭제
 		            	 </button>
 		            </div>
-		            <div class="col-6 text-end mx-0 pt-1">
-		            	<span class="fs-5">거래처 관리</span>
+		            <div class="col-6 text-end mx-0">
+		            	<div class="row">
+		            		<div class="col">
+       				             <form id="excelForm" name="excelFo" action="../account/excel/download" method="post">
+					             	<input type="hidden" name="code" value="">
+									<input type="button" value="Excel 다운로드" onclick="excelDowunload()" type="button" class="btn btn-light">
+								</form>
+		            		</div>
+		            		<div class="col-2 ps-0">
+       				             <form id="excelUploadForm" name="excelUploadFo" action="../account/excel/download" method="post">
+					             	<input type="hidden" name="code" value="">
+									<input type="button" value="Excel 업로드" onclick="excelUpload()" type="button" class="btn btn-light">
+								</form>
+		            		</div>
+		            		<div class="col-3">
+		            			<span class="fs-5">거래처 관리</span>
+		            		</div>
+		            	</div>
 		            </div>
 	            </div>
 	        </div>   
@@ -1274,12 +1364,12 @@
                                 </div>  
                             </div>
 
-                            <div class="row my-3">
-                                <div class="input-group">
-                                    <label class="input-group-text" for="inputGroupFile01">사업자등록증</label>
-                                    <input id="account_registration_jpg" type="file" accept="image/*" class="form-control">
-                                </div>
-                            </div>                  
+<!--                             <div class="row my-3"> -->
+<!--                                 <div class="input-group"> -->
+<!--                                     <label class="input-group-text" for="inputGroupFile01">사업자등록증</label> -->
+<!--                                     <input id="account_registration_jpg" type="file" accept="image/*" class="form-control"> -->
+<!--                                 </div> -->
+<!--                             </div>                   -->
                         </div>
                     </div>
                 </div>

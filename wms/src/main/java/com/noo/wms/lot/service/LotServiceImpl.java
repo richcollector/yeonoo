@@ -65,10 +65,8 @@ public class LotServiceImpl {
 		for(LotVo lotVo : myLotList ) {
 			
 			HashMap<String, Object> map = new HashMap<String, Object> ();
-			ProductVo product = lotMapper.selectItem(lotVo.getProduct_code());
 			
 			map.put("lot", lotVo);
-			map.put("product", product);
 			
 			lotList.add(map);
 			
@@ -78,13 +76,6 @@ public class LotServiceImpl {
 		
 	}
 	
-	public void updateLot(LotVo lotVo) {
-		lotMapper.lotUpdate(lotVo);
-	}
 	
-	
-	public void deleteLot(LotVo lotVo) {
-		lotMapper.lotDelete(lotVo);
-	}
 	
 }

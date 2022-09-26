@@ -107,9 +107,9 @@
                     </button>
                     <div class="usermenu-content">
                         <a href="">개인정보수정(x)</a><br>
-                        <a href="">조직도정보(x)</a><br>
-                        <a href="">직급정보(x)</a><br>           
-                        <a href="">부서정보(x)</a><br>     
+                        <!-- <a href="">조직도정보(x)</a><br>  -->
+                        <a href="../company/employeeRankInfoPage">직급정보(△)</a><br>           
+                        <a href="../company/departmentInfoPage">부서정보(△)</a><br>     
                         <a href="">직원정보(x)</a><br> 
                     </div>
                 </div>              
@@ -121,7 +121,7 @@
                 </button>
                 <div class="usermenu-content">
                         <a href="../company/companyInfoPage">회사정보(△)</a><br>
-                        <a href="../account/accountInfoPage">거래처정보(△)</a><br>
+                        <a href="../account/accountInfoPage">거래처정보(o)</a><br>
                         <a href="../employee/productInfoPage">물품정보(△)</a><br>
                         <a href="../warehouse/warehouseList">창고정보(△)</a><br>
                         <a href="../lot/lotManage">로트관리(△)</a>            

@@ -36,7 +36,8 @@
 <script type="text/javascript">
 	
 	function insertAccountInfo(){
-		
+
+		var companyCodeVal = document.getElementById("company_code").value;
 		var nameVal = document.getElementById("account_name").value;
 		var accountRegistrationNumVal = document.getElementById("account_registration_number").value;
 		var accountCorporateRegistrationregiNumVal = document.getElementById("account_corporate_registration_number").value;
@@ -49,14 +50,15 @@
 		var accountAddressVal = document.getElementById("account_address").value;
 		var accountAddressDetailVal = document.getElementById("account_address_detail").value;
 		var accountCategoryVal = document.getElementById("account_category").value;
-		var accountMemoVal = document.getElementById("account_memo").value;
-		var accountRegistrationJpgVal = document.getElementById("account_registration_jpg").value;
+// 		var accountMemoVal = document.getElementById("account_memo").value;
+// 		var accountRegistrationJpgVal = document.getElementById("account_registration_jpg").value;
 
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
-					
+				
+				document.getElementById("company_code").value = "";
 				document.getElementById("account_name").value = "";
 				document.getElementById("account_registration_number").value = "";
 				document.getElementById("account_corporate_registration_number").value = "";
@@ -69,19 +71,25 @@
 				document.getElementById("account_address").value = "";
 				document.getElementById("account_address_detail").value = "";
 				document.getElementById("account_category").value = "";
-				document.getElementById("account_memo").value = "";
-				document.getElementById("account_registration_jpg").value = "";
+// 				document.getElementById("account_memo").value = "";
+// 				document.getElementById("account_registration_jpg").value = "";
+				
+				refreshAccountInfo();
+				
 				
 			}
 		}
 		
 		xhr.open("post" , "./insertAccountInfo");
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("account_name=" + nameVal + "&account_registration_number=" + accountRegistrationNumVal + "&account_corporate_registration_number=" + accountCorporateRegistrationregiNumVal + 
+		xhr.send("company_code=" + companyCodeVal +"&account_name=" + nameVal + "&account_registration_number=" + accountRegistrationNumVal + "&account_corporate_registration_number=" + accountCorporateRegistrationregiNumVal + 
 				"&account_representative=" + accountRepresentativeVal + "&account_phone=" + accountPhoneVal + "&account_pax_number=" + accountPaxNumVal + 
 				"&account_email=" + accountEmailVal + "&account_email_tax=" + accountEmailTaxEmailVal + "&account_post_number=" + accountPostNumVal + 
 				"&account_address=" + accountAddressVal + "&account_address_detail=" + accountAddressDetailVal + "&account_category=" + accountCategoryVal +
-				"&account_memo=" + accountMemoVal + "&account_registration_jpg=" + accountRegistrationJpgVal);		
+				"&account_memo=" + accountMemoVal
+// 				"&account_registration_jpg=" + accountRegistrationJpgVal
+				);		
+		
 		
 	}
 	
@@ -123,9 +131,8 @@
 	    
 
 		var accountCode	= document.getElementById("account_code_update");
+		var companyCode	= document.getElementById("company_code_update");
 		var accountName = document.getElementById("account_name_update");
-		var accountRegistrationNum = document.getElementById("account_registration_number_update");
-		var accountCorporateRegistrationregiNum = document.getElementById("account_corporate_registration_number_update");
 		var accountRepresentative = document.getElementById("account_representative_update");
 		var accountPhone = document.getElementById("account_phone_update");
 		var accountPaxNum = document.getElementById("account_pax_number_update");
@@ -136,17 +143,16 @@
 		var accountAddressDetail = document.getElementById("account_address_detail_update");
 		var accountCategory = document.getElementById("account_category_update");
 		var accountMemo = document.getElementById("account_memo_update");
-// 		var accountRegistrationJpg = document.getElementById("account_registration_jpg_update");
 		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
 					
+					
 					accountCode.value = jsonObj.account_code;
+					companyCode.value = jsonObj.company_code;
 					accountName.value = jsonObj.account_name;
-					accountRegistrationNum.value = jsonObj.account_registration_number;
-					accountCorporateRegistrationregiNum.value = jsonObj.account_corporate_registration_number;
 					accountRepresentative.value = jsonObj.account_representative;
 					accountPhone.value = jsonObj.account_phone;
 					accountPaxNum.value = jsonObj.account_pax_number;
@@ -157,15 +163,9 @@
 					accountAddressDetail.value = jsonObj.account_address_detail;
 					accountCategory.value = jsonObj.account_category;
 					accountMemo.value = jsonObj.account_memo;
-// 					accountRegistrationJpg.value = "jsonObj.accountVo.account_registration_jpg";
-// 					if(checkVal.value != ""){
-// 						updateModal.click();
-// 					}
-// 					document.querySelector("input[id=updateModalStart]").click;
+
 
 					document.getElementById("updateModalStart").click();
-// 					var updateModal = document.getElementById("updateModalStart");
-// 					updateModal.
 
 					
 					
@@ -180,10 +180,10 @@
 	}
 	
 	function cleanUpdateModal(){
+		
 		document.getElementById("account_code_update").value = "";
+		document.getElementById("company_code_update").value = "";
 		document.getElementById("account_name_update").value = "";
-		document.getElementById("account_registration_number_update").value = "";
-		document.getElementById("account_corporate_registration_number_update").value = "";
 		document.getElementById("account_representative_update").value = "";
 		document.getElementById("account_phone_update").value = "";
 		document.getElementById("account_pax_number_update").value = "";
@@ -194,16 +194,14 @@
 		document.getElementById("account_address_detail_update").value = "";
 		document.getElementById("account_category_update").value = "";
 		document.getElementById("account_memo_update").value = "";
-// 		document.getElementById("account_registration_jpg_update").value = "";
 	}
 		
 	
 	function updateAccountInfo(){
 		
 		var accountCodeVal = document.getElementById("account_code_update").value;
+		var companyCodeVal = document.getElementById("company_code_update").value;
 		var accountNameVal = document.getElementById("account_name_update").value;
-		var accountRegistrationNumVal = document.getElementById("account_registration_number_update").value;
-		var accountCorporateRegistrationregiNumVal = document.getElementById("account_corporate_registration_number_update").value;
 		var accountRepresentativeVal = document.getElementById("account_representative_update").value;
 		var accountPhoneVal = document.getElementById("account_phone_update").value;
 		var accountPaxNumVal = document.getElementById("account_pax_number_update").value;
@@ -214,7 +212,6 @@
 		var accountAddressDetailVal = document.getElementById("account_address_detail_update").value;
 		var accountCategoryVal = document.getElementById("account_category_update").value;
 		var accountMemoVal = document.getElementById("account_memo_update").value;
-// 		var accountRegistrationJpgVal = document.getElementById("account_registration_jpg").value;
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -222,9 +219,8 @@
 				var result = JSON.parse(xhr.responseText);	
 					
 				document.getElementById("account_code").value = "";				
+				document.getElementById("company_code").value = "";	
 				document.getElementById("account_name").value = "";
-				document.getElementById("account_registration_number").value = "";
-				document.getElementById("account_corporate_registration_number").value = "";
 				document.getElementById("account_representative").value = "";
 				document.getElementById("account_phone").value = "";
 				document.getElementById("account_pax_number").value = "";
@@ -235,18 +231,18 @@
 				document.getElementById("account_address_detail").value = "";
 				document.getElementById("account_category").value = "";
 				document.getElementById("account_memo").value = "";
-// 				document.getElementById("account_registration_jpg").value = "";
 				
 			}
 		}
 		
 		xhr.open("post" , "./updateAccountInfo" , false);
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("account_code=" + accountCodeVal + "&account_name=" + accountNameVal + "&account_registration_number=" + accountRegistrationNumVal + "&account_corporate_registration_number=" + accountCorporateRegistrationregiNumVal + 
+		xhr.send("account_code=" + accountCodeVal + "&company_code=" + companyCodeVal + "&account_name=" + accountNameVal + 
 				"&account_representative=" + accountRepresentativeVal + "&account_phone=" + accountPhoneVal + "&account_pax_number=" + accountPaxNumVal + 
 				"&account_email=" + accountEmailVal + "&account_email_tax=" + accountEmailTaxEmailVal + "&account_post_number=" + accountPostNumVal + 
 				"&account_address=" + accountAddressVal + "&account_address_detail=" + accountAddressDetailVal + "&account_category=" + accountCategoryVal +
 				"&account_memo=" + accountMemoVal);		
+		
 		refreshAccountInfo();
 		
 		
@@ -361,66 +357,70 @@
 		var th2 = document.createElement("th");
 		th2.innerText = "거래처번호";
 		tr1.appendChild(th2);
-
+		
 		var th3 = document.createElement("th");
-		th3.innerText = "회사이름";
+		th3.innerText = "회사코드";
 		tr1.appendChild(th3);
 
 		var th4 = document.createElement("th");
-		th4.innerText = "사업자등록번호";
+		th4.innerText = "회사이름";
 		tr1.appendChild(th4);
 
 		var th5 = document.createElement("th");
-		th5.innerText = "법인등록번호";
+		th5.innerText = "사업자등록번호";
 		tr1.appendChild(th5);
 
 		var th6 = document.createElement("th");
-		th6.innerText = "대표명";
+		th6.innerText = "법인등록번호";
 		tr1.appendChild(th6);
 
 		var th7 = document.createElement("th");
-		th7.innerText = "전화번호";
+		th7.innerText = "대표명";
 		tr1.appendChild(th7);
 
 		var th8 = document.createElement("th");
-		th8.innerText = "팩스번호";
+		th8.innerText = "전화번호";
 		tr1.appendChild(th8);
 
 		var th9 = document.createElement("th");
-		th9.innerText = "이메일번호";
+		th9.innerText = "팩스번호";
 		tr1.appendChild(th9);
 
 		var th10 = document.createElement("th");
-		th10.innerText = "이메일번호(세금)";
+		th10.innerText = "이메일번호";
 		tr1.appendChild(th10);
 
 		var th11 = document.createElement("th");
-		th11.innerText = "우편번호";
+		th11.innerText = "이메일번호(세금)";
 		tr1.appendChild(th11);
 
 		var th12 = document.createElement("th");
-		th12.innerText = "주소";
+		th12.innerText = "우편번호";
 		tr1.appendChild(th12);
 
 		var th13 = document.createElement("th");
-		th13.innerText = "상세주소";
+		th13.innerText = "주소";
 		tr1.appendChild(th13);
 
 		var th14 = document.createElement("th");
-		th14.innerText = "거래처분류";
+		th14.innerText = "상세주소";
 		tr1.appendChild(th14);
 
 		var th15 = document.createElement("th");
-		th15.innerText = "거래처등록일";
+		th15.innerText = "거래처분류";
 		tr1.appendChild(th15);
 
 		var th16 = document.createElement("th");
-		th16.innerText = "메모";
+		th16.innerText = "거래처등록일";
 		tr1.appendChild(th16);
 
 		var th17 = document.createElement("th");
-		th17.innerText = "사업자등록증";
+		th17.innerText = "메모";
 		tr1.appendChild(th17);
+
+		var th18 = document.createElement("th");
+		th18.innerText = "사업자등록증";
+		tr1.appendChild(th18);
 		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
@@ -457,67 +457,71 @@
 				td2.innerText = commentData.account_code;
 				trIn1.appendChild(td2);
 				
+				var td3 = document.createElement("td");
+				td3.innerText = commentData.company_code;
+				trIn1.appendChild(td3);
+				
 // 				console.log(td2.innerText);
 
-				var td3 = document.createElement("td");
-				td3.innerText = commentData.account_name;
-				trIn1.appendChild(td3);
-
 				var td4 = document.createElement("td");
-				td4.innerText = commentData.account_registration_number;
+				td4.innerText = commentData.account_name;
 				trIn1.appendChild(td4);
 
 				var td5 = document.createElement("td");
-				td5.innerText = commentData.account_corporate_registration_number;
+				td5.innerText = commentData.account_registration_number;
 				trIn1.appendChild(td5);
 
 				var td6 = document.createElement("td");
-				td6.innerText = commentData.account_representative;
+				td6.innerText = commentData.account_corporate_registration_number;
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
-				td7.innerText = commentData.account_phone;
+				td7.innerText = commentData.account_representative;
 				trIn1.appendChild(td7);
 
 				var td8 = document.createElement("td");
-				td8.innerText = commentData.account_pax_number;
+				td8.innerText = commentData.account_phone;
 				trIn1.appendChild(td8);
 
 				var td9 = document.createElement("td");
-				td9.innerText = commentData.account_email;
+				td9.innerText = commentData.account_pax_number;
 				trIn1.appendChild(td9);
 
 				var td10 = document.createElement("td");
-				td10.innerText = commentData.account_email_tax;
+				td10.innerText = commentData.account_email;
 				trIn1.appendChild(td10);
 
 				var td11 = document.createElement("td");
-				td11.innerText = commentData.account_post_number;
+				td11.innerText = commentData.account_email_tax;
 				trIn1.appendChild(td11);
 
 				var td12 = document.createElement("td");
-				td12.innerText = commentData.account_address;
+				td12.innerText = commentData.account_post_number;
 				trIn1.appendChild(td12);
 
 				var td13 = document.createElement("td");
-				td13.innerText = commentData.account_address_detail;
+				td13.innerText = commentData.account_address;
 				trIn1.appendChild(td13);
 
 				var td14 = document.createElement("td");
-				td14.innerText = commentData.account_category;
+				td14.innerText = commentData.account_address_detail;
 				trIn1.appendChild(td14);
 
 				var td15 = document.createElement("td");
-				td15.innerText = moment(commentData.account_registration).format('YYYY.MM.DD');
+				td15.innerText = commentData.account_category;
 				trIn1.appendChild(td15);
 
 				var td16 = document.createElement("td");
-				td16.innerText = commentData.account_memo;
+				td16.innerText = moment(commentData.account_registration).format('YYYY-MM-DD');
 				trIn1.appendChild(td16);
 
 				var td17 = document.createElement("td");
-				td17.innerText = commentData.account_registration_jpg;
+				td17.innerText = commentData.account_memo;
 				trIn1.appendChild(td17);
+
+				var td18 = document.createElement("td");
+				td18.innerText = commentData.account_registration_jpg;
+				trIn1.appendChild(td18);
 				
 				
 				}
@@ -555,7 +559,7 @@
 
 					var inA1 = document.createElement("a");
 					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshAccountInfoPage("+i-1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA1.setAttribute("href","javascript:refreshAccountInfoPage("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA1.setAttribute("aria-label","Previous");
 					inLi1.appendChild(inA1);
@@ -628,7 +632,7 @@
 
 					var inA3 = document.createElement("a");
 					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshAccountInfoPage("+i+1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("href","javascript:refreshAccountInfoPage("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA3.setAttribute("aria-label","Next");
 					inLi3.appendChild(inA3);
@@ -686,66 +690,70 @@
 		var th2 = document.createElement("th");
 		th2.innerText = "거래처번호";
 		tr1.appendChild(th2);
-
+		
 		var th3 = document.createElement("th");
-		th3.innerText = "회사이름";
+		th3.innerText = "회사코드";
 		tr1.appendChild(th3);
 
 		var th4 = document.createElement("th");
-		th4.innerText = "사업자등록번호";
+		th4.innerText = "회사이름";
 		tr1.appendChild(th4);
 
 		var th5 = document.createElement("th");
-		th5.innerText = "법인등록번호";
+		th5.innerText = "사업자등록번호";
 		tr1.appendChild(th5);
 
 		var th6 = document.createElement("th");
-		th6.innerText = "대표명";
+		th6.innerText = "법인등록번호";
 		tr1.appendChild(th6);
 
 		var th7 = document.createElement("th");
-		th7.innerText = "전화번호";
+		th7.innerText = "대표명";
 		tr1.appendChild(th7);
 
 		var th8 = document.createElement("th");
-		th8.innerText = "팩스번호";
+		th8.innerText = "전화번호";
 		tr1.appendChild(th8);
 
 		var th9 = document.createElement("th");
-		th9.innerText = "이메일번호";
+		th9.innerText = "팩스번호";
 		tr1.appendChild(th9);
 
 		var th10 = document.createElement("th");
-		th10.innerText = "이메일번호(세금)";
+		th10.innerText = "이메일번호";
 		tr1.appendChild(th10);
 
 		var th11 = document.createElement("th");
-		th11.innerText = "우편번호";
+		th11.innerText = "이메일번호(세금)";
 		tr1.appendChild(th11);
 
 		var th12 = document.createElement("th");
-		th12.innerText = "주소";
+		th12.innerText = "우편번호";
 		tr1.appendChild(th12);
 
 		var th13 = document.createElement("th");
-		th13.innerText = "상세주소";
+		th13.innerText = "주소";
 		tr1.appendChild(th13);
 
 		var th14 = document.createElement("th");
-		th14.innerText = "거래처분류";
+		th14.innerText = "상세주소";
 		tr1.appendChild(th14);
 
 		var th15 = document.createElement("th");
-		th15.innerText = "거래처등록일";
+		th15.innerText = "거래처분류";
 		tr1.appendChild(th15);
 
 		var th16 = document.createElement("th");
-		th16.innerText = "메모";
+		th16.innerText = "거래처등록일";
 		tr1.appendChild(th16);
 
 		var th17 = document.createElement("th");
-		th17.innerText = "사업자등록증";
+		th17.innerText = "메모";
 		tr1.appendChild(th17);
+
+		var th18 = document.createElement("th");
+		th18.innerText = "사업자등록증";
+		tr1.appendChild(th18);
 		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
@@ -782,67 +790,71 @@
 				td2.innerText = commentData.account_code;
 				trIn1.appendChild(td2);
 				
+				var td3 = document.createElement("td");
+				td3.innerText = commentData.company_code;
+				trIn1.appendChild(td3);
+				
 // 				console.log(td2.innerText);
 
-				var td3 = document.createElement("td");
-				td3.innerText = commentData.account_name;
-				trIn1.appendChild(td3);
-
 				var td4 = document.createElement("td");
-				td4.innerText = commentData.account_registration_number;
+				td4.innerText = commentData.account_name;
 				trIn1.appendChild(td4);
 
 				var td5 = document.createElement("td");
-				td5.innerText = commentData.account_corporate_registration_number;
+				td5.innerText = commentData.account_registration_number;
 				trIn1.appendChild(td5);
 
 				var td6 = document.createElement("td");
-				td6.innerText = commentData.account_representative;
+				td6.innerText = commentData.account_corporate_registration_number;
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
-				td7.innerText = commentData.account_phone;
+				td7.innerText = commentData.account_representative;
 				trIn1.appendChild(td7);
 
 				var td8 = document.createElement("td");
-				td8.innerText = commentData.account_pax_number;
+				td8.innerText = commentData.account_phone;
 				trIn1.appendChild(td8);
 
 				var td9 = document.createElement("td");
-				td9.innerText = commentData.account_email;
+				td9.innerText = commentData.account_pax_number;
 				trIn1.appendChild(td9);
 
 				var td10 = document.createElement("td");
-				td10.innerText = commentData.account_email_tax;
+				td10.innerText = commentData.account_email;
 				trIn1.appendChild(td10);
 
 				var td11 = document.createElement("td");
-				td11.innerText = commentData.account_post_number;
+				td11.innerText = commentData.account_email_tax;
 				trIn1.appendChild(td11);
 
 				var td12 = document.createElement("td");
-				td12.innerText = commentData.account_address;
+				td12.innerText = commentData.account_post_number;
 				trIn1.appendChild(td12);
 
 				var td13 = document.createElement("td");
-				td13.innerText = commentData.account_address_detail;
+				td13.innerText = commentData.account_address;
 				trIn1.appendChild(td13);
 
 				var td14 = document.createElement("td");
-				td14.innerText = commentData.account_category;
+				td14.innerText = commentData.account_address_detail;
 				trIn1.appendChild(td14);
 
 				var td15 = document.createElement("td");
-				td15.innerText = moment(commentData.account_registration).format('YYYY.MM.DD');
+				td15.innerText = commentData.account_category;
 				trIn1.appendChild(td15);
 
 				var td16 = document.createElement("td");
-				td16.innerText = commentData.account_memo;
+				td16.innerText = moment(commentData.account_registration).format('YYYY-MM-DD');
 				trIn1.appendChild(td16);
 
 				var td17 = document.createElement("td");
-				td17.innerText = commentData.account_registration_jpg;
+				td17.innerText = commentData.account_memo;
 				trIn1.appendChild(td17);
+
+				var td18 = document.createElement("td");
+				td18.innerText = commentData.account_registration_jpg;
+				trIn1.appendChild(td18);
 				
 				
 				}
@@ -880,7 +892,7 @@
 
 					var inA1 = document.createElement("a");
 					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshAccountInfoPage("+i-1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA1.setAttribute("href","javascript:refreshAccountInfoPage("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA1.setAttribute("aria-label","Previous");
 					inLi1.appendChild(inA1);
@@ -953,7 +965,7 @@
 
 					var inA3 = document.createElement("a");
 					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshAccountInfoPage("+i+1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("href","javascript:refreshAccountInfoPage("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA3.setAttribute("aria-label","Next");
 					inLi3.appendChild(inA3);
@@ -1154,15 +1166,23 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">대표명</span>
-                                        <input id="account_representative" type="text" class="form-control" id="companyRepresentative">
+                                        <input id="account_representative" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
+                                        <span class="input-group-text">회사코드</span>
+                                        <input id="company_code" type="text"  readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
+                                    </div>
+                                </div>                               
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
                                         <span class="input-group-text">회사명</span>
-                                        <input id="account_name" type="text" class="form-control" id="companyName">
+                                        <input id="account_name" type="text" class="form-control">
                                     </div>
                                 </div>                               
                             </div>
@@ -1170,7 +1190,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">사업자등록번호</span>
-                                        <input id="account_registration_number" type="text" class="form-control" id="companyRegistrationNumber">
+                                        <input id="account_registration_number" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1178,7 +1198,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">법인등록번호</span>
-                                        <input id="account_corporate_registration_number" type="text" class="form-control" id="companyCorporateRegistrationNumber">
+                                        <input id="account_corporate_registration_number" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1186,7 +1206,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">전화번호</span>
-                                        <input id="account_phone" type="text" class="form-control" id="companyPhone">
+                                        <input id="account_phone" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1194,7 +1214,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">팩스번호</span>
-                                        <input id="account_pax_number" type="text" class="form-control" id="companyPaxNumber">
+                                        <input id="account_pax_number" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1202,7 +1222,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(일반)</span>
-                                        <input id="account_email" type="text" class="form-control" id="companyEmail">
+                                        <input id="account_email" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1210,7 +1230,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(세금계산서)</span>
-                                        <input id="account_email_tax" type="text" class="form-control" id="companyEmailTax">
+                                        <input id="account_email_tax" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1218,7 +1238,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">우편번호</span>
-                                        <input id="account_post_number" type="text" class="form-control" id="companyPostNumber">
+                                        <input id="account_post_number" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col">
@@ -1255,12 +1275,12 @@
                                 </div>  
                             </div>
 
-                            <div class="row my-3">
-                                <div class="input-group">
-                                    <label class="input-group-text" for="inputGroupFile01">사업자등록증</label>
-                                    <input id="account_registration_jpg" type="file" class="form-control">
-                                </div>
-                            </div>                  
+<!--                             <div class="row my-3"> -->
+<!--                                 <div class="input-group"> -->
+<!--                                     <label class="input-group-text" for="inputGroupFile01">사업자등록증</label> -->
+<!--                                     <input id="account_registration_jpg" type="file" accept="image/*" class="form-control"> -->
+<!--                                 </div> -->
+<!--                             </div>                   -->
                         </div>
                     </div>
                 </div>
@@ -1296,32 +1316,24 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">회사명</span>
-                                        <input id="account_name_update" type="text" class="form-control" id="companyName">
+                                        <span class="input-group-text">회사코드</span>
+                                        <input id="company_code_update" type="text"  readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
                                     </div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">사업자등록번호</span>
-                                        <input id="account_registration_number_update" type="text" class="form-control" id="companyRegistrationNumber">
+                                        <span class="input-group-text">회사명</span>
+                                        <input id="account_name_update" type="text" class="form-control">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">법인등록번호</span>
-                                        <input id="account_corporate_registration_number_update" type="text" class="form-control" id="companyCorporateRegistrationNumber">
-                                    </div>
-                                </div>
+                                </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">전화번호</span>
-                                        <input id="account_phone_update" type="text" class="form-control" id="companyPhone">
+                                        <input id="account_phone_update" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1329,7 +1341,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">팩스번호</span>
-                                        <input id="account_pax_number_update" type="text" class="form-control" id="companyPaxNumber">
+                                        <input id="account_pax_number_update" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1337,7 +1349,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(일반)</span>
-                                        <input id="account_email_update" type="text" class="form-control" id="companyEmail">
+                                        <input id="account_email_update" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1345,7 +1357,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(세금계산서)</span>
-                                        <input id="account_email_tax_update" type="text" class="form-control" id="companyEmailTax">
+                                        <input id="account_email_tax_update" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1353,7 +1365,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">우편번호</span>
-                                        <input id="account_post_number_update" type="text" class="form-control" id="companyPostNumber">
+                                        <input id="account_post_number_update" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col">
@@ -1388,14 +1400,7 @@
                                 <div class="col">
                                     <textarea id="account_memo_update" class="form-control" style="height: 100px"></textarea>                                  
                                 </div>  
-                            </div>
-
-                            <div class="row my-3">
-                                <div class="input-group">
-                                    <label class="input-group-text" for="inputGroupFile01">사업자등록증</label>
-                                    <input id="account_registration_jpg_update" type="file" class="form-control">
-                                </div>
-                            </div>                  
+                            </div>              
                         </div>
                     </div>
                 </div>

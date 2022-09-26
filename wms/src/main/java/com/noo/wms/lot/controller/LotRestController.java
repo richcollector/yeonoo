@@ -68,4 +68,34 @@ public class LotRestController {
 		
 		return map; 
 	}
+	
+	@RequestMapping("lotItemUpdate")
+	public HashMap<String, Object> lotItemUpdate(LotVo lotVo){
+		
+		lotService.updateLot(lotVo);
+		
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("result", "sucess");
+		
+		return map;
+		
+	}
+	
+	@RequestMapping("deleteLotLog")
+	public HashMap<String, Object> deleteLotLog(String [] code) {
+		
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		
+		for(String Code : code) {
+			
+			LotVo lotVo = new LotVo();
+			lotVo.setLot_code(Code);
+			lotService.deleteLot(lotVo);
+		}
+		
+		map.put("result", "sucess");
+		return map;
+	}
+	
+	
 }

@@ -16,4 +16,6 @@ public interface LotSQLMapper {
 			@Param("companyCode") String companyCode);
 	public ProductVo selectItem (String productCode);
 	public ArrayList<LotVo> lotList (String companyCode);
+	public void lotUpdate(LotVo lotVo);
+	public void lotDelete(LotVo lotVo);
 }

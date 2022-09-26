@@ -24,7 +24,7 @@ public class EmployeeServiceImpl {
 	//발주
 	public ArrayList<PurchaseVo> purchaseInfo(String searchType, String searchWord, int pageNum){
 		
-		int startList = (pageNum-1)*10;
+		int startList = (pageNum-1)*15;
 		
 		ArrayList<PurchaseVo> purchaseList = employeeSQLMapper.purchaseInfo(searchType , searchWord, startList);
 		return purchaseList;

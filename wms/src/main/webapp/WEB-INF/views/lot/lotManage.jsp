@@ -87,7 +87,9 @@
 	function selPdToRegi(productInfo){
 		
 		var productCode = productInfo.children[0].value;
-	
+		 
+		console.log(productCode);
+		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 			if(xhr.readyState == 4 && xhr.status == 200){				
@@ -194,8 +196,6 @@
 				
 				var headCheckBox = document.createElement("input");
 				headCheckBox.setAttribute("type","checkbox");
-				headCheckBox.id = "checkAll";
-				headCheckBox.setAttribute("onclick","allCheck()")
 				headTr.appendChild(headCheckBox);		
 						
 				var headTh1 = document.createElement("th");
@@ -227,9 +227,8 @@
 					
 					var bodyCheckBox = document.createElement("input");
 					bodyCheckBox.setAttribute("type","checkbox");
-					bodyCheckBox.setAttribute("name","selectedLot");
-					bodyCheckBox.setAttribute("onclick","isChecked()");
-					bodyCheckBox.value = myLotList.lot.lot_code;
+					bodyCheckBox.value = "";
+					bodyCheckBox.setAttribute("onclick","");
 					bodyTd1.appendChild(bodyCheckBox);
 						
 					var lotCodeTh = document.createElement("th");
@@ -245,7 +244,7 @@
 					bodyTr.appendChild(pdName);
 					
 					var regDate = document.createElement("td");
-					regDate.innerText = moment(myLotList.lot.lot_date).format('YYYY.MM.DD');
+					regDate.innerText = myLotList.lot.lot_date;
 					bodyTr.appendChild(regDate);
 					
 				}
@@ -259,281 +258,11 @@
 		
 	}
 	
-	function allCheck(){
-
-		var allCheckValue = document.querySelector("input[id=checkAll]").checked;
-
-		var checkList = document.getElementsByName("selectedLot");
-		
-		if(allCheckValue){
-			for(var i = 0; i < checkList.length; i++){
-				checkList[i].checked = true;
-			}
-		}else{
-			for(var i = 0; i < checkList.length; i++){
-				checkList[i].checked = false;
-			};
-		}
-	}
-	
-	function isChecked(){
-		
-		var total = document.getElementById("checkAll");
-		var checkList = document.getElementsByName("selectedLot");
-		var countCh = 0;
-		
-		for(var i = 0; i < checkList.length; i++) {
-			if(checkList[i].checked == true){
-				countCh += 1;
-				if(countCh == checkList.length){
-				total.checked = true;
-				}
-			}else{
-				total.checked = false;
-			}
-		}
-	}
-	
-	function beforeUpdateLot(){
-		
-		var checkVal = "";		
-		var checkedLength = document.getElementsByName("selectedLot").length;		
-		var count = 0;
-		
-		for (var i = 0; i < checkedLength; i++) {
-
-            if (document.getElementsByName("selectedLot")[i].checked == true) {
-            	count += 1;
-            }
-        }
-		
-		if(count == 0){
-        	alert("수정할 로트가 선택되지 않았습니다.");
-        	location.reload()
-        	return;
-        }else if(count > 1){
-        	alert("한 개의 로트만 수정할 수 있습니다.");
-        	location.reload()
-        	return;
-        }else if (count==1){
-        	
-        	 for (var i = 0; i < checkedLength; i++) {						 
-        		 
-                 if (document.getElementsByName("selectedLot")[i].checked == true) {
-                 	checkVal = document.getElementsByName("selectedLot")[i].value;
-                 	
-                 	var updateHiddenBox = document.getElementById("updateCodeValue");
-                	updateHiddenBox.innerHTML = "";
-                	
-                	updateHiddenValue = document.createElement("input");
-                	updateHiddenValue.setAttribute("type","hidden");
-                	updateHiddenValue.value = checkVal;
-                	updateHiddenBox.appendChild(updateHiddenValue);
-
-                 }
-             }
-        	
-        }		
-		
-	}
-	
-	
-function findPdToUP(){
-		
-		var keyword = document.getElementById("upSearchWord").value;
-			
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){				
-				var jsonObj = JSON.parse(xhr.responseText);					
-		
-				var upAddUi = document.getElementById("upSearchWindowUi");
-				upAddUi.innerHTML = "";
-				
-				upSearchResult = document.createElement("div");
-				upSearchResult.classList.add("col");
-				upAddUi.appendChild(upSearchResult);
-				
-				upResultUl = document.createElement("ul");
-				upResultUl.classList.add("list-group");
-				upSearchResult.appendChild(upResultUl);
-									
-				for (searchList of jsonObj.product){
-					
-					resultLi = document.createElement("li");
-					resultLi.classList.add("list-group-item");
-					resultLi.innerText = searchList.product.product_name;
-					resultLi.setAttribute("onclick", "selPdToUp(this)");
-					upResultUl.appendChild(resultLi);								
-					
-					resultHidden = document.createElement("input");
-					resultHidden.setAttribute("type","hidden");
-					resultHidden.value = searchList.product.product_code;
-					resultLi.appendChild(resultHidden);
-					
-				}	
-				
-			}		
-		}
-					
-		xhr.open("get" , "./findPdToRegi?productName=" + keyword);
-		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send();
-		
-	}
-	
-	
-	function selPdToUp(upProductInfo){
-		
-		var productCode = upProductInfo.children[0].value;
-		
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){				
-				var jsonObj = JSON.parse(xhr.responseText);					
-		
-				var upInfoBox = document.getElementById("upProductInfoUi");
-				upInfoBox.innerHTML = "";				
-				
-				var upProductNameBox = document.createElement("div");
-				upProductNameBox.classList.add("input-group");
-				upInfoBox.appendChild(upProductNameBox);
-				
-				var upFormBox1 = document.createElement("div");
-				upFormBox1.classList.add("form-floating");
-				upFormBox1.setAttribute("style","width:50%");
-				upProductNameBox.appendChild(upFormBox1);
-				
-				var upNameVal = document.createElement("input");
-				upNameVal.setAttribute("readonly","true");
-				upNameVal.classList.add("form-control-plaintext");
-				upNameVal.id = "floatingPlaintextInput";
-				upNameVal.value = jsonObj.product.product.product_name;
-				upFormBox1.appendChild(upNameVal);
-				
-				var upNameLabel = document.createElement("label");
-				upNameLabel.setAttribute("for","floatingPlaintextInput");
-				upNameLabel.innerText = "제품 이름";
-				upFormBox1.appendChild(upNameLabel);
-				
-				var upProductCodeBox = document.createElement("div");
-				upProductCodeBox.classList.add("input-group");
-				upInfoBox.appendChild(upProductCodeBox);
-				
-				var upFormBox2 = document.createElement("div");
-				upFormBox2.classList.add("form-floating");
-				upFormBox2.setAttribute("style","width:50%");
-				upProductNameBox.appendChild(upFormBox2);
-				
-				var upCodeVal = document.createElement("input");
-				upCodeVal.setAttribute("readonly","true");
-				upCodeVal.classList.add("form-control-plaintext");
-				upCodeVal.id = "floatingPlaintextInput";
-				upCodeVal.value = jsonObj.product.product.product_code;
-				upFormBox2.appendChild(upCodeVal);
-				
-				var upCodeLabel = document.createElement("label");
-				upCodeLabel.setAttribute("for","floatingPlaintextInput");
-				upCodeLabel.innerText = "제품 코드";
-				upFormBox2.appendChild(upCodeLabel);
-				
-				var upProductMemoBox = document.createElement("div");
-				upProductMemoBox.classList.add("input-group");
-				upInfoBox.appendChild(upProductMemoBox);
-				
-				var upFormBox3 = document.createElement("div");
-				upFormBox3.classList.add("form-floating");
-				upFormBox3.setAttribute("style","width:100%");
-				upProductNameBox.appendChild(upFormBox3);
-				
-				var upMemoVal = document.createElement("input");
-				upMemoVal.setAttribute("readonly","true");
-				upMemoVal.classList.add("form-control-plaintext");
-				upMemoVal.id = "floatingPlaintextInput";
-				upMemoVal.value = jsonObj.product.product.product_memo;
-				upFormBox3.appendChild(upMemoVal);
-				
-				var upMemoLabel = document.createElement("label");
-				upMemoLabel.setAttribute("for","floatingPlaintextInput");
-				upMemoLabel.innerText = "제품 메모";
-				upFormBox3.appendChild(upMemoLabel);		
-				
-				var upLotProduct = document.getElementById("upLotItem");
-				upLotProduct.innerHTML = "";
-				
-				var upLotPdHiddenCode = document.createElement("input");
-				upLotPdHiddenCode.setAttribute("type","hidden");
-				upLotPdHiddenCode.value = jsonObj.product.product.product_code;
-				upLotProduct.appendChild(upLotPdHiddenCode);
-				
-				console.log(upLotPdHiddenCode.value);
-				
-			}		
-		}
-					
-		xhr.open("get" , "./selPdToRegi?productCode=" + productCode);
-		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send();
-		
-	}
-		
-	function lotItemUpdate(){
-		
-		var upProductCodeVal = document.getElementById("upLotItem").firstChild.value;
-		var upLotCode = document.getElementById("updateCodeValue").firstChild.value;
-		
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);	
-		
-				lotListAll();
-				
-			}
-		}
-			
-		xhr.open("post" , "./lotItemUpdate");
-		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("product_code=" + upProductCodeVal + "&lot_code=" + upLotCode);	
-							
-	}
-	
-	function deleteLotLog(){
-		
-		var checkList = new Array();
-		
-		var listLength = document.getElementsByName("selectedLot").length;
-		
-		for (var i = 0; i < listLength; i++) {
-
-            if (document.getElementsByName("selectedLot")[i].checked == true) {
-            	
-            	checkList[i] = document.getElementsByName("selectedLot")[i].value;
-            }
-        }
-		
-
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);	
-					
-				
-			}
-		}
-		
-		xhr.open("post" , "./deleteLotLog" , false);
-		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("code=" + checkList);
-		
-		lotListAll();
-	}
-	
-	
 	
 window.addEventListener("DOMContentLoaded" , function (){
 		
 		lotListAll();
+		
 		//setInterval(refreshCommentList , 3000);
 		
 	});	
@@ -552,10 +281,10 @@ window.addEventListener("DOMContentLoaded" , function (){
 	             <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#lotRegistModal">
 	                등록
 	             </button>
-	             <button type="button" class="btn btn-light" data-bs-toggle="modal" onclick="beforeUpdateLot()" data-bs-target="#lotUpdateModal">
+	             <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#">
 	             	수정
 	             </button>
-	             <button type="button" class="btn btn-light" onclick="deleteLotLog()">
+	             <button type="button" class="btn btn-light">
 	             	삭제
 	             </button>
 	        </div>
@@ -619,7 +348,7 @@ window.addEventListener("DOMContentLoaded" , function (){
 		                                <div class="col mt-3">
 		                                    <div class="input-group">		                                        
 		                                        <input type="text" class="form-control" placeholder="검색 후 선택 버튼을 눌러주세요" id="searchWord" onkeyup="findPdToRegi()">
-  												<button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
+  												<button class="btn btn-outline-secondary" type="button">선택</button>
   											</div>
 		                                </div>
                             		</div>
@@ -640,46 +369,39 @@ window.addEventListener("DOMContentLoaded" , function (){
 		 </div>
 		
 		<!-- 로트 수정 모달 -->
-		<div class="modal fade" id="lotUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			 <div class="modal-dialog">
 				  <div class="modal-content">
 					    <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLabel">LOT 수정</h5>
+					        <h5 class="modal-title" id="exampleModalLabel">로트 정보 수정</h5>
 					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					     </div>
 					     <div class="modal-body">
 					        <div class="row">
                         		<div class="ent-list form-control mt-3">
                         			<div class="row mt-3">
-                        				<span>제품 이름 입력</span>
-		                                <div class="col mt-3">
-		                                    <div class="input-group">		                                        
-		                                        <input type="text" class="form-control" placeholder="검색 후 선택 버튼을 눌러주세요" id="upSearchWord" onkeyup="findPdToUP()">
-  												<button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
-  											</div>
+		                                <div class="col">
+		                                    <div class="input-group">
+		                                        <span class="input-group-text">제품 이름</span>
+		                                        <input type="text" class="form-control" id="">
+		                                    </div>
 		                                </div>
-                            		</div>
-  									<div id="updateCodeValue">                           		
-                            		</div>
-                            		<div class="row mt-1" id="upSearchWindowUi">
-                            		</div>
-                            		<div class="row mt-3" id="upProductInfoUi">
-                            		</div>
-                            		<div id="upLotItem">
+                            		</div>                            		
+                            		<div class="row" id="">
+                            		
                             		</div>
                         		</div>
                         	</div>                       	
 					     </div>
 					     <div class="modal-footer">
 					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-					        <button type="button" class="btn btn-primary" onclick="lotItemUpdate()" data-bs-dismiss="modal">수정</button>
+					        <button type="button" class="btn btn-primary" onclick="" data-bs-dismiss="modal">등록</button>
 					     </div>
 				    </div>
 			  </div>
 		 </div>
 		 <!-- 모달 끝 -->
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>  
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -66,8 +66,6 @@
 				
 				var headCheckBox = document.createElement("input");
 				headCheckBox.setAttribute("type","checkbox");
-				headCheckBox.id = "checkAll";
-				headCheckBox.setAttribute("onclick","allCheck()");
 				headTr.appendChild(headCheckBox);		
 						
 				var headTh1 = document.createElement("th");
@@ -96,8 +94,7 @@
 					var bodyCheckBox = document.createElement("input");
 					bodyCheckBox.setAttribute("type","checkbox");
 					bodyCheckBox.value = myWarehouseList.warehouse.warehouse_code;
-					bodyCheckBox.setAttribute("name","selectedLot");				
-					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyCheckBox.setAttribute("onclick","whChecked(this)");
 					bodyTd1.appendChild(bodyCheckBox);
 						
 					var whCodeTh = document.createElement("th");
@@ -174,7 +171,6 @@
 				areaUpBtn.classList.add("btn");
 				areaUpBtn.classList.add("btn-light");
 				areaUpBtn.innerText = "수정";
-				areaUpBtn.setAttribute("onclick","beforeUpdateAr()");
 				areaUpBtn.setAttribute("data-bs-toggle","modal");
 				areaUpBtn.setAttribute("data-bs-target","#areaUpdate");
 				btnCotroller.appendChild(areaUpBtn);				
@@ -190,8 +186,6 @@
 				
 				var headCheckBox = document.createElement("input");
 				headCheckBox.setAttribute("type","checkbox");
-				headCheckBox.id = "checkAll";
-				headCheckBox.setAttribute("onclick","allCheck()")
 				headTr.appendChild(headCheckBox);		
 						
 				var headTh1 = document.createElement("th");
@@ -210,14 +204,6 @@
 				hiddenInput.setAttribute("value", jsonObj.warehouseCode);
 				hiddenCode.appendChild(hiddenInput);
 				
-				var hiddenCode2 = document.getElementById("codeForAreaList");
-				hiddenCode2.innerHTML="";
-				
-				var hiddenInput2 = document.createElement("input");
-				hiddenInput2.setAttribute("type","hidden");
-				hiddenInput2.setAttribute("value", jsonObj.warehouseCode);
-				hiddenCode2.appendChild(hiddenInput2);
-							
 				for(myAreaList of jsonObj.aList){
 					
 					var tBody = document.createElement("tbody");
@@ -233,8 +219,7 @@
 					bodyCheckBox.setAttribute("type","checkbox");
 					bodyCheckBox.value = myAreaList.area.warehouse_area_code;
 					bodyCheckBox.innerText = myAreaList.area.warehouse_code;
-					bodyCheckBox.setAttribute("name","selectedLot");				
-					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyCheckBox.setAttribute("onclick","arChecked(this)");
 					bodyTd1.appendChild(bodyCheckBox);
 					
 					var areaCodeTh = document.createElement("th");
@@ -284,7 +269,6 @@
 				rackUpBtn.classList.add("btn-light");
 				rackUpBtn.innerText = "수정";
 				rackUpBtn.setAttribute("data-bs-toggle","modal");
-				rackUpBtn.setAttribute("onclick","beforeUpdateRk()");
 				rackUpBtn.setAttribute("data-bs-target","#rackUpdate");
 				btnCotroller.appendChild(rackUpBtn);
 				
@@ -299,8 +283,6 @@
 				
 				var headCheckBox = document.createElement("input");
 				headCheckBox.setAttribute("type","checkbox");
-				headCheckBox.id = "checkAll";
-				headCheckBox.setAttribute("onclick","allCheck()")
 				headTr.appendChild(headCheckBox);		
 						
 				var headTh1 = document.createElement("th");
@@ -319,14 +301,6 @@
 				hiddenInput.setAttribute("value", jsonObj.areaCode);
 				hiddenCode.appendChild(hiddenInput);
 				
-				var hiddenCode2 = document.getElementById("codeForRackList");
-				hiddenCode2.innerHTML="";
-				
-				var hiddenInput2 = document.createElement("input");
-				hiddenInput2.setAttribute("type","hidden");
-				hiddenInput2.setAttribute("value", jsonObj.areaCode);
-				hiddenCode2.appendChild(hiddenInput2);			
-				
 				for(myRackList of jsonObj.rList){
 					
 					var tBody = document.createElement("tbody");
@@ -342,8 +316,7 @@
 					bodyCheckBox.setAttribute("type","checkbox");
 					bodyCheckBox.value = myRackList.rack.warehouse_rack_code;
 					bodyCheckBox.innerText = myRackList.rack.warehouse_area_code;	
-					bodyCheckBox.setAttribute("name","selectedLot");				
-					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyCheckBox.setAttribute("onclick","rkChecked(this)");
 					bodyTd1.appendChild(bodyCheckBox);				
 					
 					var rackCodeTh = document.createElement("th");
@@ -417,7 +390,6 @@
 				cellUpBtn.classList.add("btn-light");
 				cellUpBtn.innerText = "수정";
 				cellUpBtn.setAttribute("data-bs-toggle","modal");
-				cellUpBtn.setAttribute("onclick","beforeUpdateRk()");
 				cellUpBtn.setAttribute("data-bs-target","#cellUpdate");
 				btnCotroller.appendChild(cellUpBtn);			
 				
@@ -432,8 +404,6 @@
 				
 				var headCheckBox = document.createElement("input");
 				headCheckBox.setAttribute("type","checkbox");
-				headCheckBox.id = "checkAll";
-				headCheckBox.setAttribute("onclick","allCheck()")
 				headTr.appendChild(headCheckBox);		
 						
 				var headTh1 = document.createElement("th");
@@ -452,14 +422,6 @@
 				hiddenInput.setAttribute("value", jsonObj.rackCode);
 				hiddenCode.appendChild(hiddenInput);
 				
-				var hiddenCode2 = document.getElementById("codeForCellList");
-				hiddenCode2.innerHTML="";
-				
-				var hiddenInput2 = document.createElement("input");
-				hiddenInput2.setAttribute("type","hidden");
-				hiddenInput2.setAttribute("value", jsonObj.rackCode);
-				hiddenCode2.appendChild(hiddenInput2);
-							
 				for(myCellList of jsonObj.cList){
 					
 					var tBody = document.createElement("tbody");
@@ -475,8 +437,7 @@
 					bodyCheckBox.setAttribute("type","checkbox");
 					bodyCheckBox.value = myCellList.cell.warehouse_cell_code;
 					bodyCheckBox.innerText = myCellList.cell.warehouse_rack_code;	
-					bodyCheckBox.setAttribute("name","selectedLot");				
-					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyCheckBox.setAttribute("onclick","clChecked(this)");
 					bodyTd1.appendChild(bodyCheckBox);
 					
 					var cellCodeTh = document.createElement("th");
@@ -497,7 +458,6 @@
 		xhr.send();
 		
 	}
-		
 	
 	function cellInsert(){
 		
@@ -521,306 +481,190 @@
 		
 	}
 	
-	//전체 체크
-	
-	function allCheck(){
-
-		var allCheckValue = document.querySelector("input[id=checkAll]").checked;
-
-		var checkList = document.getElementsByName("selectedLot");
+	function whChecked(selectedBox) {
 		
-		if(allCheckValue){
-			for(var i = 0; i < checkList.length; i++){
-				checkList[i].checked = true;
-			}
+		if (selectedBox.checked == true){
+     		var selectedWh = document.getElementById("whCodeBox");
+     		selectedWh.innerHTML = "";
+ 		
+     		var hiddenSelect = document.createElement("input");
+     		hiddenSelect.setAttribute("type","hidden");
+     		hiddenSelect.setAttribute("value", selectedBox.value);
+     		selectedWh.appendChild(hiddenSelect)   		
+     		  		
+     		
 		}else{
-			for(var i = 0; i < checkList.length; i++){
-				checkList[i].checked = false;
-			};
-		}
+     			var selectedWh = document.getElementById("whCodeBox");
+         		selectedWh.innerHTML = "";
+     		};
+     		  	
 	}
-	
-	//부분 체크
-	function isChecked(){
-		
-		var total = document.getElementById("checkAll");
-		var checkList = document.getElementsByName("selectedLot");
-		var countCh = 0;
-		
-		for(var i = 0; i < checkList.length; i++) {
-			if(checkList[i].checked == true){
-				countCh += 1;
-				if(countCh == checkList.length){
-				total.checked = true;
-				}
-			}else{
-				total.checked = false;
-			}
-		}
-	}
-	
-	function beforeUpdateWh(){
-		
-		var checkVal = "";		
-		var checkedLength = document.getElementsByName("selectedLot").length;		
-		var count = 0;
-		
-		for (var i = 0; i < checkedLength; i++) {
 
-            if (document.getElementsByName("selectedLot")[i].checked == true) {
-            	count += 1;
-            }
-        }
-		
-		if(count == 0){
-        	alert("수정할 창고가 선택되지 않았습니다.");
-        	location.reload()
-        	return;
-        }else if(count > 1){
-        	alert("한 개의 창고만 수정할 수 있습니다.");
-        	location.reload()
-        	return;
-        }else if (count==1){
-        	
-        	 for (var i = 0; i < checkedLength; i++) {						 
-        		 
-                 if (document.getElementsByName("selectedLot")[i].checked == true) {
-                 	checkVal = document.getElementsByName("selectedLot")[i].value;
-                 	
-                 	var updateHiddenBox = document.getElementById("updateWhValue");
-                	updateHiddenBox.innerHTML = "";
-                	
-                	updateHiddenValue = document.createElement("input");
-                	updateHiddenValue.setAttribute("type","hidden");
-                	updateHiddenValue.value = checkVal;
-                	updateHiddenBox.appendChild(updateHiddenValue);
-
-                 }
-             }       	
-        }		
-	}
-	
-	function closeModal(){		
-	
-	}
-	
 	
 	function whUpdate(){
 		
-		var whCodeVal = document.getElementById("updateWhValue").firstChild.value;
-		var whClaVal = document.getElementById("upWhClassification").value;
 		var whNameVal = document.getElementById("upWhName").value;
+		var whCalVal = document.getElementById("upWhClassification").value;
+		var warehouse_code = document.getElementById("whCodeBox").firstChild.value;		
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);	
-		
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var result = JSON.parse(xhr.responseText);									
+				
+				document.getElementById("upWhClassification").value = "";
+				document.getElementById("upWhName").value = "";
 				warehouseList()
 				
-			}
+			}		
 		}
-			
+		
 		xhr.open("post" , "./whUpdate");
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("warehouse_code=" + whCodeVal + "&warehouse_classification=" + whClaVal + "&warehouse_name=" +whNameVal);	
-							
+		xhr.send("warehouse_name=" + whNameVal + "&warehouse_classification=" + whCalVal+ "&warehouse_code=" + warehouse_code);
+		
 	}
 	
-	function beforeUpdateAr(){
-			
-		var checkVal = "";		
-		var checkedLength = document.getElementsByName("selectedLot").length;		
-		var count = 0;
+	function arChecked(selectedArBox){
 		
-		for (var i = 0; i < checkedLength; i++) {
-
-            if (document.getElementsByName("selectedLot")[i].checked == true) {
-            	count += 1;
-            }
-        }
+		console.log(selectedArBox);
 		
-		if(count == 0){
-        	alert("수정할 구역이 선택되지 않았습니다.");        	
-        	location.reload();
-        	return;
-        }else if(count > 1){
-        	alert("한 개의 구역만 수정할 수 있습니다.");
-        	location.reload();
-        	return;
-        }else if (count==1){
-        	
-        	 for (var i = 0; i < checkedLength; i++) {						 
-        		 
-                 if (document.getElementsByName("selectedLot")[i].checked == true) {
-                 	checkVal = document.getElementsByName("selectedLot")[i].value;
-                 	
-                 	var updateHiddenBox = document.getElementById("updateArValue");
-                	updateHiddenBox.innerHTML = "";
-                	
-                	updateHiddenValue = document.createElement("input");
-                	updateHiddenValue.setAttribute("type","hidden");
-                	updateHiddenValue.value = checkVal;
-                	updateHiddenBox.appendChild(updateHiddenValue);
-
-                 }
-             }       	
-        }		
+		if (selectedArBox.checked == true){
+     		var selectedAr = document.getElementById("arCodeBox");
+     		selectedAr.innerHTML = "";	
+     		
+     		var hiddenSelect = document.createElement("input");
+     		hiddenSelect.setAttribute("type","hidden");
+     		hiddenSelect.setAttribute("value", selectedArBox.value);  		
+     		hiddenSelect.setAttribute("innerText", selectedArBox.innerText);
+     		selectedAr.appendChild(hiddenSelect);
+     		
+     		console.log(hiddenSelect);
+     		
+     		
+		}else{
+     			var selectedAr = document.getElementById("arCodeBox");
+     			selectedAr.innerHTML = "";
+     		};
+		
 	}
-	
 	
 	function arUpdate(){
 		
-		var arCodeVal = document.getElementById("updateArValue").firstChild.value;		
 		var arNameVal = document.getElementById("upArName").value;
-		var warehouseCode = document.getElementById("codeForAreaList").firstChild.value;
+		var warehouse_area_code = document.getElementById("arCodeBox").firstChild.value;		
+		var warehouseCode = document.getElementById("arCodeBox").firstChild.innerText;
+		
+		console.log(warehouseCode);
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);	
-		
-				areaList(warehouseCode)
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var result = JSON.parse(xhr.responseText);									
 				
-			}
+				document.getElementById("upArName").value = "";
+				areaList(warehouseCode);
+				
+			}		
 		}
-			
+		
 		xhr.open("post" , "./arUpdate");
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("warehouse_area_code=" + arCodeVal + "&warehouse_area_name=" + arNameVal);	
-							
+		xhr.send("warehouse_area_name=" + arNameVal + "&warehouse_area_code=" + warehouse_area_code);
+		
 	}
 	
-	function beforeUpdateRk(){
+	function rkChecked(selectedRkBox){
+			
+		console.log(selectedRkBox);
 		
-		var checkVal = "";		
-		var checkedLength = document.getElementsByName("selectedLot").length;		
-		var count = 0;
-		
-		for (var i = 0; i < checkedLength; i++) {
-
-            if (document.getElementsByName("selectedLot")[i].checked == true) {
-            	count += 1;
-            }
-        }
-		
-		if(count == 0){
-        	alert("수정할 구역이 선택되지 않았습니다.");
-        	location.reload()
-        	return;
-        }else if(count > 1){
-        	alert("한 개의 구역만 수정할 수 있습니다.");
-        	location.reload()
-        	return;
-        }else if (count==1){
-        	
-        	 for (var i = 0; i < checkedLength; i++) {						 
-        		 
-                 if (document.getElementsByName("selectedLot")[i].checked == true) {
-                 	checkVal = document.getElementsByName("selectedLot")[i].value;
-                 	
-                 	var updateHiddenBox = document.getElementById("updateRkValue");
-                	updateHiddenBox.innerHTML = "";
-                	
-                	updateHiddenValue = document.createElement("input");
-                	updateHiddenValue.setAttribute("type","hidden");
-                	updateHiddenValue.value = checkVal;
-                	updateHiddenBox.appendChild(updateHiddenValue);
-
-                 }
-             }       	
-        }		
-	}
+			if (selectedRkBox.checked == true){
+	     		var selectedRk = document.getElementById("rkCodeBox");
+	     		selectedRk.innerHTML = "";	
+	     		
+	     		var hiddenSelect = document.createElement("input");
+	     		hiddenSelect.setAttribute("type","hidden");
+	     		hiddenSelect.setAttribute("value", selectedRkBox.value);  		
+	     		hiddenSelect.setAttribute("innerText", selectedRkBox.innerText);
+	     		selectedRk.appendChild(hiddenSelect);   		
+	     		
+			}else{
+	     			var selectedAr = document.getElementById("rkCodeBox");
+	     			selectedRk.innerHTML = "";
+	     		};
+			
+		}
 	
 	function rkUpdate(){
 		
-		var rkCodeVal = document.getElementById("updateRkValue").firstChild.value;		
 		var rkNameVal = document.getElementById("upRkName").value;
-		var areaCode = document.getElementById("codeForRackList").firstChild.value;
+		var warehouse_rack_code = document.getElementById("rkCodeBox").firstChild.value;		
+		/* var warehouseCode = document.getElementById("arCodeBox").secondChild.value;	 */
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);	
-		
-				rackList(areaCode)
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var result = JSON.parse(xhr.responseText);									
 				
-			}
+				document.getElementById("upRkName").value = "";
+				/* areaList(warehouseCode); */
+				
+			}		
 		}
-			
+		
 		xhr.open("post" , "./rkUpdate");
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("warehouse_rack_code=" + rkCodeVal + "&warehouse_rack_name=" + rkNameVal);	
-							
+		xhr.send("warehouse_rack_name=" + rkNameVal + "&warehouse_rack_code=" + warehouse_rack_code);
+		
 	}
 	
-	
-	function beforeUpdateCl(){
+	function clChecked(selectedClBox){
+			
+		console.log(selectedClBox);
 		
-		var checkVal = "";		
-		var checkedLength = document.getElementsByName("selectedLot").length;		
-		var count = 0;
-		
-		for (var i = 0; i < checkedLength; i++) {
-
-            if (document.getElementsByName("selectedLot")[i].checked == true) {
-            	count += 1;
-            }
-        }
-		
-		if(count == 0){
-        	alert("수정할 구역이 선택되지 않았습니다.");
-        	location.reload()
-        	return;
-        }else if(count > 1){
-        	alert("한 개의 구역만 수정할 수 있습니다.");
-        	location.reload()
-        	return;
-        }else if (count==1){
-        	
-        	 for (var i = 0; i < checkedLength; i++) {						 
-        		 
-                 if (document.getElementsByName("selectedLot")[i].checked == true) {
-                 	checkVal = document.getElementsByName("selectedLot")[i].value;
-                 	
-                 	var updateHiddenBox = document.getElementById("updateClValue");
-                	updateHiddenBox.innerHTML = "";
-                	
-                	updateHiddenValue = document.createElement("input");
-                	updateHiddenValue.setAttribute("type","hidden");
-                	updateHiddenValue.value = checkVal;
-                	updateHiddenBox.appendChild(updateHiddenValue);
-
-                 }
-             }       	
-        }		
-	}
+			if (selectedClBox.checked == true){
+	     		var selectedCl = document.getElementById("clCodeBox");
+	     		selectedCl.innerHTML = "";	
+	     		
+	     		var hiddenSelect = document.createElement("input");
+	     		hiddenSelect.setAttribute("type","hidden");
+	     		hiddenSelect.setAttribute("value", selectedClBox.value);  		
+	     		hiddenSelect.setAttribute("innerText", selectedClBox.innerText);
+	     		selectedCl.appendChild(hiddenSelect);   		
+	     		
+			}else{
+	     			var selectedCl = document.getElementById("clCodeBox");
+	     			selectedCl.innerHTML = "";
+	     		};
+			
+		}
 	
 	function clUpdate(){
 		
-		var clCodeVal = document.getElementById("updateRkValue").firstChild.value;		
 		var clNameVal = document.getElementById("upClName").value;
-		var rackCode = document.getElementById("codeForCellList").firstChild.value;
+		var warehouse_cell_code = document.getElementById("clCodeBox").firstChild.value;		
+		/* var warehouseCode = document.getElementById("arCodeBox").secondChild.value;	 */
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);	
-		
-				cellList(rackCode);
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var result = JSON.parse(xhr.responseText);									
 				
-			}
+				document.getElementById("upClName").value = "";
+				/* areaList(warehouseCode); */
+				
+			}		
 		}
-			
+		
 		xhr.open("post" , "./clUpdate");
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("warehouse_cell_code=" + clCodeVal + "&warehouse_cell_name=" + clNameVal);	
-							
+		xhr.send("warehouse_cell_name=" + clNameVal + "&warehouse_cell_code=" + warehouse_cell_code);
+		
 	}
 	
 	
 	
-	window.addEventListener("DOMContentLoaded" , function (){
+window.addEventListener("DOMContentLoaded" , function (){
 		
 		warehouseList();
 		
@@ -840,7 +684,7 @@
 	             <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#warehouseRegist">
 	                등록
 	             </button>
-	             <button type="button" class="btn btn-light" onclick="beforeUpdateWh()" data-bs-toggle="modal" data-bs-target="#warehouseUpdate">
+	             <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#warehouseUpdate">
 	             	수정
 	             </button>
 	             <button type="button" class="btn btn-light">
@@ -1052,7 +896,7 @@
 		                                    </div>
 		                                </div>
                             		</div>
-                            		<div id="updateWhValue">
+                            		<div id="whCodeBox">
                             		
                             		</div>
                         		</div>
@@ -1060,7 +904,7 @@
 					     </div>
 					     <div class="modal-footer">
 					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-					        <button type="button" class="btn btn-primary" onclick="whUpdate()" data-bs-dismiss="modal">수정</button>
+					        <button type="button" class="btn btn-primary" onclick="whUpdate()" data-bs-dismiss="modal">등록</button>
 					     </div>
 				    </div>
 			  </div>
@@ -1084,16 +928,15 @@
 		                                    </div>
 		                                </div>
                             		</div>
-                            		<div id="updateArValue">
+                            		<div id="arCodeBox">
                             		
                             		</div>
-                            		<div id="codeForAreaList"></div>
                         		</div>
                         	</div>                       	
 					     </div>
 					     <div class="modal-footer">
 					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-					        <button type="button" class="btn btn-primary" onclick="arUpdate()" data-bs-dismiss="modal">수정</button>
+					        <button type="button" class="btn btn-primary" onclick="arUpdate()" data-bs-dismiss="modal">등록</button>
 					     </div>
 				    </div>
 			  </div>
@@ -1117,10 +960,8 @@
 		                                    </div>
 		                                </div>
                             		</div>
-                            		<div id="updateRkValue">
+                            		<div id="rkCodeBox">
                             		
-                            		</div>
-                            		<div id="codeForRackList">
                             		</div>
                         		</div>
                         	</div>                       	
@@ -1151,9 +992,8 @@
 		                                    </div>
 		                                </div>
                             		</div>
-                            		<div id="updateRkValue">                           		
-                            		</div>
-                            		<div id="codeForCellList">
+                            		<div id="clCodeBox">
+                            		
                             		</div>
                         		</div>
                         	</div>                       	

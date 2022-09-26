@@ -98,7 +98,7 @@
                 <a href="../main/mainPage"><span class="textWhite mx-4">WMS</span></a>            
             </div>
             <div class="col textWhite">
-                <span>관리자 이름 <a href="../main/logOutProcess"><i class="bi bi-power"></i></a><!--logout button--> </span>                           
+                <span>${employeeInfo.employee_name } ${adminInfo.company_code } <a href="../main/logOutProcess"><i class="bi bi-power"></i></a><!--logout button--> </span>                           
             </div>
             <div class="col">
                 <div class="usermenu">

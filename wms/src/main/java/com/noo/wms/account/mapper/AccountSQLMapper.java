@@ -16,6 +16,8 @@ public interface AccountSQLMapper {
 											@Param("startList") int startList,
 											@Param("company_code") String company_code
 											);
+	//엑셀불러오기
+	public AccountVo excelSelect (String account_code);
 	
 	public int accountInfoCount(@Param("searchType") String searchType, 
 								@Param("searchWord") String searchWord,

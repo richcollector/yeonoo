@@ -8,7 +8,6 @@ public class InboundVo {
 
 	private String inbound_code;
 	private String company_code;
-	private String stock_code;
 	private String lot_code;
 	private String product_code;
 	private String warehouse_code;
@@ -25,13 +24,12 @@ public class InboundVo {
 		super();
 	}
 
-	public InboundVo(String inbound_code, String company_code, String stock_code, String lot_code, String product_code,
+	public InboundVo(String inbound_code, String company_code, String lot_code, String product_code,
 			String warehouse_code, String warehouse_area_code, String warehouse_rack_code, String warehouse_cell_code,
 			int inbound_amount, Date inbound_register_date, String inbound_register_employee, String inbound_memo) {
 		super();
 		this.inbound_code = inbound_code;
 		this.company_code = company_code;
-		this.stock_code = stock_code;
 		this.lot_code = lot_code;
 		this.product_code = product_code;
 		this.warehouse_code = warehouse_code;
@@ -58,14 +56,6 @@ public class InboundVo {
 
 	public void setCompany_code(String company_code) {
 		this.company_code = company_code;
-	}
-
-	public String getStock_code() {
-		return stock_code;
-	}
-
-	public void setStock_code(String stock_code) {
-		this.stock_code = stock_code;
 	}
 
 	public String getLot_code() {
@@ -147,5 +137,5 @@ public class InboundVo {
 	public void setInbound_memo(String inbound_memo) {
 		this.inbound_memo = inbound_memo;
 	}
-	
+
 }

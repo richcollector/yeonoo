@@ -96,7 +96,7 @@
 					var bodyCheckBox = document.createElement("input");
 					bodyCheckBox.setAttribute("type","checkbox");
 					bodyCheckBox.value = myWarehouseList.warehouse.warehouse_code;
-					bodyCheckBox.setAttribute("name","selectedCode");				
+					bodyCheckBox.setAttribute("name","selectedLot");				
 					bodyCheckBox.setAttribute("onclick","isChecked()");
 					bodyTd1.appendChild(bodyCheckBox);
 						
@@ -150,11 +150,7 @@
 	function areaList(warehouseCode){
 		
 		//var code = warehouseCode.innerText;
-		if (warehouseCode != null){
-			code = warehouseCode
-		}else{
-			code = document.getElementById("areaWarehouseCode").firstChild.value;
-		}
+		var code = warehouseCode;
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -182,24 +178,6 @@
 				areaUpBtn.setAttribute("data-bs-toggle","modal");
 				areaUpBtn.setAttribute("data-bs-target","#areaUpdate");
 				btnCotroller.appendChild(areaUpBtn);				
-				
-				var areaUpBtn = document.createElement("button");
-				areaUpBtn.type = "button";
-				areaUpBtn.classList.add("btn");
-				areaUpBtn.classList.add("btn-light");
-				areaUpBtn.innerText = "구역 삭제";
-				areaUpBtn.setAttribute("data-bs-toggle","modal");
-				areaUpBtn.setAttribute("data-bs-target","#areaDeleteAlert");			
-				btnCotroller.appendChild(areaUpBtn);		
-					
-				var backToWhList = document.createElement("button");
-				backToWhList.type = "button";
-				backToWhList.classList.add("btn");
-				backToWhList.classList.add("btn-light");
-				backToWhList.innerText = "뒤로가기";
-				backToWhList.value = "";
-				backToWhList.setAttribute("onclick","warehouseList()");
-				btnCotroller.appendChild(backToWhList);					
 				
 				var areaList = document.getElementById("warehouseList");
 				areaList.innerHTML = "";							
@@ -238,8 +216,8 @@
 				var hiddenInput2 = document.createElement("input");
 				hiddenInput2.setAttribute("type","hidden");
 				hiddenInput2.setAttribute("value", jsonObj.warehouseCode);
-				hiddenCode2.appendChild(hiddenInput2);		
-				
+				hiddenCode2.appendChild(hiddenInput2);
+							
 				for(myAreaList of jsonObj.aList){
 					
 					var tBody = document.createElement("tbody");
@@ -255,14 +233,14 @@
 					bodyCheckBox.setAttribute("type","checkbox");
 					bodyCheckBox.value = myAreaList.area.warehouse_area_code;
 					bodyCheckBox.innerText = myAreaList.area.warehouse_code;
-					bodyCheckBox.setAttribute("name","selectedCode");				
+					bodyCheckBox.setAttribute("name","selectedLot");				
 					bodyCheckBox.setAttribute("onclick","isChecked()");
 					bodyTd1.appendChild(bodyCheckBox);
 					
 					var areaCodeTh = document.createElement("th");
 					areaCodeTh.innerText = myAreaList.area.warehouse_area_code;
 					areaCodeTh.setAttribute("onclick" , "rackList(this.innerText)");
-					bodyTr.appendChild(areaCodeTh);
+					bodyTr.appendChild(areaCodeTh);		
 					
 					var areaName = document.createElement("td");
 					areaName.innerText = myAreaList.area.warehouse_area_name;
@@ -281,12 +259,8 @@
 	
 	function rackList(areaCode){
 		
-		if(areaCode != null){
-			code = areaCode
-		}else{
-			code = document.getElementById("rackAreaCode").firstChild.value;
-		}
-		
+		var code = areaCode;
+				
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 			if(xhr.readyState == 4 && xhr.status == 200){				
@@ -314,23 +288,6 @@
 				rackUpBtn.setAttribute("data-bs-target","#rackUpdate");
 				btnCotroller.appendChild(rackUpBtn);
 				
-				var rackDelBtn = document.createElement("button");
-				rackDelBtn.type = "button";
-				rackDelBtn.classList.add("btn");
-				rackDelBtn.classList.add("btn-light");
-				rackDelBtn.innerText = "랙 삭제";
-				rackDelBtn.setAttribute("data-bs-toggle","modal");
-				rackDelBtn.setAttribute("data-bs-target","#rackDeleteAlert");			
-				btnCotroller.appendChild(rackDelBtn);		
-				
-				var backToArList = document.createElement("button");
-				backToArList.type = "button";
-				backToArList.classList.add("btn");
-				backToArList.classList.add("btn-light");
-				backToArList.innerText = "뒤로가기";
-				backToArList.setAttribute("onclick","areaList()")				
-				btnCotroller.appendChild(backToArList);
-				
 				var rackList = document.getElementById("warehouseList");
 				rackList.innerHTML = "";							
 				
@@ -355,7 +312,7 @@
 				headTr.appendChild(headTh2);
 				
 				var hiddenCode = document.getElementById("rackAreaCode");
-				hiddenCode.innerHTML = "";
+				hiddenCode.innerHTML="";
 				
 				var hiddenInput = document.createElement("input");
 				hiddenInput.setAttribute("type","hidden");
@@ -385,7 +342,7 @@
 					bodyCheckBox.setAttribute("type","checkbox");
 					bodyCheckBox.value = myRackList.rack.warehouse_rack_code;
 					bodyCheckBox.innerText = myRackList.rack.warehouse_area_code;	
-					bodyCheckBox.setAttribute("name","selectedCode");				
+					bodyCheckBox.setAttribute("name","selectedLot");				
 					bodyCheckBox.setAttribute("onclick","isChecked()");
 					bodyTd1.appendChild(bodyCheckBox);				
 					
@@ -464,22 +421,6 @@
 				cellUpBtn.setAttribute("data-bs-target","#cellUpdate");
 				btnCotroller.appendChild(cellUpBtn);			
 				
-				var cellDelBtn = document.createElement("button");
-				cellDelBtn.type = "button";
-				cellDelBtn.classList.add("btn");
-				cellDelBtn.classList.add("btn-light");
-				cellDelBtn.innerText = "셀 삭제";
-				cellDelBtn.setAttribute("onclick","deleteCell()")				
-				btnCotroller.appendChild(cellDelBtn);
-						
-				var backTorkList = document.createElement("button");
-				backTorkList.type = "button";
-				backTorkList.classList.add("btn");
-				backTorkList.classList.add("btn-light");
-				backTorkList.innerText = "뒤로가기";
-				backTorkList.setAttribute("onclick","rackList()")				
-				btnCotroller.appendChild(backTorkList);
-				
 				var cellList = document.getElementById("warehouseList");
 				cellList.innerHTML = "";							
 				
@@ -534,7 +475,7 @@
 					bodyCheckBox.setAttribute("type","checkbox");
 					bodyCheckBox.value = myCellList.cell.warehouse_cell_code;
 					bodyCheckBox.innerText = myCellList.cell.warehouse_rack_code;	
-					bodyCheckBox.setAttribute("name","selectedCode");				
+					bodyCheckBox.setAttribute("name","selectedLot");				
 					bodyCheckBox.setAttribute("onclick","isChecked()");
 					bodyTd1.appendChild(bodyCheckBox);
 					
@@ -586,7 +527,7 @@
 
 		var allCheckValue = document.querySelector("input[id=checkAll]").checked;
 
-		var checkList = document.getElementsByName("selectedCode");
+		var checkList = document.getElementsByName("selectedLot");
 		
 		if(allCheckValue){
 			for(var i = 0; i < checkList.length; i++){
@@ -603,7 +544,7 @@
 	function isChecked(){
 		
 		var total = document.getElementById("checkAll");
-		var checkList = document.getElementsByName("selectedCode");
+		var checkList = document.getElementsByName("selectedLot");
 		var countCh = 0;
 		
 		for(var i = 0; i < checkList.length; i++) {
@@ -621,12 +562,12 @@
 	function beforeUpdateWh(){
 		
 		var checkVal = "";		
-		var checkedLength = document.getElementsByName("selectedCode").length;		
+		var checkedLength = document.getElementsByName("selectedLot").length;		
 		var count = 0;
 		
 		for (var i = 0; i < checkedLength; i++) {
 
-            if (document.getElementsByName("selectedCode")[i].checked == true) {
+            if (document.getElementsByName("selectedLot")[i].checked == true) {
             	count += 1;
             }
         }
@@ -643,8 +584,8 @@
         	
         	 for (var i = 0; i < checkedLength; i++) {						 
         		 
-                 if (document.getElementsByName("selectedCode")[i].checked == true) {
-                 	checkVal = document.getElementsByName("selectedCode")[i].value;
+                 if (document.getElementsByName("selectedLot")[i].checked == true) {
+                 	checkVal = document.getElementsByName("selectedLot")[i].value;
                  	
                  	var updateHiddenBox = document.getElementById("updateWhValue");
                 	updateHiddenBox.innerHTML = "";
@@ -658,6 +599,11 @@
              }       	
         }		
 	}
+	
+	function closeModal(){		
+	
+	}
+	
 	
 	function whUpdate(){
 		
@@ -684,12 +630,12 @@
 	function beforeUpdateAr(){
 			
 		var checkVal = "";		
-		var checkedLength = document.getElementsByName("selectedCode").length;		
+		var checkedLength = document.getElementsByName("selectedLot").length;		
 		var count = 0;
 		
 		for (var i = 0; i < checkedLength; i++) {
 
-            if (document.getElementsByName("selectedCode")[i].checked == true) {
+            if (document.getElementsByName("selectedLot")[i].checked == true) {
             	count += 1;
             }
         }
@@ -706,8 +652,8 @@
         	
         	 for (var i = 0; i < checkedLength; i++) {						 
         		 
-                 if (document.getElementsByName("selectedCode")[i].checked == true) {
-                 	checkVal = document.getElementsByName("selectedCode")[i].value;
+                 if (document.getElementsByName("selectedLot")[i].checked == true) {
+                 	checkVal = document.getElementsByName("selectedLot")[i].value;
                  	
                  	var updateHiddenBox = document.getElementById("updateArValue");
                 	updateHiddenBox.innerHTML = "";
@@ -748,12 +694,12 @@
 	function beforeUpdateRk(){
 		
 		var checkVal = "";		
-		var checkedLength = document.getElementsByName("selectedCode").length;		
+		var checkedLength = document.getElementsByName("selectedLot").length;		
 		var count = 0;
 		
 		for (var i = 0; i < checkedLength; i++) {
 
-            if (document.getElementsByName("selectedCode")[i].checked == true) {
+            if (document.getElementsByName("selectedLot")[i].checked == true) {
             	count += 1;
             }
         }
@@ -770,8 +716,8 @@
         	
         	 for (var i = 0; i < checkedLength; i++) {						 
         		 
-                 if (document.getElementsByName("selectedCode")[i].checked == true) {
-                 	checkVal = document.getElementsByName("selectedCode")[i].value;
+                 if (document.getElementsByName("selectedLot")[i].checked == true) {
+                 	checkVal = document.getElementsByName("selectedLot")[i].value;
                  	
                  	var updateHiddenBox = document.getElementById("updateRkValue");
                 	updateHiddenBox.innerHTML = "";
@@ -812,12 +758,12 @@
 	function beforeUpdateCl(){
 		
 		var checkVal = "";		
-		var checkedLength = document.getElementsByName("selectedCode").length;		
+		var checkedLength = document.getElementsByName("selectedLot").length;		
 		var count = 0;
 		
 		for (var i = 0; i < checkedLength; i++) {
 
-            if (document.getElementsByName("selectedCode")[i].checked == true) {
+            if (document.getElementsByName("selectedLot")[i].checked == true) {
             	count += 1;
             }
         }
@@ -834,8 +780,8 @@
         	
         	 for (var i = 0; i < checkedLength; i++) {						 
         		 
-                 if (document.getElementsByName("selectedCode")[i].checked == true) {
-                 	checkVal = document.getElementsByName("selectedCode")[i].value;
+                 if (document.getElementsByName("selectedLot")[i].checked == true) {
+                 	checkVal = document.getElementsByName("selectedLot")[i].value;
                  	
                  	var updateHiddenBox = document.getElementById("updateClValue");
                 	updateHiddenBox.innerHTML = "";
@@ -872,133 +818,7 @@
 							
 	}
 	
-	function deleteCell(){
-		
-	var checkList = new Array();
-	var rackCode = document.getElementById("codeForCellList").firstChild.value;
 	
-		var listLength = document.getElementsByName("selectedCode").length;
-		
-		for (var i = 0; i < listLength; i++) {
-
-            if (document.getElementsByName("selectedCode")[i].checked == true) {
-            	
-            	checkList[i] = document.getElementsByName("selectedCode")[i].value;
-            	
-            }
-        }		
-
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);	
-				
-				cellList(rackCode);
-				
-			}
-		}
-		
-		xhr.open("post" , "./deleteCell" , false);
-		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("code=" + checkList);
-	
-	}
-	
-	function deleteRack(){
-		
-		var checkList = new Array();
-		var areaCode = document.getElementById("codeForRackList").firstChild.value;
-		
-			var listLength = document.getElementsByName("selectedCode").length;
-			
-			for (var i = 0; i < listLength; i++) {
-
-	            if (document.getElementsByName("selectedCode")[i].checked == true) {
-	            	
-	            	checkList[i] = document.getElementsByName("selectedCode")[i].value;
-	            	
-	            }
-	        }		
-
-			var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function () {
-				if(xhr.readyState == 4 && xhr.status == 200){
-					var result = JSON.parse(xhr.responseText);	
-					
-					rackList(areaCode);
-					
-				}
-			}
-			
-			xhr.open("post" , "./deleteRack" , false);
-			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xhr.send("code=" + checkList);
-		
-		}
-		
-	
-	function deleteByAreaCode(){
-		
-		var checkList = new Array();
-		var warehouseCode = document.getElementById("codeForAreaList").firstChild.value;
-		
-			var listLength = document.getElementsByName("selectedCode").length;
-			
-			for (var i = 0; i < listLength; i++) {
-
-	            if (document.getElementsByName("selectedCode")[i].checked == true) {
-	            	
-	            	checkList[i] = document.getElementsByName("selectedCode")[i].value;
-	            	
-	            }
-	        }		
-
-			var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function () {
-				if(xhr.readyState == 4 && xhr.status == 200){
-					var result = JSON.parse(xhr.responseText);	
-					
-					areaList(warehouseCode);
-					
-				}
-			}
-			
-			xhr.open("post" , "./deleteByAreaCode" , false);
-			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xhr.send("code=" + checkList);
-		
-		}
-	
-	function deleteByWarehouseCode(){
-		
-		var checkList = new Array();
-		
-			var listLength = document.getElementsByName("selectedCode").length;
-			
-			for (var i = 0; i < listLength; i++) {
-
-	            if (document.getElementsByName("selectedCode")[i].checked == true) {
-	            	
-	            	checkList[i] = document.getElementsByName("selectedCode")[i].value;
-	            	
-	            }
-	        }		
-
-			var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function () {
-				if(xhr.readyState == 4 && xhr.status == 200){
-					var result = JSON.parse(xhr.responseText);	
-					
-					warehouseList()
-					
-				}
-			}
-			
-			xhr.open("post" , "./deleteByWarehouseCode" , false);
-			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xhr.send("code=" + checkList);
-		
-		}
 	
 	window.addEventListener("DOMContentLoaded" , function (){
 		
@@ -1023,8 +843,8 @@
 	             <button type="button" class="btn btn-light" onclick="beforeUpdateWh()" data-bs-toggle="modal" data-bs-target="#warehouseUpdate">
 	             	수정
 	             </button>
-	             <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#warehouseDeleteAlert">
-	             	창고 삭제
+	             <button type="button" class="btn btn-light">
+	             	삭제
 	             </button>
 	        </div>
 	     </div>
@@ -1341,66 +1161,6 @@
 					     <div class="modal-footer">
 					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 					        <button type="button" class="btn btn-primary" onclick="clUpdate()" data-bs-dismiss="modal">등록</button>
-					     </div>
-				    </div>
-			  </div>
-		 </div>
-		 <!-- 랙 삭제 경고 모달 -->
-		 <div class="modal fade" id="rackDeleteAlert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			 <div class="modal-dialog">
-				  <div class="modal-content">
-					    <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLabel">랙 삭제</h5>
-					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					     </div>
-					     <div class="modal-body">
-					        <div class="row">
-                        		<h6 class="modal-title" id="exampleModalLabel">랙을 삭제하실 경우 하위의 셀도 같이 삭제됩니다. <br> 정말로 삭제하시겠습니까?</h6>
-                        	</div>                       	
-					     </div>
-					     <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					        <button type="button" class="btn btn-primary" onclick="deleteRack()" data-bs-dismiss="modal">삭제</button>
-					     </div>
-				    </div>
-			  </div>
-		 </div>
-		 <!-- 구역 삭제 경고 모달 -->
-		 <div class="modal fade" id="areaDeleteAlert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			 <div class="modal-dialog">
-				  <div class="modal-content">
-					    <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLabel">구역 삭제</h5>
-					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					     </div>
-					     <div class="modal-body">
-					        <div class="row">
-                        		<h6 class="modal-title" id="exampleModalLabel">구역을 삭제하실 경우 하위 요소가 전부 삭제됩니다. <br> 정말로 삭제하시겠습니까?</h6>
-                        	</div>                       	
-					     </div>
-					     <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					        <button type="button" class="btn btn-primary" onclick="deleteByAreaCode()" data-bs-dismiss="modal">삭제</button>
-					     </div>
-				    </div>
-			  </div>
-		 </div>
-		 <!-- 창고 삭제 경고 모달 -->
-		 <div class="modal fade" id="warehouseDeleteAlert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			 <div class="modal-dialog">
-				  <div class="modal-content">
-					    <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLabel">창고 삭제</h5>
-					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					     </div>
-					     <div class="modal-body">
-					        <div class="row">
-                        		<h6 class="modal-title" id="exampleModalLabel">창고를 삭제하실 경우 하위 요소가 전부 삭제됩니다. <br> 정말로 삭제하시겠습니까?</h6>
-                        	</div>                       	
-					     </div>
-					     <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					        <button type="button" class="btn btn-primary" onclick="deleteByWarehouseCode()" data-bs-dismiss="modal">삭제</button>
 					     </div>
 				    </div>
 			  </div>

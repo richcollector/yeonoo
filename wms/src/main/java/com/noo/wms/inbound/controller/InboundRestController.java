@@ -13,7 +13,6 @@ import com.noo.wms.lot.service.LotServiceImpl;
 import com.noo.wms.vo.AdminVo;
 import com.noo.wms.vo.InboundVo;
 import com.noo.wms.vo.LotVo;
-import com.noo.wms.vo.StockVo;
 import com.noo.wms.warehouse.service.WarehouseServiceImpl;
 
 @RestController
@@ -28,11 +27,11 @@ public class InboundRestController {
 	private WarehouseServiceImpl warehouseService;
 	
 	@RequestMapping("registInbound")
-	public HashMap<String, Object> registInbound (InboundVo inboundVo, StockVo stockVo , HttpSession session){
+	public HashMap<String, Object> registInbound (InboundVo inboundVo, HttpSession session){
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		inboundService.insertInboundlog(inboundVo, stockVo , session);
+		inboundService.insertInboundlog(inboundVo, session);
 		
 		map.put("result", "sucess");
 	
@@ -136,11 +135,11 @@ public class InboundRestController {
 	}
 	
 	@RequestMapping("updateInbound")
-	public HashMap<String,Object> updateInbound(InboundVo inboundVo, StockVo stockVo){
+	public HashMap<String,Object> updateInbound(InboundVo inboundVo){
 	
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		inboundService.selectedInboundUpdate(inboundVo, stockVo);
+		inboundService.selectedInboundUpdate(inboundVo);
 		
 		map.put("result", "sucess");
 		
@@ -149,33 +148,21 @@ public class InboundRestController {
 	}
 	
 	@RequestMapping("deleteInbound")
-	public HashMap<String, Object> deleteInbound(String [] ibCode, String [] stCode){
+	public HashMap<String, Object> deleteInbound(String [] code){
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		for(String IbCode : ibCode) {
+		for(String Code : code) {
 				
 			InboundVo inboundVo = new InboundVo();
-			inboundVo.setInbound_code(IbCode);
+			inboundVo.setInbound_code(Code);
 			inboundService.selectedInboundDelete(inboundVo);
-			
-		}					
-		
-		for(String StCode : stCode) {
-			
-			StockVo stockVo = new StockVo();
-			stockVo.setStock_code(StCode);
-			inboundService.whenDeleteInbound(stockVo);
-			
 		}
-		
+						
 		map.put("result", "sucess");
 		
 		return map;
 		
 	}
-	
-	
-	
 	
 }

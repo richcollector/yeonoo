@@ -143,49 +143,5 @@ public class WarehouseServiceImpl {
 		warehouseMapper.updateCell(cellVo);
 	}
 	
-	public void cellDelete(CellVo cellVo) {
-		
-		warehouseMapper.deleteCell(cellVo);
-	}
-	
-	
-	public void rackDelete(RackVo rackVo) {
-		
-		warehouseMapper.deleteRack(rackVo);	
-		
-	}
-	
-	public void delWithRkCell(CellVo cellVo) {
-		
-		warehouseMapper.whenDeleteRack(cellVo);
-	}
-	
-	public void deleteByAreaCode(String areaCode) {
-		
-		for(CellVo cellVo : warehouseMapper.selectCellByArea(areaCode)) 
-			warehouseMapper.deleteCell(cellVo);	
-		
-		for(RackVo rackVo : warehouseMapper.selectRackByArea(areaCode))
-			warehouseMapper.deleteRack(rackVo);	
-		
-		warehouseMapper.deleteArea(areaCode);
-		
-	}
-	
-	public void deleteByWarehouseCode(String warehouseCode) {
-		
-		for(CellVo cellVo : warehouseMapper.selectCellByWarehouse(warehouseCode)) 
-			warehouseMapper.deleteCell(cellVo);
-		
-		for(RackVo rackVo : warehouseMapper.selectRackByWarehouse(warehouseCode))
-			warehouseMapper.deleteRack(rackVo);
-		
-		for(AreaVo areaVo: warehouseMapper.selectAreaByWarehouse(warehouseCode))
-			warehouseMapper.deleteAreaVo(areaVo);
-		
-		warehouseMapper.deleteWarehouse(warehouseCode);
-	}
-	
-	
 	
 }

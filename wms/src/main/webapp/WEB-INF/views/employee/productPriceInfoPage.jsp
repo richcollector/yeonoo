@@ -38,6 +38,7 @@
 	function insertProductPriceInfo(){
 		console.log("뭐니");
 		var productCodeVal = document.getElementById("product_code").value;
+		var companyCodeVal = document.getElementById("company_code").value;
 		var productNameVal = document.getElementById("product_name").value;
 		var productPricePurchaseVal = parseInt(document.getElementById("product_price_purchase").value);
 		var productPricePurchaseDateVal = document.getElementById("product_price_purchase_date").value;
@@ -57,18 +58,29 @@
 		console.log("여기양");
 		
 		var xhr = new XMLHttpRequest();
-// 		xhr.onreadystatechange = function () {
-// 			if(xhr.readyState == 4 && xhr.status == 200){
-// 				var result = JSON.parse(xhr.responseText);	
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var result = JSON.parse(xhr.responseText);	
 					
-
+			document.getElementById("product_code").value = "";
+			document.getElementById("company_code").value = "";
+			document.getElementById("product_name").value = "";
+			document.getElementById("product_price_purchase").value = "";
+			document.getElementById("product_price_purchase_date").value = "";
+			document.getElementById("product_price_selling").value = "";
+			document.getElementById("product_price_selling_date").value = "";
+			document.getElementById("product_price_memo").value = "";
+			
+			
+			refreshProductPriceInfo();
 				
-// 			}
-// 		}
+			}
+		}
 		
 		xhr.open("post" , "./insertProductPriceInfo");
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("product_code=" + productCodeVal + "&product_name=" + productNameVal + 
+		xhr.send("product_code=" + productCodeVal + "&company_code=" + companyCodeVal + 
+				"&product_name=" + productNameVal + 
 				"&product_price_purchase=" + productPricePurchaseVal + 
 				"&product_price_purchase_date=" + productPricePurchaseDateVal + 
 				"&product_price_selling=" + productPriceSellingVal + 
@@ -76,16 +88,7 @@
 				"&product_price_memo=" + productPriceMemoVal);
 		
 		
-		document.getElementById("product_code").value = "";
-		document.getElementById("product_name").value = "";
-		document.getElementById("product_price_purchase").value = "";
-		document.getElementById("product_price_purchase_date").value = "";
-		document.getElementById("product_price_selling").value = "";
-		document.getElementById("product_price_selling_date").value = "";
-		document.getElementById("product_price_memo").value = "";
-		
-		
-		refreshProductPriceInfo();
+
 	}
 	
 	function selectProductPrice(){
@@ -123,6 +126,7 @@
         }
         
         document.getElementById("product_price_code_update").value = "";
+		document.getElementById("company_code_update").value = "";
 		document.getElementById("product_code_update").value = "";
 		document.getElementById("product_name_update").value = "";
 		document.getElementById("product_price_purchase_update").value = "";
@@ -132,6 +136,7 @@
 		document.getElementById("product_price_memo_update").value = "";
 	    
 		var productPriceCode = document.getElementById("product_price_code_update");
+		var companyCode = document.getElementById("company_code_update");
 		var productCode = document.getElementById("product_code_update");
 		var productName = document.getElementById("product_name_update");
 		var productPricePurchase = document.getElementById("product_price_purchase_update");
@@ -146,6 +151,7 @@
 				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
 					
 				productPriceCode.value = jsonObj.product_price_code;
+				companyCode.value = jsonObj.company_code;
 				productCode.value = jsonObj.product_code;
 				productName.value = jsonObj.product_name;
 				productPricePurchase.value = parseInt(jsonObj.product_price_purchase);
@@ -169,6 +175,7 @@
 	function updateProductPriceInfo(){
 		
 		var productPriceCodeVal = document.getElementById("product_price_code_update").value;
+		var companyCodeVal = document.getElementById("company_code_update").value;
 		var productCodeVal = document.getElementById("product_code_update").value;
 		var productNameVal = document.getElementById("product_name_update").value;
 		var productPricePurchaseVal = parseInt(document.getElementById("product_price_purchase_update").value);
@@ -179,14 +186,26 @@
 		
 		var xhr = new XMLHttpRequest();
 		
-// 		xhr.onreadystatechange = function () {
-// 			if(xhr.readyState == 4 && xhr.status == 200){
-// 				var result = JSON.parse(xhr.responseText);	
-						
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var result = JSON.parse(xhr.responseText);	
+				
+		        document.getElementById("product_price_code_update").value = "";
+		        document.getElementById("company_code_update").value = "";
+				document.getElementById("product_code_update").value = "";
+				document.getElementById("product_name_update").value = "";
+				document.getElementById("product_price_purchase_update").value = "";
+				document.getElementById("product_price_purchase_date_update").value = "";
+				document.getElementById("product_price_selling_update").value = "";
+				document.getElementById("product_price_selling_date_update").value = "";
+				document.getElementById("product_price_memo_update").value = "";
+				
+				
+				refreshProductPriceInfo();	
 
 				
-// 			}
-// 		}
+			}
+		}
 
 // 		xhr.open("post" , "./updateObtainOrderInfo" , false);
 // 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -199,23 +218,14 @@
 		
 		xhr.open("post" , "./updateProductPriceInfo" , false);
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("product_price_code=" + productPriceCodeVal + "&product_code=" + productCodeVal + 
+		xhr.send("product_price_code=" + productPriceCodeVal + "&company_code=" + companyCodeVal +
+				"&product_code=" + productCodeVal + 
 				"&product_name=" + productNameVal + "&product_price_purchase=" + productPricePurchaseVal + 
 				"&product_price_purchase_date=" + productPricePurchaseDateVal + "&product_price_selling=" + productPriceSellingVal + 
 				"&product_price_selling_date=" + productPriceSellingDateVal + 
 				"&product_price_memo=" + productPriceMemoVal);
 
-        document.getElementById("product_price_code_update").value = "";
-		document.getElementById("product_code_update").value = "";
-		document.getElementById("product_name_update").value = "";
-		document.getElementById("product_price_purchase_update").value = "";
-		document.getElementById("product_price_purchase_date_update").value = "";
-		document.getElementById("product_price_selling_update").value = "";
-		document.getElementById("product_price_selling_date_update").value = "";
-		document.getElementById("product_price_memo_update").value = "";
-		
-		
-		refreshProductPriceInfo();
+
 	}
 	
 	function deleteProductPriceInfo(){
@@ -303,6 +313,7 @@
 		table1.classList.add("table");
 		table1.classList.add("table-bordered");
 		table1.classList.add("text-center");
+		table1.setAttribute("style","width:1178px;");
 
 		var thead1 = document.createElement("thead");
 		table1.appendChild(thead1);
@@ -322,34 +333,38 @@
 		var th2 = document.createElement("th");
 		th2.innerText = "제품단가코드";
 		tr1.appendChild(th2);
-
-		var th3 = document.createElement("th");
-		th3.innerText = "제품코드";
-		tr1.appendChild(th3);
+		
+		var th2 = document.createElement("th");
+		th2.innerText = "회사코드";
+		tr1.appendChild(th2);
 
 		var th4 = document.createElement("th");
-		th4.innerText = "제품명";
+		th4.innerText = "제품코드";
 		tr1.appendChild(th4);
 
 		var th5 = document.createElement("th");
-		th5.innerText = "제품구매단가";
+		th5.innerText = "제품명";
 		tr1.appendChild(th5);
 
 		var th6 = document.createElement("th");
-		th6.innerText = "제품구매일";
+		th6.innerText = "제품구매단가";
 		tr1.appendChild(th6);
 
 		var th7 = document.createElement("th");
-		th7.innerText = "제품판매단가";
+		th7.innerText = "제품구매일";
 		tr1.appendChild(th7);
 
 		var th8 = document.createElement("th");
-		th8.innerText = "제품판매일";
+		th8.innerText = "제품판매단가";
 		tr1.appendChild(th8);
-		
+
 		var th9 = document.createElement("th");
-		th9.innerText = "비고";
+		th9.innerText = "제품판매일";
 		tr1.appendChild(th9);
+		
+		var th10 = document.createElement("th");
+		th10.innerText = "비고";
+		tr1.appendChild(th10);
 		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
@@ -389,32 +404,36 @@
 // 				console.log(td2.innerText);
 
 				var td3 = document.createElement("td");
-				td3.innerText = commentData.product_code;
+				td3.innerText = commentData.company_code;
 				trIn1.appendChild(td3);
 
 				var td4 = document.createElement("td");
-				td4.innerText = commentData.product_name;
+				td4.innerText = commentData.product_code;
 				trIn1.appendChild(td4);
 
 				var td5 = document.createElement("td");
-				td5.innerText = commentData.product_price_purchase;
+				td5.innerText = commentData.product_name;
 				trIn1.appendChild(td5);
 
 				var td6 = document.createElement("td");
-				td6.innerText = moment(commentData.product_price_purchase_date).format('YYYY-MM-DD');
+				td6.innerText = commentData.product_price_purchase;
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
-				td7.innerText = commentData.product_price_selling;
+				td7.innerText = moment(commentData.product_price_purchase_date).format('YYYY-MM-DD');
 				trIn1.appendChild(td7);
 
 				var td8 = document.createElement("td");
-				td8.innerText = moment(commentData.product_price_selling_date).format('YYYY-MM-DD');
+				td8.innerText = commentData.product_price_selling;
 				trIn1.appendChild(td8);
 
 				var td9 = document.createElement("td");
-				td9.innerText = commentData.product_price_memo;
+				td9.innerText = moment(commentData.product_price_selling_date).format('YYYY-MM-DD');
 				trIn1.appendChild(td9);
+
+				var td10 = document.createElement("td");
+				td10.innerText = commentData.product_price_memo;
+				trIn1.appendChild(td10);
 				
 				
 				}
@@ -448,7 +467,7 @@
 
 					var inA1 = document.createElement("a");
 					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshProductPriceInfoPage("+i-1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA1.setAttribute("href","javascript:refreshProductPriceInfoPage("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA1.setAttribute("aria-label","Previous");
 					inLi1.appendChild(inA1);
@@ -519,7 +538,7 @@
 
 					var inA3 = document.createElement("a");
 					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshProductPriceInfoPage("+i+1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("href","javascript:refreshProductPriceInfoPage("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA3.setAttribute("aria-label","Next");
 					inLi3.appendChild(inA3);
@@ -558,6 +577,7 @@
 		table1.classList.add("table");
 		table1.classList.add("table-bordered");
 		table1.classList.add("text-center");
+		table1.setAttribute("style","width:1178px;");
 
 		var thead1 = document.createElement("thead");
 		table1.appendChild(thead1);
@@ -703,7 +723,7 @@
 
 					var inA1 = document.createElement("a");
 					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshProductPriceInfoPage("+i-1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA1.setAttribute("href","javascript:refreshProductPriceInfoPage("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA1.setAttribute("aria-label","Previous");
 					inLi1.appendChild(inA1);
@@ -773,7 +793,7 @@
 
 					var inA3 = document.createElement("a");
 					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshProductPriceInfoPage("+i+1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("href","javascript:refreshProductPriceInfoPage("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA3.setAttribute("aria-label","Next");
 					inLi3.appendChild(inA3);
@@ -842,8 +862,8 @@
 							<div class="input-group mb-3">
 									<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 										<option selected>선택</option>
-										<option value="product_price_code">제품단가번호</option>
-										<option value="product_code">제품번호</option>
+										<option value="product_price_code">제품단가코드</option>
+										<option value="product_code">제품코드</option>
 										<option value="product_name">제품명</option>
 									  </select>
 									<input id="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button">
@@ -970,6 +990,14 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-control mt-3">
+                             <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">회사코드</span>
+                                        <input id="company_code" type="text" readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
@@ -981,7 +1009,7 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">제품이름</span>
+                                        <span class="input-group-text">제품명</span>
                                         <input id="product_name" type="text" class="form-control">
                                     </div>
                                 </div>                               
@@ -998,7 +1026,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품구매일</span>
-                                        <input id="product_price_purchase_date" type="text" class="form-control">
+                                        <input id="product_price_purchase_date" type="date" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1014,7 +1042,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품판매일</span>
-                                        <input id="product_price_selling_date" type="text" class="form-control">
+                                        <input id="product_price_selling_date" type="date" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1052,6 +1080,14 @@
                     <div class="row">
                         <div class="form-control mt-3">
                         	<input id="product_price_code_update" type="hidden" class="form-control">
+                        	<div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">회사코드</span>
+                                        <input id="company_code_update" readonly type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
@@ -1080,7 +1116,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품구매일</span>
-                                        <input id="product_price_purchase_date_update" type="text" class="form-control">
+                                        <input id="product_price_purchase_date_update" type="date" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1096,7 +1132,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품판매일</span>
-                                        <input id="product_price_selling_date_update" type="text" class="form-control">
+                                        <input id="product_price_selling_date_update" type="date" class="form-control">
                                     </div>
                                 </div>
                             </div>

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class NoticeVo {
 	private String notice_code;
+	private String company_code;
 	private String admin_code;
 	private String notice_title;
 	private String notice_content;
@@ -11,10 +12,11 @@ public class NoticeVo {
 	public NoticeVo() {
 		super();
 	}
-	public NoticeVo(String notice_code, String admin_code, String notice_title, String notice_content,
-			Date notice_write_date) {
+	public NoticeVo(String notice_code, String company_code, String admin_code, String notice_title,
+			String notice_content, Date notice_write_date) {
 		super();
 		this.notice_code = notice_code;
+		this.company_code = company_code;
 		this.admin_code = admin_code;
 		this.notice_title = notice_title;
 		this.notice_content = notice_content;
@@ -25,6 +27,12 @@ public class NoticeVo {
 	}
 	public void setNotice_code(String notice_code) {
 		this.notice_code = notice_code;
+	}
+	public String getCompany_code() {
+		return company_code;
+	}
+	public void setCompany_code(String company_code) {
+		this.company_code = company_code;
 	}
 	public String getAdmin_code() {
 		return admin_code;

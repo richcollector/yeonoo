@@ -1,19 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"> 
+       <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
-
-
+	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
         *{
              margin: 0px;
              padding: 0px;
-            
         }
+        
+       	body { 
+ 		font-family : pretendard; 
+ 		color: #404040; 
+ 		} 
 
         #wrapper{
             width: 1200px;
@@ -98,7 +104,7 @@
                 <a href="../main/mainPage"><span class="textWhite mx-4">WMS</span></a>            
             </div>
             <div class="col textWhite">
-                <span>관리자 이름 <a href="../main/logOutProcess"><i class="bi bi-power"></i></a><!--logout button--> </span>                           
+                <span>${employeeInfo.employee_name } ${adminInfo.company_code } <a href="../main/logOutProcess"><i class="bi bi-power"></i></a><!--logout button--> </span>                           
             </div>
             <div class="col">
                 <div class="usermenu">
@@ -106,11 +112,14 @@
                         사용자 메뉴
                     </button>
                     <div class="usermenu-content">
-                        <a href="">개인정보수정(x)</a><br>
-                        <a href="">조직도정보(x)</a><br>
-                        <a href="">직급정보(x)</a><br>           
-                        <a href="">부서정보(x)</a><br>     
-                        <a href="">직원정보(x)</a><br> 
+                      <c:if test="${employeeInfo != null && adminInfo == null}">
+                        <a href="../main/userInfoUpdatePage">개인정보수정(△)</a><br>
+                      </c:if>
+                      <c:if test="${adminInfo != null && employeeInfo == null}">
+                        <a href="../company/employeeRankInfoPage">직급정보(△)</a><br>           
+                        <a href="../company/departmentInfoPage">부서정보(△)</a><br>     
+                        <a href="../main/employeeInfoManagePage">직원정보(△)</a><br>
+                      </c:if> 
                     </div>
                 </div>              
             </div>
@@ -121,8 +130,8 @@
                 </button>
                 <div class="usermenu-content">
                         <a href="../company/companyInfoPage">회사정보(△)</a><br>
-                        <a href="../account/accountInfoPage">거래처정보(△)</a><br>
-                        <a href="../employee/productInfoPage">물품정보(△)</a><br>
+                        <a href="../account/accountInfoPage">거래처정보</a><br>
+                        <a href="../employee/productInfoPage">제품정보</a><br>
                         <a href="../warehouse/warehouseList">창고정보(△)</a><br>
                         <a href="../lot/lotManage">로트관리(△)</a>            
                 </div>          
@@ -134,12 +143,10 @@
                     영업관리
                 </button>
                 <div class="usermenu-content">
-                    <a href="../employee/obtainOrderInfoPage">수주정보(△)</a><br>
-                    <a href="../employee/manufactureInfoPage">생산정보(△)</a><br>
-                    <a href="../employee/outboundInfoPage">출하정보(△)</a><br>            
-                    <a href="../employee/productPriceInfoPage">단가정보(△)</a><br>      
-                    <a href="">수주대비출고(x)</a><br>
-                    <a href="">매입대비매출(x)</a>
+                    <a href="../employee/obtainOrderInfoPage">수주정보</a><br>
+                    <a href="../employee/manufactureInfoPage">생산정보</a><br>
+                    <a href="../employee/outboundInfoPage">출하정보</a><br>            
+                    <a href="../employee/productPriceInfoPage">단가정보</a><br>
                 </div>          
                 </div>            
             </div>
@@ -149,7 +156,7 @@
                     구매관리
                 </button>
                 <div class="usermenu-content">
-                    <a href="../employee/purchaseInfoPage">발주정보(△)</a>             
+                    <a href="../employee/purchaseInfoPage">발주정보</a>             
                 </div>          
                 </div>               
             </div>
@@ -160,7 +167,8 @@
                 </button>
                 <div class="usermenu-content">
                     <a href="">입고등록(x)</a><br>
-                    <a href="">출하등록(x)</a>                
+                    <a href="">출하등록(x)</a><br>
+                    <a href="">재고현황(x)</a>       
                 </div>          
                 </div>              
             </div>

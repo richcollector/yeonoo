@@ -5,23 +5,28 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import com.noo.wms.vo.AccountVo;
+import com.noo.wms.vo.ManufactureDetailVo;
 import com.noo.wms.vo.ManufactureVo;
 import com.noo.wms.vo.ObtainOrderDetailVo;
 import com.noo.wms.vo.ObtainOrderVo;
+import com.noo.wms.vo.OutboundDetailVo;
 import com.noo.wms.vo.OutboundVo;
 import com.noo.wms.vo.ProductPriceVo;
 import com.noo.wms.vo.ProductVo;
+import com.noo.wms.vo.PurchaseDetailVo;
 import com.noo.wms.vo.PurchaseVo;
 
 public interface EmployeeSQLMapper {
 	//발주 불러오기
 	public ArrayList<PurchaseVo> purchaseInfo(@Param("searchType") String searchType, 
 											@Param("searchWord") String searchWord,
-											@Param("startList") int startList
+											@Param("startList") int startList,
+											@Param("company_code") String company_code
 											);
 	
 	public int purchaseInfoCount(@Param("searchType") String searchType, 
-								@Param("searchWord") String searchWord
+								@Param("searchWord") String searchWord,
+								@Param("company_code") String company_code
 								);
 	
 	//발주 등록하기
@@ -34,17 +39,47 @@ public interface EmployeeSQLMapper {
 	//발주 삭제하기
 	public void deletePurchaseInfo(PurchaseVo purchase_code);
 	
+	//발주 디테일 불러오기
+	public ArrayList<PurchaseDetailVo> purchaseDetailInfo(@Param("searchType") String searchType, 
+											@Param("searchWord") String searchWord,
+											@Param("startList") int startList,
+											@Param("purchase_code") String purchase_code
+											);
+	
+	public int purchaseDetailInfoCount(@Param("searchType") String searchType, 
+										@Param("searchWord") String searchWord,
+										@Param("purchase_code") String purchase_code
+										);
+	
+	//발주 디테일 등록하기
+	public void insertPurchaseDetailInfo(PurchaseDetailVo purchaseDetailVo);
+	
+	//발주 디테일 수정하기
+	public PurchaseDetailVo selectPurchaseDetailInfo(PurchaseDetailVo purchase_detail_code);
+	public void updatePurchaseDetailInfo(PurchaseDetailVo purchaseDetailVo);
+	
+	//발주 디테일 삭제하기
+	public void deletePurchaseDetailInfo(PurchaseDetailVo purchase_detail_code);
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
 	//상품 불러오기
 	public ArrayList<ProductVo> productInfo(@Param("searchType") String searchType, 
 											@Param("searchWord") String searchWord,
-											@Param("startList") int startList
+											@Param("startList") int startList,
+											@Param("company_code") String company_code
 											);
 	
 	public int productInfoCount(@Param("searchType") String searchType, 
-								@Param("searchWord") String searchWord
+								@Param("searchWord") String searchWord,
+								@Param("company_code") String company_code
 								);
 	
 	//상품 엑셀 값
@@ -67,11 +102,13 @@ public interface EmployeeSQLMapper {
 	//수주 불러오기
 	public ArrayList<ObtainOrderVo> obtainOrderInfo(@Param("searchType") String searchType, 
 											@Param("searchWord") String searchWord,
-											@Param("startList") int startList
+											@Param("startList") int startList,
+											@Param("company_code") String company_code
 											);
 	
 	public int obtainOrderInfoCount(@Param("searchType") String searchType, 
-								@Param("searchWord") String searchWord
+								@Param("searchWord") String searchWord,
+								@Param("company_code") String company_code
 								);
 	
 	//수주 등록하기
@@ -112,11 +149,13 @@ public interface EmployeeSQLMapper {
 	//생산 불러오기
 	public ArrayList<ManufactureVo> manufactureInfo(@Param("searchType") String searchType, 
 											@Param("searchWord") String searchWord,
-											@Param("startList") int startList
+											@Param("startList") int startList,
+											@Param("company_code") String company_code
 											);
 	
 	public int manufactureInfoCount(@Param("searchType") String searchType, 
-								@Param("searchWord") String searchWord
+								@Param("searchWord") String searchWord,
+								@Param("company_code") String company_code
 								);
 	
 	//생산 등록하기
@@ -129,6 +168,32 @@ public interface EmployeeSQLMapper {
 	//생산 삭제하기
 	public void deleteManufactureInfo(ManufactureVo manufacture_code);
 	
+	//생산 디테일 불러오기
+	public ArrayList<ManufactureDetailVo> manufactureDetailInfo(@Param("searchType") String searchType, 
+											@Param("searchWord") String searchWord,
+											@Param("startList") int startList,
+											@Param("manufacture_code") String manufacture_code
+									
+											);
+	
+	public int manufactureInfoDetailCount(@Param("searchType") String searchType, 
+										@Param("searchWord") String searchWord,
+										@Param("manufacture_code") String manufacture_code
+										);
+	
+	//생산 디테일 등록하기
+	public void insertManufactureDetailInfo(ManufactureDetailVo manufactureDetailVo);
+	
+	//생산 디테일 수정하기
+	public ManufactureDetailVo selectManufactureDetailInfo(ManufactureDetailVo manufacture_detail_code);
+	public void updateManufactureDetailInfo(ManufactureDetailVo manufactureDetailVo);
+	
+	//생산 디테일 삭제하기
+	public void deleteManufactureDetailInfo(ManufactureDetailVo manufacture_detail_code);
+	
+	
+	
+	
 	
 	
 	
@@ -136,11 +201,13 @@ public interface EmployeeSQLMapper {
 	//출하 불러오기
 	public ArrayList<OutboundVo> outboundInfo(@Param("searchType") String searchType, 
 											@Param("searchWord") String searchWord,
-											@Param("startList") int startList
+											@Param("startList") int startList,
+											@Param("company_code") String company_code
 											);
 	
 	public int outboundInfoCount(@Param("searchType") String searchType, 
-								@Param("searchWord") String searchWord
+								@Param("searchWord") String searchWord,
+								@Param("company_code") String company_code
 								);
 	
 	//출하 등록하기
@@ -153,6 +220,28 @@ public interface EmployeeSQLMapper {
 	//출하 삭제하기
 	public void deleteOutboundInfo(OutboundVo outbound_code);
 	
+	//출하 디테일 불러오기
+	public ArrayList<OutboundDetailVo> outboundDetailInfo(@Param("searchType") String searchType, 
+											@Param("searchWord") String searchWord,
+											@Param("startList") int startList,
+											@Param("outbound_code") String outbound_code
+											);
+	
+	public int outboundDetailInfoCount(@Param("searchType") String searchType, 
+								@Param("searchWord") String searchWord,
+								@Param("outbound_code") String outbound_code
+								);
+	
+	//출하 디테일 등록하기
+	public void insertOutboundDetailInfo(OutboundDetailVo outboundDetailVo);
+	
+	//출하 디테일 수정하기
+	public OutboundDetailVo selectOutboundDetailInfo(OutboundDetailVo outbound_detail_code);
+	public void updateOutboundDetailInfo(OutboundDetailVo outboundDetailVo);
+	
+	//출하 디테일 삭제하기
+	public void deleteOutboundDetailInfo(OutboundDetailVo outbound_detail_code);
+	
 	
 	
 	
@@ -162,11 +251,13 @@ public interface EmployeeSQLMapper {
 	//제품단가 불러오기
 	public ArrayList<ProductPriceVo> productPriceInfo(@Param("searchType") String searchType, 
 											@Param("searchWord") String searchWord,
-											@Param("startList") int startList
+											@Param("startList") int startList,
+											@Param("company_code") String company_code
 											);
 	
 	public int productPriceInfoCount(@Param("searchType") String searchType, 
-								@Param("searchWord") String searchWord
+								@Param("searchWord") String searchWord,
+								@Param("company_code") String company_code
 								);
 	
 	//제품단가 등록하기

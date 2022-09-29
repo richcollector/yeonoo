@@ -34,24 +34,508 @@
     </style>
 	
 <script type="text/javascript">
+
+
+
+	function check(){
+		
+		document.getElementById("account_representative_Alert").innerHTML = "";
+		document.getElementById("company_code_Alert").innerHTML = "";
+		document.getElementById("account_name_Alert").innerHTML = "";
+		document.getElementById("account_registration_number_Alert").innerHTML = "";
+		document.getElementById("account_corporate_registration_number_Alert").innerHTML = "";
+		document.getElementById("account_phone_Alert").innerHTML = "";
+		document.getElementById("account_pax_number_Alert").innerHTML = "";
+		document.getElementById("account_email_Alert").innerHTML = "";
+		document.getElementById("account_email_tax_Alert").innerHTML = "";
+		document.getElementById("account_post_number_Alert").innerHTML = "";
+		document.getElementById("account_address_Alert").innerHTML = "";
+		document.getElementById("account_address_detail_Alert").innerHTML = "";
+		document.getElementById("account_category_Alert").innerHTML = "";
+		document.getElementById("account_registration_jpg_Alert").innerHTML = "";
+		
+		
+		if(document.getElementById("account_representative").value == ""){
+			document.getElementById("account_representative_Alert").innerText = "대표명을 먼저 입력해주세요.";
+			document.getElementById("account_representative_Alert").classList.add("text-danger");
+			document.getElementById("account_representative").focus();
+			return;
+		}else{	
+			document.getElementById("account_representative_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("company_code").value == ""){
+			document.getElementById("company_code_Alert").innerText = "로그인을 먼저 해주세요.";
+			document.getElementById("company_code_Alert").classList.add("text-danger");
+			document.getElementById("company_code").focus();
+			return;
+		}else{	
+			document.getElementById("company_code_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_name").value == ""){
+			document.getElementById("account_name_Alert").innerText = "회사명을 입력해주셔야 합니다.";
+			document.getElementById("account_name_Alert").classList.add("text-danger");
+			document.getElementById("account_name").focus();
+			return;
+		}else{	
+			document.getElementById("account_name_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("account_registration_number").value == ""){
+			document.getElementById("account_registration_number_Alert").innerText = "사업자번호를 입력해주셔야 합니다.";
+			document.getElementById("account_registration_number_Alert").classList.add("text-danger");
+			document.getElementById("account_registration_number").focus();
+			return;
+		}else{
+			document.getElementById("account_registration_number_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_corporate_registration_number").value == ""){
+			document.getElementById("account_corporate_registration_number_Alert").innerText = "법인등록번호를 입력해주셔야 합니다.";
+			document.getElementById("account_corporate_registration_number_Alert").classList.add("text-danger");
+			document.getElementById("account_corporate_registration_number").focus();
+			return;
+		}else{
+			document.getElementById("account_corporate_registration_number_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("account_phone").value == ""){
+			document.getElementById("account_phone_Alert").innerText = "전화번호를 입력해주셔야 합니다.";
+			document.getElementById("account_phone_Alert").classList.add("text-danger");
+			document.getElementById("account_phone").focus();
+			return;
+		}else{
+			document.getElementById("account_phone_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("account_pax_number").value == ""){
+			document.getElementById("account_pax_number_Alert").innerText = "팩스번호를 입력해주셔야 합니다.";
+			document.getElementById("account_pax_number_Alert").classList.add("text-danger");
+			document.getElementById("account_pax_number").focus();
+			return;
+		}else{
+			document.getElementById("account_pax_number_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_email").value == ""){
+			document.getElementById("account_email_Alert").innerText = "이메일(일반)을 입력해주셔야 합니다.";
+			document.getElementById("account_email_Alert").classList.add("text-danger");
+			document.getElementById("account_email").focus();
+			return;
+		}else{
+			document.getElementById("account_email_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_email_tax").value == ""){
+			document.getElementById("account_email_tax_Alert").innerText = "이메일(세금계산서)를 입력해주셔야 합니다.";
+			document.getElementById("account_email_tax_Alert").classList.add("text-danger");
+			document.getElementById("account_email_tax").focus();
+			return;
+		}else{
+			document.getElementById("account_email_tax_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_post_number").value == ""){
+			document.getElementById("account_post_number_Alert").innerText = "우편번호를 입력해주셔야 합니다.";
+			document.getElementById("account_post_number_Alert").classList.add("text-danger");
+			document.getElementById("account_post_number").focus();
+			return;
+		}else{
+			document.getElementById("account_post_number_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_address").value == ""){
+			document.getElementById("account_address_Alert").innerText = "주소를 입력해주셔야 합니다.";
+			document.getElementById("account_address_Alert").classList.add("text-danger");
+			document.getElementById("account_address").focus();
+			return;
+		}else{
+			document.getElementById("account_address_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_address_detail").value == ""){
+			document.getElementById("account_address_detail_Alert").innerText = "상세주소를 입력해주셔야 합니다.";
+			document.getElementById("account_address_detail_Alert").classList.add("text-danger");
+			document.getElementById("account_address_detail").focus();
+			return;
+		}else{
+			document.getElementById("account_address_detail_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_category").value == ""){
+			document.getElementById("account_category_Alert").innerText = "거래처 분류를 입력해주셔야 합니다.";
+			document.getElementById("account_category_Alert").classList.add("text-danger");
+			document.getElementById("account_category").focus();
+			return;
+		}else{
+			document.getElementById("account_category_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_registration_jpg").value == ""){
+			document.getElementById("account_registration_jpg_Alert").innerText = "거래처 분류를 입력해주셔야 합니다.";
+			document.getElementById("account_registration_jpg_Alert").classList.add("text-danger");
+			document.getElementById("account_registration_jpg").focus();
+			return;
+		}else{
+			document.getElementById("account_registration_jpg_Alert").innerHTML = "";
+		}
+		
+		document.getElementById("insertBtn").click();
+		
+	}
+	
+	function checkRemove(){
+		
+		if(document.getElementById("account_representative").value != ""){
+			document.getElementById("account_representative_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("company_code").value != ""){
+			document.getElementById("company_code_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_name").value != ""){
+			document.getElementById("account_name_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_registration_number").value != ""){
+			document.getElementById("account_registration_number_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_corporate_registration_number").value != ""){
+			document.getElementById("account_corporate_registration_number_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_phone").value != ""){
+			document.getElementById("account_phone_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_pax_number").value != ""){
+			document.getElementById("account_pax_number_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_email").value != ""){
+			document.getElementById("account_email_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		
+		if(document.getElementById("account_email_tax").value != ""){
+			document.getElementById("account_email_tax_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_post_number").value != ""){
+			document.getElementById("account_post_number_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_address").value != ""){
+			document.getElementById("account_address_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_address_detail").value != ""){
+			document.getElementById("account_address_detail_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_category").value != ""){
+			document.getElementById("account_category_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_registration_jpg").value != ""){
+			document.getElementById("account_registration_jpg_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+	}
+	
+	function checkUpdate(){
+		
+		document.getElementById("account_representative_update_Alert").innerHTML = "";
+		document.getElementById("company_code_update_Alert").innerHTML = "";
+		document.getElementById("account_name_update_Alert").innerHTML = "";
+		document.getElementById("account_phone_update_Alert").innerHTML = "";
+		document.getElementById("account_pax_number_update_Alert").innerHTML = "";
+		document.getElementById("account_email_update_Alert").innerHTML = "";
+		document.getElementById("account_email_tax_update_Alert").innerHTML = "";
+		document.getElementById("account_post_number_update_Alert").innerHTML = "";
+		document.getElementById("account_address_update_Alert").innerHTML = "";
+		document.getElementById("account_address_detail_update_Alert").innerHTML = "";
+		document.getElementById("account_category_update_Alert").innerHTML = "";
+		document.getElementById("account_memo_update_Alert").innerHTML = "";
+		
+		
+		if(document.getElementById("account_representative_update").value == ""){
+			document.getElementById("account_representative_update_Alert").innerText = "대표명을 먼저 입력해주세요.";
+			document.getElementById("account_representative_update_Alert").classList.add("text-danger");
+			document.getElementById("account_representative_update").focus();
+			return;
+		}else{	
+			document.getElementById("account_representative_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("company_code_update").value == ""){
+			document.getElementById("company_code_update_Alert").innerText = "로그인을 먼저 해주세요.";
+			document.getElementById("company_code_update_Alert").classList.add("text-danger");
+			document.getElementById("company_code_update").focus();
+			return;
+		}else{	
+			document.getElementById("company_code_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_name_update").value == ""){
+			document.getElementById("account_name_update_Alert").innerText = "회사명을 입력해주셔야 합니다.";
+			document.getElementById("account_name_update_Alert").classList.add("text-danger");
+			document.getElementById("account_name_update").focus();
+			return;
+		}else{	
+			document.getElementById("account_name_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("account_phone_update").value == ""){
+			document.getElementById("account_phone_update_Alert").innerText = "전화번호를 입력해주셔야 합니다.";
+			document.getElementById("account_phone_update_Alert").classList.add("text-danger");
+			document.getElementById("account_phone_update").focus();
+			return;
+		}else{
+			document.getElementById("account_phone_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("account_pax_number_update").value == ""){
+			document.getElementById("account_pax_number_update_Alert").innerText = "팩스번호를 입력해주셔야 합니다.";
+			document.getElementById("account_pax_number_update_Alert").classList.add("text-danger");
+			document.getElementById("account_pax_number_update").focus();
+			return;
+		}else{
+			document.getElementById("account_pax_number_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_email_update").value == ""){
+			document.getElementById("account_email_update_Alert").innerText = "이메일(일반)을 입력해주셔야 합니다.";
+			document.getElementById("account_email_update_Alert").classList.add("text-danger");
+			document.getElementById("account_email_update").focus();
+			return;
+		}else{
+			document.getElementById("account_email_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_email_tax_update").value == ""){
+			document.getElementById("account_email_tax_update_Alert").innerText = "이메일(세금계산서)를 입력해주셔야 합니다.";
+			document.getElementById("account_email_tax_update_Alert").classList.add("text-danger");
+			document.getElementById("account_email_tax_update").focus();
+			return;
+		}else{
+			document.getElementById("account_email_tax_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_post_number_update").value == ""){
+			document.getElementById("account_post_number_update_Alert").innerText = "우편번호를 입력해주셔야 합니다.";
+			document.getElementById("account_post_number_update_Alert").classList.add("text-danger");
+			document.getElementById("account_post_number_update").focus();
+			return;
+		}else{
+			document.getElementById("account_post_number_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_address_update").value == ""){
+			document.getElementById("account_address_update_Alert").innerText = "주소를 입력해주셔야 합니다.";
+			document.getElementById("account_address_update_Alert").classList.add("text-danger");
+			document.getElementById("account_address_update").focus();
+			return;
+		}else{
+			document.getElementById("account_address_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_address_detail_update").value == ""){
+			document.getElementById("account_address_detail_update_Alert").innerText = "상세주소를 입력해주셔야 합니다.";
+			document.getElementById("account_address_detail_update_Alert").classList.add("text-danger");
+			document.getElementById("account_address_detail_update").focus();
+			return;
+		}else{
+			document.getElementById("account_address_detail_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("account_category_update").value == ""){
+			document.getElementById("account_category_update_Alert").innerText = "거래처 분류를 입력해주셔야 합니다.";
+			document.getElementById("account_category_update_Alert").classList.add("text-danger");
+			document.getElementById("account_category_update").focus();
+			return;
+		}else{
+			document.getElementById("account_category_update_Alert").innerHTML = "";
+		}
+		
+		document.getElementById("updateBtn").click();
+
+
+	}
+	
+	function checkUpdateRemove(){
+		
+		if(document.getElementById("account_representative_update").value != ""){
+			document.getElementById("account_representative_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("company_code_update").value != ""){
+			document.getElementById("company_code_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_name_update").value != ""){
+			document.getElementById("account_name_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_phone_update").value != ""){
+			document.getElementById("account_phone_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_pax_number_update").value != ""){
+			document.getElementById("account_pax_number_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_email_update").value != ""){
+			document.getElementById("account_email_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		
+		if(document.getElementById("account_email_tax_update").value != ""){
+			document.getElementById("account_email_tax_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_post_number_update").value != ""){
+			document.getElementById("account_post_number_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_address_update").value != ""){
+			document.getElementById("account_address_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_address_detail_update").value != ""){
+			document.getElementById("account_address_detail_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_category_update").value != ""){
+			document.getElementById("account_category_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_category_update").value != ""){
+			document.getElementById("account_representative_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+
+
+	}
 	
 	function insertAccountInfo(){
+		
+		var FD = new FormData();
 
 		var companyCodeVal = document.getElementById("company_code").value;
 		var nameVal = document.getElementById("account_name").value;
 		var accountRegistrationNumVal = document.getElementById("account_registration_number").value;
 		var accountCorporateRegistrationregiNumVal = document.getElementById("account_corporate_registration_number").value;
 		var accountRepresentativeVal = document.getElementById("account_representative").value;
+		
 		var accountPhoneVal = document.getElementById("account_phone").value;
 		var accountPaxNumVal = document.getElementById("account_pax_number").value;
 		var accountEmailVal = document.getElementById("account_email").value;
 		var accountEmailTaxEmailVal = document.getElementById("account_email_tax").value;
+		
 		var accountPostNumVal = document.getElementById("account_post_number").value;
 		var accountAddressVal = document.getElementById("account_address").value;
 		var accountAddressDetailVal = document.getElementById("account_address_detail").value;
 		var accountCategoryVal = document.getElementById("account_category").value;
-// 		var accountMemoVal = document.getElementById("account_memo").value;
-// 		var accountRegistrationJpgVal = document.getElementById("account_registration_jpg").value;
+		var accountMemoVal = document.getElementById("account_memo").value;
+		var accountRegistrationJpg = document.getElementById("account_registration_jpg");
+		var file = accountRegistrationJpg.files[0];
+		
+		
+		console.log("궁금한 것 " + file);
+		
+// 	    for (let i = 0; i < files.length; i++) {
+// 	        FD.append('files', files[i]);
+// 	    }
+		
+		 FD.append("company_code",companyCodeVal);
+		 FD.append("account_name",nameVal);
+		 FD.append("account_registration_number", accountRegistrationNumVal); 
+		 FD.append("account_corporate_registration_number", accountCorporateRegistrationregiNumVal);
+		 FD.append("account_representative", accountRepresentativeVal);
+		 
+		 FD.append("account_phone", accountPhoneVal);
+		 FD.append("account_pax_number", accountPaxNumVal);
+		 FD.append("account_email", accountEmailVal);
+		 FD.append("account_email_tax", accountEmailTaxEmailVal);
+		 
+		 FD.append("account_post_number", accountPostNumVal);
+		 FD.append("account_address", accountAddressVal);
+		 FD.append("account_address_detail", accountAddressDetailVal);
+		 FD.append("account_category", accountCategoryVal);
+		 FD.append("account_memo", accountMemoVal);
+		 FD.append("account_registration_jpg", file);
+		 
+
 
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -71,8 +555,8 @@
 				document.getElementById("account_address").value = "";
 				document.getElementById("account_address_detail").value = "";
 				document.getElementById("account_category").value = "";
-// 				document.getElementById("account_memo").value = "";
-// 				document.getElementById("account_registration_jpg").value = "";
+				document.getElementById("account_memo").value = "";
+				document.getElementById("account_registration_jpg").value = "";
 				
 				refreshAccountInfo();
 				
@@ -80,15 +564,15 @@
 			}
 		}
 		
-		xhr.open("post" , "./insertAccountInfo");
-		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("company_code=" + companyCodeVal +"&account_name=" + nameVal + "&account_registration_number=" + accountRegistrationNumVal + "&account_corporate_registration_number=" + accountCorporateRegistrationregiNumVal + 
-				"&account_representative=" + accountRepresentativeVal + "&account_phone=" + accountPhoneVal + "&account_pax_number=" + accountPaxNumVal + 
-				"&account_email=" + accountEmailVal + "&account_email_tax=" + accountEmailTaxEmailVal + "&account_post_number=" + accountPostNumVal + 
-				"&account_address=" + accountAddressVal + "&account_address_detail=" + accountAddressDetailVal + "&account_category=" + accountCategoryVal +
-				"&account_memo=" + accountMemoVal
-// 				"&account_registration_jpg=" + accountRegistrationJpgVal
-				);		
+		xhr.open("post" , "./insertAccountInfo", false);
+		xhr.setRequestHeader("Content-type", "multipart/form-data");
+// 		xhr.send("company_code=" + companyCodeVal +"&account_name=" + nameVal + "&account_registration_number=" + accountRegistrationNumVal + "&account_corporate_registration_number=" + accountCorporateRegistrationregiNumVal + 
+// 				"&account_representative=" + accountRepresentativeVal + "&account_phone=" + accountPhoneVal + "&account_pax_number=" + accountPaxNumVal + 
+// 				"&account_email=" + accountEmailVal + "&account_email_tax=" + accountEmailTaxEmailVal + "&account_post_number=" + accountPostNumVal + 
+// 				"&account_address=" + accountAddressVal + "&account_address_detail=" + accountAddressDetailVal + "&account_category=" + accountCategoryVal +
+// 				"&account_memo=" + accountMemoVal
+// 				);		
+		xhr.send(FD);
 		
 		
 	}
@@ -218,19 +702,19 @@
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
 					
-				document.getElementById("account_code").value = "";				
-				document.getElementById("company_code").value = "";	
-				document.getElementById("account_name").value = "";
-				document.getElementById("account_representative").value = "";
-				document.getElementById("account_phone").value = "";
-				document.getElementById("account_pax_number").value = "";
-				document.getElementById("account_email").value = "";
-				document.getElementById("account_email_tax").value = "";
-				document.getElementById("account_post_number").value = "";
-				document.getElementById("account_address").value = "";
-				document.getElementById("account_address_detail").value = "";
-				document.getElementById("account_category").value = "";
-				document.getElementById("account_memo").value = "";
+				document.getElementById("account_code_update").value = "";				
+				document.getElementById("company_code_update").value = "";	
+				document.getElementById("account_name_update").value = "";
+				document.getElementById("account_representative_update").value = "";
+				document.getElementById("account_phone_update").value = "";
+				document.getElementById("account_pax_number_update").value = "";
+				document.getElementById("account_email_update").value = "";
+				document.getElementById("account_email_tax_update").value = "";
+				document.getElementById("account_post_number_update").value = "";
+				document.getElementById("account_address_update").value = "";
+				document.getElementById("account_address_detail_update").value = "";
+				document.getElementById("account_category_update").value = "";
+				document.getElementById("account_memo_update").value = "";
 				
 			}
 		}
@@ -265,10 +749,6 @@
             }
         }
         
-// 		var params = "";
-// 		for(xxx of checkVal){
-// 			params += xxx;
-// 		}
 		
 		document.excelFo.code.value = checkVal;
 		
@@ -278,44 +758,6 @@
 		refreshAccountInfo();
         
  	}
-
-//  	function excelDowunload(){
-// // 	    var checkVal = new Array();
-	    
-// //         console.log(checkVal);
-	    
-// // 	    var obj_length = document.getElementsByName("checkAccount").length;
-// // 	    console.log(obj_length);
-	    
-// //         for (var i = 0; i < obj_length; i++) {
-
-// //             if (document.getElementsByName("checkAccount")[i].checked == true) {
-            	
-// //             	checkVal[i] = document.getElementsByName("checkAccount")[i].value;
-// //             }
-// //         }
-        
-// // 		var params = "";
-// // 		for(xxx of checkVal){
-// // 			params += "code=" + xxx + "&";
-// // 		}
-        
-// 		var xhr = new XMLHttpRequest();
-// // 		xhr.onreadystatechange = function () {
-// // 			if(xhr.readyState == 4 && xhr.status == 200){
-// // 				var result = JSON.parse(xhr.responseText);	
-					
-				
-// // 			}
-// // 		}
-		
-// 		xhr.open("get" , "../account/excel/download" , false);
-// // 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-// 		xhr.send();
-		
-// // 		refreshAccountInfo();
-        
-//  	}
 
 	
 	function deleteAccountInfo(){
@@ -426,7 +868,7 @@
 		th1.appendChild(input1);
 
 		var th2 = document.createElement("th");
-		th2.innerText = "거래처번호";
+		th2.innerText = "거래처코드";
 		tr1.appendChild(th2);
 		
 		var th3 = document.createElement("th");
@@ -434,7 +876,7 @@
 		tr1.appendChild(th3);
 
 		var th4 = document.createElement("th");
-		th4.innerText = "회사이름";
+		th4.innerText = "회사명";
 		tr1.appendChild(th4);
 
 		var th5 = document.createElement("th");
@@ -759,7 +1201,7 @@
 		th1.appendChild(input1);
 
 		var th2 = document.createElement("th");
-		th2.innerText = "거래처번호";
+		th2.innerText = "거래처코드";
 		tr1.appendChild(th2);
 		
 		var th3 = document.createElement("th");
@@ -767,7 +1209,7 @@
 		tr1.appendChild(th3);
 
 		var th4 = document.createElement("th");
-		th4.innerText = "회사이름";
+		th4.innerText = "회사명";
 		tr1.appendChild(th4);
 
 		var th5 = document.createElement("th");
@@ -1123,8 +1565,8 @@
 							<div class="input-group mb-3">
 									<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 										<option selected>선택</option>
-										<option value="account_code">거래처 번호</option>
-										<option value="account_name">회사 이름</option>
+										<option value="account_code">거래처코드</option>
+										<option value="account_name">회사명</option>
 										<option value="account_representative">대표명</option>
 									  </select>
 									<input id="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button">
@@ -1255,104 +1697,124 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">대표명</span>
-                                        <input id="account_representative" type="text" class="form-control">
+                                        <input id="account_representative" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_representative_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사코드</span>
-                                        <input id="company_code" type="text"  readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
+                                        <input id="company_code" onblur="checkRemove()" type="text"  readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
                                     </div>
+                                    <div id="company_code_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사명</span>
-                                        <input id="account_name" type="text" class="form-control">
+                                        <input id="account_name" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_name_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">사업자등록번호</span>
-                                        <input id="account_registration_number" type="text" class="form-control">
+                                        <input id="account_registration_number" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_registration_number_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">법인등록번호</span>
-                                        <input id="account_corporate_registration_number" type="text" class="form-control">
+                                        <input id="account_corporate_registration_number" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_corporate_registration_number_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">전화번호</span>
-                                        <input id="account_phone" type="text" class="form-control">
+                                        <input id="account_phone" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_phone_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">팩스번호</span>
-                                        <input id="account_pax_number" type="text" class="form-control">
+                                        <input id="account_pax_number" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_pax_number_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(일반)</span>
-                                        <input id="account_email" type="text" class="form-control">
+                                        <input id="account_email" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_email_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(세금계산서)</span>
-                                        <input id="account_email_tax" type="text" class="form-control">
+                                        <input id="account_email_tax" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_email_tax_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">우편번호</span>
-                                        <input id="account_post_number" type="text" class="form-control">
+                                        <input id="account_post_number" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_post_number_Alert" onblur="checkRemove()" class="mb-3"></div>
                                 </div>
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">주소</span>
-                                        <input id="account_address" type="text" class="form-control">
+                                        <input id="account_address" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_address_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">상세주소</span>
-                                        <input id="account_address_detail" type="text" class="form-control">
+                                        <input id="account_address_detail" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_address_detail_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">거래처 분류</span>
-                                        <input id="account_category" type="text" class="form-control">
+                                        <input id="account_category" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_category_Alert" class="mb-3"></div>
                                 </div>
                             </div>
+                             <div class="row my-3">
+                                <div class="input-group">
+                                    <label class="input-group-text" for="inputGroupFile01">사업자등록증</label>
+                                    <input id="account_registration_jpg" onblur="checkRemove()" type="file" accept="image/*" class="form-control">
+                                </div>
+                                <div id="account_registration_jpg_Alert" class="mb-3"></div> 
+                            </div>   
                             <div class="row mt-3">
                                 <div class="col">
                                     <input class="form-control text-center" type="text" value="비고" aria-label="Disabled input example" disabled readonly>
@@ -1360,22 +1822,16 @@
                             </div>
                             <div class="row mt-1">
                                 <div class="col">
-                                    <textarea id="account_memo" class="form-control" style="height: 100px"></textarea>                                  
-                                </div>  
-                            </div>
-
-<!--                             <div class="row my-3"> -->
-<!--                                 <div class="input-group"> -->
-<!--                                     <label class="input-group-text" for="inputGroupFile01">사업자등록증</label> -->
-<!--                                     <input id="account_registration_jpg" type="file" accept="image/*" class="form-control"> -->
-<!--                                 </div> -->
-<!--                             </div>                   -->
+                                    <textarea id="account_memo" class="form-control" style="height: 100px"></textarea>
+                                </div>
+                            </div>      
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="insertAccountInfo()" data-bs-dismiss="modal">등록</button>
+                  <button type="button" class="btn btn-primary" onclick="check()">등록</button>
+                  <button type="button" id="insertBtn" class="btn btn-primary" onclick="insertAccountInfo()" data-bs-dismiss="modal" hidden>등록</button>
                 </div>
               </div>
             </div>
@@ -1393,91 +1849,110 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-control mt-3">
-                        	<input id="account_code_update" type="hidden" class="form-control">
+                        	<div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">거래처코드</span>
+                                        <input id="account_code_update" readonly onblur="checkUpdateRemove()" type="text" class="form-control">
+                                    </div>
+                                    <div id="account_code_update_Alert" class="mb-3"></div>
+                                </div>
+                            </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">대표명</span>
-                                        <input id="account_representative_update" type="text" class="form-control">
+                                        <input id="account_representative_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_representative_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사코드</span>
-                                        <input id="company_code_update" type="text"  readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
+                                        <input id="company_code_update" onblur="checkUpdateRemove()" type="text"  readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
                                     </div>
+                                    <div id="company_code_update_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사명</span>
-                                        <input id="account_name_update" type="text" class="form-control">
+                                        <input id="account_name_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_name_update_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">전화번호</span>
-                                        <input id="account_phone_update" type="text" class="form-control">
+                                        <input id="account_phone_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_phone_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">팩스번호</span>
-                                        <input id="account_pax_number_update" type="text" class="form-control">
+                                        <input id="account_pax_number_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_pax_number_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(일반)</span>
-                                        <input id="account_email_update" type="text" class="form-control">
+                                        <input id="account_email_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_email_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(세금계산서)</span>
-                                        <input id="account_email_tax_update" type="text" class="form-control">
+                                        <input id="account_email_tax_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_email_tax_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">우편번호</span>
-                                        <input id="account_post_number_update" type="text" class="form-control">
+                                        <input id="account_post_number_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_post_number_update_Alert" class="mb-3"></div>
                                 </div>
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">주소</span>
-                                        <input id="account_address_update" type="text" class="form-control">
+                                        <input id="account_address_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_address_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">상세주소</span>
-                                        <input id="account_address_detail_update" type="text" class="form-control">
+                                        <input id="account_address_detail_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_address_detail_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">거래처 분류</span>
-                                        <input id="account_category_update" type="text" class="form-control">
+                                        <input id="account_category_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="account_category_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -1489,13 +1964,15 @@
                                 <div class="col">
                                     <textarea id="account_memo_update" class="form-control" style="height: 100px"></textarea>                                  
                                 </div>  
+                                <div id="account_memo_update_Alert" class="mb-3"></div>
                             </div>              
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="updateAccountInfo()" data-bs-dismiss="modal">수정</button>
+                  <button type="button" class="btn btn-primary" onclick="checkUpdate()">수정</button>
+                  <button type="button" id="updateBtn" class="btn btn-primary" onclick="updateAccountInfo()" data-bs-dismiss="modal" hidden>수정</button>
                 </div>
               </div>
             </div>

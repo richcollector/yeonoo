@@ -111,8 +111,7 @@
                         사용자 메뉴
                     </button>
                     <div class="usermenu-content">
-                        <a href="">개인정보수정(x)</a><br>
-                        <!-- <a href="">조직도정보(x)</a><br>  -->
+                        <a href="../main/userInfoUpdatePage">개인정보수정(△)</a><br>
                         <a href="../company/employeeRankInfoPage">직급정보(△)</a><br>           
                         <a href="../company/departmentInfoPage">부서정보(△)</a><br>     
                         <a href="">직원정보(x)</a><br> 

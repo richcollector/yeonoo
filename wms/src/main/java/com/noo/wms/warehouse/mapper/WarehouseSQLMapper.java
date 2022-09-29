@@ -21,5 +21,18 @@ public interface WarehouseSQLMapper {
 	public void updateArea (AreaVo areaVo);
 	public void updateRack (RackVo rackVo);
 	public void updateCell (CellVo cellVo);
+	public void deleteCell (CellVo cellVo);
+	public void deleteRack (RackVo rackVo);
+	public void whenDeleteRack (CellVo cellVo);
+	public void deleteArea (String areaCode);
+	public void deleteWarehouse (String warehouseCode);
+	public void deleteAreaVo (AreaVo areaVo);
+	//구역코드로 검색
+	public ArrayList<CellVo> selectCellByArea (String areaCode);
+	public ArrayList<RackVo> selectRackByArea (String areaCode);
+	//창고코드로 검색
+	public ArrayList<CellVo> selectCellByWarehouse (String warehouseCode);
+	public ArrayList<RackVo> selectRackByWarehouse (String warehouseCode);
+	public ArrayList<AreaVo> selectAreaByWarehouse (String warehouseCode);
 	
 }

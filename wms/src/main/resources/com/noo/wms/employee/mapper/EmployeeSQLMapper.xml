@@ -7,8 +7,7 @@
 <!-- 	발주 -->
 	<select id="purchaseInfo" resultType="com.noo.wms.vo.PurchaseVo">		
 		SELECT * FROM Purchase
-			<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND company_code = #{company_code}
+			<trim prefix="WHERE" prefixOverrides="AND|OR">			
 				<if test="searchType=='purchase_code' and searchWord != null and searchWord != '' ">				
 					AND purchase_code like CONCAT('%', #{searchWord}, '%')			
 				</if>			
@@ -25,7 +24,6 @@
 	<select id="purchaseInfoCount" resultType="int">
 		SELECT COUNT(*) FROM Purchase
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND company_code = #{company_code}
 			<if test="searchWord != null and searchWord != '' ">			
 				<if test="searchType=='purchase_code'">				
 					AND purchase_code like CONCAT('%', #{searchWord}, '%')			
@@ -67,6 +65,21 @@
 		#{purchase_memo})
 	</insert>
 	
+	<insert id="insertPurchaseDetailInfo">
+		INSERT into Purchase_detail (
+		purchase_code,
+		product_code,
+		product_amount,
+		product_name,
+		product_price
+		) values (
+		#{purchase_code},
+		#{product_code},
+		#{product_amount},
+		#{product_name},
+		#{product_price})
+	</insert>
+	
 	<select id="selectPurchaseInfo" resultType="com.noo.wms.vo.PurchaseVo">
 		SELECT * FROM Purchase
 		WHERE purchase_code = #{purchase_code}
@@ -93,85 +106,11 @@
 		WHERE purchase_code = #{purchase_code}
 	</delete>
 	
-	<!-- 발주 디테일 -->
-	<select id="purchaseDetailInfo" resultType="com.noo.wms.vo.PurchaseDetailVo">		
-		SELECT * FROM Purchase_detail
-			<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND purchase_code = #{purchase_code}
-				<if test="searchType=='product_code' and searchWord != null and searchWord != '' ">				
-					AND product_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='product_name' and searchWord != null and searchWord != '' ">				
-					AND product_name like CONCAT('%', #{searchWord}, '%')			
-				</if>		
-			</trim>		
-		LIMIT #{startList}, 15
-	</select>
-
-	<select id="purchaseDetailInfoCount" resultType="int">
-		SELECT COUNT(*) FROM Purchase_detail
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND purchase_code = #{purchase_code}
-			<if test="searchWord != null and searchWord != '' ">			
-				<if test="searchType=='product_code'">				
-					AND product_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='product_name'">				
-					AND product_name like CONCAT('%', #{searchWord}, '%')			
-				</if>
-			</if>
-		</trim>
-	</select>
 	
-	<insert id="insertPurchaseDetailInfo">
-		INSERT into Purchase_detail (
-		purchase_code,
-		product_code,
-		product_name,
-		product_price,
-		product_amount
-		) values (
-		#{purchase_code},
-		#{product_code},
-		#{product_name},
-		#{product_price},
-		#{product_amount}
-		)
-	</insert>
-	
-	<select id="selectPurchaseDetailInfo" resultType="com.noo.wms.vo.PurchaseDetailVo">
-		SELECT * FROM Purchase_detail
-		WHERE purchase_detail_code = #{purchase_detail_code}
-	</select>
-	
-	<update id="updatePurchaseDetailInfo">
-		UPDATE Purchase_detail SET
-		purchase_code = #{purchase_code},
-		product_code = #{product_code},
-		product_name = #{product_name},
-		product_price = #{product_price},
-		product_amount = #{product_amount}
-		WHERE purchase_detail_code = #{purchase_detail_code}
-	</update>
-	
-	<delete id="deletePurchaseDetailInfo">
-		DELETE FROM Purchase_detail
-		WHERE purchase_detail_code = #{purchase_detail_code}
-	</delete>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 	제품 -->
+	<!-- 	상품 -->
 	<select id="productInfo" resultType="com.noo.wms.vo.ProductVo">		
 		SELECT * FROM Product
-			<trim prefix="WHERE" prefixOverrides="AND|OR">		
-					AND company_code = #{company_code}	
+			<trim prefix="WHERE" prefixOverrides="AND|OR">			
 				<if test="searchType=='product_code' and searchWord != null and searchWord != '' ">				
 					AND product_code like CONCAT('%', #{searchWord}, '%')			
 				</if>			
@@ -188,7 +127,6 @@
 	<select id="productInfoCount" resultType="int">
 		SELECT COUNT(*) FROM Product
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND company_code = #{company_code}
 			<if test="searchWord != null and searchWord != '' ">			
 				<if test="searchType=='product_code'">				
 					AND product_code like CONCAT('%', #{searchWord}, '%')			
@@ -201,11 +139,6 @@
 				</if>
 			</if>
 		</trim>
-	</select>
-	
-	<select id="excelProductSelect" resultType="com.noo.wms.vo.ProductVo">
-		SELECT * FROM Product
-		WHERE product_code = #{product_code}
 	</select>
 	
 	<insert id="insertProductInfo">
@@ -247,6 +180,7 @@
 		product_version = #{product_version},
 		product_type = #{product_type},
 		product_register_date = SYSDATE(),
+		product_register_employee = #{product_register_employee},
 		product_update_date = SYSDATE(),
 		product_update_employee = #{product_update_employee},
 		product_memo = #{product_memo}
@@ -265,7 +199,6 @@
 	<select id="obtainOrderInfo" resultType="com.noo.wms.vo.ObtainOrderVo">		
 		SELECT * FROM Obtain_order
 			<trim prefix="WHERE" prefixOverrides="AND|OR">			
-					AND company_code = #{company_code}
 				<if test="searchType=='obtain_order_code' and searchWord != null and searchWord != '' ">				
 					AND obtain_order_code like CONCAT('%', #{searchWord}, '%')			
 				</if>			
@@ -282,7 +215,6 @@
 	<select id="obtainOrderInfoCount" resultType="int">
 		SELECT COUNT(*) FROM Obtain_order
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND company_code = #{company_code}
 			<if test="searchWord != null and searchWord != '' ">			
 				<if test="searchType=='obtain_order_code'">				
 					AND obtain_order_code like CONCAT('%', #{searchWord}, '%')			
@@ -338,6 +270,8 @@
 		obtain_order_manager = #{obtain_order_manager},
 		obtain_order_date = #{obtain_order_date},
 		obtain_order_due_date = #{obtain_order_due_date},
+		obtain_order_register_date = SYSDATE(),
+		obtain_order_register_employee = #{obtain_order_register_employee},
 		obtain_order_update_date = SYSDATE(),
 		obtain_order_update_employee = #{obtain_order_update_employee},
 		obtain_order_memo = #{obtain_order_memo}
@@ -349,82 +283,14 @@
 		WHERE obtain_order_code = #{obtain_order_code}
 	</delete>
 	
-	<!-- 수주디테일 -->
-		<select id="obtainOrderDetailInfo" resultType="com.noo.wms.vo.ObtainOrderDetailVo">		
-		SELECT * FROM Obtain_order_detail
-			<trim prefix="WHERE" prefixOverrides="AND|OR">	
-					AND obtain_order_code = #{obtain_order_code}
-				<if test="searchType=='product_code' and searchWord != null and searchWord != '' ">				
-					AND product_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='product_name' and searchWord != null and searchWord != '' ">				
-					AND product_name like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-			</trim>		
-		LIMIT #{startList}, 15
-	</select>
-
-	<select id="obtainOrderDetailInfoCount" resultType="int">
-		SELECT COUNT(*) FROM Obtain_order_detail
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND obtain_order_code = #{obtain_order_code}
-			<if test="searchWord != null and searchWord != '' ">		
-				<if test="searchType=='product_code' and searchWord != null and searchWord != '' ">				
-					AND product_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='product_name' and searchWord != null and searchWord != '' ">				
-					AND product_name like CONCAT('%', #{searchWord}, '%')			
-				</if>	
-			</if>
-		</trim>
-	</select>
-	
-	<insert id="insertObtainOrderDetailInfo">
-		INSERT into Obtain_order_detail (
-		obtain_order_code,
-		product_code,
-		product_name,
-		product_price,
-		product_amount
-		) VALUES (
-		#{obtain_order_code},
-		#{product_code},
-		#{product_name},
-		#{product_price},
-		#{product_amount}
-		)
-	</insert>
-	
-	<select id="selectObtainOrderDetailInfo" resultType="com.noo.wms.vo.ObtainOrderDetailVo">
-		SELECT * FROM Obtain_order_detail
-		WHERE obtain_order_detail_code = #{obtain_order_detail_code}
-	</select>
-	
-	<update id="updateObtainOrderDetailInfo">
-		UPDATE Obtain_order_detail SET
-			obtain_order_code = #{obtain_order_code},
-			product_code = #{product_code},
-			product_name = #{product_name},
-			product_price = #{product_price},
-			product_amount = #{product_amount}
-		WHERE obtain_order_detail_code = #{obtain_order_detail_code}
-	</update>
-	
-	<delete id="deleteObtainOrderDetailInfo">
-		DELETE FROM Obtain_order_detail
-		WHERE obtain_order_detail_code = #{obtain_order_detail_code}
-	</delete>
 	
 	
 	
 	
-	
-	
-	<!-- 	생산 -->
+			<!-- 	생산 -->
 	<select id="manufactureInfo" resultType="com.noo.wms.vo.ManufactureVo">		
 		SELECT * FROM Manufacture
-			<trim prefix="WHERE" prefixOverrides="AND|OR">		
-					AND company_code = #{company_code}	
+			<trim prefix="WHERE" prefixOverrides="AND|OR">			
 				<if test="searchType=='manufacture_code' and searchWord != null and searchWord != '' ">				
 					AND manufacture_code like CONCAT('%', #{searchWord}, '%')			
 				</if>			
@@ -441,7 +307,6 @@
 	<select id="manufactureInfoCount" resultType="int">
 		SELECT COUNT(*) FROM Manufacture
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND company_code = #{company_code}
 			<if test="searchWord != null and searchWord != '' ">			
 				<if test="searchType=='manufacture_code'">				
 					AND manufacture_code like CONCAT('%', #{searchWord}, '%')			
@@ -494,6 +359,7 @@
 		manufacture_manager = #{manufacture_manager},
 		manufacture_date = #{manufacture_date},
 		manufacture_due_date = #{manufacture_due_date},
+		manufacture_register_employee = #{manufacture_register_employee},
 		manufacture_update_employee = #{manufacture_update_employee},
 		manufacture_memo = #{manufacture_memo}
 		WHERE manufacture_code = #{manufacture_code}
@@ -504,77 +370,6 @@
 		WHERE manufacture_code = #{manufacture_code}
 	</delete>
 	
-		<!-- 	생산 디테일 -->
-	<select id="manufactureDetailInfo" resultType="com.noo.wms.vo.ManufactureDetailVo">		
-		SELECT * FROM Manufacture_detail
-			<trim prefix="WHERE" prefixOverrides="AND|OR">		
-					AND manufacture_code = #{manufacture_code}	
-				<if test="searchType=='product_code' and searchWord != null and searchWord != '' ">				
-					AND product_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='product_name' and searchWord != null and searchWord != '' ">				
-					AND product_name like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-			</trim>		
-		LIMIT #{startList}, 15
-	</select>
-
-	<select id="manufactureInfoDetailCount" resultType="int">
-		SELECT COUNT(*) FROM Manufacture_detail
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND manufacture_code = #{manufacture_code}
-			<if test="searchWord != null and searchWord != '' ">			
-				<if test="searchType=='product_code'">				
-					AND product_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='product_name'">				
-					AND product_name like CONCAT('%', #{searchWord}, '%')			
-				</if>
-			</if>
-		</trim>
-	</select>
-	
-	<insert id="insertManufactureDetailInfo">
-		INSERT into Manufacture_detail (
-		manufacture_code,
-		product_code,
-		product_name,
-		product_amount,
-		product_price
-		) values (
-		#{manufacture_code},
-		#{product_code},
-		#{product_name},
-		#{product_amount},
-		#{product_price}
-		)
-	</insert>
-	
-	<select id="selectManufactureDetailInfo" resultType="com.noo.wms.vo.ManufactureDetailVo">
-		SELECT * FROM Manufacture_detail
-		WHERE manufacture_detail_code = #{manufacture_detail_code}
-	</select>
-	
-	<update id="updateManufactureDetailInfo">
-		UPDATE Manufacture_detail SET
-		manufacture_code = #{manufacture_code},
-		product_code = #{product_code},
-		product_name = #{product_name},
-		product_amount = #{product_amount},
-		product_price = #{product_price}
-		WHERE manufacture_detail_code = #{manufacture_detail_code}
-	</update>
-	
-	<delete id="deleteManufactureDetailInfo">
-		DELETE FROM Manufacture_detail
-		WHERE manufacture_detail_code = #{manufacture_detail_code}
-	</delete>
-	
-	
-	
-	
-
-	
 	
 	
 	
@@ -582,8 +377,7 @@
 	<!-- 	출하 -->
 	<select id="outboundInfo" resultType="com.noo.wms.vo.OutboundVo">		
 		SELECT * FROM Outbound
-			<trim prefix="WHERE" prefixOverrides="AND|OR">	
-					AND company_code = #{company_code}		
+			<trim prefix="WHERE" prefixOverrides="AND|OR">			
 				<if test="searchType=='outbound_code' and searchWord != null and searchWord != '' ">				
 					AND outbound_code like CONCAT('%', #{searchWord}, '%')			
 				</if>			
@@ -600,7 +394,6 @@
 	<select id="outboundInfoCount" resultType="int">
 		SELECT COUNT(*) FROM Outbound
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND company_code = #{company_code}
 			<if test="searchWord != null and searchWord != '' ">			
 				<if test="searchType=='outbound_code'">				
 					AND outbound_code like CONCAT('%', #{searchWord}, '%')			
@@ -651,7 +444,6 @@
 		outbound_date = #{outbound_date},
 		outbound_manager = #{outbound_manager},
 		outbound_register_employee = #{outbound_register_employee},
-		outbound_update_date = SYSDATE(),
 		outbound_update_employee = #{outbound_update_employee},
 		outbound_memo = #{outbound_memo}
 		WHERE outbound_code = #{outbound_code}
@@ -662,72 +454,6 @@
 		WHERE outbound_code = #{outbound_code}
 	</delete>
 	
-	<!-- 출하 디테일 -->
-	<select id="outboundDetailInfo" resultType="com.noo.wms.vo.OutboundDetailVo">		
-		SELECT * FROM Outbound_detail
-			<trim prefix="WHERE" prefixOverrides="AND|OR">		
-					AND outbound_code = #{outbound_code}		
-				<if test="searchType=='product_code' and searchWord != null and searchWord != '' ">				
-					AND product_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='product_name' and searchWord != null and searchWord != '' ">				
-					AND product_name like CONCAT('%', #{searchWord}, '%')			
-				</if>		
-			</trim>		
-		LIMIT #{startList}, 15
-	</select>
-
-	<select id="outboundDetailInfoCount" resultType="int">
-		SELECT COUNT(*) FROM Outbound_detail
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND outbound_code = #{outbound_code}
-			<if test="searchWord != null and searchWord != '' ">			
-				<if test="searchType=='product_code'">				
-					AND product_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='product_name'">				
-					AND product_name like CONCAT('%', #{searchWord}, '%')			
-				</if>
-			</if>
-		</trim>
-	</select>
-	
-	<insert id="insertOutboundDetailInfo">
-		INSERT into Outbound_detail (
-		outbound_code,
-		product_code,
-		product_name,
-		product_amount,
-		product_price
-		) values (
-		#{outbound_code},
-		#{product_code},
-		#{product_name},
-		#{product_amount},
-		#{product_price}
-		)
-	</insert>
-	
-	<select id="selectOutboundDetailInfo" resultType="com.noo.wms.vo.OutboundDetailVo">
-		SELECT * FROM Outbound_detail
-		WHERE outbound_detail_code = #{outbound_detail_code}
-	</select>
-	
-	<update id="updateOutboundDetailInfo">
-		UPDATE Outbound_detail SET
-		outbound_code = #{outbound_code},
-		product_code = #{product_code},
-		product_name = #{product_name},
-		product_amount = #{product_amount},
-		product_price = #{product_price}
-		WHERE outbound_detail_code = #{outbound_detail_code}
-	</update>
-	
-	<delete id="deleteOutboundDetailInfo">
-		DELETE FROM Outbound_detail
-		WHERE outbound_detail_code = #{outbound_detail_code}
-	</delete>
-	
 	
 	
 	
@@ -735,8 +461,7 @@
 		<!-- 	제품 단가 -->
 	<select id="productPriceInfo" resultType="com.noo.wms.vo.ProductPriceVo">		
 		SELECT * FROM Product_price
-			<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND company_code = #{company_code}			
+			<trim prefix="WHERE" prefixOverrides="AND|OR">			
 				<if test="searchType=='product_price_code' and searchWord != null and searchWord != '' ">				
 					AND product_price_code like CONCAT('%', #{searchWord}, '%')			
 				</if>			
@@ -753,7 +478,6 @@
 	<select id="productPriceInfoCount" resultType="int">
 		SELECT COUNT(*) FROM Product_price
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND company_code = #{company_code}
 			<if test="searchWord != null and searchWord != '' ">			
 				<if test="searchType=='product_price_code'">				
 					AND product_price_code like CONCAT('%', #{searchWord}, '%')			
@@ -771,7 +495,6 @@
 	<insert id="insertProductPriceInfo">
 		INSERT into Product_price (
 		product_code,
-		company_code,
 		product_name,
 		product_price_purchase,
 		product_price_purchase_date,
@@ -780,12 +503,11 @@
 		product_price_memo
 		) values (
 		#{product_code},
-		#{company_code},
 		#{product_name},
 		#{product_price_purchase},
-		#{product_price_purchase_date},
+		SYSDATE(),
 		#{product_price_selling},
-		#{product_price_selling_date},
+		SYSDATE(),
 		#{product_price_memo}
 		)
 	</insert>
@@ -798,11 +520,8 @@
 	<update id="updateProductPriceInfo">
 		UPDATE Product_price SET
 		product_code = #{product_code},
-		company_code = #{company_code},
 		product_price_purchase = #{product_price_purchase},
-		product_price_purchase_date = #{product_price_purchase_date},
 		product_price_selling = #{product_price_selling},
-		product_price_selling_date = #{product_price_selling_date},
 		product_price_memo = #{product_price_memo}
 		WHERE product_price_code = #{product_price_code}
 	</update>

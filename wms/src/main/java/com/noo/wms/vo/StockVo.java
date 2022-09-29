@@ -7,8 +7,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class StockVo {
 
 	private String stock_code;
+	private String company_code;
 	private String lot_code;
 	private String product_code;
+	private String warehouse_code;
 	private String warehouse_area_code;
 	private String warehouse_rack_code;
 	private String warehouse_cell_code;
@@ -25,13 +27,16 @@ public class StockVo {
 		super();
 	}
 
-	public StockVo(String stock_code, String lot_code, String product_code, String warehouse_area_code,
-			String warehouse_rack_code, String warehouse_cell_code, int stock_amount, Date stock_register_date,
-			String stock_register_employee, Date stock_update_date, String stock_update_employee, String stock_memo) {
+	public StockVo(String stock_code, String company_code, String lot_code, String product_code, String warehouse_code,
+			String warehouse_area_code, String warehouse_rack_code, String warehouse_cell_code, int stock_amount,
+			Date stock_register_date, String stock_register_employee, Date stock_update_date,
+			String stock_update_employee, String stock_memo) {
 		super();
 		this.stock_code = stock_code;
+		this.company_code = company_code;
 		this.lot_code = lot_code;
 		this.product_code = product_code;
+		this.warehouse_code = warehouse_code;
 		this.warehouse_area_code = warehouse_area_code;
 		this.warehouse_rack_code = warehouse_rack_code;
 		this.warehouse_cell_code = warehouse_cell_code;
@@ -51,6 +56,14 @@ public class StockVo {
 		this.stock_code = stock_code;
 	}
 
+	public String getCompany_code() {
+		return company_code;
+	}
+
+	public void setCompany_code(String company_code) {
+		this.company_code = company_code;
+	}
+
 	public String getLot_code() {
 		return lot_code;
 	}
@@ -65,6 +78,14 @@ public class StockVo {
 
 	public void setProduct_code(String product_code) {
 		this.product_code = product_code;
+	}
+
+	public String getWarehouse_code() {
+		return warehouse_code;
+	}
+
+	public void setWarehouse_code(String warehouse_code) {
+		this.warehouse_code = warehouse_code;
 	}
 
 	public String getWarehouse_area_code() {

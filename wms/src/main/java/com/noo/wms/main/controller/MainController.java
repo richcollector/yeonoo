@@ -109,31 +109,4 @@ public class MainController {
 		mainService.deleteNotice(notice_code);
 		return "redirect:/main/mainPage";
 	}
-	
-	//개인 정보 수정 페이지
-	@RequestMapping("userInfoUpdatePage")
-	public String userInfoUpdatePage(Model model , HttpSession session) {
-			EmployeeVo employeeInfo = (EmployeeVo)session.getAttribute("employeeInfo");
-			
-			model.addAttribute("employeeInfo" , employeeInfo);
-		return "/main/userInfoUpdatePage";
-	}
-	
-	//비밀 번호 변경
-	@RequestMapping("updateEmployeePwProcess")
-	public String updateEmployeePwProcess(EmployeeVo empoEmployeeVo){
-		mainService.updateEmployeePw(empoEmployeeVo);
-		
-		return "/main/loginPage";
-	}
-	
-	//사원 정보 관리 페이지
-	@RequestMapping("employeeInfoManagePage")
-	public String employeeInfoManagePage(Model model , HttpSession session) {
-		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
-		
-		model.addAttribute("adminInfo" , adminInfo);
-		
-		return "/main/employeeInfoManagePage";
-	}
 }

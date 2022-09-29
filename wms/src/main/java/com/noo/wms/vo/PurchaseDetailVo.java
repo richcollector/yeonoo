@@ -1,14 +1,5 @@
 package com.noo.wms.vo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 public class PurchaseDetailVo {
 	private String purchase_detail_code;
 	private String purchase_code;
@@ -81,11 +72,3 @@ public class PurchaseDetailVo {
 	}
 	
 }
-
-
-
-
-
-
-
-

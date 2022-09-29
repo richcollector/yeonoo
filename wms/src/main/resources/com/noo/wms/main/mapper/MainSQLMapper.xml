@@ -14,6 +14,7 @@
 	<!-- 사원 회원가입 -->
 	<insert id="insertEmployee">
 		insert into Employee(
+			company_code,
 			department_code,
 			employee_rank_code,
 			authority_code,
@@ -24,6 +25,7 @@
 			employee_join_date,
 			employee_leave_date
 		) values (
+			#{company_code},
 			#{department_code},
 			'rank_code',
 			'1',
@@ -98,11 +100,13 @@
 	<insert id="insertNotice">
 		insert into Notice(
 			admin_code,
+			company_code,
 			notice_title,
 			notice_content,
 			notice_write_date
 		) values (
 			#{admin_code},
+			#{company_code},
 			#{notice_title},
 			#{notice_content},
 			SYSDATE()

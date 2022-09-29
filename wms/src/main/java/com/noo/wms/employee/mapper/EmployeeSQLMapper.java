@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.noo.wms.vo.AccountVo;
 import com.noo.wms.vo.ManufactureDetailVo;
 import com.noo.wms.vo.ManufactureVo;
+import com.noo.wms.vo.ObtainOrderDetailVo;
 import com.noo.wms.vo.ObtainOrderVo;
 import com.noo.wms.vo.OutboundDetailVo;
 import com.noo.wms.vo.OutboundVo;
@@ -81,6 +82,9 @@ public interface EmployeeSQLMapper {
 								@Param("company_code") String company_code
 								);
 	
+	//상품 엑셀 값
+	public ProductVo excelProductSelect(String product_code);
+	
 	//상품 등록하기
 	public void insertProductInfo(ProductVo productVo);
 	
@@ -116,6 +120,28 @@ public interface EmployeeSQLMapper {
 	
 	//수주 삭제하기
 	public void deleteObtainOrderInfo(ObtainOrderVo obtain_order_code);
+	
+	//수주디테일 불러오기
+	public ArrayList<ObtainOrderDetailVo> obtainOrderDetailInfo(@Param("searchType") String searchType, 
+											@Param("searchWord") String searchWord,
+											@Param("startList") int startList,
+											@Param("obtain_order_code") String obtain_order_code
+											);
+	
+	public int obtainOrderDetailInfoCount(@Param("searchType") String searchType, 
+								@Param("searchWord") String searchWord,
+								@Param("obtain_order_code") String obtain_order_code
+								);
+	
+	//수주디테일 등록하기
+	public void insertObtainOrderDetailInfo(ObtainOrderDetailVo obtainOrderDetailVo);
+	
+	//수주디테일 수정하기
+	public ObtainOrderDetailVo selectObtainOrderDetailInfo(ObtainOrderDetailVo obtain_order_detail_code);
+	public void updateObtainOrderDetailInfo(ObtainOrderDetailVo obtainOrderDetailVo);
+	
+	//수주디테일 삭제하기
+	public void deleteObtainOrderDetailInfo(ObtainOrderDetailVo obtain_order_detail_code);
 	
 	
 	

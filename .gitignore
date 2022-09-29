@@ -66,9 +66,3 @@ local.properties
 ### Eclipse Patch ###
 # Spring Boot Tooling
 .sts4-cache/
-
-# End of https://www.toptal.com/developers/gitignore/api/eclipse
-wms/target/m2e-wtp/web-resources/META-INF/maven/com.noo/wms/pom.properties
-*.MF
-*.MF
-*.properties

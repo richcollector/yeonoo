@@ -428,6 +428,33 @@ function checkUpdateRemove(){
 		refreshProductInfo();
 	}
 	
+ 	function excelDowunload(){
+
+	    var checkVal = new Array();
+	    
+        console.log(checkVal);
+	    
+	    var obj_length = document.getElementsByName("checkProduct").length;
+	    console.log(obj_length);
+	    
+        for (var i = 0; i < obj_length; i++) {
+
+            if (document.getElementsByName("checkProduct")[i].checked == true) {
+            	
+            	checkVal[i] = document.getElementsByName("checkProduct")[i].value;
+            }
+        }
+		
+		document.excelFo.code.value = checkVal;
+		
+		var excelForm = document.getElementById("excelForm");
+		excelForm.submit();
+		
+		refreshProductInfo();
+        
+ 	}
+	
+	
 	function deleteProductInfo(){
 		
 	    var checkVal = new Array();
@@ -634,7 +661,7 @@ function checkUpdateRemove(){
 				trIn1.appendChild(td7);
 
 				var td8 = document.createElement("td");
-				td8.innerText = commentData.product_register_date;
+				td8.innerText = moment(commentData.product_register_date).format('YYYY-MM-DD');
 				trIn1.appendChild(td8);
 
 				var td9 = document.createElement("td");
@@ -642,7 +669,7 @@ function checkUpdateRemove(){
 				trIn1.appendChild(td9);
 
 				var td10 = document.createElement("td");
-				td10.innerText = commentData.product_update_date;
+				td10.innerText = moment(commentData.product_update_date).format('YYYY-MM-DD');
 				trIn1.appendChild(td10);
 
 				var td11 = document.createElement("td");
@@ -686,7 +713,7 @@ function checkUpdateRemove(){
 
 					var inA1 = document.createElement("a");
 					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshProductInfoPage("+i-1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA1.setAttribute("href","javascript:refreshProductInfoPage("+(i-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA1.setAttribute("aria-label","Previous");
 					inLi1.appendChild(inA1);
@@ -757,7 +784,7 @@ function checkUpdateRemove(){
 
 					var inA3 = document.createElement("a");
 					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshProductInfoPage("+i+1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("href","javascript:refreshProductInfoPage("+(i+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA3.setAttribute("aria-label","Next");
 					inLi3.appendChild(inA3);
@@ -915,7 +942,7 @@ function checkUpdateRemove(){
 				trIn1.appendChild(td7);
 
 				var td8 = document.createElement("td");
-				td8.innerText = commentData.product_register_date;
+				td8.innerText = moment(commentData.product_register_date).format('YYYY-MM-DD');
 				trIn1.appendChild(td8);
 
 				var td9 = document.createElement("td");
@@ -923,7 +950,7 @@ function checkUpdateRemove(){
 				trIn1.appendChild(td9);
 
 				var td10 = document.createElement("td");
-				td10.innerText = commentData.product_update_date;
+				td10.innerText = moment(commentData.product_update_date).format('YYYY-MM-DD');
 				trIn1.appendChild(td10);
 
 				var td11 = document.createElement("td");
@@ -970,7 +997,7 @@ function checkUpdateRemove(){
 
 					var inA1 = document.createElement("a");
 					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshProductInfoPage("+i-1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA1.setAttribute("href","javascript:refreshProductInfoPage("+(i-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA1.setAttribute("aria-label","Previous");
 					inLi1.appendChild(inA1);
@@ -1043,7 +1070,7 @@ function checkUpdateRemove(){
 
 					var inA3 = document.createElement("a");
 					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshProductInfoPage("+i+1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("href","javascript:refreshProductInfoPage("+(i+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA3.setAttribute("aria-label","Next");
 					inLi3.appendChild(inA3);
@@ -1096,7 +1123,23 @@ function checkUpdateRemove(){
 		            	 </button>
 		            </div>
 		            <div class="col-6 text-end mx-0 pt-1">
-		            	<span class="fs-5">제품 관리</span>
+		            	<div class="row">
+		            		<div class="col">
+       				             <form id="excelForm" name="excelFo" action="../employee/product/excel/download" method="post">
+					             	<input type="hidden" name="code" value="">
+									<input type="button" value="Excel 다운로드" onclick="excelDowunload()" type="button" class="btn btn-light">
+								</form>
+		            		</div>
+		            		<div class="col-2 ps-0">
+       				             <form id="excelUploadForm" name="excelUploadFo" action="#" method="post">
+					             	<input type="hidden" name="code" value="">
+									<input type="button" value="Excel 업로드" onclick="excelUpload()" type="button" class="btn btn-light">
+								</form>
+		            		</div>
+		            		<div class="col-3">
+		            			<span class="fs-5">제품 관리</span>
+		            		</div>
+		            	</div>
 		            </div>
 	            </div>
 	        </div>   

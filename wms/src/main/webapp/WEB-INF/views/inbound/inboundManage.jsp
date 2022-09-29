@@ -486,13 +486,7 @@
 					bodyCheckBox.setAttribute("onclick","isChecked()");
 					bodyCheckBox.value = companyInbound.inbound_code;
 					bodyTd1.appendChild(bodyCheckBox);
-					
-					//안되면 이거 삭제
-					var cbHidden = document.createElement("input");
-					cbHidden.setAttribute("type","hidden");
-					cbHidden.value = companyInbound.stock_code;
-					bodyCheckBox.appendChild(cbHidden);
-					
+						
 					var inboundCodeTh = document.createElement("th");
 					inboundCodeTh.innerText = companyInbound.inbound_code;
 					bodyTr.appendChild(inboundCodeTh)			
@@ -610,29 +604,18 @@
 	                 if (document.getElementsByName("selectedIb")[i].checked == true) {
 	                 		                	
 	                	checkVal = document.getElementsByName("selectedIb")[i].value;
-	                	checkStVal = document.getElementsByName("selectedIb")[i].firstChild.value;  
-	                	
+	                	console.log(checkVal);
 	                 	var thisUpdate = document.getElementById("upIbCodeInfo");
 	                 	thisUpdate.innerText = checkVal;
 	                 	
 	                 	var updateHiddenBox = document.getElementById("selectedForUpdate");
 	                	updateHiddenBox.innerHTML = "";
 	                	
-	                	var updateHiddenValue = document.createElement("input");
+	                	updateHiddenValue = document.createElement("input");
 	                	updateHiddenValue.setAttribute("type","hidden");
 	                	updateHiddenValue.value = checkVal;
 	                	updateHiddenBox.appendChild(updateHiddenValue);
-						
-	                	//문제 발생시 이 코드 삭제
-	                	                	
-	                	var updateHbStuckCode = document.getElementById("upStockCode");
-	                	updateHbStuckCode.innerHTML = "";
-	                	
-	                	var updateHbStuckCodeValue = document.createElement("input");
-	                	updateHbStuckCodeValue.setAttribute("type","hidden");
-	                	updateHbStuckCodeValue.value = checkStVal;
-	                	updateHbStuckCode.appendChild(updateHbStuckCodeValue);
-	                	
+	
 	                 }
 	             }
 	        	
@@ -776,14 +759,14 @@
 				var productCodeValInput = document.getElementById("upProductCode");
 				productCodeValInput.innerHTML = "";		
 				
-				var productCodeValue = document.createElement("input");
-				productCodeValue.setAttribute("type","hidden");			
-				productCodeValue.value = jsonObj.lot.lot.product_code;
-				productCodeValInput.appendChild(productCodeValue);				
+				var productCodeVlaue = document.createElement("input");
+				productCodeVlaue.setAttribute("type","hidden");			
+				productCodeVlaue.value = jsonObj.lot.lot.product_code;
+				productCodeValInput.appendChild(productCodeVlaue);
 				
 				var upCleanUI = document.getElementById("upHelpBox");
 				upCleanUI.innerHTML = "";
-	
+				
 				
 			}		
 		}
@@ -1004,7 +987,7 @@
 	
 	function updateIbound(){
 		
-		var upIbCodeVal = document.getElementById("selectedForUpdate").firstChild.value;
+		var upIbCodeVal = document.getElementById("selectedForUpdate").firstChild.value
 		var upLotCodeVal = document.getElementById("upLotCode").firstChild.value;
 		var upProductCodeVal = document.getElementById("upProductCode").firstChild.value;
 		var upWhCodeVal = document.getElementById("upWarehouseCode").value;
@@ -1013,7 +996,6 @@
 		var upClCodeVal = document.getElementById("upCellCode").value;
 		var upAmountVal = document.getElementById("upInboundAmount").value;
 		var upMemoVal = document.getElementById("upInboundMemo").value;	
-		var upStockCodeVal = document.getElementById("upStockCode").firstChild.value;		
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -1029,7 +1011,6 @@
 				document.getElementById("upCellCode").value = "";
 				document.getElementById("upInboundAmount").value = "";
 				document.getElementById("upInboundMemo").value = "";
-				document.getElementById("upStockCode").firstChild.value = "";
 				
 				inboundList()
 				
@@ -1038,9 +1019,9 @@
 		
 		xhr.open("post" , "./updateInbound");
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("lot_code=" + upLotCodeVal + "&product_code=" + upProductCodeVal + "&warehouse_code=" + upWhCodeVal + 
+		xhr.send("lot_code=" + upIbCodeVal + "&product_code=" + upProductCodeVal + "&warehouse_code=" + upWhCodeVal + 
 				"&warehouse_area_code="+ upArCodeVal + "&warehouse_rack_code=" + upRkCodeVal + "&warehouse_cell_code=" + upClCodeVal + 
-				"&inbound_amount=" + upAmountVal + "&inbound_memo=" + upMemoVal +"&inbound_code=" + upIbCodeVal + "&stock_code=" + upStockCodeVal);	
+				"&inbound_amount=" + upAmountVal + "&inbound_memo=" + upMemoVal +"&inbound_code=" + upIbCodeVal);	
 		
 	}
 	
@@ -1048,7 +1029,6 @@
 	function deleteInbound(){
 		
 		var checkList = new Array();
-		var checkStList = new Array();
 		
 		var listLength = document.getElementsByName("selectedIb").length;
 		
@@ -1057,7 +1037,7 @@
             if (document.getElementsByName("selectedIb")[i].checked == true) {
             	
             	checkList[i] = document.getElementsByName("selectedIb")[i].value;
-            	checkStList[i] = document.getElementsByName("selectedIb")[i].firstChild.value;  
+            	
             }
         }
 		
@@ -1074,9 +1054,11 @@
 		
 		xhr.open("post" , "./deleteInbound" , false);
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("ibCode=" + checkList + "&stCode=" + checkStList);
+		xhr.send("code=" + checkList);
 	
 	}
+	
+	
 	
 	window.addEventListener("DOMContentLoaded" , function (){			
 		
@@ -1291,7 +1273,6 @@
                             		<div id="uplotItem"></div>
                             		<div id="upHelpBox"></div>
                             		<div id="selectedForUpdate"></div>
-                            		<div id="upStockCode"></div>
                             		<div id="upLotCode"></div>
                             		<div id="upProductCode"></div>
                         		</div>

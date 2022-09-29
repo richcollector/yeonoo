@@ -31,4 +31,15 @@
 		WHERE company_code = #{companyCode}
 	</select>
 	
+	<update id="lotUpdate">
+		UPDATE Lot
+		SET product_code = #{product_code}
+		WHERE lot_code = #{lot_code}
+	</update>
+	
+	<delete id="lotDelete">
+		DELETE FROM Lot
+		WHERE lot_code = #{lot_code}
+	</delete>
+	
 </mapper>

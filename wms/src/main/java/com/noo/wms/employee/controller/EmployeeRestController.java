@@ -3,9 +3,6 @@ package com.noo.wms.employee.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +14,6 @@ import com.noo.wms.account.service.AccountServiceImpl;
 import com.noo.wms.employee.service.EmployeeServiceImpl;
 import com.noo.wms.vo.AccountVo;
 import com.noo.wms.vo.ManufactureVo;
-import com.noo.wms.vo.ObtainOrderDetailVo;
 import com.noo.wms.vo.ObtainOrderVo;
 import com.noo.wms.vo.OutboundVo;
 import com.noo.wms.vo.ProductPriceVo;
@@ -44,7 +40,7 @@ public class EmployeeRestController {
 		int orderCount = employeeService.purchaseInfoCount(searchType, searchWord);
 		
 		//올림처리
-		int totalPageCount = (int)Math.ceil(orderCount/15.0);
+		int totalPageCount = (int)Math.ceil(orderCount/10.0);
 
 		int startPage = ((pageNum-1)/5)*5 + 1;
 		int endPage = ((pageNum-1)/5+1)*5;
@@ -119,7 +115,7 @@ public class EmployeeRestController {
 		int orderCount = employeeService.productInfoCount(searchType, searchWord);
 		
 		//올림처리
-		int totalPageCount = (int)Math.ceil(orderCount/15.0);
+		int totalPageCount = (int)Math.ceil(orderCount/10.0);
 
 		int startPage = ((pageNum-1)/5)*5 + 1;
 		int endPage = ((pageNum-1)/5+1)*5;
@@ -198,7 +194,7 @@ public class EmployeeRestController {
 		int orderCount = employeeService.obtainOrderInfoCount(searchType, searchWord);
 		
 		//올림처리
-		int totalPageCount = (int)Math.ceil(orderCount/15.0);
+		int totalPageCount = (int)Math.ceil(orderCount/10.0);
 
 		int startPage = ((pageNum-1)/5)*5 + 1;
 		int endPage = ((pageNum-1)/5+1)*5;
@@ -222,110 +218,43 @@ public class EmployeeRestController {
 		map.put("additionalParamType", additionalParamType);
 		map.put("additionalParamWord", additionalParamWord);
 		map.put("obtainOrderList", obtainOrderList);
-		map.put("result", "success");
 		
 		return map;
 	}
 	
-	//수주디테일
-	@RequestMapping("obtainOrderDetailInfo")
-	public HashMap<String, Object> obtainOrderDetailInfo(HttpSession session, Model model, String searchType, String searchWord,
-									@RequestParam(value="pageNum", defaultValue = "1") int pageNum, String obtain_order_code) {
-		
-		System.out.println("수주디테일래컨");
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		ArrayList<ObtainOrderDetailVo> obtainOrderDetailList = employeeService.obtainOrderDetailInfo(searchType , searchWord, pageNum, obtain_order_code);
-
-		
-		int orderCount = employeeService.obtainOrderDetailInfoCount(searchType, searchWord, obtain_order_code);
-		
-		//올림처리
-		int totalPageCount = (int)Math.ceil(orderCount/15.0);
-
-		int startPage = ((pageNum-1)/5)*5 + 1;
-		int endPage = ((pageNum-1)/5+1)*5;
-		
-		if(endPage > totalPageCount) {
-			endPage = totalPageCount;
-		}
-		
-		
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("currentPageNum", pageNum);
-		map.put("totalPageCount", totalPageCount);
-		
-		//링크유지
-		String additionalParamType = "";
-		String additionalParamWord = "";
-		if(searchType != null && searchWord != null) {
-			additionalParamType +=  searchType;
-			additionalParamWord += searchWord;
-		}
-		map.put("additionalParamType", additionalParamType);
-		map.put("additionalParamWord", additionalParamWord);
-		map.put("obtainOrderDetailList", obtainOrderDetailList);
-		map.put("result", "success");
-		session.setAttribute("obtain_order_code", obtain_order_code);
-		
-		return map;
-	}
-	
-	@RequestMapping("insertObtainOrderDetailInfo")
-	public HashMap<String, Object> insertObtainOrderInfo(HttpSession session, ObtainOrderDetailVo obtainOrderDetailVo) {
+	@RequestMapping("insertObtainOrderInfo")
+	public void insertObtainOrderInfo(ObtainOrderVo obtainOrderVo) {
 		System.out.println("들어오니");
-		employeeService.insertObtainOrderDetailInfo(obtainOrderDetailVo);
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("result", "success");
-
-		
-		map.put("obtain_order_code", session.getAttribute("obtain_order_code"));
-		
-		return map;
+		employeeService.insertObtainOrderInfo(obtainOrderVo);
 	}
 	
-	@RequestMapping("selectObtainOrderDetailInfo")
-	public ObtainOrderDetailVo selectObtainOrderDetailInfo(ObtainOrderDetailVo obtain_order_detail_code) {
+	@RequestMapping("selectObtainOrderInfo")
+	public ObtainOrderVo selectObtainOrderInfo(ObtainOrderVo obtain_order_code) {
 		
-		ObtainOrderDetailVo obtainOrderDetailVo =  employeeService.selectObtainOrderDetailInfo(obtain_order_detail_code);
-		return obtainOrderDetailVo;
+		ObtainOrderVo obtainOrderVo =  employeeService.selectObtainOrderInfo(obtain_order_code);
+
+		return obtainOrderVo;
 	}
 
-	@RequestMapping("updateObtainOrderDatailInfo")
-	public HashMap<String, Object> updateObtainOrderDatailInfo(ObtainOrderDetailVo obtainOrderDetailVo) {
-		
-		System.out.println("업데이투 들어오니");
-		System.out.println(obtainOrderDetailVo);
-		System.out.println(obtainOrderDetailVo.getObtain_order_detail_code());
-		
-		employeeService.updateObtainOrderDetailInfo(obtainOrderDetailVo);
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("result", "success");
-		
-		return map;
+	@RequestMapping("updateObtainOrderInfo")
+	public void updateObtainOrderInfo(ObtainOrderVo obtainOrderVo) {
+		System.out.println("업데이투");
+		System.out.println(obtainOrderVo);
+		System.out.println(obtainOrderVo.getObtain_order_code());
+		employeeService.updateObtainOrderInfo(obtainOrderVo);
 	}
 	
-	@RequestMapping("deleteObtainOrderDetailInfo")
-	public HashMap<String, Object> deleteObtainOrderDetailInfo(HttpSession session, String [] code) {
+	@RequestMapping("deleteObtainOrderInfo")
+	public void deleteObtainOrderInfo(String [] code) {
 		
 		for (String codeNum : code) {
-			ObtainOrderDetailVo obtainOrderDetailVo = new ObtainOrderDetailVo();
-			obtainOrderDetailVo.setObtain_order_detail_code(codeNum);
-			employeeService.deleteObtainOrderDetailInfo(obtainOrderDetailVo);
+			ObtainOrderVo obtain_order_code = new ObtainOrderVo();
+			obtain_order_code.setObtain_order_code(codeNum);
+			employeeService.deleteObtainOrderInfo(obtain_order_code);
 		}
 		
 		System.out.println("들어옴??");
 		System.out.println(code);
-		
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("result", "success");
-		map.put("obtain_order_code", session.getAttribute("obtain_order_code"));
-		
-		return map;
 	}
 
 	
@@ -346,7 +275,7 @@ public class EmployeeRestController {
 		int orderCount = employeeService.manufactureInfoCount(searchType, searchWord);
 		
 		//올림처리
-		int totalPageCount = (int)Math.ceil(orderCount/15.0);
+		int totalPageCount = (int)Math.ceil(orderCount/10.0);
 
 		int startPage = ((pageNum-1)/5)*5 + 1;
 		int endPage = ((pageNum-1)/5+1)*5;
@@ -370,46 +299,34 @@ public class EmployeeRestController {
 		map.put("additionalParamType", additionalParamType);
 		map.put("additionalParamWord", additionalParamWord);
 		map.put("manufactureList", manufactureList);
-		map.put("result", "success");
 		
 		return map;
 	}
 	
 	@RequestMapping("insertManufactureInfo")
-	public HashMap<String, Object> insertManufactureInfo(ManufactureVo manufactureVo) {
+	public void insertManufactureInfo(ManufactureVo manufactureVo) {
 		System.out.println("들어오니");
 		employeeService.insertManufactureInfo(manufactureVo);
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("result", "success");
-		
-		return map;
 	}
 	
 	@RequestMapping("selectManufactureInfo")
 	public ManufactureVo selectManufactureInfo(ManufactureVo manufacture_code) {
 		
 		ManufactureVo manufactureVo =  employeeService.selectManufactureInfo(manufacture_code);
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		return manufactureVo;
 	}
 
 	@RequestMapping("updateManufactureInfo")
-	public HashMap<String, Object> updateManufactureInfo(ManufactureVo manufactureVo) {
+	public void updateManufactureInfo(ManufactureVo manufactureVo) {
 		System.out.println("업데이투");
 		System.out.println(manufactureVo);
 		System.out.println(manufactureVo.getManufacture_code());
 		employeeService.updateManufactureInfo(manufactureVo);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("result", "success");
-		
-		return map;
 	}
 	
 	@RequestMapping("deleteManufactureInfo")
-	public HashMap<String, Object> deleteManufactureInfo(String [] code) {
+	public void deleteManufactureInfo(String [] code) {
 		
 		for (String codeNum : code) {
 			ManufactureVo manufacture_code = new ManufactureVo();
@@ -419,11 +336,6 @@ public class EmployeeRestController {
 		
 		System.out.println("들어옴??");
 		System.out.println(code);
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("result", "success");
-		
-		return map;
 	}
 	
 	
@@ -444,7 +356,7 @@ public class EmployeeRestController {
 		int orderCount = employeeService.outboundInfoCount(searchType, searchWord);
 		
 		//올림처리
-		int totalPageCount = (int)Math.ceil(orderCount/15.0);
+		int totalPageCount = (int)Math.ceil(orderCount/10.0);
 
 		int startPage = ((pageNum-1)/5)*5 + 1;
 		int endPage = ((pageNum-1)/5+1)*5;
@@ -525,7 +437,7 @@ public class EmployeeRestController {
 		int orderCount = employeeService.productPriceInfoCount(searchType, searchWord);
 		
 		//올림처리
-		int totalPageCount = (int)Math.ceil(orderCount/15.0);
+		int totalPageCount = (int)Math.ceil(orderCount/10.0);
 
 		int startPage = ((pageNum-1)/5)*5 + 1;
 		int endPage = ((pageNum-1)/5+1)*5;

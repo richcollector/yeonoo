@@ -161,8 +161,8 @@
 				accountCode.value = jsonObj.account_code;
 				purchaseState.value = jsonObj.purchase_state;
 				purchaseManager.value = jsonObj.purchase_manager;
-				purchaseDate.value = moment(jsonObj.purchase_date).format('YYYY-MM-DD');
-				purchaseDueDate.value = moment(jsonObj.purchase_due_date).format('YYYY-MM-DD');
+				purchaseDate.value = moment(jsonObj.purchase_date).format('YYYY.MM.DD');
+				purchaseDueDate.value = moment(jsonObj.purchase_due_date).format('YYYY.MM.DD');
 // 				purchaseRegisterDateVal = jsonObj.purchase_register_date;
 				purchaseRegisterEmployee.value = jsonObj.purchase_register_employee;
 // 				purchaseUpdateDateVal = jsonObj.purchase_update_date;
@@ -468,15 +468,15 @@
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
-				td7.innerText = moment(commentData.purchase_date).format('YYYY-MM-DD');
+				td7.innerText = moment(commentData.purchase_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td7);
 
 				var td8 = document.createElement("td");
-				td8.innerText = moment(commentData.purchase_due_date).format('YYYY-MM-DD');
+				td8.innerText = moment(commentData.purchase_due_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td8);
 				
 				var td9 = document.createElement("td");
-				td9.innerText = moment(commentData.purchase_register_date).format('YYYY-MM-DD');
+				td9.innerText = moment(commentData.purchase_register_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td9);
 
 				var td10 = document.createElement("td");
@@ -484,7 +484,7 @@
 				trIn1.appendChild(td10);
 				
 				var td11 = document.createElement("td");
-				td11.innerText = moment(commentData.purchase_update_date).format('YYYY-MM-DD');
+				td11.innerText = moment(commentData.purchase_update_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td11);
 
 				var td10 = document.createElement("td");
@@ -765,15 +765,15 @@
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
-				td7.innerText = moment(commentData.purchase_date).format('YYYY-MM-DD');
+				td7.innerText = moment(commentData.purchase_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td7);
 
 				var td8 = document.createElement("td");
-				td8.innerText = moment(commentData.purchase_due_date).format('YYYY-MM-DD');
+				td8.innerText = moment(commentData.purchase_due_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td8);
 				
 				var td9 = document.createElement("td");
-				td9.innerText = moment(commentData.purchase_register_date).format('YYYY-MM-DD');
+				td9.innerText = moment(commentData.purchase_register_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td9);
 
 				var td10 = document.createElement("td");
@@ -781,7 +781,7 @@
 				trIn1.appendChild(td10);
 				
 				var td11 = document.createElement("td");
-				td11.innerText = moment(commentData.purchase_update_date).format('YYYY-MM-DD');
+				td11.innerText = moment(commentData.purchase_update_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td11);
 
 				var td10 = document.createElement("td");

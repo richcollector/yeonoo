@@ -7,7 +7,7 @@
 <!-- 	발주 -->
 	<select id="purchaseInfo" resultType="com.noo.wms.vo.PurchaseVo">		
 		SELECT * FROM Purchase
-			<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<trim prefix="WHERE" prefixOverrides="AND|OR">			
 				<if test="searchType=='purchase_code' and searchWord != null and searchWord != '' ">				
 					AND purchase_code like CONCAT('%', #{searchWord}, '%')			
 				</if>			
@@ -141,11 +141,6 @@
 		</trim>
 	</select>
 	
-	<select id="excelProductSelect" resultType="com.noo.wms.vo.ProductVo">
-		SELECT * FROM Product
-		WHERE product_code = #{product_code}
-	</select>
-	
 	<insert id="insertProductInfo">
 		INSERT into Product (
 		company_code,
@@ -275,6 +270,8 @@
 		obtain_order_manager = #{obtain_order_manager},
 		obtain_order_date = #{obtain_order_date},
 		obtain_order_due_date = #{obtain_order_due_date},
+		obtain_order_register_date = SYSDATE(),
+		obtain_order_register_employee = #{obtain_order_register_employee},
 		obtain_order_update_date = SYSDATE(),
 		obtain_order_update_employee = #{obtain_order_update_employee},
 		obtain_order_memo = #{obtain_order_memo}
@@ -285,73 +282,6 @@
 		DELETE FROM Obtain_order
 		WHERE obtain_order_code = #{obtain_order_code}
 	</delete>
-	
-	<!-- 수주디테일 -->
-		<select id="obtainOrderDetailInfo" resultType="com.noo.wms.vo.ObtainOrderDetailVo">		
-		SELECT * FROM Obtain_order_detail
-			<trim prefix="WHERE" prefixOverrides="AND|OR">	
-					AND obtain_order_code = #{obtain_order_code}
-				<if test="searchType=='product_code' and searchWord != null and searchWord != '' ">				
-					AND product_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='product_name' and searchWord != null and searchWord != '' ">				
-					AND product_name like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-			</trim>		
-		LIMIT #{startList}, 15
-	</select>
-
-	<select id="obtainOrderDetailInfoCount" resultType="int">
-		SELECT COUNT(*) FROM Obtain_order_detail
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-					AND obtain_order_code = #{obtain_order_code}
-			<if test="searchWord != null and searchWord != '' ">		
-				<if test="searchType=='product_code' and searchWord != null and searchWord != '' ">				
-					AND product_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='product_name' and searchWord != null and searchWord != '' ">				
-					AND product_name like CONCAT('%', #{searchWord}, '%')			
-				</if>	
-			</if>
-		</trim>
-	</select>
-	
-	<insert id="insertObtainOrderDetailInfo">
-		INSERT into Obtain_order_detail (
-		obtain_order_code,
-		product_code,
-		product_name,
-		product_price,
-		product_amount
-		) VALUES (
-		#{obtain_order_code},
-		#{product_code},
-		#{product_name},
-		#{product_price},
-		#{product_amount}
-		)
-	</insert>
-	
-	<select id="selectObtainOrderDetailInfo" resultType="com.noo.wms.vo.ObtainOrderDetailVo">
-		SELECT * FROM Obtain_order_detail
-		WHERE obtain_order_detail_code = #{obtain_order_detail_code}
-	</select>
-	
-	<update id="updateObtainOrderDetailInfo">
-		UPDATE Obtain_order_detail SET
-			obtain_order_code = #{obtain_order_code},
-			product_code = #{product_code},
-			product_name = #{product_name},
-			product_price = #{product_price},
-			product_amount = #{product_amount}
-		WHERE obtain_order_detail_code = #{obtain_order_detail_code}
-	</update>
-	
-	<delete id="deleteObtainOrderDetailInfo">
-		DELETE FROM Obtain_order_detail
-		WHERE obtain_order_detail_code = #{obtain_order_detail_code}
-	</delete>
-	
 	
 	
 	

@@ -98,7 +98,7 @@
                 <a href="../main/mainPage"><span class="textWhite mx-4">WMS</span></a>            
             </div>
             <div class="col textWhite">
-                <span>${employeeInfo.employee_name } ${adminInfo.company_code } <a href="../main/logOutProcess"><i class="bi bi-power"></i></a><!--logout button--> </span>                           
+                <span>관리자 이름 <a href="../main/logOutProcess"><i class="bi bi-power"></i></a><!--logout button--> </span>                           
             </div>
             <div class="col">
                 <div class="usermenu">
@@ -107,9 +107,9 @@
                     </button>
                     <div class="usermenu-content">
                         <a href="">개인정보수정(x)</a><br>
-                        <!-- <a href="">조직도정보(x)</a><br>  -->
-                        <a href="../company/employeeRankInfoPage">직급정보(△)</a><br>           
-                        <a href="../company/departmentInfoPage">부서정보(△)</a><br>     
+                        <a href="">조직도정보(x)</a><br>
+                        <a href="">직급정보(x)</a><br>           
+                        <a href="">부서정보(x)</a><br>     
                         <a href="">직원정보(x)</a><br> 
                     </div>
                 </div>              
@@ -121,7 +121,7 @@
                 </button>
                 <div class="usermenu-content">
                         <a href="../company/companyInfoPage">회사정보(△)</a><br>
-                        <a href="../account/accountInfoPage">거래처정보(o)</a><br>
+                        <a href="../account/accountInfoPage">거래처정보(△)</a><br>
                         <a href="../employee/productInfoPage">물품정보(△)</a><br>
                         <a href="../warehouse/warehouseList">창고정보(△)</a><br>
                         <a href="../lot/lotManage">로트관리(△)</a>            
@@ -137,7 +137,9 @@
                     <a href="../employee/obtainOrderInfoPage">수주정보(△)</a><br>
                     <a href="../employee/manufactureInfoPage">생산정보(△)</a><br>
                     <a href="../employee/outboundInfoPage">출하정보(△)</a><br>            
-                    <a href="../employee/productPriceInfoPage">단가정보(△)</a><br>
+                    <a href="../employee/productPriceInfoPage">단가정보(△)</a><br>      
+                    <a href="">수주대비출고(x)</a><br>
+                    <a href="">매입대비매출(x)</a>
                 </div>          
                 </div>            
             </div>

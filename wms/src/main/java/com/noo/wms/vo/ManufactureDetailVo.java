@@ -1,7 +1,17 @@
 package com.noo.wms.vo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 public class ManufactureDetailVo {
-	private String pmanufacture_detail_code;
+	private String manufacture_detail_code;
 	private String manufacture_code;
 	private String product_code;
 	private String product_name;
@@ -12,10 +22,10 @@ public class ManufactureDetailVo {
 		super();
 	}
 
-	public ManufactureDetailVo(String pmanufacture_detail_code, String manufacture_code, String product_code,
+	public ManufactureDetailVo(String manufacture_detail_code, String manufacture_code, String product_code,
 			String product_name, int product_amount, String product_price) {
 		super();
-		this.pmanufacture_detail_code = pmanufacture_detail_code;
+		this.manufacture_detail_code = manufacture_detail_code;
 		this.manufacture_code = manufacture_code;
 		this.product_code = product_code;
 		this.product_name = product_name;
@@ -23,12 +33,12 @@ public class ManufactureDetailVo {
 		this.product_price = product_price;
 	}
 
-	public String getPmanufacture_detail_code() {
-		return pmanufacture_detail_code;
+	public String getManufacture_detail_code() {
+		return manufacture_detail_code;
 	}
 
-	public void setPmanufacture_detail_code(String pmanufacture_detail_code) {
-		this.pmanufacture_detail_code = pmanufacture_detail_code;
+	public void setManufacture_detail_code(String manufacture_detail_code) {
+		this.manufacture_detail_code = manufacture_detail_code;
 	}
 
 	public String getManufacture_code() {
@@ -71,5 +81,12 @@ public class ManufactureDetailVo {
 		this.product_price = product_price;
 	}
 	
-	
 }
+
+
+
+
+
+
+
+

@@ -2,17 +2,22 @@ package com.noo.wms.employee.service;
 
 import java.util.ArrayList;
 
+import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.noo.wms.account.mapper.AccountSQLMapper;
 import com.noo.wms.employee.mapper.EmployeeSQLMapper;
 import com.noo.wms.vo.AccountVo;
+import com.noo.wms.vo.ManufactureDetailVo;
 import com.noo.wms.vo.ManufactureVo;
+import com.noo.wms.vo.ObtainOrderDetailVo;
 import com.noo.wms.vo.ObtainOrderVo;
+import com.noo.wms.vo.OutboundDetailVo;
 import com.noo.wms.vo.OutboundVo;
 import com.noo.wms.vo.ProductPriceVo;
 import com.noo.wms.vo.ProductVo;
+import com.noo.wms.vo.PurchaseDetailVo;
 import com.noo.wms.vo.PurchaseVo;
 
 @Service
@@ -22,16 +27,16 @@ public class EmployeeServiceImpl {
 	private EmployeeSQLMapper employeeSQLMapper;
 	
 	//발주
-	public ArrayList<PurchaseVo> purchaseInfo(String searchType, String searchWord, int pageNum){
+	public ArrayList<PurchaseVo> purchaseInfo(String searchType, String searchWord, int pageNum, String company_code){
 		
-		int startList = (pageNum-1)*10;
+		int startList = (pageNum-1)*15;
 		
-		ArrayList<PurchaseVo> purchaseList = employeeSQLMapper.purchaseInfo(searchType , searchWord, startList);
+		ArrayList<PurchaseVo> purchaseList = employeeSQLMapper.purchaseInfo(searchType , searchWord, startList, company_code);
 		return purchaseList;
 	}
 	
-	public int purchaseInfoCount(String searchType, String searchWord){
-		int purchaseList = employeeSQLMapper.purchaseInfoCount(searchType , searchWord);
+	public int purchaseInfoCount(String searchType, String searchWord, String company_code){
+		int purchaseList = employeeSQLMapper.purchaseInfoCount(searchType , searchWord, company_code);
 		
 		return purchaseList;
 	}
@@ -55,22 +60,67 @@ public class EmployeeServiceImpl {
 		employeeSQLMapper.deletePurchaseInfo(purchase_code);
 	}
 	
+	//발주 디테일
+	public ArrayList<PurchaseDetailVo> purchaseDetailInfo(String searchType, String searchWord, int pageNum, String purchase_code){
+		
+		int startList = (pageNum-1)*15;
+		
+		ArrayList<PurchaseDetailVo> purchaseDetailList = employeeSQLMapper.purchaseDetailInfo(searchType , searchWord, startList, purchase_code);
+		return purchaseDetailList;
+	}
+	
+	public int purchaseDetailInfoCount(String searchType, String searchWord, String purchase_code){
+		int purchaseDetailList = employeeSQLMapper.purchaseDetailInfoCount(searchType , searchWord, purchase_code);
+		
+		return purchaseDetailList;
+	}
+	
+	
+	
+	public void insertPurchaseDetailInfo(PurchaseDetailVo purchaseDetailVo) {
+		employeeSQLMapper.insertPurchaseDetailInfo(purchaseDetailVo);
+	}
+	
+	public PurchaseDetailVo selectPurchaseDetailInfo (PurchaseDetailVo purchase_detail_code) {
+		
+		return employeeSQLMapper.selectPurchaseDetailInfo(purchase_detail_code);
+	}
+	
+	public void updatePurchaseDetailInfo(PurchaseDetailVo purchaseDetailVo) {
+		employeeSQLMapper.updatePurchaseDetailInfo(purchaseDetailVo);
+	}
+	
+	public void deletePurchaseDetailInfo (PurchaseDetailVo purchase_detail_code) {
+		employeeSQLMapper.deletePurchaseDetailInfo(purchase_detail_code);
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	//상품
-	public ArrayList<ProductVo> productInfo(String searchType, String searchWord, int pageNum){
+	public ArrayList<ProductVo> productInfo(String searchType, String searchWord, int pageNum, String company_code){
 		
-		int startList = (pageNum-1)*10;
+		int startList = (pageNum-1)*15;
 		
-		ArrayList<ProductVo> productList = employeeSQLMapper.productInfo(searchType , searchWord, startList);
+		ArrayList<ProductVo> productList = employeeSQLMapper.productInfo(searchType , searchWord, startList, company_code);
 		return productList;
 	}
 	
-	public int productInfoCount(String searchType, String searchWord){
-		int productList = employeeSQLMapper.productInfoCount(searchType , searchWord);
+	public int productInfoCount(String searchType, String searchWord, String company_code){
+		int productList = employeeSQLMapper.productInfoCount(searchType , searchWord, company_code);
 		
 		return productList;
 	}
+	
+	public ProductVo excelProductSelect(String product_code) {
+		ProductVo productVo = employeeSQLMapper.excelProductSelect(product_code);
+		
+		return productVo;
+	};
 	
 	
 	
@@ -99,23 +149,24 @@ public class EmployeeServiceImpl {
 	
 	
 	//수주
-	public ArrayList<ObtainOrderVo> obtainOrderInfo(String searchType, String searchWord, int pageNum){
+	public ArrayList<ObtainOrderVo> obtainOrderInfo(String searchType, String searchWord, int pageNum, String company_code){
 		
-		int startList = (pageNum-1)*10;
+		int startList = (pageNum-1)*15;
 		
-		ArrayList<ObtainOrderVo> obtainOrderList = employeeSQLMapper.obtainOrderInfo(searchType , searchWord, startList);
+		ArrayList<ObtainOrderVo> obtainOrderList = employeeSQLMapper.obtainOrderInfo(searchType , searchWord, startList, company_code);
 		return obtainOrderList;
 	}
 	
-	public int obtainOrderInfoCount(String searchType, String searchWord){
-		int obtainOrderList = employeeSQLMapper.obtainOrderInfoCount(searchType , searchWord);
+	public int obtainOrderInfoCount(String searchType, String searchWord, String company_code){
+		int obtainOrderList = employeeSQLMapper.obtainOrderInfoCount(searchType , searchWord, company_code);
 		
 		return obtainOrderList;
 	}
-	
 	
 	
 	public void insertObtainOrderInfo(ObtainOrderVo obtainOrderVo) {
+		System.out.println("뭐가문제니");
+		System.out.println(obtainOrderVo);
 		employeeSQLMapper.insertObtainOrderInfo(obtainOrderVo);
 	}
 	
@@ -135,21 +186,57 @@ public class EmployeeServiceImpl {
 		employeeSQLMapper.deleteObtainOrderInfo(obtain_order_code);
 	}
 	
+	//수주디테일
+	public ArrayList<ObtainOrderDetailVo> obtainOrderDetailInfo(String searchType, String searchWord, int pageNum, String obtain_order_code){
+		
+		int startList = (pageNum-1)*15;
+		System.out.println("수디숫" + obtain_order_code);
+		ArrayList<ObtainOrderDetailVo> obtainOrderDetailList = employeeSQLMapper.obtainOrderDetailInfo(searchType , searchWord, startList, obtain_order_code);
+		
+		return obtainOrderDetailList;
+	}
+	
+	public int obtainOrderDetailInfoCount(String searchType, String searchWord, String obtain_order_code){
+		int obtainOrderDetailList = employeeSQLMapper.obtainOrderDetailInfoCount(searchType , searchWord, obtain_order_code);
+		
+		return obtainOrderDetailList;
+	}
+	
+	
+	public void insertObtainOrderDetailInfo(ObtainOrderDetailVo obtainOrderDetailVo) {
+		employeeSQLMapper.insertObtainOrderDetailInfo(obtainOrderDetailVo);
+	}
+	
+	public ObtainOrderDetailVo selectObtainOrderDetailInfo (ObtainOrderDetailVo obtain_order_detail_code) {
+		System.out.println("디테일 셀렉트 서비스");
+		return employeeSQLMapper.selectObtainOrderDetailInfo(obtain_order_detail_code);
+	}
+	
+	public void updateObtainOrderDetailInfo(ObtainOrderDetailVo obtainOrderDetailVo) {
+		System.out.println("업데이투 서비스");
+		System.out.println(obtainOrderDetailVo);
+		employeeSQLMapper.updateObtainOrderDetailInfo(obtainOrderDetailVo);
+	}
+	
+	public void deleteObtainOrderDetailInfo (ObtainOrderDetailVo obtain_order_detail_code) {
+		employeeSQLMapper.deleteObtainOrderDetailInfo(obtain_order_detail_code);
+	}
+	
 	
 	
 	
 	
 	//생산
-	public ArrayList<ManufactureVo> manufactureInfo(String searchType, String searchWord, int pageNum){
+	public ArrayList<ManufactureVo> manufactureInfo(String searchType, String searchWord, int pageNum, String company_code){
 		
-		int startList = (pageNum-1)*10;
+		int startList = (pageNum-1)*15;
 		
-		ArrayList<ManufactureVo> manufactureList = employeeSQLMapper.manufactureInfo(searchType , searchWord, startList);
+		ArrayList<ManufactureVo> manufactureList = employeeSQLMapper.manufactureInfo(searchType , searchWord, startList, company_code);
 		return manufactureList;
 	}
 	
-	public int manufactureInfoCount(String searchType, String searchWord){
-		int manufactureList = employeeSQLMapper.manufactureInfoCount(searchType , searchWord);
+	public int manufactureInfoCount(String searchType, String searchWord, String company_code){
+		int manufactureList = employeeSQLMapper.manufactureInfoCount(searchType , searchWord, company_code);
 		
 		return manufactureList;
 	}
@@ -176,21 +263,58 @@ public class EmployeeServiceImpl {
 		employeeSQLMapper.deleteManufactureInfo(manufacture_code);
 	}
 	
+	//생산디테일
+	public ArrayList<ManufactureDetailVo> manufactureDetailInfo(String searchType, String searchWord, int pageNum, String manufacture_code){
+		
+		int startList = (pageNum-1)*15;
+		
+		ArrayList<ManufactureDetailVo> manufactureDetailList = employeeSQLMapper.manufactureDetailInfo(searchType , searchWord, startList, manufacture_code);
+		return manufactureDetailList;
+	}
+	
+	public int manufactureInfoDetailCount(String searchType, String searchWord, String manufacture_code){
+		int manufactureDetailList = employeeSQLMapper.manufactureInfoDetailCount(searchType , searchWord, manufacture_code);
+		
+		return manufactureDetailList;
+	}
+	
+	
+	
+	public void insertManufactureDetailInfo(ManufactureDetailVo manufactureDetailVo) {
+		employeeSQLMapper.insertManufactureDetailInfo(manufactureDetailVo);
+	}
+	
+	public ManufactureDetailVo selectManufactureDetailInfo (ManufactureDetailVo manufacture_detail_code) {
+		
+		return employeeSQLMapper.selectManufactureDetailInfo(manufacture_detail_code);
+	}
+	
+	public void updateManufactureDetailInfo(ManufactureDetailVo manufactureDetailVo) {
+		System.out.println("업데이투 서비스");
+		System.out.println(manufactureDetailVo);
+		System.out.println(manufactureDetailVo.getManufacture_detail_code());
+		employeeSQLMapper.updateManufactureDetailInfo(manufactureDetailVo);
+	}
+	
+	public void deleteManufactureDetailInfo (ManufactureDetailVo manufacture_detail_code) {
+		employeeSQLMapper.deleteManufactureDetailInfo(manufacture_detail_code);
+	}
+	
 	
 	
 	
 	
 	//출하
-	public ArrayList<OutboundVo> outboundInfo(String searchType, String searchWord, int pageNum){
+	public ArrayList<OutboundVo> outboundInfo(String searchType, String searchWord, int pageNum, String company_code){
 		
-		int startList = (pageNum-1)*10;
+		int startList = (pageNum-1)*15;
 		
-		ArrayList<OutboundVo> outboundList = employeeSQLMapper.outboundInfo(searchType , searchWord, startList);
+		ArrayList<OutboundVo> outboundList = employeeSQLMapper.outboundInfo(searchType , searchWord, startList, company_code);
 		return outboundList;
 	}
 	
-	public int outboundInfoCount(String searchType, String searchWord){
-		int outboundList = employeeSQLMapper.outboundInfoCount(searchType , searchWord);
+	public int outboundInfoCount(String searchType, String searchWord, String company_code){
+		int outboundList = employeeSQLMapper.outboundInfoCount(searchType , searchWord, company_code);
 		
 		return outboundList;
 	}
@@ -217,22 +341,59 @@ public class EmployeeServiceImpl {
 		employeeSQLMapper.deleteOutboundInfo(outbound_code);
 	}
 	
+	//출하 디테일
+	public ArrayList<OutboundDetailVo> outboundDetailInfo(String searchType, String searchWord, int pageNum, String outbound_code){
+		
+		int startList = (pageNum-1)*15;
+		
+		ArrayList<OutboundDetailVo> outboundDetailList = employeeSQLMapper.outboundDetailInfo(searchType , searchWord, startList, outbound_code);
+		return outboundDetailList;
+	}
+	
+	public int outboundDetailInfoCount(String searchType, String searchWord, String outbound_code){
+		int outboundDetailList = employeeSQLMapper.outboundDetailInfoCount(searchType , searchWord, outbound_code);
+		
+		return outboundDetailList;
+	}
+	
+	
+	
+	public void insertOutboundDetailInfo(OutboundDetailVo outboundDetailVo) {
+		employeeSQLMapper.insertOutboundDetailInfo(outboundDetailVo);
+	}
+	
+	public OutboundDetailVo selectOutboundDetailInfo (OutboundDetailVo outbound_detail_code) {
+		
+		return employeeSQLMapper.selectOutboundDetailInfo(outbound_detail_code);
+	}
+	
+	public void updateOutboundDetailInfo(OutboundDetailVo outboundDetailVo) {
+		System.out.println("업데이투 서비스");
+		System.out.println(outboundDetailVo);
+		System.out.println(outboundDetailVo.getOutbound_code());
+		employeeSQLMapper.updateOutboundDetailInfo(outboundDetailVo);
+	}
+	
+	public void deleteOutboundDetailInfo (OutboundDetailVo outbound_detail_code) {
+		employeeSQLMapper.deleteOutboundDetailInfo(outbound_detail_code);
+	}
+	
 	
 	
 	
 	
 	
 	//제품 단가
-	public ArrayList<ProductPriceVo> productPriceInfo(String searchType, String searchWord, int pageNum){
+	public ArrayList<ProductPriceVo> productPriceInfo(String searchType, String searchWord, int pageNum, String company_code){
 		
-		int startList = (pageNum-1)*10;
+		int startList = (pageNum-1)*15;
 		
-		ArrayList<ProductPriceVo> productPriceList = employeeSQLMapper.productPriceInfo(searchType , searchWord, startList);
+		ArrayList<ProductPriceVo> productPriceList = employeeSQLMapper.productPriceInfo(searchType , searchWord, startList, company_code);
 		return productPriceList;
 	}
 	
-	public int productPriceInfoCount(String searchType, String searchWord){
-		int productPriceList = employeeSQLMapper.productPriceInfoCount(searchType , searchWord);
+	public int productPriceInfoCount(String searchType, String searchWord, String company_code){
+		int productPriceList = employeeSQLMapper.productPriceInfoCount(searchType , searchWord, company_code);
 		
 		return productPriceList;
 	}

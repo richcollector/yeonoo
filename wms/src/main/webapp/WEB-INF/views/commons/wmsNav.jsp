@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,10 +107,14 @@
                         사용자 메뉴
                     </button>
                     <div class="usermenu-content">
+                      <c:if test="${employeeInfo != null && adminInfo == null}">
                         <a href="../main/userInfoUpdatePage">개인정보수정(△)</a><br>
+                      </c:if>
+                      <c:if test="${adminInfo != null && employeeInfo == null}">
                         <a href="../company/employeeRankInfoPage">직급정보(△)</a><br>           
                         <a href="../company/departmentInfoPage">부서정보(△)</a><br>     
-                        <a href="">직원정보(x)</a><br> 
+                        <a href="../main/employeeInfoManagePage">직원정보(△)</a><br>
+                      </c:if> 
                     </div>
                 </div>              
             </div>

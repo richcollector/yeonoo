@@ -125,6 +125,7 @@
 					AND department_name like CONCAT('%', #{searchWord}, '%')			
 				</if>						
 			</trim>		
+		WHERE company_code = #{company_code}
 		LIMIT #{startList}, 15
 	</select>
 
@@ -141,6 +142,7 @@
 				</if>			
 			</if>
 		</trim>
+		WHERE company_code = #{company_code}
 	</select>
 	
 	<!-- 부서 목록 체크박스 선택 -->
@@ -198,6 +200,7 @@
 					AND employee_rank_name like CONCAT('%', #{searchWord}, '%')			
 				</if>						
 			</trim>		
+		WHERE company_code = #{company_code}
 		LIMIT #{startList}, 15
 	</select>
 
@@ -214,6 +217,7 @@
 				</if>			
 			</if>
 		</trim>
+		WHERE company_code = #{company_code}
 	</select>
 	
 	<!-- 직급 목록 체크박스 선택 -->
@@ -226,7 +230,7 @@
 	<!-- 직급 정보 수정 -->
 	<update id="updateEmployeeRankInfo">
 		UPDATE Employee_rank 
-		SET employee_rank_name = #{employee_rank_name}, 
+		SET employee_rank_name = #{employee_rank_name},
 			employee_rank_update_date = SYSDATE()
 		WHERE employee_rank_code = #{employee_rank_code}
 		AND company_code = #{company_code}
@@ -238,5 +242,5 @@
 		WHERE employee_rank_code = #{employee_rank_code}
 		AND company_code = #{company_code}
 	</delete>
-
+	
 </mapper>

@@ -202,6 +202,8 @@
 	
  	function refreshAccountInfo(){
  		
+ 		var company_code = document.getElementById("company_code").value;
+ 		
  		var clickSearchType = document.getElementById("searchType");
  		var clickSearchTypeVal = clickSearchType.value;
  		
@@ -417,7 +419,7 @@
 			}
 		}
 		
-		xhr.open("get", "../company/employeeRankInfo?searchType=" + clickSearchTypeVal + "&searchWord=" + clickSearchWordVal);	//리퀘스트 세팅..
+		xhr.open("get", "../company/employeeRankInfo?searchType=" + clickSearchTypeVal + "&searchWord=" + clickSearchWordVal + "&company_code=" + company_code);	//리퀘스트 세팅..
 		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
 		xhr.send();	//AJAX로 리퀘스트함...
 		
@@ -433,6 +435,8 @@
  		
 // 		var tableDiv = document.getElementById("scrollTable");
 //  		tableDiv.innerHtml = "";
+
+		var company_code = document.getElementById("company_code").value;
 
 		var table1 = document.getElementById("createTable");
 		table1.innerHTML = "";
@@ -638,7 +642,7 @@
 			}
 		}
 		
-		xhr.open("get", "../company/employeeRankInfo?pageNum="+ pageNumVal +"&searchType=" + clickSearchTypeVal + "&searchWord=" + clickSearchWordVal);	//리퀘스트 세팅..
+		xhr.open("get", "../company/employeeRankInfo?pageNum="+ pageNumVal +"&searchType=" + clickSearchTypeVal + "&searchWord=" + clickSearchWordVal + "&company_code=" + company_code);	//리퀘스트 세팅..
 		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
 		xhr.send();	//AJAX로 리퀘스트함...
 		

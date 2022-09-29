@@ -4,22 +4,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+   <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"> 
        <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
-	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
+   @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
         *{
              margin: 0px;
              padding: 0px;
         }
         
-       	body { 
- 		font-family : pretendard; 
- 		color: #404040; 
- 		} 
+          body { 
+       font-family : pretendard; 
+       color: #404040; 
+       } 
 
         #wrapper{
             width: 1200px;
@@ -42,20 +42,20 @@
         }
 
         .active,
-		.usermenu:hover {
+      .usermenu:hover {
             display: block;
         }
 
         .usermenu{
-			width: 100%;
+         width: 100%;
             position: relative;
             display: inline-block;
         }
 
         .usermenu-content{
-			overflow: hidden;
+         overflow: hidden;
             max-height: 0;
-			transition: max-height 0.2s ease-out;
+         transition: max-height 0.2s ease-out;
             position: absolute;
             background-color: white;
             border : 1;
@@ -69,30 +69,30 @@
             cursor: pointer;
         }
         
-	      a{
-	      text-decoration-line: none;
-	      color: #404040;
-	      }
+         a{
+         text-decoration-line: none;
+         color: #404040;
+         }
 
     </style>
     
     <script type="text/javascript">
     
-		function collapse(element) {
-			var before = document.getElementsByClassName("active")[0]               // 기존에 활성화된 버튼
-			if (before && document.getElementsByClassName("active")[0] != element) {  // 자신 이외에 이미 활성화된 버튼이 있으면
-				before.nextElementSibling.style.maxHeight = null;   // 기존에 펼쳐진 내용 접고
-				before.classList.remove("active");                  // 버튼 비활성화
-			}
-			element.classList.toggle("active");         // 활성화 여부 toggle
-	
-			var content = element.nextElementSibling;
-			if (content.style.maxHeight != 0) {         // 버튼 다음 요소가 펼쳐져 있으면
-				content.style.maxHeight = null;         // 접기
-			} else {
-				content.style.maxHeight = content.scrollHeight + "px";  // 접혀있는 경우 펼치기
-			}
-		}
+      function collapse(element) {
+         var before = document.getElementsByClassName("active")[0]               // 기존에 활성화된 버튼
+         if (before && document.getElementsByClassName("active")[0] != element) {  // 자신 이외에 이미 활성화된 버튼이 있으면
+            before.nextElementSibling.style.maxHeight = null;   // 기존에 펼쳐진 내용 접고
+            before.classList.remove("active");                  // 버튼 비활성화
+         }
+         element.classList.toggle("active");         // 활성화 여부 toggle
+   
+         var content = element.nextElementSibling;
+         if (content.style.maxHeight != 0) {         // 버튼 다음 요소가 펼쳐져 있으면
+            content.style.maxHeight = null;         // 접기
+         } else {
+            content.style.maxHeight = content.scrollHeight + "px";  // 접혀있는 경우 펼치기
+         }
+      }
     
     </script>
 
@@ -113,32 +113,32 @@
                     </button>
                     <div class="usermenu-content">
                       <c:if test="${employeeInfo != null && adminInfo == null}">
-                        <a href="../main/userInfoUpdatePage">개인정보수정(△)</a><br>
+                        <a href="../main/userInfoUpdatePage">개인정보수정</a><br>
                       </c:if>
                       <c:if test="${adminInfo != null && employeeInfo == null}">
-                        <a href="../company/employeeRankInfoPage">직급정보(△)</a><br>           
-                        <a href="../company/departmentInfoPage">부서정보(△)</a><br>     
-                        <a href="../main/employeeInfoManagePage">직원정보(△)</a><br>
+                        <a href="../company/employeeRankInfoPage">직급정보</a><br>           
+                        <a href="../company/departmentInfoPage">부서정보</a><br>     
+                        <a href="../main/employeeInfoManagePage">직원정보</a><br>
                       </c:if> 
                     </div>
                 </div>              
             </div>
             <div class="col">
-      	    	<div class="usermenu">
+                <div class="usermenu">
                 <button class="btnnn textWhite " type="button" onclick="collapse(this);">
                     기준정보
                 </button>
                 <div class="usermenu-content">
-                        <a href="../company/companyInfoPage">회사정보(△)</a><br>
+                        <a href="../company/companyInfoPage">회사정보</a><br>
                         <a href="../account/accountInfoPage">거래처정보</a><br>
                         <a href="../employee/productInfoPage">제품정보</a><br>
                         <a href="../warehouse/warehouseList">창고정보(△)</a><br>
-                        <a href="../lot/lotManage">로트관리(△)</a>            
+                        <a href="../lot/lotManage">로트관리</a>            
                 </div>          
                 </div>    
             </div>
             <div class="col">
-      	    	<div class="usermenu">
+                <div class="usermenu">
                 <button class="btnnn textWhite " type="button" onclick="collapse(this);">
                     영업관리
                 </button>
@@ -151,7 +151,7 @@
                 </div>            
             </div>
             <div class="col">
-      	    	<div class="usermenu">
+                <div class="usermenu">
                 <button class="btnnn textWhite " type="button" onclick="collapse(this);">
                     구매관리
                 </button>
@@ -161,13 +161,13 @@
                 </div>               
             </div>
             <div class="col">
-      	    	<div class="usermenu">
+                <div class="usermenu">
                 <button class="btnnn textWhite " type="button" onclick="collapse(this);">
                     재고관리
                 </button>
                 <div class="usermenu-content">
-                    <a href="">입고등록(x)</a><br>
-                    <a href="">출하등록(x)</a><br>
+                    <a href="../inbound/inboundManage">입고관리</a><br>
+                    <a href="../outstock/outstockManage">출하등록(</a><br>
                     <a href="">재고현황(x)</a>       
                 </div>          
                 </div>              

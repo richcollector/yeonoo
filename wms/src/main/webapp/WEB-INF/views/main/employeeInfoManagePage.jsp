@@ -35,26 +35,6 @@
 	
 <script type="text/javascript">
 	
-	function insertDepartmentInfo(){
-		
-		var company_code = document.getElementById("company_code_reg").value;
-		var department_name = document.getElementById("department_name_reg").value;
-		
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);	
-				
-				location.reload();
-			}
-		}
-		
-		xhr.open("post" , "./departmentRegisterProcess");
-		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("company_code=" + company_code + "&department_name=" + department_name);		
-		
-	}
-	
 	function selectAccount(){
 		
 	    var checkVal = "";
@@ -86,42 +66,36 @@
         
         cleanUpdateModal();
 	    
-		var company_code = document.getElementById("company_code").value;
-		var department_code = checkVal;
-		var company_code_update = document.getElementById("company_code_update");
-		var department_name_update = document.getElementById("department_name_update");
-		var department_code_update = document.getElementById("department_code_update");
-
+        var company_code = document.getElementById("company_code").value;
+		var employee_code = checkVal;
+		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
 				
-				company_code_update.value = jsonObj.data.company_code;
-				department_name_update.value = jsonObj.data.department_name;
-				department_code_update.value = jsonObj.data.department_code;
-
 				document.getElementById("updateModalStart").click();
 			}
 		}
 		
-		xhr.open("post", "./selectDepartmentInfo");	//리퀘스트 세팅..
+		xhr.open("post", "./selectEmployeeInfo");	//리퀘스트 세팅..
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
-		xhr.send("company_code=" + company_code + "&department_code=" + department_code);	//AJAX로 리퀘스트함...
+		xhr.send("company_code=" + company_code + "&employee_code=" + employee_code);	//AJAX로 리퀘스트함...
 		
 	}
 	
 	function cleanUpdateModal(){
-		document.getElementById("company_code_update").value = "";
-		document.getElementById("department_name_update").value = "";
+		//document.getElementById("company_code").value = "";
+		//document.getElementById("employee_rank_name_update").value = "";
 
 	}
 		
 	
-	function updateDepartmentInfo(){
-		var department_code_update = document.getElementById("department_code_update").value;
-		var company_code = document.getElementById("company_code_update").value;
-		var department_name = document.getElementById("department_name_update").value;
+	function updateEmployeeAuthInfo(){
+		var authority_code = document.getElementById("authority_code").value;
+		var company_code = document.getElementById("company_code").value;
+		var employee_code = document.getElementById("employee_code").value;
+		var employee_rank_code = document.getElementById("employee_rank_code").value;
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -131,18 +105,18 @@
 			}
 		}
 		
-		xhr.open("post" , "./departmentUpdateProcess" , false);
+		xhr.open("post" , "./employeeAuthUpdateProcess" , false);
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("company_code=" + company_code + "&department_code=" + department_code_update + "&department_name=" + department_name);		
+		xhr.send("company_code=" + company_code + "&employee_code=" + employee_code + "&authority_code=" + authority_code + "&employee_rank_code=" + employee_rank_code);		
 		refreshAccountInfo();
 		
 	}
 	
-	function deleteDepartmentInfo(){
+	function updateEmployeeRetire(){
 		
 	    var checkVal = new Array();
 	    var company_code = document.getElementById("company_code").value;
-	    
+	    var employee_code = document.getElementById("employee_code").value;
 	    var obj_length = document.getElementsByName("checkAccount").length;
 	    
         for (var i = 0; i < obj_length; i++) {
@@ -151,18 +125,23 @@
             }
         }
 	
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);
-				
-			}
-		}
+        if(!confirm("퇴사처리 하시겠습니까?")){
+        	
+        } else {
+        	var xhr = new XMLHttpRequest();
+    		xhr.onreadystatechange = function () {
+    			if(xhr.readyState == 4 && xhr.status == 200){
+    				var result = JSON.parse(xhr.responseText);
+    				
+    			}
+    		}
+    		
+    		xhr.open("post" , "./updateEmployeeRetireProcess" , false);
+    		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    		xhr.send("code=" + checkVal + "&company_code=" + company_code);
+    		refreshAccountInfo();
+        }
 		
-		xhr.open("post" , "./deleteDepartmentInfo" , false);
-		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("code=" + checkVal + "&company_code=" + company_code);
-		refreshAccountInfo();
 	}
 	
 	function allCheck(){
@@ -236,37 +215,50 @@
 		th1.appendChild(input1);
 		
 		var th2 = document.createElement("th");
-		th2.setAttribute("style","width:8%");
-		th2.innerText = "부서번호";
+		th2.innerText = "사원코드";
 		tr1.appendChild(th2);
 
 		var th3 = document.createElement("th");
-		th3.setAttribute("style","width:30%");
-		th3.innerText = "부서명";
+		th3.innerText = "부서코드";
 		tr1.appendChild(th3);
 
 		var th4 = document.createElement("th");
-		th4.innerText = "등록자";
+		th4.innerText = "직급코드";
 		tr1.appendChild(th4);
 
 		var th5 = document.createElement("th");
-		th5.innerText = "등록일";
+		th5.setAttribute("style","width:5%");
+		th5.innerText = "권한";
 		tr1.appendChild(th5);
 
 		var th6 = document.createElement("th");
-		th6.innerText = "수정자";
+		th6.innerText = "사원명";
 		tr1.appendChild(th6);
 
 		var th7 = document.createElement("th");
-		th7.innerText = "수정일";
+		th7.setAttribute("style","width:18%");
+		th7.innerText = "이메일";
 		tr1.appendChild(th7);
+		
+		var th8 = document.createElement("th");
+		th8.setAttribute("style","width:5%");
+		th8.innerText = "상태";
+		tr1.appendChild(th8);
+		
+		var th9 = document.createElement("th");
+		th9.innerText = "입사일";
+		tr1.appendChild(th9);
+		
+		var th10 = document.createElement("th");
+		th10.innerText = "퇴사일";
+		tr1.appendChild(th10);
 		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
 				
-				for(commentData of jsonObj.departmentList){
+				for(commentData of jsonObj.employeeList){
 					
 				var tbody1 = document.createElement("tbody");
 // 				tbody1.innerHtml = "";
@@ -282,34 +274,46 @@
 				inputIn1.setAttribute("onclick","checkOk()");
 				inputIn1.setAttribute("name","checkAccount");
 				inputIn1.setAttribute("type","checkbox");
-				inputIn1.setAttribute("id", "department_code");
-				inputIn1.setAttribute("value",commentData.department_code);
+				inputIn1.setAttribute("id", "employee_code");
+				inputIn1.setAttribute("value",commentData.employee_code);
 				td1.appendChild(inputIn1);
 
 				var td2 = document.createElement("td");
-				td2.innerText = commentData.department_code;
+				td2.innerText = commentData.employee_code;
 				trIn1.appendChild(td2);
 				
 				var td3 = document.createElement("td");
-				td3.innerText = commentData.department_name;
+				td3.innerText = commentData.department_code;
 				trIn1.appendChild(td3);
 
 				var td4 = document.createElement("td");
-				td4.innerText = "관리자";
+				td4.innerText = commentData.employee_rank_code;
 				trIn1.appendChild(td4);
 
 				var td5 = document.createElement("td");
-				td5.innerText = moment(commentData.department_register_date).format('YYYY.MM.DD');
+				td5.innerText = commentData.authority_code;
 				trIn1.appendChild(td5);
 				
 				var td6 = document.createElement("td");
-				td6.innerText = "관리자";
+				td6.innerText = commentData.employee_name;
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
-				td7.innerText = moment(commentData.department_update_date).format('YYYY.MM.DD');
+				td7.innerText = commentData.employee_email;
 				trIn1.appendChild(td7);
+				
+				var td8 = document.createElement("td");
+				td8.innerText = commentData.employee_state;
+				trIn1.appendChild(td8);
 
+				var td9 = document.createElement("td");
+				td9.innerText = moment(commentData.employee_join_date).format('YYYY.MM.DD');
+				trIn1.appendChild(td9);
+				
+				var td10 = document.createElement("td");
+				td10.innerText = moment(commentData.employee_leave_date).format('YYYY.MM.DD');
+				trIn1.appendChild(td10);
+				
 				}
 				
 				var createUl = document.getElementById("pageUl");
@@ -419,7 +423,7 @@
 			}
 		}
 		
-		xhr.open("get", "../company/departmentInfo?searchType=" + clickSearchTypeVal + "&searchWord=" + clickSearchWordVal + "&company_code=" + company_code);	//리퀘스트 세팅..
+		xhr.open("get", "../main/employeeInfo?searchType=" + clickSearchTypeVal + "&searchWord=" + clickSearchWordVal + "&company_code=" + company_code);	//리퀘스트 세팅..
 		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
 		xhr.send();	//AJAX로 리퀘스트함...
 		
@@ -427,17 +431,8 @@
  	
  	function refreshAccountInfoPage(pageNumVal,clickSearchTypeVal,clickSearchWordVal){
  		
-//  		var clickSearchType = document.getElementById("searchType");
-//  		var clickSearchTypeVal = clickSearchType.value;
+ 		var company_code = document.getElementById("company_code").value;
  		
-//  		var clickSearchWord = document.getElementById("searchWord");
-//  		var clickSearchWordVal = clickSearchWord.value;
- 		
-// 		var tableDiv = document.getElementById("scrollTable");
-//  		tableDiv.innerHtml = "";
-
-		var company_code = document.getElementById("company_code").value;
-
 		var table1 = document.getElementById("createTable");
 		table1.innerHTML = "";
 		table1.classList.add("table");
@@ -461,78 +456,106 @@
 		th1.appendChild(input1);
 
 		var th2 = document.createElement("th");
-		th2.innerText = "부서번호";
+		th2.innerText = "사원코드";
 		tr1.appendChild(th2);
 
 		var th3 = document.createElement("th");
-		th3.innerText = "부서명";
+		th3.innerText = "부서코드";
 		tr1.appendChild(th3);
 
 		var th4 = document.createElement("th");
-		th4.innerText = "등록자";
+		th4.innerText = "직급코드";
 		tr1.appendChild(th4);
 
 		var th5 = document.createElement("th");
-		th5.innerText = "등록일";
+		th5.setAttribute("style","width:5%");
+		th5.innerText = "권한";
 		tr1.appendChild(th5);
 
 		var th6 = document.createElement("th");
-		th6.innerText = "수정자";
+		th6.innerText = "사원명";
 		tr1.appendChild(th6);
 
 		var th7 = document.createElement("th");
-		th7.innerText = "수정일";
+		th7.setAttribute("style","width:18%");
+		th7.innerText = "이메일";
 		tr1.appendChild(th7);
+		
+		var th8 = document.createElement("th");
+		th8.setAttribute("style","width:5%");
+		th8.innerText = "상태";
+		tr1.appendChild(th8);
+		
+		var th9 = document.createElement("th");
+		th9.innerText = "입사일";
+		tr1.appendChild(th9);
+		
+		var th10 = document.createElement("th");
+		th10.innerText = "퇴사일";
+		tr1.appendChild(th10);
 
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
 				
-				for(commentData of jsonObj.departmentList){
+				for(commentData of jsonObj.employeeList){
 					
-				var tbody1 = document.createElement("tbody");
-// 				tbody1.innerHtml = "";
-				table1.appendChild(tbody1);
+					var tbody1 = document.createElement("tbody");
+//	 				tbody1.innerHtml = "";
+					table1.appendChild(tbody1);
 
-				var trIn1 = document.createElement("tr");
-				tbody1.appendChild(trIn1);
+					var trIn1 = document.createElement("tr");
+					tbody1.appendChild(trIn1);
 
-				var td1 = document.createElement("td");
-				trIn1.appendChild(td1);
+					var td1 = document.createElement("td");
+					trIn1.appendChild(td1);
 
-				var inputIn1 = document.createElement("input");
-				inputIn1.setAttribute("onclick","checkOk()");
-				inputIn1.setAttribute("name","checkAccount");
-				inputIn1.setAttribute("type","checkbox");
-				inputIn1.setAttribute("value",commentData.department_code);
-				td1.appendChild(inputIn1);
+					var inputIn1 = document.createElement("input");
+					inputIn1.setAttribute("onclick","checkOk()");
+					inputIn1.setAttribute("name","checkAccount");
+					inputIn1.setAttribute("type","checkbox");
+					inputIn1.setAttribute("id", "employee_code");
+					inputIn1.setAttribute("value",commentData.employee_code);
+					td1.appendChild(inputIn1);
 
-				var td2 = document.createElement("td");
-				td2.innerText = commentData.department_code;
-				trIn1.appendChild(td2);
+					var td2 = document.createElement("td");
+					td2.innerText = commentData.employee_code;
+					trIn1.appendChild(td2);
 
-				var td3 = document.createElement("td");
-				td3.innerText = commentData.department_name;
-				trIn1.appendChild(td3);
+					var td3 = document.createElement("td");
+					td3.innerText = commentData.department_code;
+					trIn1.appendChild(td3);
 
-				var td4 = document.createElement("td");
-				td4.innerText = "등록자";
-				trIn1.appendChild(td4);
+					var td4 = document.createElement("td");
+					td4.innerText = commentData.employee_rank_code;
+					trIn1.appendChild(td4);
 
-				var td5 = document.createElement("td");
-				td5.innerText = moment(commentData.department_register_date).format('YYYY.MM.DD');
-				trIn1.appendChild(td5);
+					var td5 = document.createElement("td");
+					td5.innerText = commentData.authority_code;
+					trIn1.appendChild(td5);
 
-				var td6 = document.createElement("td");
-				td6.innerText = "관리자";
-				trIn1.appendChild(td6);
+					var td6 = document.createElement("td");
+					td6.innerText = commentData.employee_name;
+					trIn1.appendChild(td6);
 
-				var td7 = document.createElement("td");
-				td7.innerText = moment(commentData.department_update_date).format('YYYY.MM.DD');
-				trIn1.appendChild(td7);
-				
-				}
+					var td7 = document.createElement("td");
+					td7.innerText = commentData.employee_email;
+					trIn1.appendChild(td7);
+					
+					var td8 = document.createElement("td");
+					td8.innerText = commentData.employee_state;
+					trIn1.appendChild(td8);
+					
+					var td9 = document.createElement("td");
+					td9.innerText = moment(commentData.employee_join_date).format('YYYY.MM.DD');
+					trIn1.appendChild(td9);
+					
+					var td10 = document.createElement("td");
+					td10.innerText = moment(commentData.employee_leave_date).format('YYYY.MM.DD');
+					trIn1.appendChild(td10);
+					
+					}
 				
 				var createUl = document.getElementById("pageUl");
 				createUl.innerHTML = "";
@@ -643,7 +666,7 @@
 			}
 		}
 		
-		xhr.open("get", "../company/departmentInfo?pageNum="+ pageNumVal +"&searchType=" + clickSearchTypeVal + "&searchWord=" + clickSearchWordVal + "&company_code=" + company_code);	//리퀘스트 세팅..
+		xhr.open("get", "../main/employeeInfo?pageNum="+ pageNumVal +"&searchType=" + clickSearchTypeVal + "&searchWord=" + clickSearchWordVal + "&company_code=" + company_code);	//리퀘스트 세팅..
 		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
 		xhr.send();	//AJAX로 리퀘스트함...
 		
@@ -657,7 +680,7 @@
 	
 </script>
 	
-<title>부서관리</title>
+<title>사원 관리</title>
 </head>
 <body>
 	<jsp:include page="../commons/wmsNav.jsp"></jsp:include>
@@ -666,21 +689,18 @@
 	        <div class="col form-control mt-3">
 	        	<div class="row">
 		        	<div class="col-6 mx-0">
-			             <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#accountRegist">
-			                등록
-			             </button>
 			             <button onclick="selectAccount()" id="updateModal" type="button" class="btn btn-light">
 			             	수정
 			             </button>
    			             <button id="updateModalStart" type="button" hidden class="btn btn-light" data-bs-toggle="modal" data-bs-target="#accountUpdate">
 			             	수정
 			             </button>
-		            	 <button onclick="deleteDepartmentInfo()" type="button" class="btn btn-light">
-		            		삭제
+		            	 <button onclick="updateEmployeeRetire()" type="button" class="btn btn-light">
+		            		퇴사처리
 		            	 </button>
 		            </div>
 		            <div class="col-6 text-end mx-0 pt-1">
-		            	<span class="fs-5">부서 관리</span>
+		            	<span class="fs-5">사원 관리</span>
 		            	<input type="hidden" name="company_code" id="company_code" value="${adminInfo.company_code }">
 		            </div>
 	            </div>
@@ -690,14 +710,16 @@
             <div class="form-control mt-3">
                 <div class="row">
                     <div class="col">
-                    	<i class="bi bi-list fs-5">&nbsp;</i><span class="fs-5">부서 목록</span>
+                    	<i class="bi bi-list fs-5">&nbsp;</i><span class="fs-5">사원 목록</span>
                     </div>
                     <div id="searchDiv" class="col-4">
 							<div class="input-group mb-3">
 									<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 										<option selected>선택</option>
-										<option value="department_code">부서번호</option>
-										<option value="department_name">부서명</option>
+										<option value="employee_code">사원코드</option>
+										<option value="department_code">부서코드</option>
+										<option value="employee_rank_code">직급코드</option>
+										<option value="employee_name">사원명</option>
 									  </select>
 									<input id="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button">
 									<button type="button" onclick="refreshAccountInfo()" class="input-group-text bi bi-search" id="basic-addon1"></button>
@@ -763,44 +785,13 @@
                	</div>
             </div>
         </div>
-
-        <!-- 등록창 모달 -->
-        <div class="modal fade" id="accountRegist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">부서 등록</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-control mt-3">
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">부서명</span>
-                                        <input type="hidden" id="company_code_reg" value="${adminInfo.company_code }">
-                                        <input id="department_name_reg" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>               
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="insertDepartmentInfo()" data-bs-dismiss="modal">등록</button>
-                </div>
-              </div>
-            </div>
-          </div>
           
         <!-- 수정창 모달 -->
         <div class="modal fade" id="accountUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">부서 수정</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">권한 수정</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -810,10 +801,16 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">부서명</span>
-                                        <input type="hidden" id="department_code_update" value="">
-                                        <input type="hidden" id="company_code_update" value="${adminInfo.company_code }">
-                                        <input id="department_name_update" type="text" class="form-control">
+                                        <span class="input-group-text">직급코드</span>
+                                        <input id="employee_rank_code" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">권한코드</span>
+                                        <input id="authority_code" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -822,7 +819,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="updateDepartmentInfo()" data-bs-dismiss="modal">수정</button>
+                  <button type="button" class="btn btn-primary" onclick="updateEmployeeAuthInfo()" data-bs-dismiss="modal">수정</button>
                 </div>
               </div>
             </div>

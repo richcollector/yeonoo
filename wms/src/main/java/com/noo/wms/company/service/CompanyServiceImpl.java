@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import com.noo.wms.company.mapper.CompanySQLMapper;
 import com.noo.wms.vo.AdminVo;
 import com.noo.wms.vo.CompanyVo;
+import com.noo.wms.vo.DepartmentVo;
+import com.noo.wms.vo.EmployeeRankVo;
+
 
 @Service
 public class CompanyServiceImpl {
@@ -57,6 +60,75 @@ public class CompanyServiceImpl {
 		companyMapper.updateCompany(companyVo);
 		
 	}
+
+	public ArrayList<DepartmentVo> departmentInfo(String searchType, String searchWord, int pageNum, String company_code){
+
+		int startList = (pageNum-1)*15;
+		
+		ArrayList<DepartmentVo> accountList = companyMapper.departmentInfo(searchType, searchWord, startList, company_code);
+		
+		return accountList;
+	}
 	
+	public int departmentInfoCount(String searchType, String searchWord, String company_code){
+		int departmentList = companyMapper.departmentInfoCount(searchType , searchWord , company_code);
+		
+		return departmentList;
+	}
+	
+	//부서 정보 등록
+	public void departmentRegister(DepartmentVo departmentVo) {
+
+		companyMapper.insertDepartment(departmentVo);
+	}
+	
+	public DepartmentVo selectDepartmentInfo(DepartmentVo departmentVo) {
+		
+		return companyMapper.selectDepartmentInfo(departmentVo);
+	}
+	
+	public void updateDepartmentInfo(DepartmentVo departmentVo) {
+		companyMapper.updateDepartmentInfo(departmentVo);
+	}
+	
+	public void deleteDepartmentInfo (DepartmentVo departmentVo) {
+		companyMapper.deleteDepartmentInfo(departmentVo);
+	}
+	
+	public ArrayList<EmployeeRankVo> employeeRankInfo(String searchType, String searchWord, int pageNum, String company_code){
+
+		int startList = (pageNum-1)*15;
+		
+		ArrayList<EmployeeRankVo> employeeList = companyMapper.employeeRankInfo(searchType, searchWord, startList, company_code);
+		
+		return employeeList;
+	}
+	
+	public int employeeRankInfoCount(String searchType, String searchWord, String company_code){
+		int employeeRankList = companyMapper.employeeRankInfoCount(searchType , searchWord, company_code);
+		
+		return employeeRankList;
+	}
+	
+	
+	public void insertEmployeeRank(EmployeeRankVo employeeRankVo) {
+		companyMapper.insertEmployeeRank(employeeRankVo);
+	}
+	
+	public EmployeeRankVo selectEmployeeRankInfo(EmployeeRankVo employeeRankVo) {
+		
+		return companyMapper.selectEmployeeRankInfo(employeeRankVo);
+	}
+	
+	public void updateEmployeeRankInfo(EmployeeRankVo employeeRankVo) {
+		companyMapper.updateEmployeeRankInfo(employeeRankVo);
+	}
+	
+	public void deleteEmployeeRankInfo (EmployeeRankVo employeeRankVo) {
+		companyMapper.deleteEmployeeRankInfo(employeeRankVo);
+	}
+	
+	
+
 	
 }

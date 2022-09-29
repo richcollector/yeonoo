@@ -15,6 +15,7 @@ import com.noo.wms.main.mapper.MainSQLMapper;
 import com.noo.wms.vo.AdminVo;
 import com.noo.wms.vo.CompanyVo;
 import com.noo.wms.vo.DepartmentVo;
+import com.noo.wms.vo.EmployeeRankVo;
 import com.noo.wms.vo.EmployeeVo;
 import com.noo.wms.vo.MailAuthVo;
 import com.noo.wms.vo.NoticeVo;
@@ -175,4 +176,36 @@ public class MainServiceImpl {
 		mainSQLMapper.deleteNoticeByNoticeCode(notice_code);
 	}
 	
+	//비밀번호 변경
+	public void updateEmployeePw(EmployeeVo employeeVo) {
+		mainSQLMapper.updateEmployeePw(employeeVo);
+	}
+	
+	public ArrayList<EmployeeVo> employeeInfo(String searchType, String searchWord, int pageNum, String company_code){
+
+		int startList = (pageNum-1)*15;
+		
+		ArrayList<EmployeeVo> employeeList = mainSQLMapper.employeeInfo(searchType, searchWord, startList, company_code);
+		
+		return employeeList;
+	}
+	
+	public int employeeInfoCount(String searchType, String searchWord, String company_code){
+		int employeeList = mainSQLMapper.employeeInfoCount(searchType , searchWord, company_code);
+		
+		return employeeList;
+	}
+	
+	public EmployeeVo selectEmployeeInfo(EmployeeVo employeeVo) {
+		
+		return mainSQLMapper.selectEmployeeInfo(employeeVo);
+	}
+	
+	public void updateEmployeeAuthInfo(EmployeeVo employeeVo) {
+		mainSQLMapper.updateEmployeeAuthInfo(employeeVo);
+	}
+	
+	public void updateEmployeeRetire(EmployeeVo employeeVo) {
+		mainSQLMapper.updateEmployeeRetire(employeeVo);
+	}
 }

@@ -1,15 +1,19 @@
 package com.noo.wms.main.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noo.wms.main.service.MainServiceImpl;
 import com.noo.wms.vo.AdminVo;
+import com.noo.wms.vo.EmployeeRankVo;
 import com.noo.wms.vo.EmployeeVo;
 
 @RestController
@@ -85,4 +89,95 @@ public class RestMainController {
 		
 		return map;
 	}
+	
+	@RequestMapping("employeeInfo")
+	public HashMap<String, Object> employeeInfo(Model model, String searchType, String searchWord, String company_code,
+									@RequestParam(value="pageNum", defaultValue = "1") int pageNum) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<EmployeeVo> employeeList = mainService.employeeInfo(searchType, searchWord, pageNum, company_code);
+		
+		int orderCount = mainService.employeeInfoCount(searchType, searchWord, company_code);
+		
+		//올림처리
+		int totalPageCount = (int)Math.ceil(orderCount/15.0);
+
+		int startPage = ((pageNum-1)/5)*5 + 1;
+		int endPage = ((pageNum-1)/5+1)*5;
+		
+		if(endPage > totalPageCount) {
+			endPage = totalPageCount;
+		}
+		
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("currentPageNum", pageNum);
+		map.put("totalPageCount", totalPageCount);
+		
+//		model.addAttribute("startPage",startPage);
+//		model.addAttribute("endPage",endPage);
+//		model.addAttribute("currentPageNum",pageNum);
+//		model.addAttribute("totalPageCount",totalPageCount);
+		
+		//링크유지
+		String additionalParamType = "";
+		String additionalParamWord = "";
+		if(searchType != null && searchWord != null) {
+			additionalParamType = searchType;
+			additionalParamWord = searchWord;
+			
+//			additionalParam += "&searchType=" + searchType;
+//			additionalParam += "&searchWord=" + searchWord;
+		}
+		map.put("additionalParamType", additionalParamType);
+		map.put("additionalParamWord", additionalParamWord);
+//		map.put("additionalParam", additionalParam);
+		map.put("employeeList", employeeList);
+//		model.addAttribute("additionalParam",additionalParam);
+		
+//		model.addAttribute("accountList", accountList);
+		
+		return map;
+	}
+	
+	@RequestMapping("selectEmployeeInfo")
+	public HashMap<String, Object> selectEmployeeInfo(EmployeeVo employeeVo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		EmployeeVo result =  mainService.selectEmployeeInfo(employeeVo);
+
+		map.put("success", "result");
+		map.put("data", result);
+		
+		return map;
+	}
+
+	@RequestMapping("employeeAuthUpdateProcess")
+	public HashMap<String, Object> employeeAuthUpdateProcess(EmployeeVo employeeVo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		mainService.updateEmployeeAuthInfo(employeeVo);
+		
+		map.put("success", "result");
+		
+		return map;
+	}
+	
+	@RequestMapping("updateEmployeeRetireProcess")
+	public HashMap<String, Object> updateEmployeeRetireProcess(String [] code , EmployeeVo employeeVo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		for (String codeNum : code) {
+			EmployeeVo EmployeeData = new EmployeeVo();
+			EmployeeData.setCompany_code(employeeVo.getCompany_code());
+			EmployeeData.setEmployee_code(codeNum);
+			
+			mainService.updateEmployeeRetire(EmployeeData);
+		}
+		
+		map.put("success", "result");
+		
+		return map;
+	}
+	
 }

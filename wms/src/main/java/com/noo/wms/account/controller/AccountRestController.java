@@ -2,7 +2,9 @@ package com.noo.wms.account.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -97,31 +99,37 @@ public class AccountRestController {
 	@RequestMapping("insertAccountInfo")
 	public HashMap<String, Object> insertAccountInfo(AccountVo accountVo, MultipartFile account_registration_jpg) {
 		
-		if(!account_registration_jpg.isEmpty()) {
+			System.out.println("사진파일" + account_registration_jpg);
+			
+			MultipartFile image = account_registration_jpg;
 			//사업자등록증 폴더 생성
-			String folderName = "/uploadFilesWms/vendorLicenseImage/";
-			File licenseFolder = new File(folderName);
+			String folderName = "/uploadFilesWms/";
+			String getOriginalFilename= image.getOriginalFilename();
+			
+			String randomName = UUID.randomUUID().toString();
+			randomName += "_" + System.currentTimeMillis();
+			
+			String ext = getOriginalFilename.substring(getOriginalFilename.lastIndexOf("."));
+			randomName += ext;
+			
+			Date today = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+			String todayFolderNmae = sdf.format(today);
+			
+			File licenseFolder = new File(folderName + todayFolderNmae);
 			
 			if(!licenseFolder.exists()) {
 				licenseFolder.mkdirs();
 			}
-			
-			//사업자등록증 이름 생성
-			String originalFileName = account_registration_jpg.getOriginalFilename();
-			
-			String randomName = UUID.randomUUID().toString();
-			randomName += "_" + System.currentTimeMillis();
-			String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
-			randomName += ext;
-			accountVo.setAccount_registration_jpg(randomName);
-			
+				
 			try {
-				account_registration_jpg.transferTo(new File(folderName + randomName));
+				account_registration_jpg.transferTo(new File(folderName + todayFolderNmae + randomName));
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
-		}
-		
+			accountVo.setAccount_registration_jpg(todayFolderNmae+randomName);
+			
+
 		accountService.insertAccountInfo(accountVo);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();

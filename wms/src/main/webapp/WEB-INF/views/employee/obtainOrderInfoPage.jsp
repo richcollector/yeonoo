@@ -41,21 +41,31 @@
 		var accountCodeVal = document.getElementById("account_code").value;
 		var obtainOrderStateVal = document.getElementById("obtain_order_state").value;
 		var obtainOrderManagerVal = document.getElementById("obtain_order_manager").value;
-		var obtainOrderDateVal = document.getElementById("obtain_order_date").value;
-		var obtainOrderDueDateVal = document.getElementById("obtain_order_due_date").value;
+		var obtainOrderDateVal = moment(document.getElementById("obtain_order_date").value).format("YYYY-MM-DD");
+		var obtainOrderDueDateVal = moment(document.getElementById("obtain_order_due_date").value).format("YYYY-MM-DD");
 		var obtainOrderRegisterEmployeeVal = document.getElementById("obtain_order_register_employee").value;
 		var obtainOrderMemoVal = document.getElementById("obtain_order_memo").value;
 		
 		
 		var xhr = new XMLHttpRequest();
-// 		xhr.onreadystatechange = function () {
-// 			if(xhr.readyState == 4 && xhr.status == 200){
-// 				var result = JSON.parse(xhr.responseText);	
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var result = JSON.parse(xhr.responseText);	
 					
-
+				document.getElementById("company_code").value = "";
+				document.getElementById("account_code").value = "";
+				document.getElementById("obtain_order_state").value = "";
+				document.getElementById("obtain_order_manager").value = "";
+				document.getElementById("obtain_order_date").value = "";
+				document.getElementById("obtain_order_due_date").value = "";
+				document.getElementById("obtain_order_register_employee").value = "";
+				document.getElementById("obtain_order_memo").value = "";
 				
-// 			}
-// 		}
+				
+				refreshObtainOrderInfo();
+				
+			}
+		}
 		
 		xhr.open("post" , "./insertObtainOrderInfo");
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -67,17 +77,7 @@
 				"&obtain_order_memo=" + obtainOrderMemoVal);
 		
 		
-		document.getElementById("company_code").value = "";
-		document.getElementById("account_code").value = "";
-		document.getElementById("obtain_order_state").value = "";
-		document.getElementById("obtain_order_manager").value = "";
-		document.getElementById("obtain_order_date").value = "";
-		document.getElementById("obtain_order_due_date").value = "";
-		document.getElementById("obtain_order_register_employee").value = "";
-		document.getElementById("obtain_order_memo").value = "";
-		
-		
-		refreshObtainOrderInfo();
+
 	}
 	
 	function selectObtainOrder(){
@@ -294,7 +294,7 @@
  		console.log(clickSearchWordVal);
  		
  		var choseButtonBox = document.getElementById("choseButton");
- 		choseButton.innerHTML = "";
+ 		choseButtonBox.innerHTML = "";
  		choseButtonBox.classList.add("col-6");
  		choseButtonBox.classList.add("mx-0");
  		
@@ -348,7 +348,7 @@
 
 		var inSpan1 = document.createElement("span");
 		inSpan1.classList.add("fs-5");
-		inSpan1.innerText = "수주 목록 ";
+		inSpan1.innerText = " 수주 목록 ";
 		listDetailNew.appendChild(inSpan1);
 
 		var selectBox = document.getElementById("selectNew");
@@ -370,7 +370,7 @@
 
 		var detailOption2 = document.createElement("option");
 		detailOption2.value = "obtain_order_code";
-		detailOption2.innerText = "수주번호";
+		detailOption2.innerText = "수주코드";
 		detailSelect1.appendChild(detailOption2);
 
 		var detailOption3 = document.createElement("option");
@@ -407,7 +407,7 @@
 		table1.classList.add("table");
 		table1.classList.add("table-bordered");
 		table1.classList.add("text-center");
-		table1.setAttribute("style","width:auto;");
+		table1.setAttribute("style","width:1178px;");
 
 		var thead1 = document.createElement("thead");
 		table1.appendChild(thead1);
@@ -707,7 +707,7 @@
 //  		console.log(clickSearchWordVal);
  		
  		var choseButtonBox = document.getElementById("choseButton");
- 		choseButton.innerHTML = "";
+ 		choseButtonBox.innerHTML = "";
  		choseButtonBox.classList.add("col-6");
  		choseButtonBox.classList.add("mx-0");
  		
@@ -761,7 +761,7 @@
 
 		var inSpan1 = document.createElement("span");
 		inSpan1.classList.add("fs-5");
-		inSpan1.innerText = "수주 목록 ";
+		inSpan1.innerText = " 수주 목록 ";
 		listDetailNew.appendChild(inSpan1);
 
 		var selectBox = document.getElementById("selectNew");
@@ -783,7 +783,7 @@
 
 		var detailOption2 = document.createElement("option");
 		detailOption2.value = "obtain_order_code";
-		detailOption2.innerText = "수주번호";
+		detailOption2.innerText = "수주코드";
 		detailSelect1.appendChild(detailOption2);
 
 		var detailOption3 = document.createElement("option");
@@ -817,7 +817,7 @@
 		table1.classList.add("table");
 		table1.classList.add("table-bordered");
 		table1.classList.add("text-center");
-		table1.setAttribute("style","width:auto;");
+		table1.setAttribute("style","width:1178px;");
 
 		var thead1 = document.createElement("thead");
 		table1.appendChild(thead1);
@@ -1110,7 +1110,7 @@
  		
  		
  		var choseButtonBox = document.getElementById("choseButton");
- 		choseButton.innerHTML = "";
+ 		choseButtonBox.innerHTML = "";
  		choseButtonBox.classList.add("col-6");
  		choseButtonBox.classList.add("mx-0");
  		
@@ -1164,7 +1164,7 @@
 
 		var inSpan1 = document.createElement("span");
 		inSpan1.classList.add("fs-5");
-		inSpan1.innerText = "수주 상세 목록 ";
+		inSpan1.innerText = " 수주 상세 목록 ";
 		listDetailNew.appendChild(inSpan1);
 		
 		var inA1 = document.createElement("a");
@@ -1196,12 +1196,12 @@
 
 		var detailOption2 = document.createElement("option");
 		detailOption2.value = "product_code";
-		detailOption2.innerText = "상품코드";
+		detailOption2.innerText = "제품코드";
 		detailSelect1.appendChild(detailOption2);
 
 		var detailOption3 = document.createElement("option");
 		detailOption3.value = "product_name";
-		detailOption3.innerText = "상품명";
+		detailOption3.innerText = "제품명";
 		detailSelect1.appendChild(detailOption3);
 
 		var searchWordBox1 = document.createElement("input");
@@ -1469,7 +1469,7 @@
 	 		
 	 		
 	 		var choseButtonBox = document.getElementById("choseButton");
-	 		choseButton.innerHTML = "";
+	 		choseButtonBox.innerHTML = "";
 	 		choseButtonBox.classList.add("col-6");
 	 		choseButtonBox.classList.add("mx-0");
 	 		
@@ -1523,7 +1523,7 @@
 
 			var inSpan1 = document.createElement("span");
 			inSpan1.classList.add("fs-5");
-			inSpan1.innerText = "수주 상세 목록 ";
+			inSpan1.innerText = " 수주 상세 목록 ";
 			listDetailNew.appendChild(inSpan1);
 			
 			var inA1 = document.createElement("a");
@@ -1555,12 +1555,12 @@
 
 			var detailOption2 = document.createElement("option");
 			detailOption2.value = "product_code";
-			detailOption2.innerText = "상품코드";
+			detailOption2.innerText = "제품코드";
 			detailSelect1.appendChild(detailOption2);
 
 			var detailOption3 = document.createElement("option");
 			detailOption3.value = "product_name";
-			detailOption3.innerText = "상품명";
+			detailOption3.innerText = "제품명";
 			detailSelect1.appendChild(detailOption3);
 
 			var searchWordBox1 = document.createElement("input");
@@ -2046,7 +2046,7 @@
 							<div id="selectNew" class="input-group mb-3">
 									<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 										<option selected>선택</option>
-										<option value="obtain_order_code">수주번호</option>
+										<option value="obtain_order_code">수주코드</option>
 										<option value="obtain_order_manager">수주담당자</option>
 										<option value="obtain_order_register_employee">수주등록자</option>
 									  </select>
@@ -2433,7 +2433,7 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">수주디테일코드</span>
+                                        <span class="input-group-text">수주상세코드</span>
                                         <input id="obtain_order_detail_code_update" readonly type="text" class="form-control">
                                     </div>
                                 </div>                               

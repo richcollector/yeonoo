@@ -6,14 +6,19 @@
 	<meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"> 
+       <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
-
-
+	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
         *{
              margin: 0px;
              padding: 0px;
-            
         }
+        
+       	body { 
+ 		font-family : pretendard; 
+ 		color: #404040; 
+ 		} 
 
         #wrapper{
             width: 1200px;
@@ -121,8 +126,8 @@
                 </button>
                 <div class="usermenu-content">
                         <a href="../company/companyInfoPage">회사정보(△)</a><br>
-                        <a href="../account/accountInfoPage">거래처정보(o)</a><br>
-                        <a href="../employee/productInfoPage">물품정보(△)</a><br>
+                        <a href="../account/accountInfoPage">거래처정보</a><br>
+                        <a href="../employee/productInfoPage">제품정보</a><br>
                         <a href="../warehouse/warehouseList">창고정보(△)</a><br>
                         <a href="../lot/lotManage">로트관리(△)</a>            
                 </div>          
@@ -134,10 +139,10 @@
                     영업관리
                 </button>
                 <div class="usermenu-content">
-                    <a href="../employee/obtainOrderInfoPage">수주정보(△)</a><br>
-                    <a href="../employee/manufactureInfoPage">생산정보(△)</a><br>
-                    <a href="../employee/outboundInfoPage">출하정보(△)</a><br>            
-                    <a href="../employee/productPriceInfoPage">단가정보(△)</a><br>
+                    <a href="../employee/obtainOrderInfoPage">수주정보</a><br>
+                    <a href="../employee/manufactureInfoPage">생산정보</a><br>
+                    <a href="../employee/outboundInfoPage">출하정보</a><br>            
+                    <a href="../employee/productPriceInfoPage">단가정보</a><br>
                 </div>          
                 </div>            
             </div>
@@ -147,7 +152,7 @@
                     구매관리
                 </button>
                 <div class="usermenu-content">
-                    <a href="../employee/purchaseInfoPage">발주정보(△)</a>             
+                    <a href="../employee/purchaseInfoPage">발주정보</a>             
                 </div>          
                 </div>               
             </div>
@@ -158,7 +163,8 @@
                 </button>
                 <div class="usermenu-content">
                     <a href="">입고등록(x)</a><br>
-                    <a href="">출하등록(x)</a>                
+                    <a href="">출하등록(x)</a><br>
+                    <a href="">재고현황(x)</a>       
                 </div>          
                 </div>              
             </div>

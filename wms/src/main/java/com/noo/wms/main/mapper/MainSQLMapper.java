@@ -2,12 +2,9 @@ package com.noo.wms.main.mapper;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.noo.wms.vo.AdminVo;
 import com.noo.wms.vo.CompanyVo;
 import com.noo.wms.vo.DepartmentVo;
-import com.noo.wms.vo.EmployeeRankVo;
 import com.noo.wms.vo.EmployeeVo;
 import com.noo.wms.vo.MailAuthVo;
 import com.noo.wms.vo.NoticeVo;
@@ -47,25 +44,4 @@ public interface MainSQLMapper {
 	
 	//공지사항 삭제
 	public void deleteNoticeByNoticeCode(String notice_code);
-	
-	//비밀번호 변경
-	public void updateEmployeePw(EmployeeVo employeeVo);
-	
-	//사원 목록 불러오기
-	public ArrayList<EmployeeVo> employeeInfo(@Param("searchType") String searchType, 
-											@Param("searchWord") String searchWord,
-											@Param("startList") int startList,
-											@Param("company_code") String company_code
-											);
-	
-	public int employeeInfoCount(@Param("searchType") String searchType, 
-								@Param("searchWord") String searchWord,
-								@Param("company_code") String company_code
-								);
-	
-	//사원 권한 수정
-	public EmployeeVo selectEmployeeInfo(EmployeeVo employeeVo);
-	public void updateEmployeeAuthInfo(EmployeeVo employeeVo);
-
-	public void updateEmployeeRetire(EmployeeVo employeeVo);
 }

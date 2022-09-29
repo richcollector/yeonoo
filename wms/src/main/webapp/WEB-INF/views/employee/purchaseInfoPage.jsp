@@ -9,17 +9,9 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+	
     <style>
     
-   	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
-   	
-   	body { 
-	font-family : pretendard; 
-	color: #404040; 
-	} 
-	
     #wrapper{
 		width: 1200px;
     }
@@ -49,26 +41,36 @@
 		var accountCodeVal = document.getElementById("account_code").value;
 		var purchaseStateVal = document.getElementById("purchase_state").value;
 		var purchaseManagerVal = document.getElementById("purchase_manager").value;
-		var purchaseDateVal = moment(document.getElementById("purchase_date").value).format("YYYY-MM-DD");
-		var purchaseDueDateVal = moment(document.getElementById("purchase_due_date").value).format("YYYY-MM-DD");
+		var purchaseDateVal = document.getElementById("purchase_date").value;
+		var purchaseDueDateVal = document.getElementById("purchase_due_date").value;
 		var purchaseRegisterEmployeeVal = document.getElementById("purchase_register_employee").value;
+		var purchaseUpdateEmployeeVal = document.getElementById("purchase_update_employee").value;
 		var purchaseMemoVal = document.getElementById("purchase_memo").value;
 		
-
+		console.log(companyCodeVal);
+		console.log(accountCodeVal);
+		console.log(purchaseStateVal);
+		console.log(purchaseManagerVal);
+		console.log(purchaseDateVal);
+		console.log(purchaseDueDateVal);
+		console.log(purchaseRegisterEmployeeVal);
+		console.log(purchaseUpdateEmployeeVal);
+		console.log(purchaseMemoVal);
 
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
 					
-				document.getElementById("company_code").value = "";
-				document.getElementById("account_code").value = "";
-				document.getElementById("purchase_state").value = "";
-				document.getElementById("purchase_manager").value = "";
-				document.getElementById("purchase_date").value = "";
-				document.getElementById("purchase_due_date").value = "";
-				document.getElementById("purchase_register_employee").value = "";
-				document.getElementById("purchase_memo").value = "";
+				var companyCodeVal = document.getElementById("company_code").value;
+				var accountCodeVal = document.getElementById("account_code").value;
+				var purchaseStateVal = document.getElementById("purchase_state").value;
+				var purchaseManagerVal = document.getElementById("purchase_manager").value;
+				var purchaseDateVal = document.getElementById("purchase_date").value;
+				var purchaseDueDateVal = document.getElementById("purchase_due_date").value;
+				var purchaseRegisterEmployeeVal = document.getElementById("purchase_register_employee").value;
+				var purchaseUpdateEmployeeVal = document.getElementById("purchase_update_employee").value;
+				var purchaseMemoVal = document.getElementById("purchase_memo").value;
 				refreshPurchaseInfo();
 			}
 		}
@@ -81,11 +83,11 @@
 // 				"&purchase_update_employee=" + purchaseUpdateEmployeeVal + "&purchase_memo=" + purchaseMemoVal + "&product_code=" + productCodeVal +
 // 				"&product_name=" + productNameVal + "&product_price=" + productPriceVal + "&product_amount=" + productAmountVal);		
 		
-		xhr.open("post" , "./insertPurchaseInfo",);
+		xhr.open("post" , "./insertPurchaseInfo");
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhr.send("company_code=" + companyCodeVal + "&account_code=" + accountCodeVal + "&purchase_state=" + purchaseStateVal + 
 				"&purchase_manager=" + purchaseManagerVal + "&purchase_date=" + purchaseDateVal + "&purchase_due_date=" + purchaseDueDateVal + 
-				 "&purchase_register_employee=" + purchaseRegisterEmployeeVal + "&purchase_update_employee=" + purchaseRegisterEmployeeVal + 
+				 "&purchase_register_employee=" + purchaseRegisterEmployeeVal + "&purchase_update_employee=" + purchaseUpdateEmployeeVal + 
 				 "&purchase_memo=" + purchaseMemoVal);	
 		
 	}
@@ -130,6 +132,7 @@
 		document.getElementById("purchase_manager_update").value = "";
 		document.getElementById("purchase_date_update").value = "";
 		document.getElementById("purchase_due_date_update").value = "";
+		document.getElementById("purchase_register_employee_update").value = "";
 		document.getElementById("purchase_update_employee_update").value = "";
 		document.getElementById("purchase_memo_update").value = "";
 	    
@@ -140,6 +143,7 @@
 		var purchaseManager = document.getElementById("purchase_manager_update");
 		var purchaseDate = document.getElementById("purchase_date_update");
 		var purchaseDueDate = document.getElementById("purchase_due_date_update");
+		var purchaseRegisterEmployee = document.getElementById("purchase_register_employee_update");
 		var purchaseUpdateEmployee = document.getElementById("purchase_update_employee_update");
 		var purchaseMemo = document.getElementById("purchase_memo_update");
 // 		var productCodeVal = document.getElementById("product_code").value;
@@ -157,10 +161,17 @@
 				accountCode.value = jsonObj.account_code;
 				purchaseState.value = jsonObj.purchase_state;
 				purchaseManager.value = jsonObj.purchase_manager;
-				purchaseDate.value = moment(jsonObj.purchase_date).format('YYYY-MM-DD');
-				purchaseDueDate.value = moment(jsonObj.purchase_due_date).format('YYYY-MM-DD');
+				purchaseDate.value = moment(jsonObj.purchase_date).format('YYYY.MM.DD');
+				purchaseDueDate.value = moment(jsonObj.purchase_due_date).format('YYYY.MM.DD');
+// 				purchaseRegisterDateVal = jsonObj.purchase_register_date;
+				purchaseRegisterEmployee.value = jsonObj.purchase_register_employee;
+// 				purchaseUpdateDateVal = jsonObj.purchase_update_date;
 				purchaseUpdateEmployee.value = jsonObj.purchase_update_employee;
 				purchaseMemo.value = jsonObj.purchase_memo;
+// 				productCodeVal = jsonObj.product_code;
+// 				productNameVal = jsonObj.product_name;
+// 				productPriceVal = jsonObj.product_price;
+// 				productAmountVal = jsonObj.product_amount;
 
 				document.getElementById("updateModalStart").click();
 				
@@ -180,8 +191,15 @@
 		document.getElementById("purchase_manager").value = "";
 		document.getElementById("purchase_date").value = "";
 		document.getElementById("purchase_due_date").value = "";
+// 		document.getElementById("purchase_register_date").value = "";
+		document.getElementById("purchase_register_employee").value = "";
+// 		document.getElementById("purchase_update_date").value = "";
 		document.getElementById("purchase_update_employee").value = "";
 		document.getElementById("purchase_memo").value = "";
+// 		document.getElementById("product_code").value = "";
+// 		document.getElementById("product_name").value = "";
+// 		document.getElementById("product_price").value = "";
+// 		document.getElementById("product_amount").value = "";
 	}
 	
 	function getModalVal(){
@@ -210,6 +228,7 @@
 		var purchaseManagerVal = document.getElementById("purchase_manager_update").value;
 		var purchaseDateVal = moment(document.getElementById("purchase_date_update").value).format('YYYY-MM-DD');
 		var purchaseDueDateVal = moment(document.getElementById("purchase_due_date_update").value).format('YYYY-MM-DD');
+		var purchaseRegisterEmployeeVal = document.getElementById("purchase_register_employee_update").value;
 		var purchaseUpdateEmployeeVal = document.getElementById("purchase_update_employee_update").value;
 		var purchaseMemoVal = document.getElementById("purchase_memo_update").value;
 		
@@ -225,6 +244,7 @@
 				document.getElementById("purchase_manager_update").value = "";
 				document.getElementById("purchase_date_update").value = "";
 				document.getElementById("purchase_due_date_update").value = "";
+				document.getElementById("purchase_register_employee_update").value = "";
 				document.getElementById("purchase_update_employee_update").value = "";
 				document.getElementById("purchase_memo_update").value = "";
 				
@@ -235,7 +255,7 @@
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhr.send("purchase_code=" + purchaseCodeVal + "&company_code=" + companyCodeVal + "&account_code=" + accountCodeVal + "&purchase_state=" + purchaseStateVal + 
 				"&purchase_manager=" + purchaseManagerVal + "&purchase_date=" + purchaseDateVal + "&purchase_due_date=" + purchaseDueDateVal + 
-				"&purchase_register_employee=" + purchaseUpdateEmployeeVal + "&purchase_update_employee=" + purchaseUpdateEmployeeVal + "&purchase_memo=" + purchaseMemoVal);
+				"&purchase_register_employee=" + purchaseRegisterEmployeeVal + "&purchase_update_employee=" + purchaseUpdateEmployeeVal + "&purchase_memo=" + purchaseMemoVal);
 		refreshPurchaseInfo();
 		
 	}
@@ -316,116 +336,11 @@
  		
  		var clickSearchType = document.getElementById("searchType");
  		var clickSearchTypeVal = clickSearchType.value;
+ 		console.log(clickSearchTypeVal);
  		
  		var clickSearchWord = document.getElementById("searchWord");
  		var clickSearchWordVal = clickSearchWord.value;
- 		
- 		
- 		var choseButtonBox = document.getElementById("choseButton");
- 		choseButtonBox.innerHTML = "";
- 		choseButtonBox.classList.add("col-6");
- 		choseButtonBox.classList.add("mx-0");
- 		
- 		var registDetailBtn1 = document.createElement("button");
- 		registDetailBtn1.classList.add("btn");
- 		registDetailBtn1.classList.add("btn-light");
- 		registDetailBtn1.setAttribute("type","button");
- 		registDetailBtn1.setAttribute("data-bs-toggle","modal");
- 		registDetailBtn1.setAttribute("data-bs-target","#purchaseRegist");
- 		registDetailBtn1.innerText = "등록";
- 		choseButtonBox.appendChild(registDetailBtn1);
- 		
- 		var selectDetailBtn1 = document.createElement("button");
- 		selectDetailBtn1.classList.add("btn");
- 		selectDetailBtn1.classList.add("btn-light");
- 		selectDetailBtn1.setAttribute("type","button");
- 		selectDetailBtn1.setAttribute("id","updateDetailModal");
- 		selectDetailBtn1.setAttribute("onclick","selectPurchase()");
- 		selectDetailBtn1.innerText = "수정";
- 		choseButtonBox.appendChild(selectDetailBtn1);
- 		
- 		var updateDetailBtn1 = document.createElement("button");
- 		updateDetailBtn1.classList.add("btn");
- 		updateDetailBtn1.classList.add("btn-light");
- 		updateDetailBtn1.setAttribute("type","button");
- 		updateDetailBtn1.setAttribute("data-bs-toggle","modal");
- 		updateDetailBtn1.setAttribute("data-bs-target","#purchaseUpdate");
- 		updateDetailBtn1.setAttribute("id","updateModalStart");
- 		updateDetailBtn1.hidden = true;
- 		updateDetailBtn1.innerText = "수정";
- 		choseButtonBox.appendChild(updateDetailBtn1);
- 		
- 		var deliteDetailBtn1 = document.createElement("button");
- 		deliteDetailBtn1.classList.add("btn");
- 		deliteDetailBtn1.classList.add("btn-light");
- 		deliteDetailBtn1.setAttribute("type","button");
- 		deliteDetailBtn1.setAttribute("onclick","deletePurchaseInfo()");
- 		deliteDetailBtn1.innerText = "삭제";
- 		choseButtonBox.appendChild(deliteDetailBtn1);
- 			
- 			
- 		var listDetailNew = document.getElementById("listNew");
- 		listDetailNew.innerHTML = "";
- 		listDetailNew.classList.add("col");
-
- 		var inI1 = document.createElement("i");
- 		inI1.classList.add("bi");
- 		inI1.classList.add("bi-list");
- 		inI1.classList.add("fs-5");
- 		listDetailNew.appendChild(inI1);
-
- 		var inSpan1 = document.createElement("span");
- 		inSpan1.classList.add("fs-5");
- 		inSpan1.innerText = " 발주 목록 ";
- 		listDetailNew.appendChild(inSpan1);
-
- 		var selectBox = document.getElementById("selectNew");
- 		selectBox.innerHTML = "";
- 		selectBox.classList.add("input-group");
- 		selectBox.classList.add("mb-3");
-
- 		var detailSelect1 = document.createElement("select");
- 		detailSelect1.classList.add("form-select");
- 		detailSelect1.setAttribute("style","width: 10px;");
- 		detailSelect1.setAttribute("aria-label","Default select example");
- 		detailSelect1.setAttribute("id","searchType");
- 		selectBox.appendChild(detailSelect1);
- 		
- 		var detailOption1 = document.createElement("option");
- 		detailOption1.value = "";
- 		detailOption1.innerText = "선택";
- 		detailSelect1.appendChild(detailOption1);
-
- 		var detailOption2 = document.createElement("option");
- 		detailOption2.value = "purchase_code";
- 		detailOption2.innerText = "발주코드";
- 		detailSelect1.appendChild(detailOption2);
-
- 		var detailOption3 = document.createElement("option");
- 		detailOption3.value = "purchase_manager";
- 		detailOption3.innerText = "발주담당자";
- 		detailSelect1.appendChild(detailOption3);
- 		
- 		var detailOption4 = document.createElement("option");
- 		detailOption4.value = "purchase_register_employee";
- 		detailOption4.innerText = "발주등록자";
- 		detailSelect1.appendChild(detailOption4);
-
- 		var searchWordBox1 = document.createElement("input");
- 		searchWordBox1.classList.add("form-control");
- 		searchWordBox1.setAttribute("id","searchWord");
- 		searchWordBox1.setAttribute("type","text");
- 		searchWordBox1.setAttribute("aria-label","Text input with dropdown button");
- 		selectBox.appendChild(searchWordBox1);
-
- 		var detailButton1 = document.createElement("button");
- 		detailButton1.setAttribute("type","button");
- 		detailButton1.setAttribute("onclick","refreshPurchaseInfo()");
- 		detailButton1.classList.add("input-group-text");
- 		detailButton1.classList.add("bi");
- 		detailButton1.classList.add("bi-search");
- 		detailButton1.setAttribute("id","basic-addon1");
- 		selectBox.appendChild(detailButton1);
+ 		console.log(clickSearchWordVal);
  		
 // 		var tableDiv = document.getElementById("scrollTable");
 //  		tableDiv.innerHtml = "";
@@ -435,7 +350,6 @@
 		table1.classList.add("table");
 		table1.classList.add("table-bordered");
 		table1.classList.add("text-center");
-		table1.setAttribute("style","width:1178px;");
 
 		var thead1 = document.createElement("thead");
 		table1.appendChild(thead1);
@@ -532,13 +446,8 @@
 // 				console.log(inputIn1.value);
 
 				var td2 = document.createElement("td");
+				td2.innerText = commentData.purchase_code;
 				trIn1.appendChild(td2);
-				
-				var inA1 = document.createElement("div");
-				inA1.innerText = commentData.purchase_code;
-				inA1.setAttribute("onclick","refreshPurchaseDetailInfo(this.innerText)");
-				inA1.setAttribute("style","color : blue;")
-				td2.appendChild(inA1);
 				
 // 				console.log(td2.innerText);
 
@@ -559,15 +468,15 @@
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
-				td7.innerText = moment(commentData.purchase_date).format('YYYY-MM-DD');
+				td7.innerText = moment(commentData.purchase_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td7);
 
 				var td8 = document.createElement("td");
-				td8.innerText = moment(commentData.purchase_due_date).format('YYYY-MM-DD');
+				td8.innerText = moment(commentData.purchase_due_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td8);
 				
 				var td9 = document.createElement("td");
-				td9.innerText = moment(commentData.purchase_register_date).format('YYYY-MM-DD');
+				td9.innerText = moment(commentData.purchase_register_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td9);
 
 				var td10 = document.createElement("td");
@@ -575,7 +484,7 @@
 				trIn1.appendChild(td10);
 				
 				var td11 = document.createElement("td");
-				td11.innerText = moment(commentData.purchase_update_date).format('YYYY-MM-DD');
+				td11.innerText = moment(commentData.purchase_update_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td11);
 
 				var td10 = document.createElement("td");
@@ -626,7 +535,7 @@
 
 					var inA1 = document.createElement("a");
 					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshPurchaseInfoPage("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA1.setAttribute("href","javascript:refreshPurchaseInfoPage("+i-1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA1.setAttribute("aria-label","Previous");
 					inLi1.appendChild(inA1);
@@ -699,7 +608,7 @@
 
 					var inA3 = document.createElement("a");
 					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshPurchaseInfoPage("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("href","javascript:refreshPurchaseInfoPage("+i+1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA3.setAttribute("aria-label","Next");
 					inLi3.appendChild(inA3);
@@ -721,119 +630,14 @@
  	
  	function refreshPurchaseInfoPage(pageNumVal,clickSearchTypeVal,clickSearchWordVal){
  		
+ 		console.log(pageNumVal);
 //  		var clickSearchType = document.getElementById("searchType");
 //  		var clickSearchTypeVal = clickSearchType.value;
+ 		console.log(clickSearchTypeVal);
  		
 //  		var clickSearchWord = document.getElementById("searchWord");
 //  		var clickSearchWordVal = clickSearchWord.value;
- 		
- 		
- 		var choseButtonBox = document.getElementById("choseButton");
- 		choseButtonBox.innerHTML = "";
- 		choseButtonBox.classList.add("col-6");
- 		choseButtonBox.classList.add("mx-0");
- 		
- 		var registDetailBtn1 = document.createElement("button");
- 		registDetailBtn1.classList.add("btn");
- 		registDetailBtn1.classList.add("btn-light");
- 		registDetailBtn1.setAttribute("type","button");
- 		registDetailBtn1.setAttribute("data-bs-toggle","modal");
- 		registDetailBtn1.setAttribute("data-bs-target","#purchaseRegist");
- 		registDetailBtn1.innerText = "등록";
- 		choseButtonBox.appendChild(registDetailBtn1);
- 		
- 		var selectDetailBtn1 = document.createElement("button");
- 		selectDetailBtn1.classList.add("btn");
- 		selectDetailBtn1.classList.add("btn-light");
- 		selectDetailBtn1.setAttribute("type","button");
- 		selectDetailBtn1.setAttribute("id","updateDetailModal");
- 		selectDetailBtn1.setAttribute("onclick","selectPurchase()");
- 		selectDetailBtn1.innerText = "수정";
- 		choseButtonBox.appendChild(selectDetailBtn1);
- 		
- 		var updateDetailBtn1 = document.createElement("button");
- 		updateDetailBtn1.classList.add("btn");
- 		updateDetailBtn1.classList.add("btn-light");
- 		updateDetailBtn1.setAttribute("type","button");
- 		updateDetailBtn1.setAttribute("data-bs-toggle","modal");
- 		updateDetailBtn1.setAttribute("data-bs-target","#purchaseUpdate");
- 		updateDetailBtn1.setAttribute("id","updateModalStart");
- 		updateDetailBtn1.hidden = true;
- 		updateDetailBtn1.innerText = "수정";
- 		choseButtonBox.appendChild(updateDetailBtn1);
- 		
- 		var deliteDetailBtn1 = document.createElement("button");
- 		deliteDetailBtn1.classList.add("btn");
- 		deliteDetailBtn1.classList.add("btn-light");
- 		deliteDetailBtn1.setAttribute("type","button");
- 		deliteDetailBtn1.setAttribute("onclick","deletePurchaseInfo()");
- 		deliteDetailBtn1.innerText = "삭제";
- 		choseButtonBox.appendChild(deliteDetailBtn1);
- 			
- 			
- 		var listDetailNew = document.getElementById("listNew");
- 		listDetailNew.innerHTML = "";
- 		listDetailNew.classList.add("col");
-
- 		var inI1 = document.createElement("i");
- 		inI1.classList.add("bi");
- 		inI1.classList.add("bi-list");
- 		inI1.classList.add("fs-5");
- 		listDetailNew.appendChild(inI1);
-
- 		var inSpan1 = document.createElement("span");
- 		inSpan1.classList.add("fs-5");
- 		inSpan1.innerText = " 발주 목록 ";
- 		listDetailNew.appendChild(inSpan1);
-
- 		var selectBox = document.getElementById("selectNew");
- 		selectBox.innerHTML = "";
- 		selectBox.classList.add("input-group");
- 		selectBox.classList.add("mb-3");
-
- 		var detailSelect1 = document.createElement("select");
- 		detailSelect1.classList.add("form-select");
- 		detailSelect1.setAttribute("style","width: 10px;");
- 		detailSelect1.setAttribute("aria-label","Default select example");
- 		detailSelect1.setAttribute("id","searchType");
- 		selectBox.appendChild(detailSelect1);
- 		
- 		var detailOption1 = document.createElement("option");
- 		detailOption1.value = "";
- 		detailOption1.innerText = "선택";
- 		detailSelect1.appendChild(detailOption1);
-
- 		var detailOption2 = document.createElement("option");
- 		detailOption2.value = "purchase_code";
- 		detailOption2.innerText = "발주코드";
- 		detailSelect1.appendChild(detailOption2);
-
- 		var detailOption3 = document.createElement("option");
- 		detailOption3.value = "purchase_manager";
- 		detailOption3.innerText = "발주담당자";
- 		detailSelect1.appendChild(detailOption3);
- 		
- 		var detailOption4 = document.createElement("option");
- 		detailOption4.value = "purchase_register_employee";
- 		detailOption4.innerText = "발주등록자";
- 		detailSelect1.appendChild(detailOption4);
-
- 		var searchWordBox1 = document.createElement("input");
- 		searchWordBox1.classList.add("form-control");
- 		searchWordBox1.setAttribute("id","searchWord");
- 		searchWordBox1.setAttribute("type","text");
- 		searchWordBox1.setAttribute("aria-label","Text input with dropdown button");
- 		selectBox.appendChild(searchWordBox1);
-
- 		var detailButton1 = document.createElement("button");
- 		detailButton1.setAttribute("type","button");
- 		detailButton1.setAttribute("onclick","refreshPurchaseInfo()");
- 		detailButton1.classList.add("input-group-text");
- 		detailButton1.classList.add("bi");
- 		detailButton1.classList.add("bi-search");
- 		detailButton1.setAttribute("id","basic-addon1");
- 		selectBox.appendChild(detailButton1);
- 		
+ 		console.log(clickSearchWordVal);
  		
 // 		var tableDiv = document.getElementById("scrollTable");
 //  		tableDiv.innerHtml = "";
@@ -843,7 +647,6 @@
 		table1.classList.add("table");
 		table1.classList.add("table-bordered");
 		table1.classList.add("text-center");
-		table1.setAttribute("style","width:1178px;");
 
 		var thead1 = document.createElement("thead");
 		table1.appendChild(thead1);
@@ -940,13 +743,8 @@
 // 				console.log(inputIn1.value);
 
 				var td2 = document.createElement("td");
+				td2.innerText = commentData.purchase_code;
 				trIn1.appendChild(td2);
-				
-				var inA1 = document.createElement("div");
-				inA1.innerText = commentData.purchase_code;
-				inA1.setAttribute("onclick","refreshPurchaseDetailInfo(this.innerText)");
-				inA1.setAttribute("style","color : blue;")
-				td2.appendChild(inA1);
 				
 // 				console.log(td2.innerText);
 
@@ -967,15 +765,15 @@
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
-				td7.innerText = moment(commentData.purchase_date).format('YYYY-MM-DD');
+				td7.innerText = moment(commentData.purchase_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td7);
 
 				var td8 = document.createElement("td");
-				td8.innerText = moment(commentData.purchase_due_date).format('YYYY-MM-DD');
+				td8.innerText = moment(commentData.purchase_due_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td8);
 				
 				var td9 = document.createElement("td");
-				td9.innerText = moment(commentData.purchase_register_date).format('YYYY-MM-DD');
+				td9.innerText = moment(commentData.purchase_register_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td9);
 
 				var td10 = document.createElement("td");
@@ -983,7 +781,7 @@
 				trIn1.appendChild(td10);
 				
 				var td11 = document.createElement("td");
-				td11.innerText = moment(commentData.purchase_update_date).format('YYYY-MM-DD');
+				td11.innerText = moment(commentData.purchase_update_date).format('YYYY.MM.DD');
 				trIn1.appendChild(td11);
 
 				var td10 = document.createElement("td");
@@ -1034,7 +832,7 @@
 
 					var inA1 = document.createElement("a");
 					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshPurchaseInfoPage("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA1.setAttribute("href","javascript:refreshPurchaseInfoPage("+i-1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA1.setAttribute("aria-label","Previous");
 					inLi1.appendChild(inA1);
@@ -1107,7 +905,7 @@
 
 					var inA3 = document.createElement("a");
 					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshPurchaseInfoPage("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("href","javascript:refreshPurchaseInfoPage("+i+1+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA3.setAttribute("aria-label","Next");
 					inLi3.appendChild(inA3);
@@ -1126,920 +924,6 @@
 		xhr.send();	//AJAX로 리퀘스트함...
 		
  	}
- 	
- 	
-function refreshPurchaseDetailInfo(purchase_code){
- 		
-	var clickSearchType = document.getElementById("searchType");
-	var clickSearchTypeVal = clickSearchType.value;
-	
-	var clickSearchWord = document.getElementById("searchWord");
-	var clickSearchWordVal = clickSearchWord.value;
-	
-	var inputOtainCodeBox = document.getElementById("purchase_code_in_detail");
-	inputOtainCodeBox.innerHTML = "";
-	inputOtainCodeBox.classList.add("form-control");
-	inputOtainCodeBox.setAttribute("type","text");
-	inputOtainCodeBox.setAttribute("id","purchase_code_in_detail");
-	inputOtainCodeBox.value = purchase_code;
-	
-	
-	var choseButtonBox = document.getElementById("choseButton");
-	choseButtonBox.innerHTML = "";
-	choseButtonBox.classList.add("col-6");
-	choseButtonBox.classList.add("mx-0");
-	
-	var registDetailBtn1 = document.createElement("button");
-	registDetailBtn1.classList.add("btn");
-	registDetailBtn1.classList.add("btn-light");
-	registDetailBtn1.setAttribute("type","button");
-	registDetailBtn1.setAttribute("data-bs-toggle","modal");
-	registDetailBtn1.setAttribute("data-bs-target","#purchaseDetailRegist");
-	registDetailBtn1.innerText = "등록";
-	choseButtonBox.appendChild(registDetailBtn1);
-	
-	var selectDetailBtn1 = document.createElement("button");
-	selectDetailBtn1.classList.add("btn");
-	selectDetailBtn1.classList.add("btn-light");
-	selectDetailBtn1.setAttribute("type","button");
-	selectDetailBtn1.setAttribute("id","updateDetailModal");
-	selectDetailBtn1.setAttribute("onclick","selectPurchaseDetail()");
-	selectDetailBtn1.innerText = "수정";
-	choseButtonBox.appendChild(selectDetailBtn1);
-	
-	var updateDetailBtn1 = document.createElement("button");
-	updateDetailBtn1.classList.add("btn");
-	updateDetailBtn1.classList.add("btn-light");
-	updateDetailBtn1.setAttribute("type","button");
-	updateDetailBtn1.setAttribute("data-bs-toggle","modal");
-	updateDetailBtn1.setAttribute("data-bs-target","#purchaseDetailUpdate");
-	updateDetailBtn1.setAttribute("id","updateDetailModalStart");
-	updateDetailBtn1.hidden = true;
-	updateDetailBtn1.innerText = "수정";
-	choseButtonBox.appendChild(updateDetailBtn1);
-	
-	var deliteDetailBtn1 = document.createElement("button");
-	deliteDetailBtn1.classList.add("btn");
-	deliteDetailBtn1.classList.add("btn-light");
-	deliteDetailBtn1.setAttribute("type","button");
-	deliteDetailBtn1.setAttribute("onclick","deletePurchaseDetailInfo()");
-	deliteDetailBtn1.innerText = "삭제";
-	choseButtonBox.appendChild(deliteDetailBtn1);
-		
-		
-	var listDetailNew = document.getElementById("listNew");
-	listDetailNew.innerHTML = "";
-	listDetailNew.classList.add("col");
-
-	var inI1 = document.createElement("i");
-	inI1.classList.add("bi");
-	inI1.classList.add("bi-list");
-	inI1.classList.add("fs-5");
-	listDetailNew.appendChild(inI1);
-
-	var inSpan1 = document.createElement("span");
-	inSpan1.classList.add("fs-5");
-	inSpan1.innerText = " 발주 상세 목록 ";
-	listDetailNew.appendChild(inSpan1);
-	
-	var inA1 = document.createElement("a");
-	inA1.setAttribute("onclick","refreshPurchaseInfo()");
-	listDetailNew.appendChild(inA1);
-	
-	var inI1 = document.createElement("i")
-	inI1.classList.add("bi");
-	inI1.classList.add("bi-arrow-left-square");
-	inI1.classList.add("fs-5");
-	inA1.appendChild(inI1);
-
-	var selectBox = document.getElementById("selectNew");
-	selectBox.innerHTML = "";
-	selectBox.classList.add("input-group");
-	selectBox.classList.add("mb-3");
-
-	var detailSelect1 = document.createElement("select");
-	detailSelect1.classList.add("form-select");
-	detailSelect1.setAttribute("style","width: 10px;");
-	detailSelect1.setAttribute("aria-label","Default select example");
-	detailSelect1.setAttribute("id","searchType");
-	selectBox.appendChild(detailSelect1);
-	
-	var detailOption1 = document.createElement("option");
-	detailOption1.value = "";
-	detailOption1.innerText = "선택";
-	detailSelect1.appendChild(detailOption1);
-
-	var detailOption2 = document.createElement("option");
-	detailOption2.value = "product_code";
-	detailOption2.innerText = "제품코드";
-	detailSelect1.appendChild(detailOption2);
-
-	var detailOption3 = document.createElement("option");
-	detailOption3.value = "product_name";
-	detailOption3.innerText = "제품명";
-	detailSelect1.appendChild(detailOption3);
-
-	var searchWordBox1 = document.createElement("input");
-	searchWordBox1.classList.add("form-control");
-	searchWordBox1.setAttribute("id","searchWord");
-	searchWordBox1.setAttribute("type","text");
-	searchWordBox1.setAttribute("aria-label","Text input with dropdown button");
-	selectBox.appendChild(searchWordBox1);
-
-	var detailButton1 = document.createElement("button");
-	detailButton1.setAttribute("type","button");
-	detailButton1.setAttribute("onclick","refreshPurchaseDetailInfo(this.value)");
-	detailButton1.classList.add("input-group-text");
-	detailButton1.classList.add("bi");
-	detailButton1.value = purchase_code;
-	detailButton1.classList.add("bi-search");
-	detailButton1.setAttribute("id","basic-addon1");
-	selectBox.appendChild(detailButton1);
- 		
-// 		var tableDiv = document.getElementById("scrollTable");
-//  		tableDiv.innerHtml = "";
-
-		var table1 = document.getElementById("createTable");
-		table1.innerHTML = "";
-		table1.classList.add("table");
-		table1.classList.add("table-bordered");
-		table1.classList.add("text-center");
-		table1.setAttribute("style","width:1178px;");
-
-		var thead1 = document.createElement("thead");
-		table1.appendChild(thead1);
-
-		var tr1 = document.createElement("tr");
-		thead1.appendChild(tr1);
-
-		var th1 = document.createElement("th");
-		tr1.appendChild(th1);
-
-		var input1 = document.createElement("input");
-		input1.setAttribute("id","check_all");
-		input1.setAttribute("onclick","allCheck()");
-		input1.setAttribute("type","checkbox");
-		th1.appendChild(input1);
-
-		var th2 = document.createElement("th");
-		th2.innerText = "발주상세코드";
-		tr1.appendChild(th2);
-
-		var th3 = document.createElement("th");
-		th3.innerText = "발주코드";
-		tr1.appendChild(th3);
-
-		var th5 = document.createElement("th");
-		th5.innerText = "제품코드";
-		tr1.appendChild(th5);
-
-		var th6 = document.createElement("th");
-		th6.innerText = "제품명";
-		tr1.appendChild(th6);
-
-		var th7 = document.createElement("th");
-		th7.innerText = "제품가격";
-		tr1.appendChild(th7);
-
-		var th8 = document.createElement("th");
-		th8.innerText = "제품수량";
-		tr1.appendChild(th8);
-		
-		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
-				
-// 				console.log(jsonObj.accountList);
-				
-// 				console.log(jsonObj.startPage);
-				
-				for(commentData of jsonObj.purchaseDetailList){
-// 				console.log(commentData.account_code);
-					
-				var tbody1 = document.createElement("tbody");
-// 				tbody1.innerHtml = "";
-				table1.appendChild(tbody1);
-
-				var trIn1 = document.createElement("tr");
-				tbody1.appendChild(trIn1);
-
-				var td1 = document.createElement("td");
-				trIn1.appendChild(td1);
-
-				var inputIn1 = document.createElement("input");
-				inputIn1.setAttribute("onclick","checkOk()");
-				inputIn1.setAttribute("name","checkPurchase");
-				inputIn1.setAttribute("type","checkbox");
-				inputIn1.setAttribute("value",commentData.purchase_detail_code);
-				td1.appendChild(inputIn1);
-				
-// 				console.log(inputIn1.value);
-
-				var td2 = document.createElement("td");
-				td2.innerText = commentData.purchase_detail_code;
-				trIn1.appendChild(td2);
-				
-// 				console.log(td2.innerText);
-
-				var td3 = document.createElement("td");
-				td3.innerText = commentData.purchase_code;
-				trIn1.appendChild(td3);
-
-				var td4 = document.createElement("td");
-				td4.innerText = commentData.product_code;
-				trIn1.appendChild(td4);
-
-				var td5 = document.createElement("td");
-				td5.innerText = commentData.product_name;
-				trIn1.appendChild(td5);
-
-				var td6 = document.createElement("td");
-				td6.innerText = commentData.product_price;
-				trIn1.appendChild(td6);
-
-				var td7 = document.createElement("td");
-				td7.innerText = commentData.product_amount;
-				trIn1.appendChild(td7);
-				
-				
-				}
-				
-				var createUl = document.getElementById("pageUl");
-				createUl.innerHTML = "";
-				createUl.setAttribute("id","pageUl");
-				createUl.classList.add("pagination");
-				createUl.classList.add("justify-content-center");
-
-				
-				console.log(jsonObj.startPage);
-				
-				if(jsonObj.startPage <= 1){
-					var inLi1 = document.createElement("li"); 
-					inLi1.classList.add("page-item");
-					inLi1.classList.add("disabled");
-					createUl.appendChild(inLi1);
-
-					var inA1 = document.createElement("a");
-					inA1.setAttribute("href","#");
-					inA1.setAttribute("aria-label","Previous");
-					inA1.classList.add("page-link");
-					inLi1.appendChild(inA1);
-
-					var inSpan1 = document.createElement("span");
-					inSpan1.setAttribute("aria-hidden","true");
-					inSpan1.textContent = "<<";
-					inA1.appendChild(inSpan1);
-					console.log(jsonObj.startPage);
-				}else {
-					var inLi1 = document.createElement("li"); 
-					inLi1.classList.add("page-item");
-					createUl.appendChild(inLi1);
-
-					var inA1 = document.createElement("a");
-					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshPurchaseDetailInfoPage('"+purchase_code+"',"+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
-// 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
-					inA1.setAttribute("aria-label","Previous");
-					inLi1.appendChild(inA1);
-
-					var inSpan1 = document.createElement("span");
-					inSpan1.setAttribute("aria-hidden","true");
-					inSpan1.textContent = "<<";
-					inA1.appendChild(inSpan1);
-					console.log(jsonObj.startPage);
-				}
-
-
-
-				// var i = 0;
-				// 	i += 1;
-				
-				for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
-					console.log(jsonObj.startPage);
-					if(i == jsonObj.currentPageNum){
-						
-						var inLi2 = document.createElement("li");
-						inLi2.classList.add("page-item");
-						inLi2.classList.add("active");
-						createUl.appendChild(inLi2);
-
-						console.log(jsonObj.endPage);
-						
-						var inA2 = document.createElement("a");
-						inA2.classList.add("page-link");
-						inA2.setAttribute("href","javascript:refreshPurchaseDetailInfoPage('"+purchase_code+"',"+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
-// 						inA2.setAttribute("href","./accountInfo?pageNum="+i+jsonObj.additionalParam);
-						inA2.innerText = i;
-						inLi2.appendChild(inA2);
-					}else{
-						var inLi2 = document.createElement("li");
-						inLi2.classList.add("page-item");
-						createUl.appendChild(inLi2);
-
-						var inA2 = document.createElement("a");
-						inA2.classList.add("page-link");
-						inA2.setAttribute("href","javascript:refreshPurchaseDetailInfoPage('"+purchase_code+"',"+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
-// 						inA2.setAttribute("href","./accountInfo?pageNum="+i+jsonObj.additionalParam);
-						inA2.innerText = i;
-						inLi2.appendChild(inA2);
-					}
-				}
-
-
-
-				if(jsonObj.endPage >= jsonObj.totalPageCount){
-					var inLi3 = document.createElement("li"); 
-					inLi3.classList.add("page-item");
-					inLi3.classList.add("disabled");
-					createUl.appendChild(inLi3);
-
-					var inA3 = document.createElement("a");
-					inA3.classList.add("page-link");
-					inA3.setAttribute("href","#");
-					inA3.setAttribute("aria-label","Next");
-					inLi3.appendChild(inA3);
-
-					var inSpan3 = document.createElement("span");
-					inSpan3.setAttribute("aria-hidden","true");
-					inSpan3.textContent = ">>";
-					inA3.appendChild(inSpan3);
-				}else {
-					var inLi3 = document.createElement("li"); 
-					inLi3.classList.add("page-item");
-					createUl.appendChild(inLi3);
-
-					var inA3 = document.createElement("a");
-					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshPurchaseDetailInfoPage('"+purchase_code+"',"+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
-// 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
-					inA3.setAttribute("aria-label","Next");
-					inLi3.appendChild(inA3);
-
-					var inSpan3 = document.createElement("span");
-					inSpan3.setAttribute("aria-hidden","true");
-					inSpan3.textContent = ">>";
-					inA3.appendChild(inSpan3);
-				}
-
-			}
-		}
-		
-		xhr.open("get", "../employee/purchaseDetailInfo?searchType=" + clickSearchTypeVal + "&searchWord=" + clickSearchWordVal + "&purchase_code=" + purchase_code);	//리퀘스트 세팅..
-		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
-		xhr.send();	//AJAX로 리퀘스트함...
-		
- 	}
- 	
- 	function refreshPurchaseDetailInfoPage(purchase_code,pageNumVal,clickSearchTypeVal,clickSearchWordVal){
- 		
-//  		var clickSearchType = document.getElementById("searchType");
-//  		var clickSearchTypeVal = clickSearchType.value;
- 		
-//  		var clickSearchWord = document.getElementById("searchWord");
-//  		var clickSearchWordVal = clickSearchWord.value;
- 		
- 		var inputOtainCodeBox = document.getElementById("purchase_code_in_detail");
- 		inputOtainCodeBox.innerHTML = "";
- 		inputOtainCodeBox.classList.add("form-control");
- 		inputOtainCodeBox.setAttribute("type","text");
- 		inputOtainCodeBox.setAttribute("id","purchase_code_in_detail");
- 		inputOtainCodeBox.value = purchase_code;
- 		
- 		
- 		var choseButtonBox = document.getElementById("choseButton");
- 		choseButtonBox.innerHTML = "";
- 		choseButtonBox.classList.add("col-6");
- 		choseButtonBox.classList.add("mx-0");
- 		
- 		var registDetailBtn1 = document.createElement("button");
- 		registDetailBtn1.classList.add("btn");
- 		registDetailBtn1.classList.add("btn-light");
- 		registDetailBtn1.setAttribute("type","button");
- 		registDetailBtn1.setAttribute("data-bs-toggle","modal");
- 		registDetailBtn1.setAttribute("data-bs-target","#purchaseDetailRegist");
- 		registDetailBtn1.innerText = "등록";
- 		choseButtonBox.appendChild(registDetailBtn1);
- 		
- 		var selectDetailBtn1 = document.createElement("button");
- 		selectDetailBtn1.classList.add("btn");
- 		selectDetailBtn1.classList.add("btn-light");
- 		selectDetailBtn1.setAttribute("type","button");
- 		selectDetailBtn1.setAttribute("id","updateDetailModal");
- 		selectDetailBtn1.setAttribute("onclick","selectPurchaseDetail()");
- 		selectDetailBtn1.innerText = "수정";
- 		choseButtonBox.appendChild(selectDetailBtn1);
- 		
- 		var updateDetailBtn1 = document.createElement("button");
- 		updateDetailBtn1.classList.add("btn");
- 		updateDetailBtn1.classList.add("btn-light");
- 		updateDetailBtn1.setAttribute("type","button");
- 		updateDetailBtn1.setAttribute("data-bs-toggle","modal");
- 		updateDetailBtn1.setAttribute("data-bs-target","#purchaseDetailUpdate");
- 		updateDetailBtn1.setAttribute("id","updateDetailModalStart");
- 		updateDetailBtn1.hidden = true;
- 		updateDetailBtn1.innerText = "수정";
- 		choseButtonBox.appendChild(updateDetailBtn1);
- 		
- 		var deliteDetailBtn1 = document.createElement("button");
- 		deliteDetailBtn1.classList.add("btn");
- 		deliteDetailBtn1.classList.add("btn-light");
- 		deliteDetailBtn1.setAttribute("type","button");
- 		deliteDetailBtn1.setAttribute("onclick","deletePurchaseDetailInfo()");
- 		deliteDetailBtn1.innerText = "삭제";
- 		choseButtonBox.appendChild(deliteDetailBtn1);
- 			
- 			
- 		var listDetailNew = document.getElementById("listNew");
- 		listDetailNew.innerHTML = "";
- 		listDetailNew.classList.add("col");
-
- 		var inI1 = document.createElement("i");
- 		inI1.classList.add("bi");
- 		inI1.classList.add("bi-list");
- 		inI1.classList.add("fs-5");
- 		listDetailNew.appendChild(inI1);
-
- 		var inSpan1 = document.createElement("span");
- 		inSpan1.classList.add("fs-5");
- 		inSpan1.innerText = " 발주 상세 목록 ";
- 		listDetailNew.appendChild(inSpan1);
- 		
- 		var inA1 = document.createElement("a");
- 		inA1.setAttribute("onclick","refreshPurchaseInfo()");
- 		listDetailNew.appendChild(inA1);
- 		
- 		var inI1 = document.createElement("i")
- 		inI1.classList.add("bi");
- 		inI1.classList.add("bi-arrow-left-square");
- 		inI1.classList.add("fs-5");
- 		inA1.appendChild(inI1);
-
- 		var selectBox = document.getElementById("selectNew");
- 		selectBox.innerHTML = "";
- 		selectBox.classList.add("input-group");
- 		selectBox.classList.add("mb-3");
-
- 		var detailSelect1 = document.createElement("select");
- 		detailSelect1.classList.add("form-select");
- 		detailSelect1.setAttribute("style","width: 10px;");
- 		detailSelect1.setAttribute("aria-label","Default select example");
- 		detailSelect1.setAttribute("id","searchType");
- 		selectBox.appendChild(detailSelect1);
- 		
- 		var detailOption1 = document.createElement("option");
- 		detailOption1.value = "";
- 		detailOption1.innerText = "선택";
- 		detailSelect1.appendChild(detailOption1);
-
- 		var detailOption2 = document.createElement("option");
- 		detailOption2.value = "product_code";
- 		detailOption2.innerText = "제품코드";
- 		detailSelect1.appendChild(detailOption2);
-
- 		var detailOption3 = document.createElement("option");
- 		detailOption3.value = "product_name";
- 		detailOption3.innerText = "제품명";
- 		detailSelect1.appendChild(detailOption3);
-
- 		var searchWordBox1 = document.createElement("input");
- 		searchWordBox1.classList.add("form-control");
- 		searchWordBox1.setAttribute("id","searchWord");
- 		searchWordBox1.setAttribute("type","text");
- 		searchWordBox1.setAttribute("aria-label","Text input with dropdown button");
- 		selectBox.appendChild(searchWordBox1);
-
- 		var detailButton1 = document.createElement("button");
- 		detailButton1.setAttribute("type","button");
- 		detailButton1.setAttribute("onclick","refreshPurchaseDetailInfo(this.value)");
- 		detailButton1.classList.add("input-group-text");
- 		detailButton1.classList.add("bi");
- 		detailButton1.value = purchase_code;
- 		detailButton1.classList.add("bi-search");
- 		detailButton1.setAttribute("id","basic-addon1");
- 		selectBox.appendChild(detailButton1);
- 	 		
-// 	 		var tableDiv = document.getElementById("scrollTable");
-// 	  		tableDiv.innerHtml = "";
-
- 			var table1 = document.getElementById("createTable");
- 			table1.innerHTML = "";
- 			table1.classList.add("table");
- 			table1.classList.add("table-bordered");
- 			table1.classList.add("text-center");
- 			table1.setAttribute("style","width:1178px;");
-
-		var thead1 = document.createElement("thead");
-		table1.appendChild(thead1);
-
-		var tr1 = document.createElement("tr");
-		thead1.appendChild(tr1);
-		
-		var th1 = document.createElement("th");
-		tr1.appendChild(th1);
-
-		var input1 = document.createElement("input");
-		input1.setAttribute("id","check_all");
-		input1.setAttribute("onclick","allCheck()");
-		input1.setAttribute("type","checkbox");
-		th1.appendChild(input1);
-
-		var th2 = document.createElement("th");
-		th2.innerText = "발주상세코드";
-		tr1.appendChild(th2);
-
-		var th3 = document.createElement("th");
-		th3.innerText = "발주코드";
-		tr1.appendChild(th3);
-
-		var th5 = document.createElement("th");
-		th5.innerText = "제품코드";
-		tr1.appendChild(th5);
-
-		var th6 = document.createElement("th");
-		th6.innerText = "제품명";
-		tr1.appendChild(th6);
-
-		var th7 = document.createElement("th");
-		th7.innerText = "제품가격";
-		tr1.appendChild(th7);
-
-		var th8 = document.createElement("th");
-		th8.innerText = "제품수량";
-		tr1.appendChild(th8);
-		
-		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
-				
-// 				console.log(jsonObj.accountList);
-				
-// 				console.log(jsonObj.startPage);
-				
-				for(commentData of jsonObj.purchaseDetailList){
-// 				console.log(commentData.account_code);
-					
-				var tbody1 = document.createElement("tbody");
-// 				tbody1.innerHtml = "";
-				table1.appendChild(tbody1);
-
-				var trIn1 = document.createElement("tr");
-				tbody1.appendChild(trIn1);
-
-				var td1 = document.createElement("td");
-				trIn1.appendChild(td1);
-
-				var inputIn1 = document.createElement("input");
-				inputIn1.setAttribute("onclick","checkOk()");
-				inputIn1.setAttribute("name","checkPurchase");
-				inputIn1.setAttribute("type","checkbox");
-				inputIn1.setAttribute("value",commentData.purchase_detail_code);
-				td1.appendChild(inputIn1);
-				
-// 				console.log(inputIn1.value);
-
-				var td2 = document.createElement("td");
-				td2.innerText = commentData.purchase_detail_code;
-				trIn1.appendChild(td2);
-				
-// 				console.log(td2.innerText);
-
-				var td3 = document.createElement("td");
-				td3.innerText = commentData.purchase_code;
-				trIn1.appendChild(td3);
-
-				var td4 = document.createElement("td");
-				td4.innerText = commentData.product_code;
-				trIn1.appendChild(td4);
-
-				var td5 = document.createElement("td");
-				td5.innerText = commentData.product_name;
-				trIn1.appendChild(td5);
-
-				var td6 = document.createElement("td");
-				td6.innerText = commentData.product_price;
-				trIn1.appendChild(td6);
-
-				var td7 = document.createElement("td");
-				td7.innerText = commentData.product_amount;
-				trIn1.appendChild(td7);
-				
-				}
-				
-				var createUl = document.getElementById("pageUl");
-				createUl.innerHTML = "";
-				createUl.setAttribute("id","pageUl");
-				createUl.classList.add("pagination");
-				createUl.classList.add("justify-content-center");
-
-				
-				console.log(jsonObj.startPage);
-				
-				if(jsonObj.startPage <= 1){
-					var inLi1 = document.createElement("li"); 
-					inLi1.classList.add("page-item");
-					inLi1.classList.add("disabled");
-					createUl.appendChild(inLi1);
-
-					var inA1 = document.createElement("a");
-					inA1.setAttribute("href","#");
-					inA1.setAttribute("aria-label","Previous");
-					inA1.classList.add("page-link");
-					inLi1.appendChild(inA1);
-
-					var inSpan1 = document.createElement("span");
-					inSpan1.setAttribute("aria-hidden","true");
-					inSpan1.textContent = "<<";
-					inA1.appendChild(inSpan1);
-					console.log(jsonObj.startPage);
-				}else {
-					var inLi1 = document.createElement("li"); 
-					inLi1.classList.add("page-item");
-					createUl.appendChild(inLi1);
-
-					var inA1 = document.createElement("a");
-					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshPurchaseDetailInfoPage('"+purchase_code+"',"+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
-// 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
-					inA1.setAttribute("aria-label","Previous");
-					inLi1.appendChild(inA1);
-
-					var inSpan1 = document.createElement("span");
-					inSpan1.setAttribute("aria-hidden","true");
-					inSpan1.textContent = "<<";
-					inA1.appendChild(inSpan1);
-					console.log(jsonObj.startPage);
-				}
-
-
-
-				// var i = 0;
-				// 	i += 1;
-				
-				for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
-					console.log(jsonObj.startPage);
-					if(i == jsonObj.currentPageNum){
-						
-						var inLi2 = document.createElement("li");
-						inLi2.classList.add("page-item");
-						inLi2.classList.add("active");
-						createUl.appendChild(inLi2);
-
-						console.log(jsonObj.endPage);
-						
-						var inA2 = document.createElement("a");
-						inA2.classList.add("page-link");
-						inA2.setAttribute("href","javascript:refreshPurchaseDetailInfoPage('"+purchase_code+"',"+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
-// 						inA2.setAttribute("href","./accountInfo?pageNum="+i+jsonObj.additionalParam);
-						inA2.innerText = i;
-						inLi2.appendChild(inA2);
-					}else{
-						var inLi2 = document.createElement("li");
-						inLi2.classList.add("page-item");
-						createUl.appendChild(inLi2);
-
-						var inA2 = document.createElement("a");
-						inA2.classList.add("page-link");
-						inA2.setAttribute("href","javascript:refreshPurchaseDetailInfoPage('"+purchase_code+"',"+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
-// 						inA2.setAttribute("href","./accountInfo?pageNum="+i+jsonObj.additionalParam);
-						inA2.innerText = i;
-						inLi2.appendChild(inA2);
-					}
-				}
-
-
-
-				if(jsonObj.endPage >= jsonObj.totalPageCount){
-					var inLi3 = document.createElement("li"); 
-					inLi3.classList.add("page-item");
-					inLi3.classList.add("disabled");
-					createUl.appendChild(inLi3);
-
-					var inA3 = document.createElement("a");
-					inA3.classList.add("page-link");
-					inA3.setAttribute("href","#");
-					inA3.setAttribute("aria-label","Next");
-					inLi3.appendChild(inA3);
-
-					var inSpan3 = document.createElement("span");
-					inSpan3.setAttribute("aria-hidden","true");
-					inSpan3.textContent = ">>";
-					inA3.appendChild(inSpan3);
-				}else {
-					var inLi3 = document.createElement("li"); 
-					inLi3.classList.add("page-item");
-					createUl.appendChild(inLi3);
-
-					var inA3 = document.createElement("a");
-					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshPurchaseDetailInfoPage('"+purchase_code+"',"+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
-// 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
-					inA3.setAttribute("aria-label","Next");
-					inLi3.appendChild(inA3);
-
-					var inSpan3 = document.createElement("span");
-					inSpan3.setAttribute("aria-hidden","true");
-					inSpan3.textContent = ">>";
-					inA3.appendChild(inSpan3);
-				}
-
-			}
-		}
-		
-		xhr.open("get", "../employee/purchaseDetailInfo?pageNum="+ pageNumVal +"&searchType=" + clickSearchTypeVal + "&searchWord=" + clickSearchWordVal + "&purchase_code=" + purchase_code);	//리퀘스트 세팅..
-		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
-		xhr.send();	//AJAX로 리퀘스트함...
-		
- 	}
- 	
- 	
-function insertPurchaseDetailInfo(){
-		
-	var purchaseCodeInDetailVal = document.getElementById("purchase_code_in_detail").value;
-	var productCodeVal = document.getElementById("product_code").value;
-	var productNameVal = document.getElementById("product_name").value;
-	var productPriceVal = document.getElementById("product_price").value;
-	var productAmountVal = document.getElementById("product_amount").value;
-		
-
-
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);	
-					
-				document.getElementById("purchase_code_in_detail").value = "";
-				document.getElementById("product_code").value = "";
-				document.getElementById("product_name").value = "";
-				document.getElementById("product_price").value = "";
-				document.getElementById("product_amount").value = "";
-				
-				refreshPurchaseDetailInfo(purchaseCodeInDetailVal);
-			}
-		}
-		
-// 		xhr.open("post" , "./insertPurchaseInfo");
-// 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-// 		xhr.send("company_code=" + companyCodeVal + "&account_code=" + accountCodeVal + "&purchase_state=" + purchaseStateVal + 
-// 				"&purchase_manager=" + purchaseManagerVal + "&purchase_date=" + purchaseDateVal + "&purchase_due_date=" + purchaseDueDateVal + 
-// 				 "&purchase_register_employee=" + purchaseRegisterEmployeeVal + 
-// 				"&purchase_update_employee=" + purchaseUpdateEmployeeVal + "&purchase_memo=" + purchaseMemoVal + "&product_code=" + productCodeVal +
-// 				"&product_name=" + productNameVal + "&product_price=" + productPriceVal + "&product_amount=" + productAmountVal);		
-		
-		xhr.open("post" , "./insertPurchaseDetailInfo");
-		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("purchase_code=" + purchaseCodeInDetailVal +
-				"&product_code=" + productCodeVal + "&product_name=" + productNameVal +
-				"&product_price=" + productPriceVal + "&product_amount=" + productAmountVal);
-		
-	}
-	
-	function selectPurchaseDetail(){
-		
-	    var checkVal = "";
-	    
-	    var obj_length = document.getElementsByName("checkPurchase").length;
-	    
-	    var count = 0;
-	    
-        for (var i = 0; i < obj_length; i++) {
-
-            if (document.getElementsByName("checkPurchase")[i].checked == true) {
-            	count += 1;
-            }
-        }
-        
-        
-        if(count == 0){
-        	alert("적어도 하나는 선택하여 주십시오.");
-        	cleanUpdateModal();
-        	return;
-        }else if(count > 1){
-        	alert("하나만 선택해 주세요.");
-        	cleanUpdateModal();
-        	return;
-        }
-        
-        for (var i = 0; i < obj_length; i++) {
-
-            if (document.getElementsByName("checkPurchase")[i].checked == true) {
-            	checkVal = document.getElementsByName("checkPurchase")[i].value;
-            }
-        }
-        
-        document.getElementById("purchase_code_in_detail_update").value = "";
-		document.getElementById("purchase_detail_code_update").value = "";
-		document.getElementById("product_code_update").value = "";
-		document.getElementById("product_name_update").value = "";
-		document.getElementById("product_price_update").value = "";
-		document.getElementById("product_amount_update").value = "";
-	    
-		var purchaseCodeInDetail = document.getElementById("purchase_code_in_detail_update");
-		var purchaseDetailCode = document.getElementById("purchase_detail_code_update");
-		var productCode = document.getElementById("product_code_update");
-		var productName = document.getElementById("product_name_update");
-		var productPrice = document.getElementById("product_price_update");
-		var productAmount = document.getElementById("product_amount_update");
-		
-		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
-				
-				purchaseCodeInDetail.value = jsonObj.purchase_code;
-				purchaseDetailCode.value = jsonObj.purchase_detail_code;
-				productCode.value = jsonObj.product_code;
-				productName.value = jsonObj.product_name;
-				productPrice.value = parseInt(jsonObj.product_price);
-				productAmount.value = parseInt(jsonObj.product_amount);
-
-				document.getElementById("updateDetailModalStart").click();
-				
-			}
-		}
-		
-		xhr.open("get", "./selectPurchaseDetailInfo?purchase_detail_code=" + checkVal);	//리퀘스트 세팅..
-		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
-		xhr.send();	//AJAX로 리퀘스트함...
-		
-	}
-		
-	
-	function updatePurchaseDetailInfo(){
-		
-		var purchaseInDetailVal = document.getElementById("purchase_code_in_detail_update").value;
-		var purchaseDetailCodeVal = document.getElementById("purchase_detail_code_update").value;
-		var productCodeVal = document.getElementById("product_code_update").value;
-		var productNameVal = document.getElementById("product_name_update").value;
-		var productPriceVal = parseInt(document.getElementById("product_price_update").value);
-		var productAmountVal = parseInt(document.getElementById("product_amount_update").value);
-		
-		var xhr = new XMLHttpRequest();
-// 		xhr.onreadystatechange = function () {
-// 			if(xhr.readyState == 4 && xhr.status == 200){
-// 				var result = JSON.parse(xhr.responseText);	
-					
-
-// 			}
-// 		}
-		
-		xhr.open("post" , "./updatePurchaseDetailInfo" , false);
-		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("purchase_code=" + purchaseInDetailVal + "&purchase_detail_code=" + purchaseDetailCodeVal +
-				"&product_code=" + productCodeVal + "&product_name=" + productNameVal +
-				"&product_price=" + productPriceVal + "&product_amount=" + productAmountVal);
-		
-        document.getElementById("purchase_code_in_detail_update").value = "";
-		document.getElementById("purchase_detail_code_update").value = "";
-		document.getElementById("product_code_update").value = "";
-		document.getElementById("product_name_update").value = "";
-		document.getElementById("product_price_update").value = "";
-		document.getElementById("product_amount_update").value = "";
-		
-	
-		refreshPurchaseDetailInfo(purchaseInDetailVal);
-
-		
-		
-	}
-	
-	function deletePurchaseDetailInfo(){
-		
-	    var checkVal = new Array();
-	    
-        console.log(checkVal);
-	    
-	    var obj_length = document.getElementsByName("checkPurchase").length;
-	    console.log(obj_length);
-	    
-        for (var i = 0; i < obj_length; i++) {
-
-            if (document.getElementsByName("checkPurchase")[i].checked == true) {
-            	
-            	checkVal[i] = document.getElementsByName("checkPurchase")[i].value;
-            }
-        }
-        
-        console.log(checkVal);
- 	
-	
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				var result = JSON.parse(xhr.responseText);	
-					
-				refreshPurchaseDetailInfo(result.purchase_code);
-			}
-		}
-		
-		xhr.open("post" , "./deletePurchaseDetailInfo" , false);
-		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("code=" + checkVal);
-		
-
-		
-	}
 
 	window.addEventListener("DOMContentLoaded" , function (){
 	//사실상 처음 실행하는 코드 모음...
@@ -2061,7 +945,7 @@ function insertPurchaseDetailInfo(){
 		<div class="row">
 	        <div class="col form-control mt-3">
 	        	<div class="row">
-		        	<div id="choseButton" class="col-6 mx-0">
+		        	<div class="col-6 mx-0">
 			             <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#purchaseRegist">
 			                등록
 			             </button>
@@ -2084,12 +968,12 @@ function insertPurchaseDetailInfo(){
         <div class="row">
             <div class="form-control mt-3">
                 <div class="row">
-                    <div id="listNew" class="col">
+                    <div class="col">
                     	<i class="bi bi-list fs-5">&nbsp;</i><span class="fs-5">발주 목록</span>
                     </div>
                     <div class="col-4">
 <!--                     <form action="./purchaseInfo" method="get"> -->
-						<div id="selectNew" class="input-group mb-3">
+						<div class="input-group mb-3">
 								<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 									<option selected>선택</option>
 									<option value="purchase_code">발주 번호</option>
@@ -2210,11 +1094,12 @@ function insertPurchaseDetailInfo(){
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-control mt-3">
+                        	
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사코드</span>
-                                        <input id="company_code" type="text" readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
+                                        <input id="company_code" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -2245,16 +1130,16 @@ function insertPurchaseDetailInfo(){
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">발주일</span>
-                                        <input id="purchase_date" type="date" class="form-control">
+                                        <span class="input-group-text">발주 접수일</span>
+                                        <input id="purchase_date" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">발주납기일</span>
-                                        <input id="purchase_due_date" type="date" class="form-control">
+                                        <span class="input-group-text">발주 마감일</span>
+                                        <input id="purchase_due_date" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -2262,7 +1147,15 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주 등록자</span>
-                                        <input id="purchase_register_employee" readonly value="${employeeInfo.employee_name }${adminInfo.admin_email }" type="text" class="form-control">
+                                        <input id="purchase_register_employee" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">발주 수정자</span>
+                                        <input id="purchase_update_employee" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -2276,6 +1169,32 @@ function insertPurchaseDetailInfo(){
                                     <textarea id="purchase_memo" class="form-control" style="height: 100px"></textarea>                                  
                                 </div>  
                             </div>
+<!--                             <div class="row mt-3"> -->
+<!--                                 <div class="col"> -->
+<!--                                     <div class="input-group"> -->
+<!--                                         <span class="input-group-text">상품 코드</span> -->
+<!--                                         <input id="product_code" type="text" class="form-control"> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="row my-3"> -->
+<!--                                 <div class="input-group"> -->
+<!--                                     <label class="input-group-text" for="inputGroupFile01">상품 명</label> -->
+<!--                                     <input id="product_name" type="file" class="form-control"> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="row my-3"> -->
+<!--                                 <div class="input-group"> -->
+<!--                                     <label class="input-group-text" for="inputGroupFile01">상품 가격</label> -->
+<!--                                     <input id="product_price" type="file" class="form-control"> -->
+<!--                                 </div> -->
+<!--                             </div>     -->
+<!--                             <div class="row my-3"> -->
+<!--                                 <div class="input-group"> -->
+<!--                                     <label class="input-group-text" for="inputGroupFile01">상품 수량</label> -->
+<!--                                     <input id="product_amount" type="file" class="form-control"> -->
+<!--                                 </div> -->
+<!--                             </div>                   -->
                         </div>
                     </div>
                 </div>
@@ -2304,7 +1223,7 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사코드</span>
-                                        <input id="company_code_update" readonly value="${employeeInfo.company_code }${adminInfo.company_code }" type="text" class="form-control">
+                                        <input id="company_code_update" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -2336,7 +1255,7 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주 접수일</span>
-                                        <input id="purchase_date_update" type="date" class="form-control">
+                                        <input id="purchase_date_update" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -2344,15 +1263,37 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주 마감일</span>
-                                        <input id="purchase_due_date_update" type="date" class="form-control">
+                                        <input id="purchase_due_date_update" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+<!--                             <div class="row mt-3"> -->
+<!--                                 <div class="col"> -->
+<!--                                     <div class="input-group"> -->
+<!--                                         <span class="input-group-text">발주 등록일</span> -->
+<!--                                         <input id="purchase_register_date" type="text" class="form-control" id="companyEmail"> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">발주 등록자</span>
+                                        <input id="purchase_register_employee_update" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-3">
+<!--                                 <div class="col"> -->
+<!--                                     <div class="input-group"> -->
+<!--                                         <span class="input-group-text">발주 수정일</span> -->
+<!--                                         <input id="purchase_update_date" type="text" class="form-control" id="companyPostNumber"> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주 수정자</span>
-                                        <input id="purchase_update_employee_update" readonly value="${employeeInfo.employee_name }${adminInfo.admin_email }" type="text" class="form-control">
+                                        <input id="purchase_update_employee_update" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -2366,139 +1307,38 @@ function insertPurchaseDetailInfo(){
                                     <textarea id="purchase_memo_update" class="form-control" style="height: 100px"></textarea>                                  
                                 </div>  
                             </div>
+<!--                             <div class="row mt-3"> -->
+<!--                                 <div class="col"> -->
+<!--                                     <div class="input-group"> -->
+<!--                                         <span class="input-group-text">상품 코드</span> -->
+<!--                                         <input id="product_code" type="text" class="form-control"> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="row my-3"> -->
+<!--                                 <div class="input-group"> -->
+<!--                                     <label class="input-group-text" for="inputGroupFile01">상품 명</label> -->
+<!--                                     <input id="product_name" type="file" class="form-control"> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="row my-3"> -->
+<!--                                 <div class="input-group"> -->
+<!--                                     <label class="input-group-text" for="inputGroupFile01">상품 가격</label> -->
+<!--                                     <input id="product_price" type="file" class="form-control"> -->
+<!--                                 </div> -->
+<!--                             </div>     -->
+<!--                             <div class="row my-3"> -->
+<!--                                 <div class="input-group"> -->
+<!--                                     <label class="input-group-text" for="inputGroupFile01">상품 수량</label> -->
+<!--                                     <input id="product_amount" type="file" class="form-control"> -->
+<!--                                 </div> -->
+<!--                             </div>                   -->
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                   <button type="button" class="btn btn-primary" onclick="updatePurchaseInfo()" data-bs-dismiss="modal">수정</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          
-           <!-- 디테일 등록창 모달 -->
-        <div class="modal fade" id="purchaseDetailRegist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">발주 상세 등록</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-control mt-3">
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">발주코드</span>
-                                        <input id="purchase_code_in_detail" readonly type="text" class="form-control">
-                                    </div>
-                                </div>                               
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">제품코드</span>
-                                        <input id="product_code" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">제품명</span>
-                                        <input id="product_name" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">제품가격</span>
-                                        <input id="product_price" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">제품수량</span>
-                                        <input id="product_amount" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="insertPurchaseDetailInfo()" data-bs-dismiss="modal">등록</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          
-        <!-- 디테일 수정창 모달 -->
-        <div class="modal fade" id="purchaseDetailUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">발주 상세 수정</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                 <div class="modal-body">
-                    <div class="row">
-                    	<input id="purchase_detail_code_update" type="hidden" class="form-control">
-                        <div class="form-control mt-3">
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">발주코드</span>
-                                        <input id="purchase_code_in_detail_update" readonly type="text" class="form-control">
-                                    </div>
-                                </div>                               
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">제품코드</span>
-                                        <input id="product_code_update" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">제품명</span>
-                                        <input id="product_name_update" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">제품가격</span>
-                                        <input id="product_price_update" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">제품수량</span>
-                                        <input id="product_amount_update" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="updatePurchaseDetailInfo()" data-bs-dismiss="modal">수정</button>
                 </div>
               </div>
             </div>

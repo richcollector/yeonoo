@@ -50,6 +50,23 @@
 			var innerDiv1 = document.createElement("div");
 			innerCol1.appendChild(innerDiv1);
 
+			var companyLavel = document.createElement("label");
+			companyLavel.setAttribute("for","companyCode")
+			companyLavel.classList.add("form-label");
+			companyLavel.classList.add("fw-bold");
+			companyLavel.innerText = "회사 코드";
+			innerDiv1.appendChild(companyLavel);
+
+			var companyInput = document.createElement("input");
+			companyInput.classList.add("form-control");
+			companyInput.setAttribute("placeholder" , "회사코드를 입력해주세요.");
+			companyInput.setAttribute("type","text");
+			companyInput.setAttribute("id","companyCode");
+			companyInput.setAttribute("name","company_code");
+			companyInput.setAttribute("aria-label","Username");
+			companyInput.setAttribute("aria-describedby","addon-wrapping");
+			innerDiv1.appendChild(companyInput);
+
 			var innerRow2 = document.createElement("div");
 			innerRow2.classList.add("row");
 			innerRow2.classList.add("mb-2");
@@ -194,6 +211,23 @@
 
 			var innerDiv1 = document.createElement("div");
 			innerCol1.appendChild(innerDiv1);
+
+			var companyLavel = document.createElement("label");
+			companyLavel.setAttribute("for","companyCode")
+			companyLavel.classList.add("form-label");
+			companyLavel.classList.add("fw-bold");
+			companyLavel.innerText = "회사 코드";
+			innerDiv1.appendChild(companyLavel);
+
+			var companyInput = document.createElement("input");
+			companyInput.classList.add("form-control");
+			companyInput.setAttribute("placeholder" , "회사코드를 입력해주세요.");
+			companyInput.setAttribute("type","text");
+			companyInput.setAttribute("id","companyCode");
+			companyInput.setAttribute("name","company_code");
+			companyInput.setAttribute("aria-label","Username");
+			companyInput.setAttribute("aria-describedby","addon-wrapping");
+			innerDiv1.appendChild(companyInput);
 
 			var innerRow2 = document.createElement("div");
 			innerRow2.classList.add("row");
@@ -341,7 +375,6 @@
 			var loginButton = document.createElement("button");
 			loginButton.classList.add("btn");
 			loginButton.classList.add("btn-outline-primary");
-			loginButton.setAttribute("onclick","location.href='../main/loginPage'")
 			loginButton.innerText = "로그인 하기";
 			innerDiv1.appendChild(loginButton);
 		}

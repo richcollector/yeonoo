@@ -14,7 +14,6 @@
 	<!-- 사원 회원가입 -->
 	<insert id="insertEmployee">
 		insert into Employee(
-			company_code,
 			department_code,
 			employee_rank_code,
 			authority_code,
@@ -25,7 +24,6 @@
 			employee_join_date,
 			employee_leave_date
 		) values (
-			#{company_code},
 			#{department_code},
 			'rank_code',
 			'1',
@@ -100,13 +98,11 @@
 	<insert id="insertNotice">
 		insert into Notice(
 			admin_code,
-			company_code,
 			notice_title,
 			notice_content,
 			notice_write_date
 		) values (
 			#{admin_code},
-			#{company_code},
 			#{notice_title},
 			#{notice_content},
 			SYSDATE()
@@ -131,79 +127,5 @@
 		where notice_code = #{notice_code}
 	</delete>
 	
-	<!-- 비밀번호 변경 -->
-	<update id="updateEmployeePw">
-		UPDATE Employee
-		SET employee_password = #{employee_password}
-		WHERE employee_code = #{employee_code}
-		AND company_code = #{company_code}
-	</update> 
-	
-	<!-- 사원 목록 전체 불러오기 및 검색 -->
-	<select id="employeeInfo" resultType="com.noo.wms.vo.EmployeeVo">		
-		SELECT * FROM Employee
-			<trim prefix="WHERE" prefixOverrides="AND|OR">			
-				<if test="searchType=='employee_code' and searchWord != null and searchWord != '' ">				
-					AND employee_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='department_code' and searchWord != null and searchWord != '' ">				
-					AND department_code like CONCAT('%', #{searchWord}, '%')			
-				</if>	
-				<if test="searchType=='employee_rank_code' and searchWord != null and searchWord != '' ">				
-					AND employee_rank_code like CONCAT('%', #{searchWord}, '%')			
-				</if>	
-				<if test="searchType=='employee_name' and searchWord != null and searchWord != '' ">				
-					AND employee_name like CONCAT('%', #{searchWord}, '%')			
-				</if>	
-			</trim>		
-		WHERE company_code = #{company_code}
-		LIMIT #{startList}, 15
-	</select>
-
-	<!-- 사원목록 페이징 -->
-	<select id="employeeInfoCount" resultType="int">
-		SELECT COUNT(*) FROM Employee
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="searchWord != null and searchWord != '' ">			
-				<if test="searchType=='employee_code' and searchWord != null and searchWord != '' ">				
-					AND employee_code like CONCAT('%', #{searchWord}, '%')			
-				</if>			
-				<if test="searchType=='department_code' and searchWord != null and searchWord != '' ">				
-					AND department_code like CONCAT('%', #{searchWord}, '%')			
-				</if>	
-				<if test="searchType=='employee_rank_code' and searchWord != null and searchWord != '' ">				
-					AND employee_rank_code like CONCAT('%', #{searchWord}, '%')			
-				</if>	
-				<if test="searchType=='employee_name' and searchWord != null and searchWord != '' ">				
-					AND employee_name like CONCAT('%', #{searchWord}, '%')			
-				</if>		
-			</if>
-		</trim>
-		WHERE company_code = #{company_code}
-	</select>
-	
-	<!-- 사원 목록 체크박스 선택 -->
-	<select id="selectEmployeeInfo" resultType="com.noo.wms.vo.EmployeeVo">
-		SELECT * FROM Employee
-		WHERE employee_code = #{employee_code}
-		and company_code = #{company_code}
-	</select>
-	
-	<!-- 사원 직급,권한 수정 -->
-	<update id="updateEmployeeAuthInfo">
-		UPDATE Employee 
-		SET authority_code = #{authority_code},
-			employee_rank_code = #{employee_rank_code}
-		WHERE employee_code = #{employee_code}
-		AND company_code = #{company_code}
-	</update>
-	
-	<!-- 퇴사 처리 -->
-	<update id="updateEmployeeRetire">
-		UPDATE Employee 
-		SET employee_state = 'F' , employee_leave_date = SYSDATE() 
-		WHERE employee_code = #{employee_code}
-		AND company_code = #{company_code}
-	</update>
 	
 </mapper>

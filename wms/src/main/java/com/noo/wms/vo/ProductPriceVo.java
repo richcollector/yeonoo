@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class ProductPriceVo {
 	private String product_price_code;
-	private String company_code;
 	private String product_code;
 	private String product_name;
 	private int product_price_purchase;
@@ -21,12 +20,11 @@ public class ProductPriceVo {
 		super();
 	}
 
-	public ProductPriceVo(String product_price_code, String company_code, String product_code, String product_name,
+	public ProductPriceVo(String product_price_code, String product_code, String product_name,
 			int product_price_purchase, Date product_price_purchase_date, int product_price_selling,
 			Date product_price_selling_date, String product_price_memo) {
 		super();
 		this.product_price_code = product_price_code;
-		this.company_code = company_code;
 		this.product_code = product_code;
 		this.product_name = product_name;
 		this.product_price_purchase = product_price_purchase;
@@ -42,14 +40,6 @@ public class ProductPriceVo {
 
 	public void setProduct_price_code(String product_price_code) {
 		this.product_price_code = product_price_code;
-	}
-
-	public String getCompany_code() {
-		return company_code;
-	}
-
-	public void setCompany_code(String company_code) {
-		this.company_code = company_code;
 	}
 
 	public String getProduct_code() {
@@ -107,7 +97,4 @@ public class ProductPriceVo {
 	public void setProduct_price_memo(String product_price_memo) {
 		this.product_price_memo = product_price_memo;
 	}
-	
-	
-	
 }

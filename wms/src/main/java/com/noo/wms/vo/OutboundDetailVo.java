@@ -1,15 +1,5 @@
 package com.noo.wms.vo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.servlet.http.HttpSession;
-
-import org.apache.ibatis.annotations.Param;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 public class OutboundDetailVo {
 	private String outbound_detail_code;
 	private String outbound_code;
@@ -81,8 +71,3 @@ public class OutboundDetailVo {
 		this.product_price = product_price;
 	}
 }
-
-
-
-
-

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.noo.wms.vo.AdminVo;
 import com.noo.wms.vo.AreaVo;
 import com.noo.wms.vo.CellVo;
+import com.noo.wms.vo.LotVo;
 import com.noo.wms.vo.RackVo;
 import com.noo.wms.vo.WarehouseVo;
 import com.noo.wms.warehouse.service.WarehouseServiceImpl;
@@ -170,6 +171,69 @@ public class WarehouseRestController {
 		
 		return map;
 		
+	}
+	
+	@RequestMapping("deleteCell")
+	public HashMap<String, Object> deleteCell(String [] code){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		for(String Code : code) {
+			
+			CellVo cellVo = new CellVo();
+			cellVo.setWarehouse_cell_code(Code);
+			warehouseService.cellDelete(cellVo);
+		}
+		
+		return map;
+	}
+	
+	
+	@RequestMapping("deleteRack")
+	public HashMap<String, Object> deleteRack(String [] code, CellVo cellVo){
+	
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		for(String Code : code) {
+			
+			RackVo rackVo = new RackVo();
+			rackVo.setWarehouse_rack_code(Code);
+			warehouseService.rackDelete(rackVo);
+			
+			String rkCode = rackVo.getWarehouse_rack_code();			
+			cellVo.setWarehouse_rack_code(rkCode);			
+			warehouseService.delWithRkCell(cellVo);			
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping("deleteByAreaCode")
+	public HashMap<String, Object> deleteByAreaCode (String [] code){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		for(String Code : code) {
+
+			warehouseService.deleteByAreaCode(Code);
+	
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping("deleteByWarehouseCode")
+	public HashMap<String, Object> deleteByWarehouseCode (String [] code){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		for(String Code : code) {
+
+			warehouseService.deleteByWarehouseCode(Code);
+	
+		}
+		
+		return map;
 	}
 	
 	

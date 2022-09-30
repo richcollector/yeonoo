@@ -34,6 +34,246 @@
     </style>
 	
 <script type="text/javascript">
+
+	function check(){
+		
+		document.getElementById("company_code_Alert").innerHTML = "";
+		document.getElementById("product_name_Alert").innerHTML = "";
+		document.getElementById("product_size_Alert").innerHTML = "";
+		document.getElementById("product_version_Alert").innerHTML = "";
+		document.getElementById("product_type_Alert").innerHTML = "";
+		document.getElementById("product_register_employee_Alert").innerHTML = "";
+		
+		
+		if(document.getElementById("company_code").value == ""){
+			document.getElementById("company_code_Alert").innerText = "로그인을 먼저 해주세요.";
+			document.getElementById("company_code_Alert").classList.add("text-danger");
+			document.getElementById("company_code").focus();
+			return;
+		}else{	
+			document.getElementById("company_code_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_name").value == ""){
+			document.getElementById("product_name_Alert").innerText = "제품명을 먼저 입력해주세요.";
+			document.getElementById("product_name_Alert").classList.add("text-danger");
+			document.getElementById("product_name").focus();
+			return;
+		}else{	
+			document.getElementById("product_name_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("product_size").value == ""){
+			document.getElementById("product_size_Alert").innerText = "제품사이즈를 입력해주셔야 합니다.";
+			document.getElementById("product_size_Alert").classList.add("text-danger");
+			document.getElementById("product_size").focus();
+			return;
+		}else{	
+			document.getElementById("product_size_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_version").value == ""){
+			document.getElementById("product_version_Alert").innerText = "제품버전을 입력해주셔야 합니다.";
+			document.getElementById("product_version_Alert").classList.add("text-danger");
+			document.getElementById("product_version").focus();
+			return;
+		}else{
+			document.getElementById("product_version_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("product_type").value == ""){
+			document.getElementById("product_type_Alert").innerText = "제품타입을 입력해주셔야 합니다.";
+			document.getElementById("product_type_Alert").classList.add("text-danger");
+			document.getElementById("product_type").focus();
+			return;
+		}else{
+			document.getElementById("product_type_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_register_employee").value == ""){
+			document.getElementById("product_register_employee_Alert").innerText = "제품 등록자를 입력해주셔야 합니다.";
+			document.getElementById("product_register_employee_Alert").classList.add("text-danger");
+			document.getElementById("product_register_employee").focus();
+			return;
+		}else{
+			document.getElementById("product_register_employee_Alert").innerHTML = "";
+		}
+		
+		document.getElementById("insertBtn").click();
+		
+	}
+	
+	function checkRemove(){
+		
+		if(document.getElementById("company_code").value != ""){
+			document.getElementById("company_code_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_name").value != ""){
+			document.getElementById("product_name_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_size").value != ""){
+			document.getElementById("product_size_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_version").value != ""){
+			document.getElementById("product_version_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_type").value != ""){
+			document.getElementById("product_type_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_register_employee").value != ""){
+			document.getElementById("product_register_employee_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+	}
+	
+	function checkUpdate(){
+		
+		document.getElementById("company_code_update_Alert").innetHTML = "";
+		document.getElementById("product_code_update_Alert").innetHTML = "";
+		document.getElementById("product_name_update_Alert").innetHTML = "";
+		document.getElementById("product_size_update_Alert").innetHTML = "";
+		document.getElementById("product_version_update_Alert").innetHTML = "";
+		document.getElementById("product_type_update_Alert").innetHTML = "";
+		document.getElementById("product_update_employee_update_Alert").innetHTML = "";
+		
+		if(document.getElementById("company_code_update").value == ""){
+			document.getElementById("company_code_update_Alert").innerText = "로그인을 먼저 해주세요.";
+			document.getElementById("company_code_update_Alert").classList.add("text-danger");
+			document.getElementById("company_code_update").focus();
+			return;
+		}else{	
+			document.getElementById("company_code_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_code_update").value == ""){
+			document.getElementById("product_code_update_Alert").innerText = "제품코드를 입력해주셔야 합니다.";
+			document.getElementById("product_code_update_Alert").classList.add("text-danger");
+			document.getElementById("product_code_update").focus();
+			return;
+		}else{	
+			document.getElementById("product_code_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("product_name_update").value == ""){
+			document.getElementById("product_name_update_Alert").innerText = "제품명을 입력해주셔야 합니다.";
+			document.getElementById("product_name_update_Alert").classList.add("text-danger");
+			document.getElementById("product_name_update").focus();
+			return;
+		}else{
+			document.getElementById("product_name_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_size_update").value == ""){
+			document.getElementById("product_size_update_Alert").innerText = "제품 사이즈를 입력해주셔야 합니다.";
+			document.getElementById("product_size_update_Alert").classList.add("text-danger");
+			document.getElementById("product_size_update").focus();
+			return;
+		}else{
+			document.getElementById("product_size_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("product_version_update").value == ""){
+			document.getElementById("product_version_update_Alert").innerText = "제품 버전을 입력해주셔야 합니다.";
+			document.getElementById("product_version_update_Alert").classList.add("text-danger");
+			document.getElementById("product_version_update").focus();
+			return;
+		}else{
+			document.getElementById("product_version_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("product_type_update").value == ""){
+			document.getElementById("product_type_update_Alert").innerText = "제품 타입을 입력해주셔야 합니다.";
+			document.getElementById("product_type_update_Alert").classList.add("text-danger");
+			document.getElementById("product_type_update").focus();
+			return;
+		}else{
+			document.getElementById("product_type_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_update_employee_update").value == ""){
+			document.getElementById("product_update_employee_update_Alert").innerText = "제품 수정자를 입력해주셔야 합니다.";
+			document.getElementById("product_update_employee_update_Alert").classList.add("text-danger");
+			document.getElementById("product_update_employee_update").focus();
+			return;
+		}else{	
+			document.getElementById("product_update_employee_update_Alert").innerHTML = "";
+		}
+		
+		
+		document.getElementById("updateBtn").click();
+	
+	
+	}
+	
+	function checkUpdateRemove(){
+		
+		if(document.getElementById("company_code_update").value != ""){
+			document.getElementById("company_code_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_code_update").value != ""){
+			document.getElementById("product_code_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_name_update").value != ""){
+			document.getElementById("product_name_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_size_update").value != ""){
+			document.getElementById("product_size_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_version_update").value != ""){
+			document.getElementById("product_version_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_type_update").value != ""){
+			document.getElementById("product_type_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		
+		if(document.getElementById("product_update_employee_update").value != ""){
+			document.getElementById("product_update_employee_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+	
+	
+	}
 	
 	function insertProductPriceInfo(){
 		console.log("뭐니");
@@ -994,7 +1234,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사코드</span>
-                                        <input id="company_code" type="text" readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
+                                        <input id="company_code" onblur="checkRemove()" type="text" readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1002,7 +1242,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품코드</span>
-                                        <input id="product_code" type="text" class="form-control">
+                                        <input id="product_code" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1010,7 +1250,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품명</span>
-                                        <input id="product_name" type="text" class="form-control">
+                                        <input id="product_name" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
                                 </div>                               
                             </div>
@@ -1018,7 +1258,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품구매단가</span>
-                                        <input id="product_price_purchase" type="text" class="form-control">
+                                        <input id="product_price_purchase" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1026,7 +1266,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품구매일</span>
-                                        <input id="product_price_purchase_date" type="date" class="form-control">
+                                        <input id="product_price_purchase_date" onblur="checkRemove()" type="date" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1034,7 +1274,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품판매단가</span>
-                                        <input id="product_price_selling" type="text" class="form-control">
+                                        <input id="product_price_selling" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1042,7 +1282,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품판매일</span>
-                                        <input id="product_price_selling_date" type="date" class="form-control">
+                                        <input id="product_price_selling_date" onblur="checkRemove()" type="date" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1061,7 +1301,8 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="insertProductPriceInfo()" data-bs-dismiss="modal">등록</button>
+                  <button type="button" class="btn btn-primary" onclick="check()">등록</button>
+                  <button id="insertBtn" type="button" class="btn btn-primary" onclick="insertProductPriceInfo()" data-bs-dismiss="modal">등록</button>
                 </div>
               </div>
             </div>
@@ -1079,12 +1320,19 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-control mt-3">
-                        	<input id="product_price_code_update" type="hidden" class="form-control">
                         	<div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사코드</span>
-                                        <input id="company_code_update" readonly type="text" class="form-control">
+                                        <input id="company_code_update" onblur="checkUpdateRemove()" readonly type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">제품단가코드</span>
+                                        <input id="product_price_code_update" onblur="checkUpdateRemove()" readonly type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1092,7 +1340,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품코드</span>
-                                        <input id="product_code_update" type="text" class="form-control">
+                                        <input id="product_code_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1100,7 +1348,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품명</span>
-                                        <input id="product_name_update" type="text" class="form-control">
+                                        <input id="product_name_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
                                 </div>                               
                             </div>
@@ -1108,7 +1356,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품구매단가</span>
-                                        <input id="product_price_purchase_update" type="text" class="form-control">
+                                        <input id="product_price_purchase_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1116,7 +1364,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품구매일</span>
-                                        <input id="product_price_purchase_date_update" type="date" class="form-control">
+                                        <input id="product_price_purchase_date_update" onblur="checkUpdateRemove()" type="date" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -1124,7 +1372,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품판매단가</span>
-                                        <input id="product_price_selling_update" type="text" class="form-control">
+                                        <input id="product_price_selling_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>

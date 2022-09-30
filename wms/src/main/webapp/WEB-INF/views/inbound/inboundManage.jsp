@@ -497,9 +497,9 @@
 					inboundCodeTh.innerText = companyInbound.inbound_code;
 					bodyTr.appendChild(inboundCodeTh)			
 					
-					var coCodeTd = document.createElement("td");
-					coCodeTd.innerText = companyInbound.company_code;
-					bodyTr.appendChild(coCodeTd);
+					var lotCodeTd = document.createElement("td");
+					lotCodeTd.innerText = companyInbound.lot_code;
+					bodyTr.appendChild(lotCodeTd);
 					
 					var pdCode = document.createElement("td");
 					pdCode.innerText = companyInbound.product_code;

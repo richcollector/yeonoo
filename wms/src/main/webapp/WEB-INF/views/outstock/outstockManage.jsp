@@ -530,7 +530,7 @@
 								<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 									<option selected>선택</option>
 									<option value="outstock_code">재고 코드</option>
-									<option value="product_code">제품 코드<option>
+									<option value="product_code">제품 코드</option>
 									<option value="outstock_register_date">재고 등록일</option>
 								  </select>
 								<input id="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button" onkeyup="stockSearch()">
@@ -572,7 +572,7 @@
 								<select id="searchOsType" style="width: 10px;" class="form-select" aria-label="Default select example">
 									<option selected>선택</option>
 									<option value="outstock_code">출고 코드</option>
-									<option value="product_code">물품 코드<option>
+									<option value="product_code">물품 코드</option>
 									<option value="outstock_register_date">출고 등록일</option>
 								  </select>
 								<input id="searchOsWord" type="text" class="form-control" aria-label="Text input with dropdown button" onkeyup="outstockList()">

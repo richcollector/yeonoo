@@ -47,9 +47,10 @@
         }
 
         .usermenu{
-         width: 100%;
-            position: relative;
-            display: inline-block;
+	        z-index : 2;
+	        width: 100%;
+	        position: relative;
+	        display: inline-block;
         }
 
         .usermenu-content{

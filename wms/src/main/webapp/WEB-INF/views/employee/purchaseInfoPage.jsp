@@ -42,6 +42,465 @@
     </style>
 	
 <script type="text/javascript">
+
+	function check(){
+		
+		document.getElementById("company_code_Alert").innerHTML = "";
+		document.getElementById("account_code_Alert").innerHTML = "";
+		document.getElementById("purchase_state_Alert").innerHTML = "";
+		document.getElementById("purchase_manager_Alert").innerHTML = "";
+		document.getElementById("purchase_date_Alert").innerHTML = "";
+		document.getElementById("purchase_due_date_Alert").innerHTML = "";
+		document.getElementById("purchase_register_employee_Alert").innerHTML = "";
+		
+		
+		if(document.getElementById("company_code").value == ""){
+			document.getElementById("company_code_Alert").innerText = "로그인을 먼저 해주세요.";
+			document.getElementById("company_code_Alert").classList.add("text-danger");
+			document.getElementById("company_code").focus();
+			return;
+		}else{	
+			document.getElementById("company_code_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("account_code").value == ""){
+			document.getElementById("account_code_Alert").innerText = "거래처명을 입력해주셔야 합니다.";
+			document.getElementById("account_code_Alert").classList.add("text-danger");
+			document.getElementById("account_code").focus();
+			return;
+		}else{	
+			document.getElementById("account_code_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("purchase_state").value == ""){
+			document.getElementById("purchase_state_Alert").innerText = "발주상태를 입력해주셔야 합니다.";
+			document.getElementById("purchase_state_Alert").classList.add("text-danger");
+			document.getElementById("purchase_state").focus();
+			return;
+		}else{	
+			document.getElementById("purchase_state_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("purchase_manager").value == ""){
+			document.getElementById("purchase_manager_Alert").innerText = "발주담당자를 입력해주셔야 합니다.";
+			document.getElementById("purchase_manager_Alert").classList.add("text-danger");
+			document.getElementById("purchase_manager").focus();
+			return;
+		}else{
+			document.getElementById("purchase_manager_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("purchase_date").value == ""){
+			document.getElementById("purchase_date_Alert").innerText = "발주일을 입력해주셔야 합니다.";
+			document.getElementById("purchase_date_Alert").classList.add("text-danger");
+			document.getElementById("purchase_date").focus();
+			return;
+		}else{
+			document.getElementById("purchase_date_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("purchase_due_date").value == ""){
+			document.getElementById("purchase_due_date_Alert").innerText = "발주마감일을 입력해주셔야 합니다.";
+			document.getElementById("purchase_due_date_Alert").classList.add("text-danger");
+			document.getElementById("purchase_due_date").focus();
+			return;
+		}else{
+			document.getElementById("purchase_due_date_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("purchase_register_employee").value == ""){
+			document.getElementById("purchase_register_employee_Alert").innerText = "발주등록자를 입력해주셔야 합니다.";
+			document.getElementById("purchase_register_employee_Alert").classList.add("text-danger");
+			document.getElementById("purchase_register_employee").focus();
+			return;
+		}else{
+			document.getElementById("purchase_register_employee_Alert").innerHTML = "";
+		}
+		
+		document.getElementById("insertBtn").click();
+		
+	}
+	
+	function checkRemove(){
+		
+		if(document.getElementById("company_code").value != ""){
+			document.getElementById("company_code_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_code").value != ""){
+			document.getElementById("account_code_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_state").value != ""){
+			document.getElementById("purchase_state_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_manager").value != ""){
+			document.getElementById("purchase_manager_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_date").value != ""){
+			document.getElementById("purchase_date_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_due_date").value != ""){
+			document.getElementById("purchase_due_date_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_register_employee").value != ""){
+			document.getElementById("purchase_register_employee_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+	}
+	
+	function checkUpdate(){
+		
+		document.getElementById("company_code_update_Alert").innerHTML = "";
+		document.getElementById("purchase_code_update_Alert").innerHTML = "";
+		document.getElementById("account_code_update_Alert").innerHTML = "";
+		document.getElementById("purchase_state_update_Alert").innerHTML = "";
+		document.getElementById("purchase_manager_update_Alert").innerHTML = "";
+		document.getElementById("purchase_date_update_Alert").innerHTML = "";
+		document.getElementById("purchase_due_date_update_Alert").innerHTML = "";
+		document.getElementById("purchase_update_employee_update_Alert").innerHTML = "";
+		
+		if(document.getElementById("company_code_update").value == ""){
+			document.getElementById("company_code_update_Alert").innerText = "로그인을 먼저 해주세요.";
+			document.getElementById("company_code_update_Alert").classList.add("text-danger");
+			document.getElementById("company_code_update").focus();
+			return;
+		}else{	
+			document.getElementById("company_code_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("account_code_update").value == ""){
+			document.getElementById("account_code_update_Alert").innerText = "거래처코드를 입력해주셔야 합니다.";
+			document.getElementById("account_code_update_Alert").classList.add("text-danger");
+			document.getElementById("account_code_update").focus();
+			return;
+		}else{	
+			document.getElementById("account_code_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("purchase_state_update").value == ""){
+			document.getElementById("purchase_state_update_Alert").innerText = "발주상태를 입력해주셔야 합니다.";
+			document.getElementById("purchase_state_update_Alert").classList.add("text-danger");
+			document.getElementById("purchase_state_update").focus();
+			return;
+		}else{	
+			document.getElementById("purchase_state_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("purchase_manager_update").value == ""){
+			document.getElementById("purchase_manager_update_Alert").innerText = "발주 담당자를 입력해주셔야 합니다.";
+			document.getElementById("purchase_manager_update_Alert").classList.add("text-danger");
+			document.getElementById("purchase_manager_update").focus();
+			return;
+		}else{
+			document.getElementById("purchase_manager_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("purchase_date_update").value == ""){
+			document.getElementById("purchase_date_update_Alert").innerText = "발주일을 입력해주셔야 합니다.";
+			document.getElementById("purchase_date_update_Alert").classList.add("text-danger");
+			document.getElementById("purchase_date_update").focus();
+			return;
+		}else{
+			document.getElementById("purchase_date_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("purchase_due_date_update").value == ""){
+			document.getElementById("purchase_due_date_update_Alert").innerText = "발주마감일을 입력해주셔야 합니다.";
+			document.getElementById("purchase_due_date_update_Alert").classList.add("text-danger");
+			document.getElementById("purchase_due_date_update").focus();
+			return;
+		}else{
+			document.getElementById("purchase_due_date_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("purchase_update_employee_update").value == ""){
+			document.getElementById("purchase_update_employee_update_Alert").innerText = "발주수정자를 입력해주셔야 합니다.";
+			document.getElementById("purchase_update_employee_update_Alert").classList.add("text-danger");
+			document.getElementById("purchase_update_employee_update").focus();
+			return;
+		}else{
+			document.getElementById("purchase_update_employee_update_Alert").innerHTML = "";
+		}
+		
+		document.getElementById("updateBtn").click();
+		
+	
+	}
+	
+	function checkUpdateRemove(){
+		
+		if(document.getElementById("company_code_update").value != ""){
+			document.getElementById("company_code_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_code_update").value != ""){
+			document.getElementById("purchase_code_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("account_code_update").value != ""){
+			document.getElementById("account_code_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_manager_update").value != ""){
+			document.getElementById("purchase_manager_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_date_update").value != ""){
+			document.getElementById("purchase_date_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_due_date_update").value != ""){
+			document.getElementById("purchase_due_date_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_update_employee_update").value != ""){
+			document.getElementById("purchase_update_employee_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+	
+	
+	}	
+	
+	function checkDetail(){
+		
+		document.getElementById("purchase_code_in_detail_Alert").innerHTML = "";
+		document.getElementById("product_code_Alert").innerHTML = "";
+		document.getElementById("product_name_Alert").innerHTML = "";
+		document.getElementById("product_price_Alert").innerHTML = "";
+		document.getElementById("product_amount_Alert").innerHTML = "";
+		
+		if(document.getElementById("purchase_code_in_detail").value == ""){
+			document.getElementById("purchase_code_in_detail_Alert").innerText = "발주코드를 입력해주셔야 합니다.";
+			document.getElementById("purchase_code_in_detail_Alert").classList.add("text-danger");
+			document.getElementById("purchase_code_in_detail").focus();
+			return;
+		}else{
+			document.getElementById("purchase_code_in_detail_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_code").value == ""){
+			document.getElementById("product_code_Alert").innerText = "제품코드를 입력해주셔야 합니다.";
+			document.getElementById("product_code_Alert").classList.add("text-danger");
+			document.getElementById("product_code").focus();
+			return;
+		}else{
+			document.getElementById("product_code_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_name").value == ""){
+			document.getElementById("product_name_Alert").innerText = "제품명를 입력해주셔야 합니다.";
+			document.getElementById("product_name_Alert").classList.add("text-danger");
+			document.getElementById("product_name").focus();
+			return;
+		}else{
+			document.getElementById("product_name_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_price").value == ""){
+			document.getElementById("product_price_Alert").innerText = "제품가격을 입력해주셔야 합니다.";
+			document.getElementById("product_price_Alert").classList.add("text-danger");
+			document.getElementById("product_price").focus();
+			return;
+		}else{
+			document.getElementById("product_price_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_amount").value == ""){
+			document.getElementById("product_amount_Alert").innerText = "제품수량을 입력해주셔야 합니다.";
+			document.getElementById("product_amount_Alert").classList.add("text-danger");
+			document.getElementById("product_amount").focus();
+			return;
+		}else{
+			document.getElementById("product_amount_Alert").innerHTML = "";
+		}
+		
+		document.getElementById("insertDetailBtn").click();
+		
+	}
+	
+	function checkDetailRemove(){
+		
+		if(document.getElementById("purchase_code_in_detail").value != ""){
+			document.getElementById("purchase_code_in_detail_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		
+		if(document.getElementById("product_code").value != ""){
+			document.getElementById("product_code_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		
+		if(document.getElementById("product_name").value != ""){
+			document.getElementById("product_name_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		
+		if(document.getElementById("product_price").value != ""){
+			document.getElementById("product_price_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		
+		if(document.getElementById("product_amount").value != ""){
+			document.getElementById("product_amount_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+	}
+	
+	function checkDetailUpdate(){
+		
+		document.getElementById("purchase_code_in_detail_update_Alert").innerHTML = "";
+		document.getElementById("purchase_detail_code_update_Alert").innerHTML = "";
+		document.getElementById("product_code_update_Alert").innerHTML = "";
+		document.getElementById("product_name_update_Alert").innerHTML = "";
+		document.getElementById("product_price_update_Alert").innerHTML = "";
+		document.getElementById("product_amount_update_Alert").innerHTML = "";
+		
+		
+		if(document.getElementById("purchase_detail_code_update").value == ""){
+			document.getElementById("purchase_detail_code_update_Alert").innerText = "발주상세코드를 입력해주셔야 합니다.";
+			document.getElementById("purchase_detail_code_update_Alert").classList.add("text-danger");
+			document.getElementById("purchase_detail_code_update").focus();
+			return;
+		}else{
+			document.getElementById("purchase_detail_code_update_Alert").innerHTML = "";
+		}
+		
+		
+		if(document.getElementById("purchase_code_in_detail_update").value == ""){
+			document.getElementById("purchase_code_in_detail_update_Alert").innerText = "발주코드를 입력해주셔야 합니다.";
+			document.getElementById("purchase_code_in_detail_update_Alert").classList.add("text-danger");
+			document.getElementById("purchase_code_in_detail_update").focus();
+			return;
+		}else{
+			document.getElementById("purchase_code_in_detail_update_Alert").innerHTML = "";
+		}
+	
+		
+		if(document.getElementById("product_code_update").value == ""){
+			document.getElementById("product_code_update_Alert").innerText = "제품코드를 입력해주셔야 합니다.";
+			document.getElementById("product_code_update_Alert").classList.add("text-danger");
+			document.getElementById("product_code_update").focus();
+			return;
+		}else{
+			document.getElementById("product_code_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_name_update").value == ""){
+			document.getElementById("product_name_update_Alert").innerText = "제품명을 입력해주셔야 합니다.";
+			document.getElementById("product_name_update_Alert").classList.add("text-danger");
+			document.getElementById("product_name_update").focus();
+			return;
+		}else{
+			document.getElementById("product_name_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_price_update").value == ""){
+			document.getElementById("product_price_update_Alert").innerText = "제품가격을 입력해주셔야 합니다.";
+			document.getElementById("product_price_update_Alert").classList.add("text-danger");
+			document.getElementById("product_price_update").focus();
+			return;
+		}else{
+			document.getElementById("product_price_update_Alert").innerHTML = "";
+		}
+		
+		if(document.getElementById("product_amount_update").value == ""){
+			document.getElementById("product_amount_update_Alert").innerText = "제품수량을 입력해주셔야 합니다.";
+			document.getElementById("product_amount_update_Alert").classList.add("text-danger");
+			document.getElementById("product_amount_update").focus();
+			return;
+		}else{
+			document.getElementById("product_amount_update_Alert").innerHTML = "";
+		}
+		
+		document.getElementById("updateDetailBtn").click();
+		
+	}
+
+	function checkDetailUpdateRemove(){
+		
+		if(document.getElementById("purchase_detail_code_update").value != ""){
+			document.getElementById("purchase_detail_code_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("purchase_code_in_detail_update").value != ""){
+			document.getElementById("purchase_code_in_detail_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_code_update").value != ""){
+			document.getElementById("product_code_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_name_update").value != ""){
+			document.getElementById("product_name_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_price_update").value != ""){
+			document.getElementById("product_price_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+		if(document.getElementById("product_amount_update").value != ""){
+			document.getElementById("product_amount_update_Alert").innerHTML = "";
+		}else{
+			return;
+		}
+		
+	}
 	
 	function insertPurchaseInfo(){
 		
@@ -61,7 +520,6 @@
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
 					
-				document.getElementById("company_code").value = "";
 				document.getElementById("account_code").value = "";
 				document.getElementById("purchase_state").value = "";
 				document.getElementById("purchase_manager").value = "";
@@ -1869,7 +2327,7 @@ function insertPurchaseDetailInfo(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
 					
-				document.getElementById("purchase_code_in_detail").value = "";
+
 				document.getElementById("product_code").value = "";
 				document.getElementById("product_name").value = "";
 				document.getElementById("product_price").value = "";
@@ -2214,56 +2672,63 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사코드</span>
-                                        <input id="company_code" type="text" readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
+                                        <input id="company_code" onblur="checkRemove()" type="text" readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
                                     </div>
+									<div id="company_code_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">거래처코드</span>
-                                        <input id="account_code" type="text" class="form-control">
+                                        <input id="account_code" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+									<div id="account_code_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">주문상태</span>
-                                        <input id="purchase_state" type="text" class="form-control">
+                                        <input id="purchase_state" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+									<div id="purchase_state_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주 담당자</span>
-                                        <input id="purchase_manager" type="text" class="form-control">
+                                        <input id="purchase_manager" onblur="checkRemove()" type="text" class="form-control">
                                     </div>
+									<div id="purchase_manager_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주일</span>
-                                        <input id="purchase_date" type="date" class="form-control">
+                                        <input id="purchase_date" onblur="checkRemove()" type="date" class="form-control">
                                     </div>
+									<div id="purchase_date_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주납기일</span>
-                                        <input id="purchase_due_date" type="date" class="form-control">
+                                        <input id="purchase_due_date" onblur="checkRemove()" type="date" class="form-control">
                                     </div>
+									<div id="purchase_due_date_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주 등록자</span>
-                                        <input id="purchase_register_employee" readonly value="${employeeInfo.employee_name }${adminInfo.admin_email }" type="text" class="form-control">
+                                        <input id="purchase_register_employee" onblur="checkRemove()" readonly value="${employeeInfo.employee_name }${adminInfo.admin_email }" type="text" class="form-control">
                                     </div>
+									<div id="purchase_register_employee_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -2281,7 +2746,8 @@ function insertPurchaseDetailInfo(){
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="insertPurchaseInfo()" data-bs-dismiss="modal">등록</button>
+                  <button type="button" class="btn btn-primary" onclick="check()">등록</button>
+                  <button id="insertBtn" type="button" class="btn btn-primary" onclick="insertPurchaseInfo()" data-bs-dismiss="modal" hidden>등록</button>
                 </div>
               </div>
             </div>
@@ -2299,61 +2765,76 @@ function insertPurchaseDetailInfo(){
                  <div class="modal-body">
                     <div class="row">
                         <div class="form-control mt-3">
-                        	<input id="purchase_code_update" type="hidden" class="form-control">
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사코드</span>
-                                        <input id="company_code_update" readonly value="${employeeInfo.company_code }${adminInfo.company_code }" type="text" class="form-control">
+                                        <input id="company_code_update" onblur="checkUpdateRemove()" readonly value="${employeeInfo.company_code }${adminInfo.company_code }" type="text" class="form-control">
                                     </div>
+									<div id="company_code_update_Alert" class="mb-3"></div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">발주코드</span>
+                                        <input id="purchase_code_update" onblur="checkUpdateRemove()" readonly type="text" class="form-control">
+                                    </div>
+									<div id="purchase_code_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">거래처코드</span>
-                                        <input id="account_code_update" type="text" class="form-control">
+                                        <input id="account_code_update"  onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+									<div id="account_code_update_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">주문상태</span>
-                                        <input id="purchase_state_update" type="text" class="form-control">
+                                        <input id="purchase_state_update"  onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+									<div id="purchase_state_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주 담당자</span>
-                                        <input id="purchase_manager_update" type="text" class="form-control">
+                                        <input id="purchase_manager_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+									<div id="purchase_manager_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주 접수일</span>
-                                        <input id="purchase_date_update" type="date" class="form-control">
+                                        <input id="purchase_date_update" onblur="checkUpdateRemove()" type="date" class="form-control">
                                     </div>
+									<div id="purchase_date_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주 마감일</span>
-                                        <input id="purchase_due_date_update" type="date" class="form-control">
+                                        <input id="purchase_due_date_update" onblur="checkUpdateRemove()" type="date" class="form-control">
                                     </div>
+									<div id="purchase_due_date_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주 수정자</span>
-                                        <input id="purchase_update_employee_update" readonly value="${employeeInfo.employee_name }${adminInfo.admin_email }" type="text" class="form-control">
+                                        <input id="purchase_update_employee_update" onblur="checkUpdateRemove()" readonly value="${employeeInfo.employee_name }${adminInfo.admin_email }" type="text" class="form-control">
                                     </div>
+									<div id="purchase_update_employee_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -2371,7 +2852,8 @@ function insertPurchaseDetailInfo(){
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="updatePurchaseInfo()" data-bs-dismiss="modal">수정</button>
+                  <button type="button" class="btn btn-primary" onclick="checkUpdate()">수정</button>
+                  <button id="updateBtn" type="button" class="btn btn-primary" onclick="updatePurchaseInfo()" data-bs-dismiss="modal" hidden>수정</button>
                 </div>
               </div>
             </div>
@@ -2393,40 +2875,45 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">발주코드</span>
-                                        <input id="purchase_code_in_detail" readonly type="text" class="form-control">
+                                        <input id="purchase_code_in_detail" onblur="checkDetailRemove()"  readonly type="text" class="form-control">
                                     </div>
+                                	<div id="purchase_code_in_detail_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품코드</span>
-                                        <input id="product_code" type="text" class="form-control">
+                                        <input id="product_code" onblur="checkDetailRemove()"  type="text" class="form-control">
                                     </div>
+                                	<div id="product_code_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품명</span>
-                                        <input id="product_name" type="text" class="form-control">
+                                        <input id="product_name" onblur="checkDetailRemove()"  type="text" class="form-control">
                                     </div>
+                                	<div id="product_name_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품가격</span>
-                                        <input id="product_price" type="text" class="form-control">
+                                        <input id="product_price" onblur="checkDetailRemove()"  type="text" class="form-control">
                                     </div>
+                                	<div id="product_price_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품수량</span>
-                                        <input id="product_amount" type="text" class="form-control">
+                                        <input id="product_amount" onblur="checkDetailRemove()"  type="text" class="form-control">
                                     </div>
+                                	<div id="product_amount_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                         </div>
@@ -2434,8 +2921,9 @@ function insertPurchaseDetailInfo(){
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="insertPurchaseDetailInfo()" data-bs-dismiss="modal">등록</button>
-                </div>
+                  <button type="button" class="btn btn-primary" onclick="checkDetail()">등록</button>
+                  <button id="insertDetailBtn" type="button" class="btn btn-primary" onclick="insertPurchaseDetailInfo()" data-bs-dismiss="modal" hidden>등록</button>
+               </div>
               </div>
             </div>
           </div>
@@ -2451,46 +2939,59 @@ function insertPurchaseDetailInfo(){
                 </div>
                  <div class="modal-body">
                     <div class="row">
-                    	<input id="purchase_detail_code_update" type="hidden" class="form-control">
                         <div class="form-control mt-3">
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">발주코드</span>
-                                        <input id="purchase_code_in_detail_update" readonly type="text" class="form-control">
+                                        <span class="input-group-text">발주상세코드</span>
+                                        <input id="purchase_detail_code_update" onblur="checkDetailUpdateRemove()"  readonly type="text" class="form-control">
                                     </div>
+									<div id="purchase_detail_code_update_Alert" class="mb-3"></div>
+                                </div>                               
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">발주코드</span>
+                                        <input id="purchase_code_in_detail_update" onblur="checkDetailUpdateRemove()"  readonly type="text" class="form-control">
+                                    </div>
+									<div id="purchase_code_in_detail_update_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품코드</span>
-                                        <input id="product_code_update" type="text" class="form-control">
+                                        <input id="product_code_update" onblur="checkDetailUpdateRemove()"  type="text" class="form-control">
                                     </div>
+									<div id="product_code_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품명</span>
-                                        <input id="product_name_update" type="text" class="form-control">
+                                        <input id="product_name_update" onblur="checkDetailUpdateRemove()"  type="text" class="form-control">
                                     </div>
+									<div id="product_name_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품가격</span>
-                                        <input id="product_price_update" type="text" class="form-control">
+                                        <input id="product_price_update" onblur="checkDetailUpdateRemove()"  type="text" class="form-control">
                                     </div>
+									<div id="product_price_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품수량</span>
-                                        <input id="product_amount_update" type="text" class="form-control">
+                                        <input id="product_amount_update" onblur="checkDetailUpdateRemove()"  type="text" class="form-control">
                                     </div>
+									<div id="product_amount_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                         </div>
@@ -2498,7 +2999,8 @@ function insertPurchaseDetailInfo(){
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="updatePurchaseDetailInfo()" data-bs-dismiss="modal">수정</button>
+                  <button type="button" class="btn btn-primary" onclick="checkDetailUpdate()">수정</button>
+                  <button id="updateDetailBtn" type="button" class="btn btn-primary" onclick="updatePurchaseDetailInfo()" data-bs-dismiss="modal" hidden>수정</button>
                 </div>
               </div>
             </div>

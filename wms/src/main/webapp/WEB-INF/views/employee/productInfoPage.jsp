@@ -290,12 +290,10 @@ function checkUpdateRemove(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
 					
-				document.getElementById("company_code").value = "";
 				document.getElementById("product_name").value = "";
 				document.getElementById("product_size").value = "";
 				document.getElementById("product_version").value = "";
 				document.getElementById("product_type").value = "";
-				document.getElementById("product_register_employee").value = "";
 				document.getElementById("product_memo").value = "";
 				
 				refreshProductInfo();

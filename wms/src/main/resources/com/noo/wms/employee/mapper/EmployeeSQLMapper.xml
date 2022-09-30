@@ -798,6 +798,7 @@
 	<update id="updateProductPriceInfo">
 		UPDATE Product_price SET
 		product_code = #{product_code},
+		product_name = #{product_name},
 		company_code = #{company_code},
 		product_price_purchase = #{product_price_purchase},
 		product_price_purchase_date = #{product_price_purchase_date},

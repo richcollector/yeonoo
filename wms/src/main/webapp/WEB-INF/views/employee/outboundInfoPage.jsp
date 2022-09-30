@@ -34,6 +34,409 @@
     </style>
 	
 <script type="text/javascript">
+
+function check(){
+	
+	document.getElementById("company_code_Alert").innerHTML = "";
+	document.getElementById("account_code_Alert").innerHTML = "";
+	document.getElementById("outbound_date_Alert").innerHTML = "";
+	document.getElementById("outbound_manager_Alert").innerHTML = "";
+	document.getElementById("outbound_register_employee_Alert").innerHTML = "";
+	
+	
+	if(document.getElementById("company_code").value == ""){
+		document.getElementById("company_code_Alert").innerText = "로그인을 먼저 해주세요.";
+		document.getElementById("company_code_Alert").classList.add("text-danger");
+		document.getElementById("company_code").focus();
+		return;
+	}else{	
+		document.getElementById("company_code_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("account_code").value == ""){
+		document.getElementById("account_code_Alert").innerText = "거래처코드를 입력해주셔야합니다.";
+		document.getElementById("account_code_Alert").classList.add("text-danger");
+		document.getElementById("account_code").focus();
+		return;
+	}else{	
+		document.getElementById("account_code_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("outbound_date").value == ""){
+		document.getElementById("outbound_date_Alert").innerText = "출하일을 입력해주셔야합니다.";
+		document.getElementById("outbound_date_Alert").classList.add("text-danger");
+		document.getElementById("outbound_date").focus();
+		return;
+	}else{	
+		document.getElementById("outbound_date_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("outbound_manager").value == ""){
+		document.getElementById("outbound_manager_Alert").innerText = "출하담당자를 입력해주셔야합니다.";
+		document.getElementById("outbound_manager_Alert").classList.add("text-danger");
+		document.getElementById("outbound_manager").focus();
+		return;
+	}else{	
+		document.getElementById("outbound_manager_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("outbound_register_employee").value == ""){
+		document.getElementById("outbound_register_employee_Alert").innerText = "출하등록자를 입력해주셔야합니다.";
+		document.getElementById("outbound_register_employee_Alert").classList.add("text-danger");
+		document.getElementById("outbound_register_employee").focus();
+		return;
+	}else{	
+		document.getElementById("outbound_register_employee_Alert").innerHTML = "";
+	}
+	
+	
+	document.getElementById("insertBtn").click();
+	
+}
+
+function checkRemove(){
+	
+	if(document.getElementById("company_code").value != ""){
+		document.getElementById("company_code_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("account_code").value != ""){
+		document.getElementById("account_code_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("outbound_date").value != ""){
+		document.getElementById("outbound_date_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("outbound_manager").value != ""){
+		document.getElementById("outbound_manager_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("outbound_register_employee").value != ""){
+		document.getElementById("outbound_register_employee_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+
+	
+}
+
+function checkUpdate(){
+	
+	document.getElementById("company_code_update_Alert").innerHTML = "";
+	document.getElementById("outbound_code_update_Alert").innerHTML = "";
+	document.getElementById("account_code_update_Alert").innerHTML = "";
+	document.getElementById("outbound_date_update_Alert").innerHTML = "";
+	document.getElementById("outbound_manager_update_Alert").innerHTML = "";
+	document.getElementById("outbound_update_employee_update_Alert").innerHTML = "";
+	
+	if(document.getElementById("company_code_update").value == ""){
+		document.getElementById("company_code_update_Alert").innerText = "로그인을 먼저 해주셔야 합니다.";
+		document.getElementById("company_code_update_Alert").classList.add("text-danger");
+		document.getElementById("company_code_update").focus();
+		return;
+	}else{	
+		document.getElementById("company_code_update_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("outbound_code_update").value == ""){
+		document.getElementById("outbound_code_update_Alert").innerText = "출하코드를 입력해주셔야 합니다.";
+		document.getElementById("outbound_code_update_Alert").classList.add("text-danger");
+		document.getElementById("outbound_code_update").focus();
+		return;
+	}else{	
+		document.getElementById("outbound_code_update_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("account_code_update").value == ""){
+		document.getElementById("account_code_update_Alert").innerText = "거래처코드를 입력해주셔야 합니다.";
+		document.getElementById("account_code_update_Alert").classList.add("text-danger");
+		document.getElementById("account_code_update").focus();
+		return;
+	}else{	
+		document.getElementById("account_code_update_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("outbound_date_update").value == ""){
+		document.getElementById("outbound_date_update_Alert").innerText = "출하일을 입력해주셔야 합니다.";
+		document.getElementById("outbound_date_update_Alert").classList.add("text-danger");
+		document.getElementById("outbound_date_update").focus();
+		return;
+	}else{	
+		document.getElementById("outbound_date_update_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("outbound_manager_update").value == ""){
+		document.getElementById("outbound_manager_update_Alert").innerText = "출하담당자를 입력해주셔야 합니다.";
+		document.getElementById("outbound_manager_update_Alert").classList.add("text-danger");
+		document.getElementById("outbound_manager_update").focus();
+		return;
+	}else{	
+		document.getElementById("outbound_manager_update_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("outbound_update_employee_update").value == ""){
+		document.getElementById("outbound_update_employee_update_Alert").innerText = "출하수정자를 입력해주셔야 합니다.";
+		document.getElementById("outbound_update_employee_update_Alert").classList.add("text-danger");
+		document.getElementById("outbound_update_employee_update").focus();
+		return;
+	}else{	
+		document.getElementById("outbound_update_employee_update_Alert").innerHTML = "";
+	}
+	
+	document.getElementById("updateBtn").click();
+	
+
+}
+
+function checkUpdateRemove(){
+	
+	if(document.getElementById("company_code_update").value != ""){
+		document.getElementById("company_code_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("outbound_code_update").value != ""){
+		document.getElementById("outbound_code_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("account_code_update").value != ""){
+		document.getElementById("account_code_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("outbound_date_update").value != ""){
+		document.getElementById("outbound_date_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("outbound_manager_update").value != ""){
+		document.getElementById("outbound_manager_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("outbound_update_employee_update").value != ""){
+		document.getElementById("outbound_update_employee_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+}	
+
+function checkDetail(){
+	
+	document.getElementById("outbound_code_in_detail_Alert").innerHTML = "";
+	document.getElementById("product_code_Alert").innerHTML = "";
+	document.getElementById("product_name_Alert").innerHTML = "";
+	document.getElementById("product_price_Alert").innerHTML = "";
+	document.getElementById("product_amount_Alert").innerHTML = "";
+	
+	if(document.getElementById("outbound_code_in_detail").value == ""){
+		document.getElementById("outbound_code_in_detail_Alert").innerText = "출하코드를 입력해주셔야 합니다.";
+		document.getElementById("outbound_code_in_detail_Alert").classList.add("text-danger");
+		document.getElementById("outbound_code_in_detail").focus();
+		return;
+	}else{
+		document.getElementById("outbound_code_in_detail_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("product_code").value == ""){
+		document.getElementById("product_code_Alert").innerText = "제품코드를 입력해주셔야 합니다.";
+		document.getElementById("product_code_Alert").classList.add("text-danger");
+		document.getElementById("product_code").focus();
+		return;
+	}else{
+		document.getElementById("product_code_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("product_name").value == ""){
+		document.getElementById("product_name_Alert").innerText = "제품명를 입력해주셔야 합니다.";
+		document.getElementById("product_name_Alert").classList.add("text-danger");
+		document.getElementById("product_name").focus();
+		return;
+	}else{
+		document.getElementById("product_name_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("product_price").value == ""){
+		document.getElementById("product_price_Alert").innerText = "제품가격을 입력해주셔야 합니다.";
+		document.getElementById("product_price_Alert").classList.add("text-danger");
+		document.getElementById("product_price").focus();
+		return;
+	}else{
+		document.getElementById("product_price_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("product_amount").value == ""){
+		document.getElementById("product_amount_Alert").innerText = "제품수량을 입력해주셔야 합니다.";
+		document.getElementById("product_amount_Alert").classList.add("text-danger");
+		document.getElementById("product_amount").focus();
+		return;
+	}else{
+		document.getElementById("product_amount_Alert").innerHTML = "";
+	}
+	
+	document.getElementById("insertDetailBtn").click();
+	
+}
+
+function checkDetailRemove(){
+	
+	if(document.getElementById("outbound_code_in_detail").value != ""){
+		document.getElementById("outbound_code_in_detail_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	
+	if(document.getElementById("product_code").value != ""){
+		document.getElementById("product_code_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	
+	if(document.getElementById("product_name").value != ""){
+		document.getElementById("product_name_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	
+	if(document.getElementById("product_price").value != ""){
+		document.getElementById("product_price_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	
+	if(document.getElementById("product_amount").value != ""){
+		document.getElementById("product_amount_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+}
+
+function checkDetailUpdate(){
+	
+	document.getElementById("outbound_code_in_detail_update_Alert").innerHTML = "";
+	document.getElementById("outbound_detail_code_update_Alert").innerHTML = "";
+	document.getElementById("product_code_update_Alert").innerHTML = "";
+	document.getElementById("product_name_update_Alert").innerHTML = "";
+	document.getElementById("product_price_update_Alert").innerHTML = "";
+	document.getElementById("product_amount_update_Alert").innerHTML = "";
+	
+	if(document.getElementById("outbound_code_in_detail_update").value == ""){
+		document.getElementById("outbound_code_in_detail_update_Alert").innerText = "출하코드를 입력해주셔야 합니다.";
+		document.getElementById("outbound_code_in_detail_update_Alert").classList.add("text-danger");
+		document.getElementById("outbound_code_in_detail_update").focus();
+		return;
+	}else{
+		document.getElementById("outbound_code_in_detail_update_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("outbound_detail_code_update").value == ""){
+		document.getElementById("outbound_detail_code_update_Alert").innerText = "출하상세코드를 입력해주셔야 합니다.";
+		document.getElementById("outbound_detail_code_update_Alert").classList.add("text-danger");
+		document.getElementById("outbound_detail_code_update").focus();
+		return;
+	}else{
+		document.getElementById("outbound_detail_code_update_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("product_code_update").value == ""){
+		document.getElementById("product_code_update_Alert").innerText = "제품코드를 입력해주셔야 합니다.";
+		document.getElementById("product_code_update_Alert").classList.add("text-danger");
+		document.getElementById("product_code_update").focus();
+		return;
+	}else{
+		document.getElementById("product_code_update_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("product_name_update").value == ""){
+		document.getElementById("product_name_update_Alert").innerText = "제품명을 입력해주셔야 합니다.";
+		document.getElementById("product_name_update_Alert").classList.add("text-danger");
+		document.getElementById("product_name_update").focus();
+		return;
+	}else{
+		document.getElementById("product_name_update_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("product_price_update").value == ""){
+		document.getElementById("product_price_update_Alert").innerText = "제품가격을 입력해주셔야 합니다.";
+		document.getElementById("product_price_update_Alert").classList.add("text-danger");
+		document.getElementById("product_price_update").focus();
+		return;
+	}else{
+		document.getElementById("product_price_update_Alert").innerHTML = "";
+	}
+	
+	if(document.getElementById("product_amount_update").value == ""){
+		document.getElementById("product_amount_update_Alert").innerText = "제품수량을 입력해주셔야 합니다.";
+		document.getElementById("product_amount_update_Alert").classList.add("text-danger");
+		document.getElementById("product_amount_update").focus();
+		return;
+	}else{
+		document.getElementById("product_amount_update_Alert").innerHTML = "";
+	}
+	
+	document.getElementById("updateDetailUpdateBtn").click();
+	
+}
+
+function checkDetailUpdateRemove(){
+	
+	if(document.getElementById("outbound_code_in_detail_update").value != ""){
+		document.getElementById("outbound_code_in_detail_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("outbound_detail_code_update").value != ""){
+		document.getElementById("outbound_detail_code_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("product_code_update").value != ""){
+		document.getElementById("product_code_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("product_name_update").value != ""){
+		document.getElementById("product_name_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("product_price_update").value != ""){
+		document.getElementById("product_price_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+	if(document.getElementById("product_amount_update").value != ""){
+		document.getElementById("product_amount_update_Alert").innerHTML = "";
+	}else{
+		return;
+	}
+	
+}
 	
 	function insertOutboundInfo(){
 		
@@ -64,12 +467,10 @@
 				"&outbound_update_employee=" + outboundRegisterEmployeeVal +
 				"&outbound_memo=" + outboundMemoVal);
 		
-		
-		document.getElementById("company_code").value = "";
+
 		document.getElementById("account_code").value = "";
 		document.getElementById("outbound_date").value = "";
 		document.getElementById("outbound_manager").value = "";
-		document.getElementById("outbound_register_employee").value = "";
 		document.getElementById("outbound_memo").value = "";
 		
 		
@@ -1765,8 +2166,8 @@ function insertOutboundDetailInfo(){
 		xhr.onreadystatechange = function () {
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
-					
-				document.getElementById("outbound_code_in_detail").value = "";
+
+				
 				document.getElementById("product_code").value = "";
 				document.getElementById("product_name").value = "";
 				document.getElementById("product_price").value = "";
@@ -2124,40 +2525,45 @@ function insertOutboundDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사코드</span>
-                                        <input id="company_code" type="text"  readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
+                                        <input id="company_code" type="text"  onblur="checkRemove()"  readonly value="${employeeInfo.company_code }${adminInfo.company_code }" class="form-control">
                                     </div>
+									<div id="company_code_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">거래처코드</span>
-                                        <input id="account_code" type="text" class="form-control">
+                                        <input id="account_code" type="text" onblur="checkRemove()" class="form-control">
                                     </div>
+									<div id="account_code_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">출하주문일</span>
-                                        <input id="outbound_date" type="date" class="form-control">
+                                        <input id="outbound_date" type="date" onblur="checkRemove()" class="form-control">
                                     </div>
+									<div id="account_code_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">출하담당자</span>
-                                        <input id="outbound_manager" type="text" class="form-control">
+                                        <input id="outbound_manager" type="text" onblur="checkRemove()" class="form-control">
                                     </div>
+									<div id="outbound_manager_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">출하등록자</span>
-                                        <input id="outbound_register_employee"  readonly value="${employeeInfo.employee_name }${adminInfo.admin_email }" type="text" class="form-control">
+                                        <input id="outbound_register_employee"  onblur="checkRemove()" readonly value="${employeeInfo.employee_name }${adminInfo.admin_email }" type="text" class="form-control">
                                     </div>
+									<div id="outbound_register_employee_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -2175,7 +2581,8 @@ function insertOutboundDetailInfo(){
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="insertOutboundInfo()" data-bs-dismiss="modal">등록</button>
+                  <button type="button" class="btn btn-primary" onclick="check()">등록</button>
+                  <button id="insertBtn" type="button" class="btn btn-primary" onclick="insertOutboundInfo()" data-bs-dismiss="modal" hidden>등록</button>
                 </div>
               </div>
             </div>
@@ -2193,45 +2600,58 @@ function insertOutboundDetailInfo(){
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-control mt-3">
-                        	<input id="outbound_code_update" type="hidden" class="form-control">
-                            <div class="row mt-3">
+                        	<div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">회사코드</span>
-                                        <input id="company_code_update"  readonly value="${employeeInfo.company_code }${adminInfo.company_code }" type="text" class="form-control">
+                                        <input id="company_code_update" onblur="checkUpdateRemove()"  readonly value="${employeeInfo.company_code }${adminInfo.company_code }" type="text" class="form-control">
                                     </div>
+									<div id="company_code_update_Alert" class="mb-3"></div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">출하코드</span>
+                                        <input id="outbound_code_update" onblur="checkUpdateRemove()"  readonly type="text" class="form-control">
+                                    </div>
+									<div id="outbound_code_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">거래처코드</span>
-                                        <input id="account_code_update" type="text" class="form-control">
+                                        <input id="account_code_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+									<div id="account_code_update_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">출하주문일</span>
-                                        <input id="outbound_date_update" type="date" class="form-control">
+                                        <input id="outbound_date_update" onblur="checkUpdateRemove()" type="date" class="form-control">
                                     </div>
+									<div id="outbound_date_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">출하담당자</span>
-                                        <input id="outbound_manager_update" type="text" class="form-control">
+                                        <input id="outbound_manager_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
+									<div id="outbound_manager_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">출하수정자</span>
-                                        <input id="outbound_update_employee_update"  readonly value="${employeeInfo.employee_name }${adminInfo.admin_email }" type="text" class="form-control">
+                                        <input id="outbound_update_employee_update" onblur="checkUpdateRemove()"  readonly value="${employeeInfo.employee_name }${adminInfo.admin_email }" type="text" class="form-control">
                                     </div>
+									<div id="outbound_update_employee_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -2249,7 +2669,8 @@ function insertOutboundDetailInfo(){
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="updateOutboundInfo()" data-bs-dismiss="modal">수정</button>
+                  <button type="button" class="btn btn-primary" onclick="checkUpdate()">수정</button>
+                  <button id="updateBtn" type="button" class="btn btn-primary" onclick="updateOutboundInfo()" data-bs-dismiss="modal" hidden>수정</button>
                 </div>
               </div>
             </div>
@@ -2275,40 +2696,45 @@ function insertOutboundDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">출하코드</span>
-                                        <input id="outbound_code_in_detail" type="text"  readonly  class="form-control">
+                                        <input id="outbound_code_in_detail" onblur="checkDetailRemove()" type="text"  readonly  class="form-control">
                                     </div>
+									<div id="outbound_code_in_detail_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품코드</span>
-                                        <input id="product_code" type="text" class="form-control">
+                                        <input id="product_code"onblur="checkDetailRemove()"  type="text" class="form-control">
                                     </div>
+									<div id="product_code_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품명</span>
-                                        <input id="product_name" type="text" class="form-control">
+                                        <input id="product_name"onblur="checkDetailRemove()"  type="text" class="form-control">
                                     </div>
+									<div id="product_name_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품가격</span>
-                                        <input id="product_price" type="text" class="form-control">
+                                        <input id="product_price"onblur="checkDetailRemove()"  type="text" class="form-control">
                                     </div>
+									<div id="product_price_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품수량</span>
-                                        <input id="product_amount" type="text" class="form-control">
+                                        <input id="product_amount" onblur="checkDetailRemove()"  type="text" class="form-control">
                                     </div>
+									<div id="product_amount_Alert" class="mb-3"></div>
                                 </div>
                             </div>          
                         </div>
@@ -2316,7 +2742,8 @@ function insertOutboundDetailInfo(){
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="insertOutboundDetailInfo()" data-bs-dismiss="modal">등록</button>
+                  <button type="button" class="btn btn-primary" onclick="checkDetail()">등록</button>
+                  <button id="insertDetailBtn" type="button" class="btn btn-primary" onclick="insertOutboundDetailInfo()" data-bs-dismiss="modal" hidden>등록</button>
                 </div>
               </div>
             </div>
@@ -2334,53 +2761,58 @@ function insertOutboundDetailInfo(){
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-control mt-3">
-                        	<input id="outbound_code_update" type="hidden" class="form-control">
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">출하코드</span>
-                                        <input id="outbound_code_in_detail_update"  readonly type="text" class="form-control">
+                                        <input id="outbound_code_in_detail_update" onblur="checkDetailUpdateRemove()"  readonly type="text" class="form-control">
                                     </div>
+                                    <div id="outbound_code_in_detail_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">출하상세코드</span>
-                                        <input id="outbound_detail_code_update" readonly type="text" class="form-control">
+                                        <input id="outbound_detail_code_update" onblur="checkDetailUpdateRemove()" readonly type="text" class="form-control">
                                     </div>
+                                    <div id="outbound_detail_code_update_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                              <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품코드</span>
-                                        <input id="product_code_update" type="text" class="form-control">
+                                        <input id="product_code_update" onblur="checkDetailUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="product_code_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품명</span>
-                                        <input id="product_name_update" type="text" class="form-control">
+                                        <input id="product_name_update" onblur="checkDetailUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="product_name_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품가격</span>
-                                        <input id="product_price_update" type="text" class="form-control">
+                                        <input id="product_price_update" onblur="checkDetailUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="product_price_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품수량</span>
-                                        <input id="product_amount_update" type="text" class="form-control">
+                                        <input id="product_amount_update" onblur="checkDetailUpdateRemove()" type="text" class="form-control">
                                     </div>
+                                    <div id="product_amount_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>      
                         </div>
@@ -2388,7 +2820,8 @@ function insertOutboundDetailInfo(){
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="updateOutboundDetailInfo()" data-bs-dismiss="modal">수정</button>
+                  <button type="button" class="btn btn-primary" onclick="checkDetailUpdate()">수정</button>
+                  <button id="updateDetailUpdateBtn" type="button" class="btn btn-primary" onclick="updateOutboundDetailInfo()" data-bs-dismiss="modal" hidden>수정</button>
                 </div>
               </div>
             </div>

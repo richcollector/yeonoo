@@ -507,9 +507,12 @@
 		var accountAddressDetailVal = document.getElementById("account_address_detail").value;
 		var accountCategoryVal = document.getElementById("account_category").value;
 		var accountMemoVal = document.getElementById("account_memo").value;
+		
 		var accountRegistrationJpg = document.getElementById("account_registration_jpg");
 		var file = accountRegistrationJpg.files[0];
 		
+		console.log(accountRegistrationJpg);
+		console.log("value = " + accountRegistrationJpg.value);
 		
 		console.log("궁금한 것 " + file);
 		
@@ -533,8 +536,12 @@
 		 FD.append("account_address_detail", accountAddressDetailVal);
 		 FD.append("account_category", accountCategoryVal);
 		 FD.append("account_memo", accountMemoVal);
-		 FD.append("account_registration_jpg", file);
+		 FD.append("file", file);
 		 
+		 
+// 		 for(var pair of FD.entries()){
+// 			 console.log(pair[0] + ',' + pair[1]);
+// 		 }
 
 
 		var xhr = new XMLHttpRequest();
@@ -564,8 +571,8 @@
 			}
 		}
 		
-		xhr.open("post" , "./insertAccountInfo", false);
-		xhr.setRequestHeader("Content-type", "multipart/form-data");
+		xhr.open("post" , "./insertAccountInfo");
+// 		xhr.setRequestHeader("Content-type", "multipart/form-data");
 // 		xhr.send("company_code=" + companyCodeVal +"&account_name=" + nameVal + "&account_registration_number=" + accountRegistrationNumVal + "&account_corporate_registration_number=" + accountCorporateRegistrationregiNumVal + 
 // 				"&account_representative=" + accountRepresentativeVal + "&account_phone=" + accountPhoneVal + "&account_pax_number=" + accountPaxNumVal + 
 // 				"&account_email=" + accountEmailVal + "&account_email_tax=" + accountEmailTaxEmailVal + "&account_post_number=" + accountPostNumVal + 
@@ -1034,6 +1041,7 @@
 
 				var td18 = document.createElement("td");
 				td18.innerText = commentData.account_registration_jpg;
+				td18.setAttribute("onclick","location.href='C:\\uploadFilesWms/"+ commentData.account_registration_jpg +"'")
 				trIn1.appendChild(td18);
 				
 				

@@ -27,7 +27,7 @@ public class MainController {
 	public String mainPage(Model model, HttpSession session) {
 		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
 		EmployeeVo employeeInfo = (EmployeeVo)session.getAttribute("employeeInfo");
-		
+
 		model.addAttribute("employeeInfo" , employeeInfo);
 		model.addAttribute("adminInfo" , adminInfo);
 		model.addAttribute("noticeDataList" , mainService.getNoticeDataList());
@@ -127,13 +127,15 @@ public class MainController {
 		return "/main/loginPage";
 	}
 	
+
 	//사원 정보 관리 페이지
 	@RequestMapping("employeeInfoManagePage")
-	public String employeeInfoManagePage(Model model , HttpSession session) {
+	public String employeeInfoManagePage(Model model, HttpSession session) {
 		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
 		
-		model.addAttribute("adminInfo" , adminInfo);
-		
+		model.addAttribute("adminInfo", adminInfo);
+		model.addAttribute("depData", mainService.selectDepByCompanyCode(adminInfo.getCompany_code()));
 		return "/main/employeeInfoManagePage";
 	}
+	
 }

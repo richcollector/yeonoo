@@ -1097,5 +1097,31 @@ public class EmployeeRestController {
 		return map;
 	}
 	
+	@RequestMapping("findPwProcess")
+	public HashMap<String, Object> findPwProcess(EmployeeVo employeeVo){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("data", employeeService.selectEmployeeByEmailAndPw(employeeVo));
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	@RequestMapping("checkAuthKeyProcess")
+	public HashMap<String, Object> checkAuthKeyProcess(String password_auth_key){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("data", employeeService.selectPasswordAuth(password_auth_key));
+		map.put("result", "success");
+		return map;
+	}
 
+	@RequestMapping("changePwProcess")
+	public HashMap<String, Object> changePwProcess(EmployeeVo employeeVo){
+	HashMap<String, Object> map = new HashMap<String, Object>();
+	employeeService.updatePassword(employeeVo);
+	
+	map.put("result", "success");
+	return map;
+	}
 }

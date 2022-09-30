@@ -727,12 +727,8 @@
 		DELETE FROM Outbound_detail
 		WHERE outbound_detail_code = #{outbound_detail_code}
 	</delete>
-	
-	
-	
-	
-	
-		<!-- 	제품 단가 -->
+
+	<!-- 	제품 단가 -->
 	<select id="productPriceInfo" resultType="com.noo.wms.vo.ProductPriceVo">		
 		SELECT * FROM Product_price
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -812,5 +808,36 @@
 		DELETE FROM Product_price
 		WHERE product_price_code = #{product_price_code}
 	</delete>
+	
+ 	<select id="selectEmployeeByEmailAndPw" resultType="com.noo.wms.vo.EmployeeVo">
+		select * from Employee
+		where employee_name = #{employee_name}
+		and employee_email = #{employee_email}
+	</select>
+	
+	<insert id="insertPasswordAuth">
+		INSERT INTO PasswordAuth(
+			password_auth_key
+		) VALUES (
+			#{password_auth_key}
+		)	
+	</insert>
+	
+	<delete id="deletePasswordAuth">
+		delete from PasswordAuth
+		where password_auth_key = #{password_auth_key}
+	</delete>
+	
+	<select id="selectPasswordAuth" resultType="com.noo.wms.vo.PasswordAuthVo">
+		select * from PasswordAuth
+		where password_auth_key = #{password_auth_key}
+	</select>
+	
+	<update id="updatePassword">
+		UPDATE Employee SET
+		employee_password = #{employee_password}
+		WHERE employee_email = #{employee_email}
+	</update>
+	
 	
 </mapper>

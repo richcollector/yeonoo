@@ -206,4 +206,9 @@
 		AND company_code = #{company_code}
 	</update>
 	
+	<select id="selectDepByCompanyCode" resultType="com.noo.wms.vo.DepartmentVo">
+		SELECT * FROM Department
+		WHERE company_code = #{company_code}
+	</select>
+	
 </mapper>

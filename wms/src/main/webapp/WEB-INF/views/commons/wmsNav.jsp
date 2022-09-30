@@ -169,7 +169,7 @@
                 <div class="usermenu-content">
                     <a href="../inbound/inboundManage">입고관리</a><br>
                     <a href="../outstock/outstockManage">출하등록(</a><br>
-                    <a href="">재고현황(x)</a>       
+                    <a href="../stock/stockManage">재고현황(△)</a>       
                 </div>          
                 </div>              
             </div>

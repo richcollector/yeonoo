@@ -68,4 +68,6 @@ public interface MainSQLMapper {
 	public void updateEmployeeAuthInfo(EmployeeVo employeeVo);
 
 	public void updateEmployeeRetire(EmployeeVo employeeVo);
+	
+	public ArrayList<DepartmentVo> selectDepByCompanyCode(String company_code);
 }

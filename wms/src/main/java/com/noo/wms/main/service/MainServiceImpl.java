@@ -163,7 +163,7 @@ public class MainServiceImpl {
 		
 		return noticeDataList;
 	}
-	
+
 	//공지사항 상세보기
 	public NoticeVo getNoticeDetail(String notice_code) {
 		NoticeVo result = mainSQLMapper.selectNoticeByNoticeCode(notice_code);
@@ -208,4 +208,19 @@ public class MainServiceImpl {
 	public void updateEmployeeRetire(EmployeeVo employeeVo) {
 		mainSQLMapper.updateEmployeeRetire(employeeVo);
 	}
+	
+	public ArrayList<HashMap<String, Object>> selectDepByCompanyCode(String company_code){
+		ArrayList<HashMap<String, Object>> depdataList = new ArrayList<HashMap<String, Object>>();
+		ArrayList<DepartmentVo> depList = mainSQLMapper.selectDepByCompanyCode(company_code);
+		
+		for(DepartmentVo departmentVo : depList) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("departmentVo", departmentVo);
+			
+			depdataList.add(map);
+		}
+		
+		return depdataList;
+	}
+
 }

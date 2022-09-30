@@ -2,11 +2,15 @@ package com.noo.wms.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class DepartmentVo {
 	private String department_code;
 	private String company_code;
 	private String department_name;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date department_register_date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date department_update_date;
 	public DepartmentVo() {
 		super();

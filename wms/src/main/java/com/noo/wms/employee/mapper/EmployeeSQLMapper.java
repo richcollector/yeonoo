@@ -1,16 +1,19 @@
 package com.noo.wms.employee.mapper;
 
+import java.net.PasswordAuthentication;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.noo.wms.vo.AccountVo;
+import com.noo.wms.vo.EmployeeVo;
 import com.noo.wms.vo.ManufactureDetailVo;
 import com.noo.wms.vo.ManufactureVo;
 import com.noo.wms.vo.ObtainOrderDetailVo;
 import com.noo.wms.vo.ObtainOrderVo;
 import com.noo.wms.vo.OutboundDetailVo;
 import com.noo.wms.vo.OutboundVo;
+import com.noo.wms.vo.PasswordAuthVo;
 import com.noo.wms.vo.ProductPriceVo;
 import com.noo.wms.vo.ProductVo;
 import com.noo.wms.vo.PurchaseDetailVo;
@@ -270,4 +273,13 @@ public interface EmployeeSQLMapper {
 	//제품단가 삭제하기
 	public void deleteProductPriceInfo(ProductPriceVo product_price_code);
 
+	public EmployeeVo selectEmployeeByEmailAndPw(EmployeeVo employeeVo);
+	
+	public void insertPasswordAuth(PasswordAuthVo passoAuthVo);
+	
+	public PasswordAuthVo selectPasswordAuth(String password_auth_key);
+	
+	public void deletePasswordAuth(String password_auth_key);
+	
+	public void updatePassword(EmployeeVo employeeVo);
 }

@@ -1,20 +1,28 @@
 package com.noo.wms.employee.service;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
+import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.noo.wms.account.mapper.AccountSQLMapper;
 import com.noo.wms.employee.mapper.EmployeeSQLMapper;
 import com.noo.wms.vo.AccountVo;
+import com.noo.wms.vo.EmployeeVo;
+import com.noo.wms.vo.MailAuthVo;
 import com.noo.wms.vo.ManufactureDetailVo;
 import com.noo.wms.vo.ManufactureVo;
 import com.noo.wms.vo.ObtainOrderDetailVo;
 import com.noo.wms.vo.ObtainOrderVo;
 import com.noo.wms.vo.OutboundDetailVo;
 import com.noo.wms.vo.OutboundVo;
+import com.noo.wms.vo.PasswordAuthVo;
 import com.noo.wms.vo.ProductPriceVo;
 import com.noo.wms.vo.ProductVo;
 import com.noo.wms.vo.PurchaseDetailVo;
@@ -25,6 +33,9 @@ public class EmployeeServiceImpl {
 	
 	@Autowired
 	private EmployeeSQLMapper employeeSQLMapper;
+	
+	@Autowired
+	private JavaMailSender javaMailSender; 
 	
 	//발주
 	public ArrayList<PurchaseVo> purchaseInfo(String searchType, String searchWord, int pageNum, String company_code){
@@ -40,8 +51,6 @@ public class EmployeeServiceImpl {
 		
 		return purchaseList;
 	}
-	
-	
 	
 	public void insertPurchaseInfo(PurchaseVo purchaseVo) {
 		employeeSQLMapper.insertPurchaseInfo(purchaseVo);
@@ -75,8 +84,6 @@ public class EmployeeServiceImpl {
 		return purchaseDetailList;
 	}
 	
-	
-	
 	public void insertPurchaseDetailInfo(PurchaseDetailVo purchaseDetailVo) {
 		employeeSQLMapper.insertPurchaseDetailInfo(purchaseDetailVo);
 	}
@@ -93,13 +100,6 @@ public class EmployeeServiceImpl {
 	public void deletePurchaseDetailInfo (PurchaseDetailVo purchase_detail_code) {
 		employeeSQLMapper.deletePurchaseDetailInfo(purchase_detail_code);
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	//상품
 	public ArrayList<ProductVo> productInfo(String searchType, String searchWord, int pageNum, String company_code){
@@ -122,8 +122,6 @@ public class EmployeeServiceImpl {
 		return productVo;
 	};
 	
-	
-	
 	public void insertProductInfo(ProductVo productVo) {
 		employeeSQLMapper.insertProductInfo(productVo);
 	}
@@ -143,10 +141,6 @@ public class EmployeeServiceImpl {
 	public void deleteProductInfo (ProductVo product_code) {
 		employeeSQLMapper.deleteProductInfo(product_code);
 	}
-	
-	
-	
-	
 	
 	//수주
 	public ArrayList<ObtainOrderVo> obtainOrderInfo(String searchType, String searchWord, int pageNum, String company_code){
@@ -202,7 +196,6 @@ public class EmployeeServiceImpl {
 		return obtainOrderDetailList;
 	}
 	
-	
 	public void insertObtainOrderDetailInfo(ObtainOrderDetailVo obtainOrderDetailVo) {
 		employeeSQLMapper.insertObtainOrderDetailInfo(obtainOrderDetailVo);
 	}
@@ -221,11 +214,7 @@ public class EmployeeServiceImpl {
 	public void deleteObtainOrderDetailInfo (ObtainOrderDetailVo obtain_order_detail_code) {
 		employeeSQLMapper.deleteObtainOrderDetailInfo(obtain_order_detail_code);
 	}
-	
-	
-	
-	
-	
+
 	//생산
 	public ArrayList<ManufactureVo> manufactureInfo(String searchType, String searchWord, int pageNum, String company_code){
 		
@@ -240,8 +229,6 @@ public class EmployeeServiceImpl {
 		
 		return manufactureList;
 	}
-	
-	
 	
 	public void insertManufactureInfo(ManufactureVo manufactureVo) {
 		employeeSQLMapper.insertManufactureInfo(manufactureVo);
@@ -278,8 +265,6 @@ public class EmployeeServiceImpl {
 		return manufactureDetailList;
 	}
 	
-	
-	
 	public void insertManufactureDetailInfo(ManufactureDetailVo manufactureDetailVo) {
 		employeeSQLMapper.insertManufactureDetailInfo(manufactureDetailVo);
 	}
@@ -300,10 +285,6 @@ public class EmployeeServiceImpl {
 		employeeSQLMapper.deleteManufactureDetailInfo(manufacture_detail_code);
 	}
 	
-	
-	
-	
-	
 	//출하
 	public ArrayList<OutboundVo> outboundInfo(String searchType, String searchWord, int pageNum, String company_code){
 		
@@ -318,8 +299,6 @@ public class EmployeeServiceImpl {
 		
 		return outboundList;
 	}
-	
-	
 	
 	public void insertOutboundInfo(OutboundVo outboundVo) {
 		employeeSQLMapper.insertOutboundInfo(outboundVo);
@@ -356,8 +335,6 @@ public class EmployeeServiceImpl {
 		return outboundDetailList;
 	}
 	
-	
-	
 	public void insertOutboundDetailInfo(OutboundDetailVo outboundDetailVo) {
 		employeeSQLMapper.insertOutboundDetailInfo(outboundDetailVo);
 	}
@@ -378,11 +355,6 @@ public class EmployeeServiceImpl {
 		employeeSQLMapper.deleteOutboundDetailInfo(outbound_detail_code);
 	}
 	
-	
-	
-	
-	
-	
 	//제품 단가
 	public ArrayList<ProductPriceVo> productPriceInfo(String searchType, String searchWord, int pageNum, String company_code){
 		
@@ -397,8 +369,6 @@ public class EmployeeServiceImpl {
 		
 		return productPriceList;
 	}
-	
-	
 	
 	public void insertProductPriceInfo(ProductPriceVo productPriceVo) {
 		employeeSQLMapper.insertProductPriceInfo(productPriceVo);
@@ -418,5 +388,83 @@ public class EmployeeServiceImpl {
 	
 	public void deleteProductPriceInfo (ProductPriceVo product_price_code) {
 		employeeSQLMapper.deleteProductPriceInfo(product_price_code);
+	}
+	
+	public boolean selectEmployeeByEmailAndPw(EmployeeVo employeeVo) {
+		boolean result = false;
+		
+		if(employeeSQLMapper.selectEmployeeByEmailAndPw(employeeVo) != null) {
+			result = true;
+			
+			//인증 메일 전송.... 
+			try {
+				MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+				MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true,"UTF-8");  
+				
+				mimeMessageHelper.setSubject("[WMS] 인증번호입니다.");
+				
+				String uuid = UUID.randomUUID().toString();
+				
+				String text = "";
+				text += "<h1>[WMS] 인증번호입니다.</h1>";
+				//text += "인증 번호 :" + uuid;
+				text += "아래 인증번호를 입력해주세요.<br>";
+				text += uuid;
+				
+				mimeMessageHelper.setText(text , true);
+				mimeMessageHelper.setFrom("admin", "wms 관리자");
+				mimeMessageHelper.setTo(employeeVo.getEmployee_email());			
+				
+				//javaMailSender.send(mimeMessage); //쓰레드로 처리...
+				new MailSenderThread(javaMailSender,mimeMessage).start();
+				
+				
+				PasswordAuthVo passwordAuthVo = new PasswordAuthVo();
+				passwordAuthVo.setPassword_auth_key(uuid);
+				employeeSQLMapper.insertPasswordAuth(passwordAuthVo);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	//인증 메일 확인
+	public void mailAuth(String password_auth_key) {
+		employeeSQLMapper.selectPasswordAuth(password_auth_key);
+	}
+	
+	//쓰레드 처리
+	class MailSenderThread extends Thread{
+		
+		private JavaMailSender javaMailSender;
+		private MimeMessage mimeMessage;
+		
+		public MailSenderThread(JavaMailSender javaMailSender, MimeMessage mimeMessage) {
+			this.javaMailSender = javaMailSender;
+			this.mimeMessage = mimeMessage;
+		}
+		
+		public void run() {
+			javaMailSender.send(mimeMessage);
+		}
+		
+	}
+	
+	public boolean selectPasswordAuth(String password_auth_key) {
+		boolean result = false;
+		
+		if(employeeSQLMapper.selectPasswordAuth(password_auth_key) != null) {
+			employeeSQLMapper.deletePasswordAuth(password_auth_key);
+			result = true;
+		}
+
+		return result;
+	}
+	
+	public void updatePassword(EmployeeVo employeeVo) {
+		employeeSQLMapper.updatePassword(employeeVo);
 	}
 }

@@ -190,10 +190,9 @@
 	</select>
 	
 	<!-- 사원 직급,권한 수정 -->
-	<update id="updateEmployeeAuthInfo">
+	<update id="updateEmployeeRankInfo">
 		UPDATE Employee 
-		SET authority_code = #{authority_code},
-			employee_rank_code = #{employee_rank_code}
+		SET employee_rank_code = #{employee_rank_code}
 		WHERE employee_code = #{employee_code}
 		AND company_code = #{company_code}
 	</update>

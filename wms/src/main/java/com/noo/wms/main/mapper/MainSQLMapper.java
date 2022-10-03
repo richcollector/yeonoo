@@ -65,7 +65,7 @@ public interface MainSQLMapper {
 	
 	//사원 권한 수정
 	public EmployeeVo selectEmployeeInfo(EmployeeVo employeeVo);
-	public void updateEmployeeAuthInfo(EmployeeVo employeeVo);
+	public void updateEmployeeRankInfo(EmployeeVo employeeVo);
 
 	public void updateEmployeeRetire(EmployeeVo employeeVo);
 	

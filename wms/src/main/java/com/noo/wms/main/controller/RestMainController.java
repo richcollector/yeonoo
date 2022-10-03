@@ -153,10 +153,16 @@ public class RestMainController {
 		return map;
 	}
 
-	@RequestMapping("employeeAuthUpdateProcess")
-	public HashMap<String, Object> employeeAuthUpdateProcess(EmployeeVo employeeVo) {
+	@RequestMapping("employeeRankUpdateProcess")
+	public HashMap<String, Object> employeeRankUpdateProcess(EmployeeVo employeeVo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		mainService.updateEmployeeAuthInfo(employeeVo);
+		String a = employeeVo.getCompany_code();
+		String b = employeeVo.getEmployee_code();
+		String c = employeeVo.getEmployee_rank_code();
+		System.out.println(a);
+		System.out.println(b);
+		System.out.println(c);
+		mainService.updateEmployeeRankInfo(employeeVo);
 		
 		map.put("success", "result");
 		

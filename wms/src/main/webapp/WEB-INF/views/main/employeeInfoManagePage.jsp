@@ -68,11 +68,18 @@
 	    
         var company_code = document.getElementById("company_code").value;
 		var employee_code = checkVal;
+		var company_code_update = document.getElementById("company_code_update");
+		var employee_code_update = document.getElementById("employee_code_update");
+		var employee_rank_code_update = document.getElementById("employee_rank_code_update");
 		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
+				
+				company_code_update.value = jsonObj.data.company_code;
+				employee_rank_code_update.value = jsonObj.data.employee_rank_code;
+				employee_code_update.value = jsonObj.data.employee_code;
 				
 				document.getElementById("updateModalStart").click();
 			}
@@ -91,12 +98,11 @@
 	}
 		
 	
-	function updateEmployeeAuthInfo(){
-		var authority_code = document.getElementById("authority_code").value;
-		var company_code = document.getElementById("company_code").value;
-		var employee_code = document.getElementById("employee_code").value;
-		var employee_rank_code = document.getElementById("employee_rank_code").value;
-		
+	function updateEmployeeRankInfo(){
+		var company_code = document.getElementById("company_code_update").value;
+		var employee_code = document.getElementById("employee_code_update").value;
+		var employee_rank_code_update = document.getElementById("employee_rank_code_update").value;
+
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 			if(xhr.readyState == 4 && xhr.status == 200){
@@ -105,9 +111,9 @@
 			}
 		}
 		
-		xhr.open("post" , "./employeeAuthUpdateProcess" , false);
+		xhr.open("post" , "./employeeRankUpdateProcess" , false);
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("company_code=" + company_code + "&employee_code=" + employee_code + "&authority_code=" + authority_code + "&employee_rank_code=" + employee_rank_code);		
+		xhr.send("company_code=" + company_code + "&employee_code=" + employee_code + "&employee_rank_code=" + employee_rank_code_update);		
 		refreshAccountInfo();
 		
 	}
@@ -226,11 +232,6 @@
 		th4.innerText = "직급코드";
 		tr1.appendChild(th4);
 
-		var th5 = document.createElement("th");
-		th5.setAttribute("style","width:5%");
-		th5.innerText = "권한";
-		tr1.appendChild(th5);
-
 		var th6 = document.createElement("th");
 		th6.innerText = "사원명";
 		tr1.appendChild(th6);
@@ -290,10 +291,6 @@
 				td4.innerText = commentData.employee_rank_code;
 				trIn1.appendChild(td4);
 
-				var td5 = document.createElement("td");
-				td5.innerText = commentData.authority_code;
-				trIn1.appendChild(td5);
-				
 				var td6 = document.createElement("td");
 				td6.innerText = commentData.employee_name;
 				trIn1.appendChild(td6);
@@ -467,11 +464,6 @@
 		th4.innerText = "직급코드";
 		tr1.appendChild(th4);
 
-		var th5 = document.createElement("th");
-		th5.setAttribute("style","width:5%");
-		th5.innerText = "권한";
-		tr1.appendChild(th5);
-
 		var th6 = document.createElement("th");
 		th6.innerText = "사원명";
 		tr1.appendChild(th6);
@@ -530,10 +522,6 @@
 					var td4 = document.createElement("td");
 					td4.innerText = commentData.employee_rank_code;
 					trIn1.appendChild(td4);
-
-					var td5 = document.createElement("td");
-					td5.innerText = commentData.authority_code;
-					trIn1.appendChild(td5);
 
 					var td6 = document.createElement("td");
 					td6.innerText = commentData.employee_name;
@@ -791,7 +779,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">권한 수정</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">직급 수정</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -802,15 +790,10 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">직급코드</span>
-                                        <input id="employee_rank_code" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">권한코드</span>
-                                        <input id="authority_code" type="text" class="form-control">
+                                        <input type="hidden" id="employee_code_update" value="">
+                                        <input type="hidden" id="company_code_update" value="${adminInfo.company_code }">
+                                        <input id="employee_rank_code_update" type="text" class="form-control">
+
                                     </div>
                                 </div>
                             </div>
@@ -819,7 +802,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="updateEmployeeAuthInfo()" data-bs-dismiss="modal">수정</button>
+                  <button type="button" class="btn btn-primary" onclick="updateEmployeeRankInfo()" data-bs-dismiss="modal">수정</button>
                 </div>
               </div>
             </div>

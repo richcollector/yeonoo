@@ -201,8 +201,8 @@ public class MainServiceImpl {
 		return mainSQLMapper.selectEmployeeInfo(employeeVo);
 	}
 	
-	public void updateEmployeeAuthInfo(EmployeeVo employeeVo) {
-		mainSQLMapper.updateEmployeeAuthInfo(employeeVo);
+	public void updateEmployeeRankInfo(EmployeeVo employeeVo) {
+		mainSQLMapper.updateEmployeeRankInfo(employeeVo);
 	}
 	
 	public void updateEmployeeRetire(EmployeeVo employeeVo) {

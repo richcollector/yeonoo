@@ -20,6 +20,13 @@ import com.noo.wms.vo.PurchaseDetailVo;
 import com.noo.wms.vo.PurchaseVo;
 
 public interface EmployeeSQLMapper {
+	
+	//공통
+	public ArrayList<ProductVo> findProductNumName(@Param("productName") String productName);
+	public ArrayList<AccountVo> findAccountNum(@Param("accountName") String accountName);
+
+	
+	
 	//발주 불러오기
 	public ArrayList<PurchaseVo> purchaseInfo(@Param("searchType") String searchType, 
 											@Param("searchWord") String searchWord,
@@ -146,6 +153,9 @@ public interface EmployeeSQLMapper {
 	//수주디테일 삭제하기
 	public void deleteObtainOrderDetailInfo(ObtainOrderDetailVo obtain_order_detail_code);
 	
+
+	
+	
 	
 	
 	
@@ -263,8 +273,20 @@ public interface EmployeeSQLMapper {
 								@Param("company_code") String company_code
 								);
 	
+	//제품단가 엑셀
+	public ProductPriceVo excelProductPriceSelect(String product_price_code);
+	
 	//제품단가 등록하기
 	public void insertProductPriceInfo(ProductPriceVo productPriceVo);
+	
+	//실시간 발주 단가 입력
+	public void insertPurchaceProductPrice(ProductPriceVo productPriceVo);
+	
+	//실시간 수주 단가 입력
+	public void insertObtainProductPrice(ProductPriceVo productPriceVo);
+	
+	//제품단가 찾기
+	public ArrayList<ProductPriceVo> getProductPriceInfo(String product_code);
 	
 	//제품단가 수정하기
 	public ProductPriceVo selectProductPriceInfo(ProductPriceVo product_price_code);

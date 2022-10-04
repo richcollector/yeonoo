@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.noo.wms.employee.service.EmployeeServiceImpl;
 import com.noo.wms.vo.AccountVo;
+import com.noo.wms.vo.ProductPriceVo;
 import com.noo.wms.vo.ProductVo;
 import com.noo.wms.vo.PurchaseVo;
 
@@ -208,6 +209,120 @@ public class EmployeeController {
 		          System.out.println("메모" + productVo.getProduct_memo());
 	    	  }
 	      }
+	      
+	      // 컨텐츠 타입과 파일명 지정
+	      response.setContentType("ms-vnd/excel");
+//	      response.setHeader("Content-Disposition", "attachment;filename=example.xls");
+	      response.setHeader("Content-Disposition", "attachment;filename=productInfo.xlsx");
+
+	      // Excel File Output
+	      wb.write(response.getOutputStream());
+	      wb.close();
+	      System.out.println("여기까진오니");
+	      
+	  }
+	  
+	  @RequestMapping("productPrice/excel/download")
+	  public void priceExcelDownload(HttpServletResponse response, String [] code) throws IOException {
+//	      Workbook wb = new HSSFWorkbook();
+	  	
+	  	for(String xx : code) {
+	  		System.out.println("ttt : " + xx);
+	  	}
+	  	
+	  	System.out.println("엑셀들어오니");
+	  	System.out.println(code);
+	      Workbook wb = new XSSFWorkbook();
+	      Sheet sheet = wb.createSheet("첫번째 시트");
+	      Row row = null;
+	      Cell cell = null;
+	      int rowNum = 0;
+
+	      // Header
+	      row = sheet.createRow(rowNum++);
+	      cell = row.createCell(0);
+	      cell.setCellValue("제품단가코드");
+	      
+	      cell = row.createCell(1);
+	      cell.setCellValue("회사코드");
+	      
+	      cell = row.createCell(2);
+	      cell.setCellValue("제품코드");
+	      
+	      cell = row.createCell(3);
+	      cell.setCellValue("제품명");
+	      
+	      cell = row.createCell(4);
+	      cell.setCellValue("제품구매단가");
+	      
+	      cell = row.createCell(5);
+	      cell.setCellValue("제품구매일");
+	      
+	      cell = row.createCell(6);
+	      cell.setCellValue("제품판매단가");
+	      
+	      cell = row.createCell(7);
+	      cell.setCellValue("제품판매일");
+	      
+	      cell = row.createCell(8);
+	      cell.setCellValue("비고");
+	      
+	      
+	      // Body
+	      
+	      for (String codeNum : code) {
+	    	  
+	    	  
+	    	  if(!codeNum.isEmpty()) {
+	    	  
+	      	
+		      	ProductPriceVo productPriceVo = employeeService.excelProductPriceSelect(codeNum);
+		      	System.out.println("for문안");
+		      	System.out.println("이거시" + codeNum);
+		      	
+		          row = sheet.createRow(rowNum++);
+		          
+		          cell = row.createCell(0);
+		          cell.setCellValue(productPriceVo.getProduct_price_code());
+		          
+		          cell = row.createCell(1);
+		          cell.setCellValue(productPriceVo.getCompany_code());
+		          
+		          cell = row.createCell(2);
+		          cell.setCellValue(productPriceVo.getProduct_code());
+		          
+		          cell = row.createCell(3);
+		          cell.setCellValue(productPriceVo.getProduct_name());
+		          
+		          cell = row.createCell(4);
+		          cell.setCellValue(productPriceVo.getProduct_price_purchase());
+		          
+		          cell = row.createCell(5);
+		          cell.setCellValue(productPriceVo.getProduct_price_purchase_date());
+		          
+		          cell = row.createCell(6);
+		          cell.setCellValue(productPriceVo.getProduct_price_selling());
+		          
+		          cell = row.createCell(7);
+		          cell.setCellValue(productPriceVo.getProduct_price_selling_date());
+		          
+		          cell = row.createCell(8);
+		          cell.setCellValue(productPriceVo.getProduct_price_memo());
+		          
+		          System.out.println("메모" + productPriceVo.getProduct_price_memo());
+	    	  }
+	      }
+	      
+	      // 컨텐츠 타입과 파일명 지정
+	      response.setContentType("ms-vnd/excel");
+//	      response.setHeader("Content-Disposition", "attachment;filename=example.xls");
+	      response.setHeader("Content-Disposition", "attachment;filename=productPriceInfo.xlsx");
+
+	      // Excel File Output
+	      wb.write(response.getOutputStream());
+	      wb.close();
+	      System.out.println("여기까진오니");
+	      
 	  }
 	      
 	      

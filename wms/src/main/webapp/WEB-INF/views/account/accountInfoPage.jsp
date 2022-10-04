@@ -9,9 +9,17 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
     
+   	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
+   	
+   	body { 
+	font-family : pretendard; 
+	color: #404040; 
+	} 
+	
     #wrapper{
 		width: 1200px;
     }
@@ -198,7 +206,7 @@
 			document.getElementById("account_email_tax").focus();
 			return;
 		}else if(!emailRule.test(document.getElementById("account_email_tax").value)){
-			document.getElementById("account_email_tax_Alert").innerText = "이메일(일반) 형식이 올바르지 않습니다.";
+			document.getElementById("account_email_tax_Alert").innerText = "이메일(세금계산서) 형식이 올바르지 않습니다.";
 			document.getElementById("account_email_tax_Alert").classList.add("text-danger");
 			document.getElementById("account_email_tax").focus();
 			return;
@@ -260,6 +268,99 @@
 		
 	}
 	
+	function checkEmail(){
+		
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
+		if(document.getElementById("account_email").value == ""){
+			document.getElementById("account_email_Alert").innerHTML = "";
+		}else if(!emailRule.test(document.getElementById("account_email").value)){
+			document.getElementById("account_email_Alert").innerText = "이메일(일반) 형식이 올바르지 않습니다.";
+			document.getElementById("account_email_Alert").classList.add("text-danger");
+			return;
+		}else{
+			document.getElementById("account_email_Alert").innerHTML = "";
+		}
+	}
+	
+	
+	function checkEmailTax(){
+		
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
+		if(document.getElementById("account_email_tax").value == ""){
+			document.getElementById("account_email_tax_Alert").innerHTML = "";
+		}else if(!emailRule.test(document.getElementById("account_email_tax").value)){
+			document.getElementById("account_email_tax_Alert").innerText = "이메일(세금계산서) 형식이 올바르지 않습니다.";
+			document.getElementById("account_email_tax_Alert").classList.add("text-danger");
+			return;
+		}else{
+			document.getElementById("account_email_tax_Alert").innerHTML = "";
+		}
+	}
+	
+	function checkRegisterNum(){
+		
+		var registerNumRule = /^(\d{3,3})+[-]+(\d{2,2})+[-]+(\d{5,5})$/i;
+		
+		if(document.getElementById("account_registration_number").value == ""){
+			document.getElementById("account_registration_number_Alert").innerHTML = "";
+		}else if(!registerNumRule.test(document.getElementById("account_registration_number").value)){
+			document.getElementById("account_registration_number_Alert").innerText = "사업자등록번호가 올바르지 않습니다. (ex : 110-11-11111)";
+			document.getElementById("account_registration_number_Alert").classList.add("text-danger");
+			return;
+		}else{
+			document.getElementById("account_registration_number_Alert").innerHTML = "";
+		}
+	}
+	
+	function checkCorporateNum(){
+		
+		var corporateNumRule = /^(\d{6,6})+[-]+(\d{7,7})$/i;
+		
+		if(document.getElementById("account_corporate_registration_number").value == ""){
+			document.getElementById("account_corporate_registration_number_Alert").innerHTML = "";
+		}else if(!corporateNumRule.test(document.getElementById("account_corporate_registration_number").value)){
+			document.getElementById("account_corporate_registration_number_Alert").innerText = "법인등록번호가 올바르지 않습니다. (ex : 111111-1111111)";
+			document.getElementById("account_corporate_registration_number_Alert").classList.add("text-danger");
+			return;
+		}else{
+			document.getElementById("account_corporate_registration_number_Alert").innerHTML = "";
+		}
+	}
+	
+	
+	function checkEmailUpdate(){
+			
+			var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			
+			if(document.getElementById("account_email_update").value == ""){
+				document.getElementById("account_email_update_Alert").innerHTML = "";
+			}else if(!emailRule.test(document.getElementById("account_email_update").value)){
+				document.getElementById("account_email_update_Alert").innerText = "이메일(일반) 형식이 올바르지 않습니다.";
+				document.getElementById("account_email_update_Alert").classList.add("text-danger");
+				return;
+			}else{
+				document.getElementById("account_email_update_Alert").innerHTML = "";
+			}
+		}
+	
+	
+	function checkEmailTaxUpdate(){
+		
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
+		if(document.getElementById("account_email_tax_update").value == ""){
+			document.getElementById("account_email_tax_update_Alert").innerHTML = "";
+		}else if(!emailRule.test(document.getElementById("account_email_tax_update").value)){
+			document.getElementById("account_email_tax_update_Alert").innerText = "이메일(세금계산서) 형식이 올바르지 않습니다.";
+			document.getElementById("account_email_tax_update_Alert").classList.add("text-danger");
+			return;
+		}else{
+			document.getElementById("account_email_tax_update_Alert").innerHTML = "";
+		}
+	}
+	
 	function checkRemove(){
 		
 		if(document.getElementById("account_representative").value != ""){
@@ -300,27 +401,6 @@
 		
 		if(document.getElementById("account_pax_number").value != ""){
 			document.getElementById("account_pax_number_Alert").innerHTML = "";
-		}else{
-			return;
-		}
-		
-		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		
-		if(!emailRule.test(document.getElementById("account_email").value)){
-			document.getElementById("account_email_Alert").innerText = "이메일(일반) 형식이 올바르지 않습니다.";
-			document.getElementById("account_email_Alert").classList.add("text-danger");
-		}else if(document.getElementById("account_email").value != ""){
-			document.getElementById("account_email").innerHTML = "";
-		}else if(document.getElementById("account_email").value == ""){
-			document.getElementById("account_email").innerHTML = "";
-		}
-		else{
-			
-		}
-		
-		
-		if(document.getElementById("account_email_tax").value != ""){
-			document.getElementById("account_email_tax_Alert").innerHTML = "";
 		}else{
 			return;
 		}
@@ -1805,7 +1885,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">사업자등록번호</span>
-                                        <input id="account_registration_number" onblur="checkRemove()" type="text" class="form-control">
+                                        <input id="account_registration_number" onblur="checkRegisterNum()" type="text" class="form-control">
                                     </div>
                                     <div id="account_registration_number_Alert" class="mb-3"></div>
                                 </div>
@@ -1814,7 +1894,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">법인등록번호</span>
-                                        <input id="account_corporate_registration_number" onblur="checkRemove()" type="text" class="form-control">
+                                        <input id="account_corporate_registration_number" onblur="checkCorporateNum()" type="text" class="form-control">
                                     </div>
                                     <div id="account_corporate_registration_number_Alert" class="mb-3"></div>
                                 </div>
@@ -1841,7 +1921,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(일반)</span>
-                                        <input id="account_email" onblur="checkRemove()" type="text" class="form-control">
+                                        <input id="account_email" onblur="checkEmail()" type="text" class="form-control">
                                     </div>
                                     <div id="account_email_Alert" class="mb-3"></div>
                                 </div>
@@ -1850,7 +1930,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(세금계산서)</span>
-                                        <input id="account_email_tax" onblur="checkRemove()" type="text" class="form-control">
+                                        <input id="account_email_tax" onblur="checkEmailTax()" type="text" class="form-control">
                                     </div>
                                     <div id="account_email_tax_Alert" class="mb-3"></div>
                                 </div>
@@ -1935,6 +2015,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-control mt-3">
+                       		</div>
                         	<div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
@@ -1993,7 +2074,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(일반)</span>
-                                        <input id="account_email_update" onblur="checkUpdateRemove()" type="text" class="form-control">
+                                        <input id="account_email_update" onblur="checkEmailUpdate()" type="text" class="form-control">
                                     </div>
                                     <div id="account_email_update_Alert" class="mb-3"></div>
                                 </div>
@@ -2002,7 +2083,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(세금계산서)</span>
-                                        <input id="account_email_tax_update" onblur="checkUpdateRemove()" type="text" class="form-control">
+                                        <input id="account_email_tax_update" onblur="checkEmailTaxUpdate()" type="text" class="form-control">
                                     </div>
                                     <div id="account_email_tax_update_Alert" class="mb-3"></div>
                                 </div>

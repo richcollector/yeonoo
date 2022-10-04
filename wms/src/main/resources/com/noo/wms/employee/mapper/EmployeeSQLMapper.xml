@@ -4,6 +4,28 @@
 
 <mapper namespace="com.noo.wms.employee.mapper.EmployeeSQLMapper">
 
+<!-- 공통 -->
+
+	<select id="findAccountNum" resultType="com.noo.wms.vo.AccountVo">
+		SELECT * FROM Account
+			<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<if test="accountName != null and accountName != ''">				
+					AND account_name like CONCAT('%', #{accountName}, '%')			
+				</if>
+			</trim>	
+	</select>
+	
+	<select id="findProductNumName" resultType="com.noo.wms.vo.ProductVo">
+		SELECT * FROM Product
+			<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<if test="productName != null and productName != ''">				
+					AND product_name like CONCAT('%', #{productName}, '%')			
+				</if>
+			</trim>	
+	</select>
+
+
+
 <!-- 	발주 -->
 	<select id="purchaseInfo" resultType="com.noo.wms.vo.PurchaseVo">		
 		SELECT * FROM Purchase
@@ -349,7 +371,7 @@
 		WHERE obtain_order_code = #{obtain_order_code}
 	</delete>
 	
-	<!-- 수주디테일 -->
+	<!-- 수주 디테일 -->
 		<select id="obtainOrderDetailInfo" resultType="com.noo.wms.vo.ObtainOrderDetailVo">		
 		SELECT * FROM Obtain_order_detail
 			<trim prefix="WHERE" prefixOverrides="AND|OR">	
@@ -764,7 +786,66 @@
 		</trim>
 	</select>
 	
+	<!-- 제품단가 엑셀 -->
+	<select id="excelProductPriceSelect" resultType="com.noo.wms.vo.ProductPriceVo">
+		SELECT * FROM Product_price
+		WHERE product_price_code = #{product_price_code}
+	</select>
+	
+	<select id="getProductPriceInfo" resultType="com.noo.wms.vo.ProductPriceVo">		
+		SELECT * FROM Product_price
+		WHERE product_code = #{product_code}
+	</select>
+	
 	<insert id="insertProductPriceInfo">
+		INSERT into Product_price (
+		product_code,
+		company_code,
+		product_name,
+		product_price_purchase,
+		product_price_purchase_date,
+		product_price_selling,
+		product_price_selling_date,
+		product_price_memo
+		) values (
+		#{product_code},
+		#{company_code},
+		#{product_name},
+		#{product_price_purchase},
+		#{product_price_purchase_date},
+		#{product_price_selling},
+		#{product_price_selling_date},
+		#{product_price_memo}
+		)
+	</insert>
+	
+	
+	<!-- 수주 단가 입력 -->
+	<insert id="insertObtainProductPrice">
+		INSERT into Product_price (
+		product_code,
+		company_code,
+		product_name,
+		product_price_purchase,
+		product_price_purchase_date,
+		product_price_selling,
+		product_price_selling_date,
+		product_price_memo
+		) values (
+		#{product_code},
+		#{company_code},
+		#{product_name},
+		#{product_price_purchase},
+		#{product_price_purchase_date},
+		#{product_price_selling},
+		#{product_price_selling_date},
+		#{product_price_memo}
+		)
+	</insert>
+	
+		
+	<!-- 발주 단가 입력 -->
+	<insert id="insertPurchaceProductPrice">
 		INSERT into Product_price (
 		product_code,
 		company_code,

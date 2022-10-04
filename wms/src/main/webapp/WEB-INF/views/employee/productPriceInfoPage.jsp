@@ -9,9 +9,17 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
     
+   	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
+   	
+   	body { 
+	font-family : pretendard; 
+	color: #404040; 
+	} 
+	
     #wrapper{
 		width: 1200px;
     }
@@ -34,6 +42,161 @@
     </style>
 	
 <script type="text/javascript">
+
+function findProduct(){
+	console.log("파프옴?")
+	var productName = document.getElementById("searchProduct").value;
+	console.log("프네" + productName)
+		
+		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
+				
+				console.log("들어오십시오....")
+				var addUi = document.getElementById("upSearchWindowUi");
+				addUi.innerHTML = "";
+				
+				searchResult = document.createElement("div");
+				searchResult.classList.add("col");
+				addUi.appendChild(searchResult);
+				
+				resultUl = document.createElement("ul");
+				resultUl.classList.add("list-group");
+				searchResult.appendChild(resultUl);
+				
+				for (product of jsonObj){
+					 
+					resultLi = document.createElement("li");
+					resultLi.classList.add("list-group-item");
+					resultLi.innerText = product.product_name + product.product_code;
+					resultLi.setAttribute("onclick", "uploadProduct('"+product.product_name+"','"+product.product_code+"')");
+					resultUl.appendChild(resultLi);
+					
+//						resultHidden = document.createElement("input");
+//						resultHidden.setAttribute("type","hidden");
+//						resultHidden.value = product.product_name + product.product_code;
+//						resultLi.appendChild(resultHidden);
+					
+				}
+			}
+		}
+		
+		console.log("안뇽하세용");
+		xhr.open("get", "./findProductNumName?productName=" + productName);	//리퀘스트 세팅..
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
+		xhr.send();	//AJAX로 리퀘스트함...
+	
+}
+
+
+function findProductUpdate(){
+	console.log("파프옴?")
+	var productName = document.getElementById("searchProductUpdate").value;
+	console.log("프네" + productName)
+		
+		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
+				
+				console.log("들어오십시오....")
+				var addUi = document.getElementById("upSearchWindowUiUpdate");
+				addUi.innerHTML = "";
+				
+				searchResult = document.createElement("div");
+				searchResult.classList.add("col");
+				addUi.appendChild(searchResult);
+				
+				resultUl = document.createElement("ul");
+				resultUl.classList.add("list-group");
+				searchResult.appendChild(resultUl);
+				
+				for (product of jsonObj){
+					 
+					resultLi = document.createElement("li");
+					resultLi.classList.add("list-group-item");
+					resultLi.innerText = product.product_name + "         "+ product.product_code;
+					resultLi.setAttribute("onclick", "uploadProductUpdate('"+product.product_name+"','"+product.product_code+"')");
+					resultUl.appendChild(resultLi);
+					
+//						resultHidden = document.createElement("input");
+//						resultHidden.setAttribute("type","hidden");
+//						resultHidden.value = product.product_name + product.product_code;
+//						resultLi.appendChild(resultHidden);
+					
+				}
+			}
+		}
+		
+		console.log("안뇽하세용");
+		xhr.open("get", "./findProductNumName?productName=" + productName);	//리퀘스트 세팅..
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
+		xhr.send();	//AJAX로 리퀘스트함...
+	
+}
+
+function uploadProduct(product_name,product_code){
+	
+	var productName = document.getElementById("product_name");
+	productName.value = product_name;
+	
+	var productCode = document.getElementById("product_code");
+	productCode.value = product_code;
+	
+	var productSerach = document.getElementById("searchProduct");
+	productSerach.innerHTML = "";
+	
+	var addUi = document.getElementById("upSearchWindowUi");
+	addUi.innerHTML = "";
+	
+	
+}
+
+function uploadProductUpdate(product_name,product_code){
+
+	
+	var productName = document.getElementById("product_name_update");
+	productName.value = product_name;
+	
+	var productCode = document.getElementById("product_code_update");
+	productCode.value = product_code;
+	
+	var productSerach = document.getElementById("searchProductUpdate");
+	productSerach.innerHTML = "";
+	
+	var addUi = document.getElementById("upSearchWindowUiUpdate");
+	addUi.innerHTML = "";
+}
+
+
+	function excelDowunload(){
+	
+	    var checkVal = new Array();
+	    
+	    console.log(checkVal);
+	    
+	    var obj_length = document.getElementsByName("checkProductPrice").length;
+	    console.log(obj_length);
+	    
+	    for (var i = 0; i < obj_length; i++) {
+	
+	        if (document.getElementsByName("checkProductPrice")[i].checked == true) {
+	        	
+	        	checkVal[i] = document.getElementsByName("checkProductPrice")[i].value;
+	        }
+	    }
+		
+		document.excelFo.code.value = checkVal;
+		
+		var excelForm = document.getElementById("excelForm");
+		excelForm.submit();
+		
+		refreshProductInfo();
+	    
+		}
 
 	function check(){
 
@@ -1098,7 +1261,23 @@
 		            	 </button>
 		            </div>
 		            <div class="col-6 text-end mx-0 pt-1">
-		            	<span class="fs-5">제품 단가 관리</span>
+		            	<div class="row">
+			            	<div class="col">
+	  				             <form id="excelForm" name="excelFo" action="../employee/productPrice/excel/download" method="post">
+					             	<input type="hidden" name="code" value="">
+									<input type="button" value="Excel 다운로드" onclick="excelDowunload()" type="button" class="btn btn-light">
+								</form>
+		            		</div>
+		            		<div class="col-2 ps-0">
+	      				             <form id="excelUploadForm" name="excelUploadFo" action="#" method="post">
+					             	<input type="hidden" name="code" value="">
+									<input type="button" value="Excel 업로드" onclick="excelUpload()" type="button" class="btn btn-light">
+								</form>
+		            		</div>
+		            		<div class="col-3">
+			            		<span class="fs-5">제품 단가 관리</span>
+			            	</div>
+		            	</div>
 		            </div>
 	            </div>
 	        </div>   
@@ -1254,20 +1433,28 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">제품코드</span>
-                                        <input id="product_code" onblur="checkRemove()" type="text" class="form-control">
+                                        <span class="input-group-text">제품검색</span>
+                                        <input id="searchProduct" type="text" class="form-control" onkeyup="findProduct()">
                                     </div>
                                 </div>
-                                    <div id="product_code_Alert" class="mb-3"></div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품명</span>
-                                        <input id="product_name" onblur="checkRemove()" type="text" class="form-control">
+                                        <input id="product_name" readonly onblur="checkRemove()" type="text" class="form-control">
                                     </div>
                                     <div id="product_name_Alert" class="mb-3"></div>
                                 </div>                               
+                            </div>                            
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">제품코드</span>
+                                        <input id="product_code" readonly onblur="checkRemove()" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            	<div id="product_code_Alert" class="mb-3"></div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
@@ -1360,20 +1547,30 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">제품코드</span>
-                                        <input id="product_code_update" onblur="checkUpdateRemove()" type="text" class="form-control">
+                                        <span class="input-group-text">제품검색</span>
+                                        <input id="searchProductUpdate" type="text" class="form-control" onkeyup="findProductUpdate()">
                                     </div>
-                                     <div id="product_code_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
+                            <div class="row mt-3" id="upSearchWindowUiUpdate">
+                       		</div>                            
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품명</span>
-                                        <input id="product_name_update" onblur="checkUpdateRemove()" type="text" class="form-control">
+                                        <input id="product_name_update" readonly onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
                                      <div id="product_name_update_Alert" class="mb-3"></div>
                                 </div>                               
+                            </div>                                                        
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">제품코드</span>
+                                        <input id="product_code_update" readonly onblur="checkUpdateRemove()" type="text" class="form-control">
+                                    </div>
+                                     <div id="product_code_update_Alert" class="mb-3"></div>
+                                </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">

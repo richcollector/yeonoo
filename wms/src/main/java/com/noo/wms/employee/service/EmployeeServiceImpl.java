@@ -1,11 +1,16 @@
 package com.noo.wms.employee.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.math3.stat.descriptive.summary.Product;
+import org.apache.poi.ss.formula.functions.Today;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -14,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.noo.wms.account.mapper.AccountSQLMapper;
 import com.noo.wms.employee.mapper.EmployeeSQLMapper;
 import com.noo.wms.vo.AccountVo;
+import com.noo.wms.vo.AdminVo;
 import com.noo.wms.vo.EmployeeVo;
 import com.noo.wms.vo.MailAuthVo;
 import com.noo.wms.vo.ManufactureDetailVo;
@@ -36,6 +42,20 @@ public class EmployeeServiceImpl {
 	
 	@Autowired
 	private JavaMailSender javaMailSender; 
+	
+	//공통
+	public ArrayList<ProductVo> findProductNumName (String productName) {
+		ArrayList<ProductVo> productList = employeeSQLMapper.findProductNumName(productName);
+		
+		return productList;
+	}
+	
+	public ArrayList<AccountVo> findAccountNum (String accountName) {
+		ArrayList<AccountVo> productList = employeeSQLMapper.findAccountNum(accountName);
+		
+		return productList;
+	}
+	
 	
 	//발주
 	public ArrayList<PurchaseVo> purchaseInfo(String searchType, String searchWord, int pageNum, String company_code){
@@ -84,24 +104,100 @@ public class EmployeeServiceImpl {
 		return purchaseDetailList;
 	}
 	
-	public void insertPurchaseDetailInfo(PurchaseDetailVo purchaseDetailVo) {
+	public void insertPurchaseDetailInfo(HttpSession session, PurchaseDetailVo purchaseDetailVo) {
 		employeeSQLMapper.insertPurchaseDetailInfo(purchaseDetailVo);
+
+		EmployeeVo employeeInfo = (EmployeeVo)session.getAttribute("employeeInfo");
+		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
+		
+		ArrayList<ProductPriceVo> productPriceList = 
+		employeeSQLMapper.getProductPriceInfo(purchaseDetailVo.getProduct_code());
+		
+		int length = productPriceList.size()-1;
+		
+		Date time = new Date();
+		
+		ProductPriceVo productPriceVo = new ProductPriceVo();
+		
+		if(adminInfo != null) {
+			productPriceVo.setCompany_code(adminInfo.getCompany_code());
+		}
+		
+		if(employeeInfo != null) {
+			productPriceVo.setCompany_code(employeeInfo.getCompany_code());
+		}
+		
+		productPriceVo.setProduct_code(purchaseDetailVo.getProduct_code());
+		productPriceVo.setProduct_name(purchaseDetailVo.getProduct_name());
+		productPriceVo.setProduct_price_selling(purchaseDetailVo.getProduct_price());
+		productPriceVo.setProduct_price_selling_date(time);
+		
+		if(productPriceList.isEmpty()) {
+			productPriceVo.setProduct_price_purchase(0);
+			productPriceVo.setProduct_price_purchase_date(time);
+			productPriceVo.setProduct_price_memo("");
+		}else {
+			productPriceVo.setProduct_price_purchase(productPriceList.get(length).getProduct_price_purchase());
+			productPriceVo.setProduct_price_purchase_date(productPriceList.get(length).getProduct_price_purchase_date());
+			productPriceVo.setProduct_price_memo(productPriceList.get(length).getProduct_price_memo());
+		}
+
+		employeeSQLMapper.insertPurchaceProductPrice(productPriceVo);
+		
 	}
 	
 	public PurchaseDetailVo selectPurchaseDetailInfo (PurchaseDetailVo purchase_detail_code) {
-		
 		return employeeSQLMapper.selectPurchaseDetailInfo(purchase_detail_code);
 	}
 	
-	public void updatePurchaseDetailInfo(PurchaseDetailVo purchaseDetailVo) {
+	public void updatePurchaseDetailInfo(HttpSession session, PurchaseDetailVo purchaseDetailVo) {
 		employeeSQLMapper.updatePurchaseDetailInfo(purchaseDetailVo);
+		
+		EmployeeVo employeeInfo = (EmployeeVo)session.getAttribute("employeeInfo");
+		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
+		
+		ArrayList<ProductPriceVo> productPriceList = 
+		employeeSQLMapper.getProductPriceInfo(purchaseDetailVo.getProduct_code());
+		
+		int length = productPriceList.size()-1;
+
+		Date time = new Date();
+		
+		ProductPriceVo productPriceVo = new ProductPriceVo();
+		
+		if(adminInfo != null) {
+			productPriceVo.setCompany_code(adminInfo.getCompany_code());
+		}
+		
+		if(employeeInfo != null) {
+			productPriceVo.setCompany_code(employeeInfo.getCompany_code());
+		}
+		
+		productPriceVo.setProduct_code(purchaseDetailVo.getProduct_code());
+		productPriceVo.setProduct_name(purchaseDetailVo.getProduct_name());
+		productPriceVo.setProduct_price_purchase(purchaseDetailVo.getProduct_price());
+		productPriceVo.setProduct_price_purchase_date(time);
+		
+		if(productPriceList.isEmpty()) {
+			productPriceVo.setProduct_price_selling(0);
+			productPriceVo.setProduct_price_selling_date(time);
+			productPriceVo.setProduct_price_memo("");
+		}else {
+			productPriceVo.setProduct_price_selling(productPriceList.get(length).getProduct_price_selling());
+			productPriceVo.setProduct_price_selling_date(productPriceList.get(length).getProduct_price_selling_date());
+			productPriceVo.setProduct_price_memo(productPriceList.get(length).getProduct_price_memo());
+		}
+
+		employeeSQLMapper.insertPurchaceProductPrice(productPriceVo);
+		
+		
 	}
 	
 	public void deletePurchaseDetailInfo (PurchaseDetailVo purchase_detail_code) {
 		employeeSQLMapper.deletePurchaseDetailInfo(purchase_detail_code);
 	}
 	
-	//상품
+	//제품
 	public ArrayList<ProductVo> productInfo(String searchType, String searchWord, int pageNum, String company_code){
 		
 		int startList = (pageNum-1)*15;
@@ -196,24 +292,100 @@ public class EmployeeServiceImpl {
 		return obtainOrderDetailList;
 	}
 	
-	public void insertObtainOrderDetailInfo(ObtainOrderDetailVo obtainOrderDetailVo) {
+	public void insertObtainOrderDetailInfo(HttpSession session, ObtainOrderDetailVo obtainOrderDetailVo) {
 		employeeSQLMapper.insertObtainOrderDetailInfo(obtainOrderDetailVo);
+		
+		EmployeeVo employeeInfo = (EmployeeVo)session.getAttribute("employeeInfo");
+		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
+		
+		ArrayList<ProductPriceVo> productPriceList = 
+		employeeSQLMapper.getProductPriceInfo(obtainOrderDetailVo.getProduct_code());
+		
+		int length = productPriceList.size()-1;
+
+		Date time = new Date();
+		
+		ProductPriceVo productPriceVo = new ProductPriceVo();
+		
+		if(adminInfo != null) {
+			productPriceVo.setCompany_code(adminInfo.getCompany_code());
+		}
+		
+		if(employeeInfo != null) {
+			productPriceVo.setCompany_code(employeeInfo.getCompany_code());
+		}
+		
+		productPriceVo.setProduct_code(obtainOrderDetailVo.getProduct_code());
+		productPriceVo.setProduct_name(obtainOrderDetailVo.getProduct_name());
+		productPriceVo.setProduct_price_purchase(obtainOrderDetailVo.getProduct_price());
+		productPriceVo.setProduct_price_purchase_date(time);
+		
+		if(productPriceList.isEmpty()) {
+			productPriceVo.setProduct_price_selling(0);
+			productPriceVo.setProduct_price_selling_date(time);
+			productPriceVo.setProduct_price_memo("");
+		}else {
+			productPriceVo.setProduct_price_selling(productPriceList.get(length).getProduct_price_selling());
+			productPriceVo.setProduct_price_selling_date(productPriceList.get(length).getProduct_price_selling_date());
+			productPriceVo.setProduct_price_memo(productPriceList.get(length).getProduct_price_memo());
+		}
+
+		employeeSQLMapper.insertObtainProductPrice(productPriceVo);
 	}
 	
 	public ObtainOrderDetailVo selectObtainOrderDetailInfo (ObtainOrderDetailVo obtain_order_detail_code) {
-		System.out.println("디테일 셀렉트 서비스");
 		return employeeSQLMapper.selectObtainOrderDetailInfo(obtain_order_detail_code);
 	}
 	
-	public void updateObtainOrderDetailInfo(ObtainOrderDetailVo obtainOrderDetailVo) {
-		System.out.println("업데이투 서비스");
-		System.out.println(obtainOrderDetailVo);
+	public void updateObtainOrderDetailInfo(HttpSession session, ObtainOrderDetailVo obtainOrderDetailVo) {
 		employeeSQLMapper.updateObtainOrderDetailInfo(obtainOrderDetailVo);
+		
+		EmployeeVo employeeInfo = (EmployeeVo)session.getAttribute("employeeInfo");
+		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
+		
+		ArrayList<ProductPriceVo> productPriceList = 
+		employeeSQLMapper.getProductPriceInfo(obtainOrderDetailVo.getProduct_code());
+		
+		int length = productPriceList.size()-1;
+
+		Date time = new Date();
+		
+		ProductPriceVo productPriceVo = new ProductPriceVo();
+		
+		if(adminInfo != null) {
+			productPriceVo.setCompany_code(adminInfo.getCompany_code());
+		}
+		
+		if(employeeInfo != null) {
+			productPriceVo.setCompany_code(employeeInfo.getCompany_code());
+		}
+		
+		productPriceVo.setProduct_code(obtainOrderDetailVo.getProduct_code());
+		productPriceVo.setProduct_name(obtainOrderDetailVo.getProduct_name());
+		productPriceVo.setProduct_price_purchase(obtainOrderDetailVo.getProduct_price());
+		productPriceVo.setProduct_price_purchase_date(time);
+		
+		if(productPriceList.isEmpty()) {
+			productPriceVo.setProduct_price_selling(0);
+			productPriceVo.setProduct_price_selling_date(time);
+			productPriceVo.setProduct_price_memo("");
+		}else {
+			productPriceVo.setProduct_price_selling(productPriceList.get(length).getProduct_price_selling());
+			productPriceVo.setProduct_price_selling_date(productPriceList.get(length).getProduct_price_selling_date());
+			productPriceVo.setProduct_price_memo(productPriceList.get(length).getProduct_price_memo());
+		}
+
+		employeeSQLMapper.insertObtainProductPrice(productPriceVo);
 	}
 	
 	public void deleteObtainOrderDetailInfo (ObtainOrderDetailVo obtain_order_detail_code) {
 		employeeSQLMapper.deleteObtainOrderDetailInfo(obtain_order_detail_code);
 	}
+	
+
+	
+	
+	
 
 	//생산
 	public ArrayList<ManufactureVo> manufactureInfo(String searchType, String searchWord, int pageNum, String company_code){
@@ -369,6 +541,12 @@ public class EmployeeServiceImpl {
 		
 		return productPriceList;
 	}
+	
+	public ProductPriceVo excelProductPriceSelect(String product_price_code) {
+		ProductPriceVo productPriceVo = employeeSQLMapper.excelProductPriceSelect(product_price_code);
+		
+		return productPriceVo;
+	};
 	
 	public void insertProductPriceInfo(ProductPriceVo productPriceVo) {
 		employeeSQLMapper.insertProductPriceInfo(productPriceVo);

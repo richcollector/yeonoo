@@ -5,21 +5,28 @@
 <html>
 <head>
    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"> 
-       <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"> 
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
-   @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
-        *{
-             margin: 0px;
-             padding: 0px;
-        }
-        
-          body { 
-       font-family : pretendard; 
-       color: #404040; 
-       } 
+    
+	   	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
+	   	
+	   	body { 
+		font-family : pretendard; 
+		color: #404040; 
+		} 
+		
+	    *{
+	         margin: 0px;
+	         padding: 0px;
+	    }
+	        
+	    body { 
+	    font-family : pretendard; 
+	    color: #404040; 
+	    } 
 
         #wrapper{
             width: 1200px;
@@ -41,8 +48,8 @@
             cursor: pointer;
         }
 
-        .active,
-      .usermenu:hover {
+	      .active,
+	      .usermenu:hover {
             display: block;
         }
 
@@ -54,13 +61,17 @@
         }
 
         .usermenu-content{
-         overflow: hidden;
+         	overflow: hidden;
             max-height: 0;
-         transition: max-height 0.2s ease-out;
+         	transition: max-height 0.2s ease-out;
             position: absolute;
             background-color: white;
             border : 1;
             margin-top: 16px;
+            width:auto;
+            -webkit-box-shadow: 0 4px 4px 0 rgb(0 0 0 / 12%);
+            padding: 0 14px 0 14px;
+            left: -13px;
         }
 
         .btnnn {
@@ -133,7 +144,7 @@
                         <a href="../company/companyInfoPage">회사정보</a><br>
                         <a href="../account/accountInfoPage">거래처정보</a><br>
                         <a href="../employee/productInfoPage">제품정보</a><br>
-                        <a href="../warehouse/warehouseList">창고정보(△)</a><br>
+                        <a href="../warehouse/warehouseList">창고정보</a><br>
                         <a href="../lot/lotManage">로트관리</a>            
                 </div>          
                 </div>    
@@ -168,8 +179,8 @@
                 </button>
                 <div class="usermenu-content">
                     <a href="../inbound/inboundManage">입고관리</a><br>
-                    <a href="../outstock/outstockManage">출하등록(</a><br>
-                    <a href="../stock/stockManage">재고현황(△)</a>       
+                    <a href="../outstock/outstockManage">출하등록</a><br>
+                    <a href="../stock/stockManage">재고현황</a>       
                 </div>          
                 </div>              
             </div>

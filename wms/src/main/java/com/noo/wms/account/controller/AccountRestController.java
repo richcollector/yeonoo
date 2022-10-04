@@ -98,41 +98,7 @@ public class AccountRestController {
 	//사업자 등록증 저장 
 	@RequestMapping("insertAccountInfo")
 	public HashMap<String, Object> insertAccountInfo(AccountVo accountVo, @RequestParam("file") MultipartFile file) {
-		
-////			System.out.println("사진파일" + account_registration_jpg);
-//			System.out.println("사진파일" + accountVo.getAccount_registration_jpg());
-			System.out.println("왔니"+file );
-//			
-//			MultipartFile image = account_registration_jpg;
-//			//사업자등록증 폴더 생성
-//			String folderName = "/uploadFilesWms/";
-//			String getOriginalFilename= image.getOriginalFilename();
-//			
-//			String randomName = UUID.randomUUID().toString();
-//			randomName += "_" + System.currentTimeMillis();
-//			
-//			String ext = getOriginalFilename.substring(getOriginalFilename.lastIndexOf("."));
-//			randomName += ext;
-//			
-//			Date today = new Date();
-//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
-//			String todayFolderNmae = sdf.format(today);
-//			
-//			File licenseFolder = new File(folderName + todayFolderNmae);
-//			
-//			if(!licenseFolder.exists()) {
-//				licenseFolder.mkdirs();
-//			}
-//				
-//			try {
-//				account_registration_jpg.transferTo(new File(folderName + todayFolderNmae + randomName));
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//			accountVo.setAccount_registration_jpg(todayFolderNmae+randomName);
-			
-			
-				
+
 				//사업자등록증 폴더 생성
 				String folderName = "/uploadFilesWms/";
 				File licenseFolder = new File(folderName);

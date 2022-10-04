@@ -2,6 +2,8 @@ package com.noo.wms.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class ObtainOrderDetailVo {
 	private String obtain_order_detail_code;
 	private String obtain_order_code;

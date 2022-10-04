@@ -1,10 +1,12 @@
 package com.noo.wms.vo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,6 +81,9 @@ public class PurchaseDetailVo {
 	public void setProduct_price(int product_price) {
 		this.product_price = product_price;
 	}
+
+	
+	
 	
 }
 

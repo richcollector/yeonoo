@@ -36,6 +36,28 @@ public class EmployeeRestController {
 	@Autowired
 	private EmployeeServiceImpl employeeService;
 	
+	//공통 (제품찾기)
+	
+	@RequestMapping("findProductNumName")
+	public ArrayList<ProductVo> findProductNumName(String productName){
+		
+		System.out.println("키보드업");
+		ArrayList<ProductVo> productList = employeeService.findProductNumName(productName);
+		
+		return productList;
+	}
+	
+	@RequestMapping("findAccountNum")
+	public ArrayList<AccountVo> findAccountNum(String accountName){
+		
+		System.out.println("키보드업");
+		ArrayList<AccountVo> productList = employeeService.findAccountNum(accountName);
+		
+		return productList;
+	}
+	
+	
+	
 	//발주
 	@RequestMapping("purchaseInfo")
 	public HashMap<String, Object> purchaseInfo(HttpSession session, Model model, String searchType, String searchWord,
@@ -189,7 +211,8 @@ public class EmployeeRestController {
 	@RequestMapping("insertPurchaseDetailInfo")
 	public HashMap<String, Object> insertPurchaseDetailInfo(HttpSession session, PurchaseDetailVo purchaseDetailVo) {
 		System.out.println("들어오니");
-		employeeService.insertPurchaseDetailInfo(purchaseDetailVo);
+		
+		employeeService.insertPurchaseDetailInfo(session, purchaseDetailVo);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("result", "success");
@@ -207,10 +230,10 @@ public class EmployeeRestController {
 	}
 
 	@RequestMapping("updatePurchaseDetailInfo")
-	public HashMap<String, Object> updatePurchaseDetailInfo(PurchaseDetailVo purchaseDetailVo) {
+	public HashMap<String, Object> updatePurchaseDetailInfo(HttpSession session, PurchaseDetailVo purchaseDetailVo) {
 		System.out.println("업데이투");
 		System.out.println(purchaseDetailVo);
-		employeeService.updatePurchaseDetailInfo(purchaseDetailVo);
+		employeeService.updatePurchaseDetailInfo(session, purchaseDetailVo);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("result", "success");
@@ -512,7 +535,7 @@ public class EmployeeRestController {
 	@RequestMapping("insertObtainOrderDetailInfo")
 	public HashMap<String, Object> insertObtainOrderInfo(HttpSession session, ObtainOrderDetailVo obtainOrderDetailVo) {
 		System.out.println("들어오니");
-		employeeService.insertObtainOrderDetailInfo(obtainOrderDetailVo);
+		employeeService.insertObtainOrderDetailInfo(session, obtainOrderDetailVo);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("result", "success");
@@ -531,13 +554,13 @@ public class EmployeeRestController {
 	}
 
 	@RequestMapping("updateObtainOrderDatailInfo")
-	public HashMap<String, Object> updateObtainOrderDatailInfo(ObtainOrderDetailVo obtainOrderDetailVo) {
+	public HashMap<String, Object> updateObtainOrderDatailInfo(HttpSession session, ObtainOrderDetailVo obtainOrderDetailVo) {
 		
 		System.out.println("업데이투 들어오니");
 		System.out.println(obtainOrderDetailVo);
 		System.out.println(obtainOrderDetailVo.getObtain_order_detail_code());
 		
-		employeeService.updateObtainOrderDetailInfo(obtainOrderDetailVo);
+		employeeService.updateObtainOrderDetailInfo(session, obtainOrderDetailVo);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("result", "success");
@@ -564,6 +587,8 @@ public class EmployeeRestController {
 		
 		return map;
 	}
+	
+
 
 	
 	

@@ -9,9 +9,17 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
     
+   	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
+   	
+   	body { 
+	font-family : pretendard; 
+	color: #404040; 
+	} 
+	
     #wrapper{
 		width: 1200px;
     }
@@ -26,7 +34,7 @@
      overflow-x: scroll;
      overflow-y: hidden;
    }
-
+   
    #scrollTable {
 	flex: 0 0 auto;
    }
@@ -34,6 +42,256 @@
     </style>
 	
 <script type="text/javascript">
+
+
+	function findAccount(){
+		console.log("파프옴?")
+		var accountName = document.getElementById("searchAccount").value;
+			
+			var xhr = new XMLHttpRequest();	//AJAX 객체 생성
+			
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
+					
+					console.log("들어오십시오....")
+					var accBox = document.getElementById("accountBox");
+					accBox.innerHTML = "";
+					
+					searchResult = document.createElement("div");
+					searchResult.classList.add("col");
+					accBox.appendChild(searchResult);
+					
+					resultUl = document.createElement("ul");
+					resultUl.classList.add("list-group");
+					searchResult.appendChild(resultUl);
+					
+					for (account of jsonObj){
+						 
+						resultLi = document.createElement("li");
+						resultLi.classList.add("list-group-item");
+						resultLi.innerText = account.account_name + "         "+ account.account_code;
+						resultLi.setAttribute("onclick", "uploadAccount('"+account.account_code+"')");
+						resultUl.appendChild(resultLi);
+						
+	//						resultHidden = document.createElement("input");
+	//						resultHidden.setAttribute("type","hidden");
+	//						resultHidden.value = product.product_name + product.product_code;
+	//						resultLi.appendChild(resultHidden);
+						
+					}
+				}
+			}
+			
+			console.log("안뇽하세용");
+			xhr.open("get", "./findAccountNum?accountName=" + accountName);	//리퀘스트 세팅..
+			//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
+			xhr.send();	//AJAX로 리퀘스트함...
+		
+	}
+	
+	function uploadAccount(account_code){
+		
+		var accountCode = document.getElementById("account_code");
+		accountCode.value = account_code;
+		
+		var productSerach = document.getElementById("searchAccount");
+		productSerach.innerHTML = "";
+		
+		var accBox = document.getElementById("accountBox");
+		accBox.innerHTML = "";
+		
+		
+	}
+	
+	function findAccountUpdate(){
+		console.log("파프옴?")
+		var accountName = document.getElementById("searchAccountUpdate").value;
+			
+			var xhr = new XMLHttpRequest();	//AJAX 객체 생성
+			
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
+					
+					console.log("들어오십시오....")
+					var accBox = document.getElementById("accountUpdateBox");
+					accBox.innerHTML = "";
+					
+					searchResult = document.createElement("div");
+					searchResult.classList.add("col");
+					accBox.appendChild(searchResult);
+					
+					resultUl = document.createElement("ul");
+					resultUl.classList.add("list-group");
+					searchResult.appendChild(resultUl);
+					
+					for (account of jsonObj){
+						 
+						resultLi = document.createElement("li");
+						resultLi.classList.add("list-group-item");
+						resultLi.innerText = account.account_name + "         "+ account.account_code;
+						resultLi.setAttribute("onclick", "uploadAccountUpdate('"+account.account_code+"')");
+						resultUl.appendChild(resultLi);
+						
+	//						resultHidden = document.createElement("input");
+	//						resultHidden.setAttribute("type","hidden");
+	//						resultHidden.value = product.product_name + product.product_code;
+	//						resultLi.appendChild(resultHidden);
+						
+					}
+				}
+			}
+			
+			console.log("안뇽하세용");
+			xhr.open("get", "./findAccountNum?accountName=" + accountName);	//리퀘스트 세팅..
+			//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
+			xhr.send();	//AJAX로 리퀘스트함...
+		
+	}
+	
+	function uploadAccountUpdate(account_code){
+		
+		var accountCode = document.getElementById("account_code_update");
+		accountCode.value = account_code;
+		
+		var productSerach = document.getElementById("searchAccountUpdate");
+		productSerach.innerHTML = "";
+		
+		var accBox = document.getElementById("accountUpdateBox");
+		accBox.innerHTML = "";
+		
+		
+	}
+
+	function findProduct(){
+		console.log("파프옴?")
+		var productName = document.getElementById("searchProduct").value;
+		console.log("프네" + productName)
+			
+			var xhr = new XMLHttpRequest();	//AJAX 객체 생성
+			
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
+					
+					console.log("들어오십시오....")
+					var addUi = document.getElementById("upSearchWindowUi");
+					addUi.innerHTML = "";
+					
+					searchResult = document.createElement("div");
+					searchResult.classList.add("col");
+					addUi.appendChild(searchResult);
+					
+					resultUl = document.createElement("ul");
+					resultUl.classList.add("list-group");
+					searchResult.appendChild(resultUl);
+					
+					for (product of jsonObj){
+						 
+						resultLi = document.createElement("li");
+						resultLi.classList.add("list-group-item");
+						resultLi.innerText = product.product_name + product.product_code;
+						resultLi.setAttribute("onclick", "uploadProduct('"+product.product_name+"','"+product.product_code+"')");
+						resultUl.appendChild(resultLi);
+						
+// 						resultHidden = document.createElement("input");
+// 						resultHidden.setAttribute("type","hidden");
+// 						resultHidden.value = product.product_name + product.product_code;
+// 						resultLi.appendChild(resultHidden);
+						
+					}
+				}
+			}
+			
+			console.log("안뇽하세용");
+			xhr.open("get", "./findProductNumName?productName=" + productName);	//리퀘스트 세팅..
+			//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
+			xhr.send();	//AJAX로 리퀘스트함...
+		
+	}
+	
+	
+	function findProductUpdate(){
+		console.log("파프옴?")
+		var productName = document.getElementById("searchProductUpdate").value;
+		console.log("프네" + productName)
+			
+			var xhr = new XMLHttpRequest();	//AJAX 객체 생성
+			
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					var jsonObj = JSON.parse(xhr.responseText);	//xhr.responseText = 응답 결과 텍스트
+					
+					console.log("들어오십시오....")
+					var addUi = document.getElementById("upSearchWindowUiUpdate");
+					addUi.innerHTML = "";
+					
+					searchResult = document.createElement("div");
+					searchResult.classList.add("col");
+					addUi.appendChild(searchResult);
+					
+					resultUl = document.createElement("ul");
+					resultUl.classList.add("list-group");
+					searchResult.appendChild(resultUl);
+					
+					for (product of jsonObj){
+						 
+						resultLi = document.createElement("li");
+						resultLi.classList.add("list-group-item");
+						resultLi.innerText = product.product_name + "         "+ product.product_code;
+						resultLi.setAttribute("onclick", "uploadProductUpdate('"+product.product_name+"','"+product.product_code+"')");
+						resultUl.appendChild(resultLi);
+						
+// 						resultHidden = document.createElement("input");
+// 						resultHidden.setAttribute("type","hidden");
+// 						resultHidden.value = product.product_name + product.product_code;
+// 						resultLi.appendChild(resultHidden);
+						
+					}
+				}
+			}
+			
+			console.log("안뇽하세용");
+			xhr.open("get", "./findProductNumName?productName=" + productName);	//리퀘스트 세팅..
+			//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");	//post
+			xhr.send();	//AJAX로 리퀘스트함...
+		
+	}
+	
+	function uploadProduct(product_name,product_code){
+		
+		var productName = document.getElementById("product_name");
+		productName.value = product_name;
+		
+		var productCode = document.getElementById("product_code");
+		productCode.value = product_code;
+		
+		var productSerach = document.getElementById("searchProduct");
+		productSerach.innerHTML = "";
+		
+		var addUi = document.getElementById("upSearchWindowUi");
+		addUi.innerHTML = "";
+		
+		
+	}
+	
+	function uploadProductUpdate(product_name,product_code){
+
+		
+		var productName = document.getElementById("product_name_update");
+		productName.value = product_name;
+		
+		var productCode = document.getElementById("product_code_update");
+		productCode.value = product_code;
+		
+		var productSerach = document.getElementById("searchProductUpdate");
+		productSerach.innerHTML = "";
+		
+		var addUi = document.getElementById("upSearchWindowUiUpdate");
+		addUi.innerHTML = "";
+	}
+	
 
 	function accountSearch(){
 		document.getElementById("account_code").value = "??";
@@ -711,7 +969,7 @@
 
 		var allCheckValue = document.querySelector("input[id=check_all]").checked;
 
-		var list = document.getElementsByName("checkProduct");
+		var list = document.getElementsByName("checkObtainOrder");
 		
 		if(allCheckValue){
 			for(var i = 0; i < list.length; i++){
@@ -727,7 +985,7 @@
 	function checkOk(){
 
 		var total = document.getElementById("check_all");
-		var list = document.getElementsByName("checkProduct");
+		var list = document.getElementsByName("checkObtainOrder");
 		var countCh = 0;
 		
 		for(var i = 0; i < list.length; i++) {
@@ -2644,22 +2902,34 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
+                                        <span class="input-group-text">거래처검색</span>
+                                        <input id="searchAccount" type="text" class="form-control" onkeyup="findAccount()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3" id="accountBox">
+                       		</div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
                                         <span class="input-group-text">거래처코드</span>
-                                        <input id="account_code" onblur="checkRemove()"  onkeydown="accountSearch()" type="text" class="form-control">
+                                        <input id="account_code" readonly onblur="checkRemove()"  onkeyup="accountSearch()" type="text" class="form-control">
                                     </div>
                                     <div id="account_code_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">수주상태</span>
-                                        <input id="obtain_order_state" onblur="checkRemove()" type="text" class="form-control">
+                                    <div class="input-group" class="form-control">
+                                    	<span class="input-group-text">수주상태</span>
+                                    	
+                                        <select id="obtain_order_state" class="border rounded-end" style="width:100px;" onchange="checkRemove()">
+                                        	<option value="F">승인보류</option>
+                                        </select>
+<!--                                         <input id="obtain_order_state" onblur="checkRemove()" type="text" class="form-control"> -->
                                     </div>
                                     <div id="obtain_order_state_Alert" class="mb-3"></div>
                                 </div>
-                            </div>
-                            <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">수주담당자</span>
@@ -2750,22 +3020,35 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
+                                        <span class="input-group-text">거래처검색</span>
+                                        <input id="searchAccountUpdate" type="text" class="form-control" onkeyup="findAccountUpdate()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3" id="accountUpdateBox">
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
                                         <span class="input-group-text">거래처코드</span>
-                                        <input id="account_code_update"  onblur="checkUpdateRemove()" type="text" class="form-control">
+                                        <input id="account_code_update" readonly  onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
                                     <div id="account_code_update_Alert" class="mb-3"></div>
                                 </div>                               
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">수주상태</span>
-                                        <input id="obtain_order_state_update"  onblur="checkUpdateRemove()" type="text" class="form-control">
-                                    </div>
-                                    <div id="obtain_order_state_update_Alert" class="mb-3"></div>
+                                	<div class="input-group" class="form-control">
+                                    <span class="input-group-text">수주상태</span>
+                                    <c:if test="${!empty adminInfo }">
+	                               		<select id="obtain_order_state_update" class="border rounded-end" style="width:100px;" onchange="checkUpdateRemove()">
+	                                       	<option value="F">승인보류</option>
+	                                       	<option value="T">승인</option>
+	                                    </select>
+                                    </c:if>
+                                	<div id="obtain_order_state_update_Alert" class="mb-3"></div>
+                                	</div>
                                 </div>
-                            </div>
-                            <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">수주담당자</span>
@@ -2853,19 +3136,29 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">제품코드</span>
-                                        <input id="product_code"  onblur="checkDetailRemove()" type="text" class="form-control">
+                                        <span class="input-group-text">제품검색</span>
+                                        <input id="searchProduct" type="text" class="form-control" onkeyup="findProduct()">
                                     </div>
-                                    <div id="product_code_Alert" class="mb-3"></div>
+                                </div>
+                            </div>
+                            <div class="row mt-3" id="upSearchWindowUi">
+                       		</div>
+                       		<div class="row mt-1">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">제품명</span>
+                                        <input id="product_name" readonly  onblur="checkDetailRemove()" type="text" class="form-control" readonly>
+                                    </div>
+                                    <div id="product_name_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">제품명</span>
-                                        <input id="product_name"  onblur="checkDetailRemove()" type="text" class="form-control">
+                                        <span class="input-group-text">제품코드</span>
+                                        <input id="product_code" readonly onblur="checkDetailRemove()" type="text" class="form-control" readonly>
                                     </div>
-                                    <div id="product_name_Alert" class="mb-3"></div>
+                                    <div id="product_code_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -2931,19 +3224,29 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">제품코드</span>
-                                        <input id="product_code_update"  onblur="checkDetailUpdateRemove()" type="text" class="form-control">
+                                        <span class="input-group-text">제품검색</span>
+                                        <input id="searchProductUpdate" type="text" class="form-control" onkeyup="findProductUpdate()">
                                     </div>
-                                    <div id="product_code_update_Alert" class="mb-3"></div>
+                                </div>
+                            </div>
+                            <div class="row mt-3" id="upSearchWindowUiUpdate">
+                       		</div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <span class="input-group-text">제품명</span>
+                                        <input id="product_name_update" readonly  onblur="checkDetailUpdateRemove()" type="text" class="form-control">
+                                    </div>
+                                    <div id="product_name_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">제품명</span>
-                                        <input id="product_name_update"  onblur="checkDetailUpdateRemove()" type="text" class="form-control">
+                                        <span class="input-group-text">제품코드</span>
+                                        <input id="product_code_update" readonly  onblur="checkDetailUpdateRemove()" type="text" class="form-control">
                                     </div>
-                                    <div id="product_name_update_Alert" class="mb-3"></div>
+                                    <div id="product_code_update_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">

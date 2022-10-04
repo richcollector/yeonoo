@@ -1,6 +1,7 @@
 package com.noo.wms.main.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -52,7 +53,7 @@ public interface MainSQLMapper {
 	public void updateEmployeePw(EmployeeVo employeeVo);
 	
 	//사원 목록 불러오기
-	public ArrayList<EmployeeVo> employeeInfo(@Param("searchType") String searchType, 
+	public ArrayList<HashMap<String, Object>> employeeInfo(@Param("searchType") String searchType, 
 											@Param("searchWord") String searchWord,
 											@Param("startList") int startList,
 											@Param("company_code") String company_code

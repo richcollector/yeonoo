@@ -181,11 +181,11 @@ public class MainServiceImpl {
 		mainSQLMapper.updateEmployeePw(employeeVo);
 	}
 	
-	public ArrayList<EmployeeVo> employeeInfo(String searchType, String searchWord, int pageNum, String company_code){
+	public ArrayList<HashMap<String, Object>> employeeInfo(String searchType, String searchWord, int pageNum, String company_code){
 
 		int startList = (pageNum-1)*15;
 		
-		ArrayList<EmployeeVo> employeeList = mainSQLMapper.employeeInfo(searchType, searchWord, startList, company_code);
+		ArrayList<HashMap<String, Object>> employeeList = mainSQLMapper.employeeInfo(searchType, searchWord, startList, company_code);
 		
 		return employeeList;
 	}

@@ -96,7 +96,7 @@ public class RestMainController {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		ArrayList<EmployeeVo> employeeList = mainService.employeeInfo(searchType, searchWord, pageNum, company_code);
+		ArrayList<HashMap<String, Object>> employeeList = mainService.employeeInfo(searchType, searchWord, pageNum, company_code);
 		
 		int orderCount = mainService.employeeInfoCount(searchType, searchWord, company_code);
 		

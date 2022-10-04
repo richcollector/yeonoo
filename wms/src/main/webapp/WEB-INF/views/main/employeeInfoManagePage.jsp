@@ -71,6 +71,7 @@
 		var company_code_update = document.getElementById("company_code_update");
 		var employee_code_update = document.getElementById("employee_code_update");
 		var employee_rank_code_update = document.getElementById("employee_rank_code_update");
+		var department_code_update = document.getElementById("department_code_update");
 		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
@@ -80,6 +81,7 @@
 				company_code_update.value = jsonObj.data.company_code;
 				employee_rank_code_update.value = jsonObj.data.employee_rank_code;
 				employee_code_update.value = jsonObj.data.employee_code;
+				department_code_update.value = jsonObj.data.department_code;
 				
 				document.getElementById("updateModalStart").click();
 			}
@@ -102,7 +104,8 @@
 		var company_code = document.getElementById("company_code_update").value;
 		var employee_code = document.getElementById("employee_code_update").value;
 		var employee_rank_code_update = document.getElementById("employee_rank_code_update").value;
-
+		var department_code_update = document.getElementById("department_code_update").value;
+		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 			if(xhr.readyState == 4 && xhr.status == 200){
@@ -113,7 +116,8 @@
 		
 		xhr.open("post" , "./employeeRankUpdateProcess" , false);
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("company_code=" + company_code + "&employee_code=" + employee_code + "&employee_rank_code=" + employee_rank_code_update);		
+		xhr.send("company_code=" + company_code + "&employee_code=" + employee_code + "&employee_rank_code=" + employee_rank_code_update
+				+ "&department_code=" + department_code_update);		
 		refreshAccountInfo();
 		
 	}
@@ -227,32 +231,40 @@
 		var th3 = document.createElement("th");
 		th3.innerText = "부서코드";
 		tr1.appendChild(th3);
-
+		
 		var th4 = document.createElement("th");
-		th4.innerText = "직급코드";
+		th4.innerText = "부서명";
 		tr1.appendChild(th4);
 
+		var th5 = document.createElement("th");
+		th5.innerText = "직급코드";
+		tr1.appendChild(th5);
+		
 		var th6 = document.createElement("th");
-		th6.innerText = "사원명";
+		th6.innerText = "직급명";
 		tr1.appendChild(th6);
 
 		var th7 = document.createElement("th");
-		th7.setAttribute("style","width:18%");
-		th7.innerText = "이메일";
+		th7.innerText = "사원명";
 		tr1.appendChild(th7);
-		
+
 		var th8 = document.createElement("th");
-		th8.setAttribute("style","width:5%");
-		th8.innerText = "상태";
+		th8.setAttribute("style","width:18%");
+		th8.innerText = "이메일";
 		tr1.appendChild(th8);
 		
 		var th9 = document.createElement("th");
-		th9.innerText = "입사일";
+		th9.setAttribute("style","width:5%");
+		th9.innerText = "상태";
 		tr1.appendChild(th9);
 		
 		var th10 = document.createElement("th");
-		th10.innerText = "퇴사일";
+		th10.innerText = "입사일";
 		tr1.appendChild(th10);
+		
+		var th11 = document.createElement("th");
+		th11.innerText = "퇴사일";
+		tr1.appendChild(th11);
 		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
@@ -280,36 +292,44 @@
 				td1.appendChild(inputIn1);
 
 				var td2 = document.createElement("td");
-				td2.innerText = commentData.employee_code;
+				td2.innerText = commentData.employee_code;//대문자로 받기
 				trIn1.appendChild(td2);
 				
 				var td3 = document.createElement("td");
 				td3.innerText = commentData.department_code;
 				trIn1.appendChild(td3);
-
+				
 				var td4 = document.createElement("td");
-				td4.innerText = commentData.employee_rank_code;
+				td4.innerText = commentData.department_name;
 				trIn1.appendChild(td4);
 
+				var td5 = document.createElement("td");
+				td5.innerText = commentData.employee_rank_code;
+				trIn1.appendChild(td5);
+				
 				var td6 = document.createElement("td");
-				td6.innerText = commentData.employee_name;
+				td6.innerText = commentData.employee_rank_name;
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
-				td7.innerText = commentData.employee_email;
+				td7.innerText = commentData.employee_name;
 				trIn1.appendChild(td7);
-				
-				var td8 = document.createElement("td");
-				td8.innerText = commentData.employee_state;
-				trIn1.appendChild(td8);
 
-				var td9 = document.createElement("td");
-				td9.innerText = moment(commentData.employee_join_date).format('YYYY.MM.DD');
-				trIn1.appendChild(td9);
+				var td8 = document.createElement("td");
+				td8.innerText = commentData.employee_email;
+				trIn1.appendChild(td8);
 				
-				var td10 = document.createElement("td");
-				td10.innerText = moment(commentData.employee_leave_date).format('YYYY.MM.DD');
-				trIn1.appendChild(td10);
+				var td9 = document.createElement("td");
+				td9.innerText = commentData.employee_state;
+				trIn1.appendChild(td9);
+
+				var t10 = document.createElement("td");
+				t10.innerText = moment(commentData.employee_join_date).format('YYYY.MM.DD');
+				trIn1.appendChild(t10);
+				
+				var td11 = document.createElement("td");
+				td11.innerText = moment(commentData.employee_leave_date).format('YYYY.MM.DD');
+				trIn1.appendChild(td11);
 				
 				}
 				
@@ -459,32 +479,40 @@
 		var th3 = document.createElement("th");
 		th3.innerText = "부서코드";
 		tr1.appendChild(th3);
-
+		
 		var th4 = document.createElement("th");
-		th4.innerText = "직급코드";
+		th4.innerText = "부서명";
 		tr1.appendChild(th4);
 
+		var th5 = document.createElement("th");
+		th5.innerText = "직급코드";
+		tr1.appendChild(th5);
+		
 		var th6 = document.createElement("th");
-		th6.innerText = "사원명";
+		th6.innerText = "직급명";
 		tr1.appendChild(th6);
 
 		var th7 = document.createElement("th");
-		th7.setAttribute("style","width:18%");
-		th7.innerText = "이메일";
+		th7.innerText = "사원명";
 		tr1.appendChild(th7);
-		
+
 		var th8 = document.createElement("th");
-		th8.setAttribute("style","width:5%");
-		th8.innerText = "상태";
+		th8.setAttribute("style","width:18%");
+		th8.innerText = "이메일";
 		tr1.appendChild(th8);
 		
 		var th9 = document.createElement("th");
-		th9.innerText = "입사일";
+		th9.setAttribute("style","width:5%");
+		th9.innerText = "상태";
 		tr1.appendChild(th9);
 		
 		var th10 = document.createElement("th");
-		th10.innerText = "퇴사일";
+		th10.innerText = "입사일";
 		tr1.appendChild(th10);
+		
+		var th11 = document.createElement("th");
+		th11.innerText = "퇴사일";
+		tr1.appendChild(th11);
 
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
 		xhr.onreadystatechange = function(){
@@ -512,36 +540,44 @@
 					td1.appendChild(inputIn1);
 
 					var td2 = document.createElement("td");
-					td2.innerText = commentData.employee_code;
+					td2.innerText = commentData.employee_code;//대문자로 받기
 					trIn1.appendChild(td2);
-
+					
 					var td3 = document.createElement("td");
 					td3.innerText = commentData.department_code;
 					trIn1.appendChild(td3);
-
+					
 					var td4 = document.createElement("td");
-					td4.innerText = commentData.employee_rank_code;
+					td4.innerText = commentData.department_name;
 					trIn1.appendChild(td4);
 
+					var td5 = document.createElement("td");
+					td5.innerText = commentData.employee_rank_code;
+					trIn1.appendChild(td5);
+					
 					var td6 = document.createElement("td");
-					td6.innerText = commentData.employee_name;
+					td6.innerText = commentData.employee_rank_name;
 					trIn1.appendChild(td6);
 
 					var td7 = document.createElement("td");
-					td7.innerText = commentData.employee_email;
+					td7.innerText = commentData.employee_name;
 					trIn1.appendChild(td7);
-					
+
 					var td8 = document.createElement("td");
-					td8.innerText = commentData.employee_state;
+					td8.innerText = commentData.employee_email;
 					trIn1.appendChild(td8);
 					
 					var td9 = document.createElement("td");
-					td9.innerText = moment(commentData.employee_join_date).format('YYYY.MM.DD');
+					td9.innerText = commentData.employee_state;
 					trIn1.appendChild(td9);
+
+					var t10 = document.createElement("td");
+					t10.innerText = moment(commentData.employee_join_date).format('YYYY.MM.DD');
+					trIn1.appendChild(t10);
 					
-					var td10 = document.createElement("td");
-					td10.innerText = moment(commentData.employee_leave_date).format('YYYY.MM.DD');
-					trIn1.appendChild(td10);
+					var td11 = document.createElement("td");
+					td11.innerText = moment(commentData.employee_leave_date).format('YYYY.MM.DD');
+					trIn1.appendChild(td11);
 					
 					}
 				
@@ -779,7 +815,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">직급 수정</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">사원 정보 수정</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -789,11 +825,18 @@
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
+                                        <span class="input-group-text">부서코드</span>
+                                        <input id="department_code_update" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="input-group">
                                         <span class="input-group-text">직급코드</span>
                                         <input type="hidden" id="employee_code_update" value="">
                                         <input type="hidden" id="company_code_update" value="${adminInfo.company_code }">
                                         <input id="employee_rank_code_update" type="text" class="form-control">
-
                                     </div>
                                 </div>
                             </div>

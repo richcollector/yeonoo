@@ -140,8 +140,22 @@
 	</update> 
 	
 	<!-- 사원 목록 전체 불러오기 및 검색 -->
-	<select id="employeeInfo" resultType="com.noo.wms.vo.EmployeeVo">		
-		SELECT * FROM Employee
+	<select id="employeeInfo" resultType="map">		
+		SELECT 
+			e.employee_code,
+			e.company_code,
+			e.department_code,
+			d.department_name,
+			e.employee_rank_code,
+			er.employee_rank_name,
+			e.employee_name,
+			e.employee_email,
+			e.employee_state,
+			e.employee_join_date,
+			e.employee_leave_date 
+		FROM Employee e
+		LEFT JOIN Department d ON e.department_code = d.department_code
+		JOIN Employee_rank er ON e.employee_rank_code = er.employee_rank_code
 			<trim prefix="WHERE" prefixOverrides="AND|OR">			
 				<if test="searchType=='employee_code' and searchWord != null and searchWord != '' ">				
 					AND employee_code like CONCAT('%', #{searchWord}, '%')			
@@ -156,13 +170,15 @@
 					AND employee_name like CONCAT('%', #{searchWord}, '%')			
 				</if>	
 			</trim>		
-		WHERE company_code = #{company_code}
+		WHERE e.company_code = #{company_code}
 		LIMIT #{startList}, 15
 	</select>
 
 	<!-- 사원목록 페이징 -->
 	<select id="employeeInfoCount" resultType="int">
-		SELECT COUNT(*) FROM Employee
+		SELECT COUNT(*) FROM Employee e
+		LEFT join Department d ON e.department_code = d.department_code
+		join Employee_rank er on e.employee_rank_code = er.employee_rank_code
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="searchWord != null and searchWord != '' ">			
 				<if test="searchType=='employee_code' and searchWord != null and searchWord != '' ">				
@@ -179,7 +195,7 @@
 				</if>		
 			</if>
 		</trim>
-		WHERE company_code = #{company_code}
+		WHERE e.company_code = #{company_code}
 	</select>
 	
 	<!-- 사원 목록 체크박스 선택 -->
@@ -189,10 +205,11 @@
 		and company_code = #{company_code}
 	</select>
 	
-	<!-- 사원 직급,권한 수정 -->
+	<!-- 사원 부서,직급 수정 -->
 	<update id="updateEmployeeRankInfo">
 		UPDATE Employee 
-		SET employee_rank_code = #{employee_rank_code}
+		SET employee_rank_code = #{employee_rank_code},
+			department_code = #{department_code}
 		WHERE employee_code = #{employee_code}
 		AND company_code = #{company_code}
 	</update>

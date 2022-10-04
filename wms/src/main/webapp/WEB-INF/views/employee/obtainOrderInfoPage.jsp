@@ -816,11 +816,9 @@
         
         if(count == 0){
         	alert("적어도 하나는 선택하여 주십시오.");
-        	cleanUpdateModal();
         	return;
         }else if(count > 1){
         	alert("하나만 선택해 주세요.");
-        	cleanUpdateModal();
         	return;
         }
         
@@ -2580,11 +2578,9 @@
         
         if(count == 0){
         	alert("적어도 하나는 선택하여 주십시오.");
-        	cleanUpdateModal();
         	return;
         }else if(count > 1){
         	alert("하나만 선택해 주세요.");
-        	cleanUpdateModal();
         	return;
         }
         

@@ -42,4 +42,24 @@
 		WHERE lot_code = #{lot_code}
 	</delete>
 	
+	<select id="newLotList" resultType="map">
+		SELECT *,p.product_name FROM Lot l, Product p
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+					AND l.company_code = #{companyCode}
+					AND p.product_code = l.product_code
+				<if test="searchType=='p.product_name' and searchWord != null and searchWord != '' ">				
+					AND p.product_name like CONCAT('%', #{searchWord}, '%')			
+				</if>			
+				<if test="searchType=='l.lot_code' and searchWord != null and searchWord != '' ">				
+					AND l.lot_code like CONCAT('%', #{searchWord}, '%')			
+				</if>			
+		</trim>
+		LIMIT #{startList}, 15
+	</select>
+	
+	<select id="lotListCount" resultType="int">
+		SELECT COUNT(*) FROM Lot
+		WHERE company_code = #{companyCode}
+	</select>
+	
 </mapper>

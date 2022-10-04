@@ -18,4 +18,11 @@ public interface LotSQLMapper {
 	public ArrayList<LotVo> lotList (String companyCode);
 	public void lotUpdate(LotVo lotVo);
 	public void lotDelete(LotVo lotVo);
+	public ArrayList<HashMap<String, Object>> newLotList (
+			@Param("companyCode") String companyCode,
+			@Param("searchType") String searchType, 
+			@Param("searchWord") String searchWord,
+			@Param("startList") int startList);
+	public int lotListCount(String companyCode);
+	
 }

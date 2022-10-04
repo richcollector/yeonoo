@@ -261,7 +261,7 @@
 					
 					var areaCodeTh = document.createElement("th");
 					areaCodeTh.innerText = myAreaList.area.warehouse_area_code;
-					areaCodeTh.setAttribute("onclick" , "rackList(this.innerText)");
+					areaCodeTh.setAttribute("onclick" , "newArRackList(this.innerText)");
 					bodyTr.appendChild(areaCodeTh);
 					
 					var areaName = document.createElement("td");
@@ -279,7 +279,7 @@
 		
 	}
 	
-	function rackList(areaCode){
+	/* function rackList(areaCode){
 		
 		if(areaCode != null){
 			code = areaCode
@@ -407,7 +407,7 @@
 		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhr.send();
 		
-	}
+	} */
 		
 	
 	function rackInsert(){
@@ -421,7 +421,7 @@
 				var result = JSON.parse(xhr.responseText);									
 				
 				document.getElementById("rNameVal").value = "";
-				rackList(areaCode)
+				newArRackList(areaCode);
 				
 			}		
 		}
@@ -433,7 +433,7 @@
 	}
 	
 	
-	function cellList(rackCode){
+	/* function cellList(rackCode){
 		
 		var code = rackCode;
 		
@@ -555,7 +555,7 @@
 		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhr.send();
 		
-	}
+	} */
 		
 	
 	function cellInsert(){
@@ -569,7 +569,7 @@
 				var result = JSON.parse(xhr.responseText);									
 				
 				document.getElementById("cNameVal").value = "";
-				cellList(rackCode)
+				newRkCellList(rackCode);
 				
 			}		
 		}
@@ -797,7 +797,7 @@
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
 		
-				rackList(areaCode)
+				newArRackList(areaCode);
 				
 			}
 		}
@@ -861,7 +861,7 @@
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
 		
-				cellList(rackCode);
+				newRkCellList(rackCode);
 				
 			}
 		}
@@ -893,7 +893,7 @@
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
 				
-				cellList(rackCode);
+				newRkCellList(rackCode)
 				
 			}
 		}
@@ -925,7 +925,7 @@
 				if(xhr.readyState == 4 && xhr.status == 200){
 					var result = JSON.parse(xhr.responseText);	
 					
-					rackList(areaCode);
+					newArRackList(areaCode);
 					
 				}
 			}
@@ -958,7 +958,7 @@
 				if(xhr.readyState == 4 && xhr.status == 200){
 					var result = JSON.parse(xhr.responseText);	
 					
-					areaList(warehouseCode);
+					newArRackList(areaCode);
 					
 				}
 			}
@@ -1000,6 +1000,1068 @@
 		
 		}
 	
+	function newArRackList(areaCode){
+		
+		if(areaCode != null){
+			code = areaCode
+		}else{
+			code = document.getElementById("rackAreaCode").firstChild.value;
+		}
+		
+		document.getElementById("stockListBase").innerHTML = "" ;
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var jsonObj = JSON.parse(xhr.responseText);					
+							
+				var btnCotroller = document.getElementById("btnCotroller");
+				btnCotroller.innerHTML = "";
+				
+				var rackRegiBtn = document.createElement("button");
+				rackRegiBtn.type = "button";
+				rackRegiBtn.classList.add("btn");
+				rackRegiBtn.classList.add("btn-light");
+				rackRegiBtn.innerText = "등록";
+				rackRegiBtn.setAttribute("data-bs-toggle","modal");
+				rackRegiBtn.setAttribute("data-bs-target","#rackRegist");
+				btnCotroller.appendChild(rackRegiBtn);					
+				
+				var rackUpBtn = document.createElement("button");
+				rackUpBtn.type = "button";
+				rackUpBtn.classList.add("btn");
+				rackUpBtn.classList.add("btn-light");
+				rackUpBtn.innerText = "수정";
+				rackUpBtn.setAttribute("data-bs-toggle","modal");
+				rackUpBtn.setAttribute("onclick","beforeUpdateRk()");
+				rackUpBtn.setAttribute("data-bs-target","#rackUpdate");
+				btnCotroller.appendChild(rackUpBtn);
+				
+				var rackDelBtn = document.createElement("button");
+				rackDelBtn.type = "button";
+				rackDelBtn.classList.add("btn");
+				rackDelBtn.classList.add("btn-light");
+				rackDelBtn.innerText = "랙 삭제";
+				rackDelBtn.setAttribute("data-bs-toggle","modal");
+				rackDelBtn.setAttribute("data-bs-target","#rackDeleteAlert");			
+				btnCotroller.appendChild(rackDelBtn);		
+				
+				var backToArList = document.createElement("button");
+				backToArList.type = "button";
+				backToArList.classList.add("btn");
+				backToArList.classList.add("btn-light");
+				backToArList.innerText = "뒤로가기";
+				backToArList.setAttribute("onclick","areaList()")				
+				btnCotroller.appendChild(backToArList);
+				
+				var rackList = document.getElementById("warehouseList");
+				rackList.innerHTML = "";							
+				
+				var thead = document.createElement("thead");
+				rackList.appendChild(thead);
+				
+				var headTr = document.createElement("tr");
+				thead.appendChild(headTr)
+				
+				var headCheckBox = document.createElement("input");
+				headCheckBox.setAttribute("type","checkbox");
+				headCheckBox.id = "checkAll";
+				headCheckBox.setAttribute("onclick","allCheck()")
+				headTr.appendChild(headCheckBox);		
+						
+				var headTh1 = document.createElement("th");
+				headTh1.innerText = "랙 코드";
+				headTr.appendChild(headTh1);
+				
+				var headTh2 = document.createElement("th");
+				headTh2.innerText = "랙 이름";
+				headTr.appendChild(headTh2);
+				
+				var hiddenCode = document.getElementById("rackAreaCode");
+				hiddenCode.innerHTML = "";
+				
+				var hiddenInput = document.createElement("input");
+				hiddenInput.setAttribute("type","hidden");
+				hiddenInput.setAttribute("value", jsonObj.areaCode);
+				hiddenCode.appendChild(hiddenInput);
+				
+				var hiddenCode2 = document.getElementById("codeForRackList");
+				hiddenCode2.innerHTML="";
+				
+				var hiddenInput2 = document.createElement("input");
+				hiddenInput2.setAttribute("type","hidden");
+				hiddenInput2.setAttribute("value", jsonObj.areaCode);
+				hiddenCode2.appendChild(hiddenInput2);			
+				
+				for(myRackList of jsonObj.rList){
+					
+					var tBody = document.createElement("tbody");
+					rackList.appendChild(tBody);
+					
+					var bodyTr = document.createElement("tr");
+					tBody.appendChild(bodyTr);
+					
+					var bodyTd1 = document.createElement("td1");
+					bodyTr.appendChild(bodyTd1);
+					
+					var bodyCheckBox = document.createElement("input");
+					bodyCheckBox.setAttribute("type","checkbox");
+					bodyCheckBox.value = myRackList.warehouse_rack_code;
+					bodyCheckBox.innerText = myRackList.warehouse_area_code;	
+					bodyCheckBox.setAttribute("name","selectedCode");				
+					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyTd1.appendChild(bodyCheckBox);				
+					
+					var rackCodeTh = document.createElement("th");
+					rackCodeTh.innerText = myRackList.warehouse_rack_code;
+					rackCodeTh.setAttribute("onclick" , "newRkCellList(this.innerText)");
+					bodyTr.appendChild(rackCodeTh);		
+					
+					var rackName = document.createElement("td");
+					rackName.innerText = myRackList.warehouse_rack_name;
+					bodyTr.appendChild(rackName);	
+					
+				}
+				
+				var pageController = document.getElementById("pageUi");
+				pageController.innerHTML = "";
+				pageController.setAttribute("id","pageUi");
+				pageController.classList.add("pagination");
+				pageController.classList.add("justify-content-center");
+				
+				if (jsonObj.startPage <= 1){
+									
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					inLi1.classList.add("disabled");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.setAttribute("href","#");
+					inA1.setAttribute("aria-label","Previous");
+					inA1.classList.add("page-link");
+					inLi1.appendChild(inA1);
+	
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);	
+				
+				}else{
+					
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.classList.add("page-link");
+					inA1.setAttribute("aria-label","Previous");					
+					inA1.setAttribute("href","javascript:newArRackListPagenation("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inLi1.appendChild(inA1);
+					
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);
+					
+				}
+				
+				for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
+									
+					if(i == jsonObj.currentPageNum){
+						
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						inLi2.classList.add("active");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newArRackListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+										
+					}else{
+											
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newArRackListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+					}	
+				}
+				
+				if(jsonObj.endPage >= jsonObj.totalPageCount){
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					inLi3.classList.add("disabled");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","#");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+				
+				}else{
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","javascript:newArRackListPagenation("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+					
+				}				
+			}		
+		}
+					
+		xhr.open("get" , "./newArRackList?areaCode=" + code);
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.send();
+		
+	}
+	
+	function newArRackListPagenation(pageNumVal){
+		
+		var code = document.getElementById("rackAreaCode").firstChild.value;
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var jsonObj = JSON.parse(xhr.responseText);					
+							
+				var btnCotroller = document.getElementById("btnCotroller");
+				btnCotroller.innerHTML = "";
+				
+				var rackRegiBtn = document.createElement("button");
+				rackRegiBtn.type = "button";
+				rackRegiBtn.classList.add("btn");
+				rackRegiBtn.classList.add("btn-light");
+				rackRegiBtn.innerText = "등록";
+				rackRegiBtn.setAttribute("data-bs-toggle","modal");
+				rackRegiBtn.setAttribute("data-bs-target","#rackRegist");
+				btnCotroller.appendChild(rackRegiBtn);					
+				
+				var rackUpBtn = document.createElement("button");
+				rackUpBtn.type = "button";
+				rackUpBtn.classList.add("btn");
+				rackUpBtn.classList.add("btn-light");
+				rackUpBtn.innerText = "수정";
+				rackUpBtn.setAttribute("data-bs-toggle","modal");
+				rackUpBtn.setAttribute("onclick","beforeUpdateRk()");
+				rackUpBtn.setAttribute("data-bs-target","#rackUpdate");
+				btnCotroller.appendChild(rackUpBtn);
+				
+				var rackDelBtn = document.createElement("button");
+				rackDelBtn.type = "button";
+				rackDelBtn.classList.add("btn");
+				rackDelBtn.classList.add("btn-light");
+				rackDelBtn.innerText = "랙 삭제";
+				rackDelBtn.setAttribute("data-bs-toggle","modal");
+				rackDelBtn.setAttribute("data-bs-target","#rackDeleteAlert");			
+				btnCotroller.appendChild(rackDelBtn);		
+				
+				var backToArList = document.createElement("button");
+				backToArList.type = "button";
+				backToArList.classList.add("btn");
+				backToArList.classList.add("btn-light");
+				backToArList.innerText = "뒤로가기";
+				backToArList.setAttribute("onclick","areaList()")				
+				btnCotroller.appendChild(backToArList);
+				
+				var rackList = document.getElementById("warehouseList");
+				rackList.innerHTML = "";							
+				
+				var thead = document.createElement("thead");
+				rackList.appendChild(thead);
+				
+				var headTr = document.createElement("tr");
+				thead.appendChild(headTr)
+				
+				var headCheckBox = document.createElement("input");
+				headCheckBox.setAttribute("type","checkbox");
+				headCheckBox.id = "checkAll";
+				headCheckBox.setAttribute("onclick","allCheck()")
+				headTr.appendChild(headCheckBox);		
+						
+				var headTh1 = document.createElement("th");
+				headTh1.innerText = "랙 코드";
+				headTr.appendChild(headTh1);
+				
+				var headTh2 = document.createElement("th");
+				headTh2.innerText = "랙 이름";
+				headTr.appendChild(headTh2);
+				
+				var hiddenCode = document.getElementById("rackAreaCode");
+				hiddenCode.innerHTML = "";
+				
+				var hiddenInput = document.createElement("input");
+				hiddenInput.setAttribute("type","hidden");
+				hiddenInput.setAttribute("value", jsonObj.areaCode);
+				hiddenCode.appendChild(hiddenInput);
+				
+				var hiddenCode2 = document.getElementById("codeForRackList");
+				hiddenCode2.innerHTML="";
+				
+				var hiddenInput2 = document.createElement("input");
+				hiddenInput2.setAttribute("type","hidden");
+				hiddenInput2.setAttribute("value", jsonObj.areaCode);
+				hiddenCode2.appendChild(hiddenInput2);			
+				
+				for(myRackList of jsonObj.rList){
+					
+					var tBody = document.createElement("tbody");
+					rackList.appendChild(tBody);
+					
+					var bodyTr = document.createElement("tr");
+					tBody.appendChild(bodyTr);
+					
+					var bodyTd1 = document.createElement("td1");
+					bodyTr.appendChild(bodyTd1);
+					
+					var bodyCheckBox = document.createElement("input");
+					bodyCheckBox.setAttribute("type","checkbox");
+					bodyCheckBox.value = myRackList.warehouse_rack_code;
+					bodyCheckBox.innerText = myRackList.warehouse_area_code;	
+					bodyCheckBox.setAttribute("name","selectedCode");				
+					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyTd1.appendChild(bodyCheckBox);				
+					
+					var rackCodeTh = document.createElement("th");
+					rackCodeTh.innerText = myRackList.warehouse_rack_code;
+					rackCodeTh.setAttribute("onclick" , "newRkCellList(this.innerText)");
+					bodyTr.appendChild(rackCodeTh);		
+					
+					var rackName = document.createElement("td");
+					rackName.innerText = myRackList.warehouse_rack_name;
+					bodyTr.appendChild(rackName);	
+					
+				}
+				
+				var pageController = document.getElementById("pageUi");
+				pageController.innerHTML = "";
+				pageController.setAttribute("id","pageUi");
+				pageController.classList.add("pagination");
+				pageController.classList.add("justify-content-center");				
+				
+				if (jsonObj.startPage <= 1){
+								
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					inLi1.classList.add("disabled");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.setAttribute("href","#");
+					inA1.setAttribute("aria-label","Previous");
+					inA1.classList.add("page-link");
+					inLi1.appendChild(inA1);
+	
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);	
+				
+				}else{
+					
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.classList.add("page-link");
+					inA1.setAttribute("aria-label","Previous");					
+					inA1.setAttribute("href","javascript:newArRackListPagenation("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inLi1.appendChild(inA1);
+					
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);
+					
+				}
+				
+				for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
+					
+					if(i == jsonObj.currentPageNum){
+												
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						inLi2.classList.add("active");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newArRackListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+						
+					}else{
+						
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newArRackListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+					}	
+				}
+				
+				if(jsonObj.endPage >= jsonObj.totalPageCount){
+										
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					inLi3.classList.add("disabled");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","#");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+				
+				}else{
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","javascript:newArRackListPagenation("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+					
+				}				
+			}		
+		}
+					
+		xhr.open("get" , "./newArRackList?areaCode=" + code +"&pageNum="+ pageNumVal);
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.send();
+		
+	}
+	
+	
+	function newRkCellList(rackCode){
+		
+		if(rackCode != null){
+			code = rackCode
+		}else{
+			code = document.getElementById("cellRackCode").firstChild.value;
+		}
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var jsonObj = JSON.parse(xhr.responseText);					
+							
+				var btnCotroller = document.getElementById("btnCotroller");
+				btnCotroller.innerHTML = "";
+				
+				var cellRegiBtn = document.createElement("button");
+				cellRegiBtn.type = "button";
+				cellRegiBtn.classList.add("btn");
+				cellRegiBtn.classList.add("btn-light");
+				cellRegiBtn.innerText = "등록";
+				cellRegiBtn.setAttribute("data-bs-toggle","modal");
+				cellRegiBtn.setAttribute("data-bs-target","#cellRegist");
+				btnCotroller.appendChild(cellRegiBtn);	
+				
+				var cellUpBtn = document.createElement("button");
+				cellUpBtn.type = "button";
+				cellUpBtn.classList.add("btn");
+				cellUpBtn.classList.add("btn-light");
+				cellUpBtn.innerText = "수정";
+				cellUpBtn.setAttribute("data-bs-toggle","modal");
+				cellUpBtn.setAttribute("onclick","beforeUpdateRk()");
+				cellUpBtn.setAttribute("data-bs-target","#cellUpdate");
+				btnCotroller.appendChild(cellUpBtn);			
+				
+				var cellDelBtn = document.createElement("button");
+				cellDelBtn.type = "button";
+				cellDelBtn.classList.add("btn");
+				cellDelBtn.classList.add("btn-light");
+				cellDelBtn.innerText = "셀 삭제";
+				cellDelBtn.setAttribute("onclick","deleteCell()")				
+				btnCotroller.appendChild(cellDelBtn);
+						
+				var backTorkList = document.createElement("button");
+				backTorkList.type = "button";
+				backTorkList.classList.add("btn");
+				backTorkList.classList.add("btn-light");
+				backTorkList.innerText = "뒤로가기";
+				backTorkList.setAttribute("onclick","newArRackList()")				
+				btnCotroller.appendChild(backTorkList);
+				
+				var cellList = document.getElementById("warehouseList");
+				cellList.innerHTML = "";							
+				
+				var thead = document.createElement("thead");
+				cellList.appendChild(thead);
+				
+				var headTr = document.createElement("tr");
+				thead.appendChild(headTr)
+				
+				var headCheckBox = document.createElement("input");
+				headCheckBox.setAttribute("type","checkbox");
+				headCheckBox.id = "checkAll";
+				headCheckBox.setAttribute("onclick","allCheck()")
+				headTr.appendChild(headCheckBox);		
+						
+				var headTh1 = document.createElement("th");
+				headTh1.innerText = "셀 코드";
+				headTr.appendChild(headTh1);
+				
+				var headTh2 = document.createElement("th");
+				headTh2.innerText = "셀 이름";
+				headTr.appendChild(headTh2);
+				
+				var hiddenCode = document.getElementById("cellRackCode");
+				hiddenCode.innerHTML="";
+				
+				var hiddenInput = document.createElement("input");
+				hiddenInput.setAttribute("type","hidden");
+				hiddenInput.setAttribute("value", jsonObj.rackCode);
+				hiddenCode.appendChild(hiddenInput);
+				
+				var hiddenCode2 = document.getElementById("codeForCellList");
+				hiddenCode2.innerHTML="";
+				
+				var hiddenInput2 = document.createElement("input");
+				hiddenInput2.setAttribute("type","hidden");
+				hiddenInput2.setAttribute("value", jsonObj.rackCode);
+				hiddenCode2.appendChild(hiddenInput2);
+							
+				for(myCellList of jsonObj.cList){
+					
+					var tBody = document.createElement("tbody");
+					cellList.appendChild(tBody);
+					
+					var bodyTr = document.createElement("tr");
+					tBody.appendChild(bodyTr);
+					
+					var bodyTd1 = document.createElement("td1");
+					bodyTr.appendChild(bodyTd1);
+					
+					var bodyCheckBox = document.createElement("input");
+					bodyCheckBox.setAttribute("type","checkbox");
+					bodyCheckBox.value = myCellList.warehouse_cell_code;
+					bodyCheckBox.innerText = myCellList.warehouse_rack_code;	
+					bodyCheckBox.setAttribute("name","selectedCode");				
+					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyTd1.appendChild(bodyCheckBox);
+					
+					var cellCodeTh = document.createElement("th");
+					cellCodeTh.innerText = myCellList.warehouse_cell_code;
+					cellCodeTh.setAttribute("onclick","stockListInCell(this.innerText)");
+					bodyTr.appendChild(cellCodeTh);		
+					
+					var cellName = document.createElement("td");
+					cellName.innerText = myCellList.warehouse_cell_name;
+					bodyTr.appendChild(cellName);
+					
+				}
+				
+				var pageController = document.getElementById("pageUi");
+				pageController.innerHTML = "";
+				pageController.setAttribute("id","pageUi");
+				pageController.classList.add("pagination");
+				pageController.classList.add("justify-content-center");
+				
+				if (jsonObj.startPage <= 1){
+									
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					inLi1.classList.add("disabled");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.setAttribute("href","#");
+					inA1.setAttribute("aria-label","Previous");
+					inA1.classList.add("page-link");
+					inLi1.appendChild(inA1);
+	
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);	
+				
+				}else{
+					
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.classList.add("page-link");
+					inA1.setAttribute("aria-label","Previous");					
+					inA1.setAttribute("href","javascript:newRkCellListPagenation("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inLi1.appendChild(inA1);
+					
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);
+					
+				}
+				
+				for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
+									
+					if(i == jsonObj.currentPageNum){
+						
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						inLi2.classList.add("active");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newRkCellListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+										
+					}else{
+											
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newRkCellListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+					}	
+				}
+				
+				if(jsonObj.endPage >= jsonObj.totalPageCount){
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					inLi3.classList.add("disabled");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","#");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+				
+				}else{
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","javascript:newRkCellListPagenation("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);				
+					
+				}				
+			}		
+		}
+					
+		xhr.open("get" , "./newRkCellList?rackCode=" + code);
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.send();
+		
+	}
+	
+	function newRkCellListPagenation(pageNumVal){
+		
+		var code = document.getElementById("cellRackCode").firstChild.value;
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var jsonObj = JSON.parse(xhr.responseText);					
+							
+				var btnCotroller = document.getElementById("btnCotroller");
+				btnCotroller.innerHTML = "";
+				
+				var cellRegiBtn = document.createElement("button");
+				cellRegiBtn.type = "button";
+				cellRegiBtn.classList.add("btn");
+				cellRegiBtn.classList.add("btn-light");
+				cellRegiBtn.innerText = "등록";
+				cellRegiBtn.setAttribute("data-bs-toggle","modal");
+				cellRegiBtn.setAttribute("data-bs-target","#cellRegist");
+				btnCotroller.appendChild(cellRegiBtn);	
+				
+				var cellUpBtn = document.createElement("button");
+				cellUpBtn.type = "button";
+				cellUpBtn.classList.add("btn");
+				cellUpBtn.classList.add("btn-light");
+				cellUpBtn.innerText = "수정";
+				cellUpBtn.setAttribute("data-bs-toggle","modal");
+				cellUpBtn.setAttribute("onclick","beforeUpdateRk()");
+				cellUpBtn.setAttribute("data-bs-target","#cellUpdate");
+				btnCotroller.appendChild(cellUpBtn);			
+				
+				var cellDelBtn = document.createElement("button");
+				cellDelBtn.type = "button";
+				cellDelBtn.classList.add("btn");
+				cellDelBtn.classList.add("btn-light");
+				cellDelBtn.innerText = "셀 삭제";
+				cellDelBtn.setAttribute("onclick","deleteCell()")				
+				btnCotroller.appendChild(cellDelBtn);
+						
+				var backTorkList = document.createElement("button");
+				backTorkList.type = "button";
+				backTorkList.classList.add("btn");
+				backTorkList.classList.add("btn-light");
+				backTorkList.innerText = "뒤로가기";
+				backTorkList.setAttribute("onclick","newArRackList()")				
+				btnCotroller.appendChild(backTorkList);
+				
+				var cellList = document.getElementById("warehouseList");
+				cellList.innerHTML = "";							
+				
+				var thead = document.createElement("thead");
+				cellList.appendChild(thead);
+				
+				var headTr = document.createElement("tr");
+				thead.appendChild(headTr)
+				
+				var headCheckBox = document.createElement("input");
+				headCheckBox.setAttribute("type","checkbox");
+				headCheckBox.id = "checkAll";
+				headCheckBox.setAttribute("onclick","allCheck()")
+				headTr.appendChild(headCheckBox);		
+						
+				var headTh1 = document.createElement("th");
+				headTh1.innerText = "셀 코드";
+				headTr.appendChild(headTh1);
+				
+				var headTh2 = document.createElement("th");
+				headTh2.innerText = "셀 이름";
+				headTr.appendChild(headTh2);
+				
+				var hiddenCode = document.getElementById("cellRackCode");
+				hiddenCode.innerHTML="";
+				
+				var hiddenInput = document.createElement("input");
+				hiddenInput.setAttribute("type","hidden");
+				hiddenInput.setAttribute("value", jsonObj.rackCode);
+				hiddenCode.appendChild(hiddenInput);
+				
+				var hiddenCode2 = document.getElementById("codeForCellList");
+				hiddenCode2.innerHTML="";
+				
+				var hiddenInput2 = document.createElement("input");
+				hiddenInput2.setAttribute("type","hidden");
+				hiddenInput2.setAttribute("value", jsonObj.rackCode);
+				hiddenCode2.appendChild(hiddenInput2);
+							
+				for(myCellList of jsonObj.cList){
+					
+					var tBody = document.createElement("tbody");
+					cellList.appendChild(tBody);
+					
+					var bodyTr = document.createElement("tr");
+					tBody.appendChild(bodyTr);
+					
+					var bodyTd1 = document.createElement("td1");
+					bodyTr.appendChild(bodyTd1);
+					
+					var bodyCheckBox = document.createElement("input");
+					bodyCheckBox.setAttribute("type","checkbox");
+					bodyCheckBox.value = myCellList.warehouse_cell_code;
+					bodyCheckBox.innerText = myCellList.warehouse_rack_code;	
+					bodyCheckBox.setAttribute("name","selectedCode");				
+					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyTd1.appendChild(bodyCheckBox);
+					
+					var cellCodeTh = document.createElement("th");
+					cellCodeTh.innerText = myCellList.warehouse_cell_code;
+					cellCodeTh.setAttribute("onclick","stockListInCell(this.innerText)");
+					bodyTr.appendChild(cellCodeTh);		
+					
+					var cellName = document.createElement("td");
+					cellName.innerText = myCellList.warehouse_cell_name;
+					bodyTr.appendChild(cellName);
+					
+				}
+				
+				var pageController = document.getElementById("pageUi");
+				pageController.innerHTML = "";
+				pageController.setAttribute("id","pageUi");
+				pageController.classList.add("pagination");
+				pageController.classList.add("justify-content-center");
+				
+				if (jsonObj.startPage <= 1){
+									
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					inLi1.classList.add("disabled");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.setAttribute("href","#");
+					inA1.setAttribute("aria-label","Previous");
+					inA1.classList.add("page-link");
+					inLi1.appendChild(inA1);
+	
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);	
+				
+				}else{
+					
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.classList.add("page-link");
+					inA1.setAttribute("aria-label","Previous");					
+					inA1.setAttribute("href","javascript:newRkCellListPagenation("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inLi1.appendChild(inA1);
+					
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);
+					
+				}
+				
+				for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
+									
+					if(i == jsonObj.currentPageNum){
+						
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						inLi2.classList.add("active");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newRkCellListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+										
+					}else{
+											
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newRkCellListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+					}	
+				}
+				
+				if(jsonObj.endPage >= jsonObj.totalPageCount){
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					inLi3.classList.add("disabled");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","#");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+				
+				}else{
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","javascript:newRkCellListPagenation("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+					
+				}				
+			}		
+		}
+					
+		xhr.open("get" , "./newRkCellList?rackCode=" + code + "&pageNum=" + pageNumVal);
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.send();
+		
+	}
+	
+	function stockListInCell(cellCode){
+		
+		var code = cellCode;
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var jsonObj = JSON.parse(xhr.responseText);	
+				
+				var stockUi = document.getElementById("stockListBase");
+				stockUi.innerHTML = "";
+				
+				var stockForm = document.createElement("div");
+				stockForm.classList.add("form-control");
+				stockForm.classList.add("mt-3");
+				stockUi.appendChild(stockForm);
+				
+				var stockRow = document.createElement("row")
+				stockForm.appendChild(stockRow);
+				
+				var stockContainer = document.createElement("div");
+				stockContainer.classList.add("scroll-container");
+				stockContainer.classList.add("mt-1");
+				stockRow.appendChild(stockContainer);
+				
+				var stockScroll = document.createElement("div");
+				stockScroll.classList.add("scrollTable");
+				stockContainer.appendChild(stockScroll);
+				
+				var stockTable = document.createElement("table");
+				stockTable.classList.add("table");
+				stockTable.classList.add("table-bordered");
+				stockTable.classList.add("text-center");
+				stockContainer.appendChild(stockTable);
+				
+				var stThead = document.createElement("thead");
+				stockTable.appendChild(stThead);
+				
+				var stHeadTr = document.createElement("tr");
+				stThead.appendChild(stHeadTr);	
+						
+				var stHeadTh1 = document.createElement("th");
+				stHeadTh1.innerText = "재고 코드";
+				stHeadTr.appendChild(stHeadTh1);
+				
+				var stHeadTh2 = document.createElement("th");
+				stHeadTh2.innerText = "제품 코드";
+				stHeadTr.appendChild(stHeadTh2);
+				
+				var stHeadTh3 = document.createElement("th");
+				stHeadTh3.innerText = "제품 이름";
+				stHeadTr.appendChild(stHeadTh3);
+				
+				var stHeadTh4 = document.createElement("th");
+				stHeadTh4.innerText = "재고량";
+				stHeadTr.appendChild(stHeadTh4);
+				
+				var stHeadTh5 = document.createElement("th");
+				stHeadTh5.innerText = "비고";
+				stHeadTr.appendChild(stHeadTh5);
+				
+				var stHeadTh6 = document.createElement("th");
+				stHeadTh6.innerText = "재고 등록일";
+				stHeadTr.appendChild(stHeadTh6);
+				
+				var stHeadTh7 = document.createElement("th");
+				stHeadTh7.innerText = "재고 수정일";
+				stHeadTr.appendChild(stHeadTh7);
+						
+					for(stockList of jsonObj.stockInCell){
+					
+					var sTBody = document.createElement("tbody");
+					stockTable.appendChild(sTBody);
+					
+					var bodySTr = document.createElement("tr");
+					sTBody.appendChild(bodySTr);
+									
+					var scth = document.createElement("th");
+					scth.innerText = stockList.stock_code;
+					bodySTr.appendChild(scth);		
+					
+					var pcTd = document.createElement("td");
+					pcTd.innerText = stockList.product_code;
+					bodySTr.appendChild(pcTd);
+					
+					var pnTd = document.createElement("td");
+					pnTd.innerText = stockList.product_name;
+					bodySTr.appendChild(pnTd);
+					
+					var saTd = document.createElement("td");
+					saTd.innerText = stockList.stock_amount;
+					bodySTr.appendChild(saTd);
+					
+					var smTd = document.createElement("td");
+					smTd.innerText = stockList.stock_memo;
+					bodySTr.appendChild(smTd);
+					
+					var srTd = document.createElement("td");
+					srTd.innerText = moment(stockList.stock_resiter_date).format('YYYY.MM.DD');
+					bodySTr.appendChild(srTd);
+					
+					var suTd = document.createElement("td");
+					suTd.innerText = moment(stockList.stock_update_date).format('YYYY.MM.DD');
+					bodySTr.appendChild(suTd);
+					
+				}			
+			}							
+		}	
+		
+		xhr.open("get" , "./stockListInCell?cellCode=" + code);
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.send();
+		
+	}
+	
+	
+	
 	window.addEventListener("DOMContentLoaded" , function (){
 		
 		warehouseList();
@@ -1028,7 +2090,7 @@
 	             </button>
 	        </div>
 	     </div>
-	             <div class="row">
+	     <div class="row">
             <div class="form-control mt-3">
                 <div class="row">
                     <div class="col">
@@ -1069,9 +2131,15 @@
 						</div>
 					</div>
                	</div>
+               	<div class="page mt-3" >
+					<nav aria-label="Page navigation example">
+						<ul id="pageUi" class="pagination justify-content-center"></ul>
+					</nav>
+				</div>
             </div>
         </div>
-	     
+	    <div class="row" id="stockListBase">
+        </div> 
 	     <!-- 창고등록 모달 -->
 	     <div class="modal fade" id="warehouseRegist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			 <div class="modal-dialog">
@@ -1406,6 +2474,7 @@
 			  </div>
 		 </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script> 
 </body>
 </html>

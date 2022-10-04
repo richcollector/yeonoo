@@ -1092,7 +1092,7 @@
 		tr1.appendChild(th17);
 
 		var th18 = document.createElement("th");
-		th18.innerText = "사업자등록증";
+		th18.innerText = "사업자등록증(클릭확인)";
 		tr1.appendChild(th18);
 		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
@@ -1194,7 +1194,8 @@
 
 				var td18 = document.createElement("td");
 				td18.innerText = commentData.account_registration_jpg;
-				td18.setAttribute("onclick","location.href='http://15.164.165.147:8080/uploadFilesWms/"+ commentData.account_registration_jpg +"'")
+                td18.setAttribute("style","color:blue;");
+				td18.setAttribute("onclick","location.href='../../uploadFilesWms/"+ commentData.account_registration_jpg +"'")
 				trIn1.appendChild(td18);
 				
 				
@@ -1426,7 +1427,7 @@
 		tr1.appendChild(th17);
 
 		var th18 = document.createElement("th");
-		th18.innerText = "사업자등록증";
+		th18.innerText = "사업자등록증(클릭확인)";
 		tr1.appendChild(th18);
 		
 		var xhr = new XMLHttpRequest();	//AJAX 객체 생성
@@ -1528,6 +1529,8 @@
 
 				var td18 = document.createElement("td");
 				td18.innerText = commentData.account_registration_jpg;
+                td18.setAttribute("style","color:blue;");
+				td18.setAttribute("onclick","location.href='../../uploadFilesWms/"+ commentData.account_registration_jpg +"'")
 				trIn1.appendChild(td18);
 				
 				

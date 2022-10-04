@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noo.wms.vo.AdminVo;
@@ -236,5 +237,77 @@ public class WarehouseRestController {
 		return map;
 	}
 	
+	@RequestMapping("newArRackList")
+	public HashMap<String, Object> newArRackList(String areaCode, 
+			@RequestParam(value="pageNum", defaultValue = "1") int pageNum) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int rackCount = warehouseService.rackCount(areaCode);
+		
+		int totalPageCount = (int)Math.ceil(rackCount/15.0);
+		int startPage = ((pageNum-1)/5)*5 + 1;
+		int endPage = ((pageNum-1)/5+1)*5;
+			
+		if(endPage > totalPageCount) {
+			endPage = totalPageCount;
+		}
+	
+		String additionalParamType = "";
+		String additionalParamWord = "";
+			
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("currentPageNum", pageNum);
+		map.put("totalPageCount", totalPageCount);
+		map.put("additionalParamType", additionalParamType);
+		map.put("additionalParamWord", additionalParamWord);
+		map.put("areaCode", areaCode);
+		map.put("rList",warehouseService.newListRack(areaCode,pageNum));
+		
+		return map;
+	}
+	
+	@RequestMapping("newRkCellList")
+	public HashMap<String, Object> newRkCellList(String rackCode, 
+			@RequestParam(value="pageNum", defaultValue = "1") int pageNum) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int cellCount = warehouseService.cellCount(rackCode);
+		
+		int totalPageCount = (int)Math.ceil(cellCount/15.0);
+		int startPage = ((pageNum-1)/5)*5 + 1;
+		int endPage = ((pageNum-1)/5+1)*5;
+			
+		if(endPage > totalPageCount) {
+			endPage = totalPageCount;
+		}
+	
+		String additionalParamType = "";
+		String additionalParamWord = "";
+			
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("currentPageNum", pageNum);
+		map.put("totalPageCount", totalPageCount);
+		map.put("additionalParamType", additionalParamType);
+		map.put("additionalParamWord", additionalParamWord);
+		map.put("rackCode", rackCode);
+		map.put("cList",warehouseService.newListCell(rackCode, pageNum));
+		
+		return map;
+	}
+	
+	@RequestMapping("stockListInCell")
+	public HashMap<String, Object> stockListInCell(String cellCode){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("stockInCell",warehouseService.stockCell(cellCode));
+		
+		return map;
+		
+	}
 	
 }

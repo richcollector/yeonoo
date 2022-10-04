@@ -176,7 +176,10 @@
 		
 	}
 	
-	function lotListAll(){
+	function newLotListAll(){
+		
+		var searchTypeValue = document.getElementById("searchType").value;
+		var searchWordValue = document.getElementById("searchWord").value;
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -214,7 +217,7 @@
 				headT4.innerText = "등록일";
 				headTr.appendChild(headT4);
 				
-				for(myLotList of jsonObj.lL){
+				for(newLotList of jsonObj.lL){
 					
 					var tBody = document.createElement("tbody");
 					lotList.appendChild(tBody);
@@ -229,35 +232,338 @@
 					bodyCheckBox.setAttribute("type","checkbox");
 					bodyCheckBox.setAttribute("name","selectedLot");
 					bodyCheckBox.setAttribute("onclick","isChecked()");
-					bodyCheckBox.value = myLotList.lot.lot_code;
+					bodyCheckBox.value = newLotList.lot_code;
 					bodyTd1.appendChild(bodyCheckBox);
 						
 					var lotCodeTh = document.createElement("th");
-					lotCodeTh.innerText = myLotList.lot.lot_code;
+					lotCodeTh.innerText = newLotList.lot_code;
 					bodyTr.appendChild(lotCodeTh)			
 					
 					var pdCodeTd = document.createElement("td");
-					pdCodeTd.innerText = myLotList.lot.product_code;
+					pdCodeTd.innerText = newLotList.product_code;
 					bodyTr.appendChild(pdCodeTd);
 					
 					var pdName = document.createElement("td");
-					pdName.innerText = myLotList.product.product_name;
+					pdName.innerText = newLotList.product_name;
 					bodyTr.appendChild(pdName);
 					
 					var regDate = document.createElement("td");
-					regDate.innerText = moment(myLotList.lot.lot_date).format('YYYY.MM.DD');
+					regDate.innerText = moment(newLotList.lot_date).format('YYYY.MM.DD');
 					bodyTr.appendChild(regDate);
 					
 				}
 				
+				var pageController = document.getElementById("pageUi");
+				pageController.innerHTML = "";
+				pageController.setAttribute("id","pageUi");
+				pageController.classList.add("pagination");
+				pageController.classList.add("justify-content-center");
+				
+				if (jsonObj.startPage <= 1){
+									
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					inLi1.classList.add("disabled");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.setAttribute("href","#");
+					inA1.setAttribute("aria-label","Previous");
+					inA1.classList.add("page-link");
+					inLi1.appendChild(inA1);
+	
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);	
+				
+				}else{
+					
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.classList.add("page-link");
+					inA1.setAttribute("aria-label","Previous");					
+					inA1.setAttribute("href","javascript:newLotListPagenation("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inLi1.appendChild(inA1);
+					
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);
+					
+				}
+				
+				for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
+									
+					if(i == jsonObj.currentPageNum){
+						
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						inLi2.classList.add("active");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newLotListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+										
+					}else{
+											
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newLotListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+					}	
+				}
+				
+				if(jsonObj.endPage >= jsonObj.totalPageCount){
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					inLi3.classList.add("disabled");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","#");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+				
+				}else{
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","javascript:newLotListPagenation("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);				
+					
+				}				
 			}		
 		}
 					
-		xhr.open("get" , "./lotListAll");
+		xhr.open("get" , "./newLotList?searchType=" + searchTypeValue +"&searchWord="+searchWordValue);
 		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhr.send();
 		
 	}
+	
+	function newLotListPagenation(pageNumVal){
+		
+		var searchTypeValue = document.getElementById("searchType").value;
+		var searchWordValue = document.getElementById("searchWord").value;	
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var jsonObj = JSON.parse(xhr.responseText);				
+				
+				var lotList = document.getElementById("lotList");
+				lotList.innerHTML = "";
+				
+				var thead = document.createElement("thead");
+				lotList.appendChild(thead);
+				
+				var headTr = document.createElement("tr");
+				thead.appendChild(headTr)
+				
+				var headCheckBox = document.createElement("input");
+				headCheckBox.setAttribute("type","checkbox");
+				headCheckBox.id = "checkAll";
+				headCheckBox.setAttribute("onclick","allCheck()")
+				headTr.appendChild(headCheckBox);		
+						
+				var headTh1 = document.createElement("th");
+				headTh1.innerText = "로트 코드";
+				headTr.appendChild(headTh1);
+				
+				var headTh2 = document.createElement("th");
+				headTh2.innerText = "제품 코드";
+				headTr.appendChild(headTh2);
+				
+				var headTh3 = document.createElement("th");
+				headTh3.innerText = "제품 이름";
+				headTr.appendChild(headTh3);
+		
+				var headT4 = document.createElement("th");
+				headT4.innerText = "등록일";
+				headTr.appendChild(headT4);
+				
+				for(newLotList of jsonObj.lL){
+					
+					var tBody = document.createElement("tbody");
+					lotList.appendChild(tBody);
+					
+					var bodyTr = document.createElement("tr");
+					tBody.appendChild(bodyTr);
+									
+					var bodyTd1 = document.createElement("td1");
+					bodyTr.appendChild(bodyTd1);
+					
+					var bodyCheckBox = document.createElement("input");
+					bodyCheckBox.setAttribute("type","checkbox");
+					bodyCheckBox.setAttribute("name","selectedLot");
+					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyCheckBox.value = newLotList.lot_code;
+					bodyTd1.appendChild(bodyCheckBox);
+						
+					var lotCodeTh = document.createElement("th");
+					lotCodeTh.innerText = newLotList.lot_code;
+					bodyTr.appendChild(lotCodeTh)			
+					
+					var pdCodeTd = document.createElement("td");
+					pdCodeTd.innerText = newLotList.product_code;
+					bodyTr.appendChild(pdCodeTd);
+					
+					var pdName = document.createElement("td");
+					pdName.innerText = newLotList.product_name;
+					bodyTr.appendChild(pdName);
+					
+					var regDate = document.createElement("td");
+					regDate.innerText = moment(newLotList.lot_date).format('YYYY.MM.DD');
+					bodyTr.appendChild(regDate);
+					
+				}
+				
+				var pageController = document.getElementById("pageUi");
+				pageController.innerHTML = "";
+				pageController.setAttribute("id","pageUi");
+				pageController.classList.add("pagination");
+				pageController.classList.add("justify-content-center");
+				
+				if (jsonObj.startPage <= 1){
+									
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					inLi1.classList.add("disabled");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.setAttribute("href","#");
+					inA1.setAttribute("aria-label","Previous");
+					inA1.classList.add("page-link");
+					inLi1.appendChild(inA1);
+	
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);	
+				
+				}else{
+					
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.classList.add("page-link");
+					inA1.setAttribute("aria-label","Previous");					
+					inA1.setAttribute("href","javascript:newLotListPagenation("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inLi1.appendChild(inA1);
+					
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);
+					
+				}
+				
+				for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
+									
+					if(i == jsonObj.currentPageNum){
+						
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						inLi2.classList.add("active");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newLotListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+										
+					}else{
+											
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newLotListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+					}	
+				}
+				
+				if(jsonObj.endPage >= jsonObj.totalPageCount){
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					inLi3.classList.add("disabled");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","#");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+				
+				}else{
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","javascript:newLotListPagenation("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);				
+					
+				}				
+			}		
+		}
+					
+		xhr.open("get" , "./newLotList?searchType" + searchTypeValue +"&searchWord="+searchWordValue +"&pageNum="+ pageNumVal);
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.send();
+		
+	}
+	
 	
 	function allCheck(){
 
@@ -526,14 +832,14 @@ function findPdToUP(){
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhr.send("code=" + checkList);
 		
-		lotListAll();
+		newLotListAll();
 	}
 	
 	
 	
 window.addEventListener("DOMContentLoaded" , function (){
 		
-		lotListAll();
+		newLotListAll();
 		//setInterval(refreshCommentList , 3000);
 		
 	});	
@@ -555,7 +861,7 @@ window.addEventListener("DOMContentLoaded" , function (){
 	             <button type="button" class="btn btn-light" data-bs-toggle="modal" onclick="beforeUpdateLot()" data-bs-target="#lotUpdateModal">
 	             	수정
 	             </button>
-	             <button type="button" class="btn btn-light" onclick="deleteLotLog()">
+	             <button type="button" class="btn btn-light">
 	             	삭제
 	             </button>
 	        </div>
@@ -567,17 +873,15 @@ window.addEventListener("DOMContentLoaded" , function (){
                     	<i class="bi bi-list fs-5">&nbsp;</i><span class="fs-5" id="infoBox">로트 관리</span>
                     </div>
                     <div class="col-4">
-                    <form action="./accountInfoPage" method="get">
 						<div class="input-group mb-3">
-								<select name="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
+								<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 									<option selected>선택</option>
-									<option value="account_code">로트 코드</option>
-									<option value="account_name">제품 코드</option>
+									<option value="l.lot_code">로트 코드</option>
+									<option value="p.product_name">제품 이름</option>
 								  </select>
-								<input name="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button">
-								<button class="input-group-text bi bi-search" id="basic-addon1"></button>
+								<input id="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button" onkeyup="deleteLotLog()">
+								<button class="input-group-text bi bi-search"></button>
 						</div>
-						</form>
                 	</div>
                	</div>
                	<div class="row">
@@ -601,6 +905,11 @@ window.addEventListener("DOMContentLoaded" , function (){
 						</div>
 					</div>
                	</div>
+               	<div class="page mt-3" >
+					<nav aria-label="Page navigation example">
+						<ul id="pageUi" class="pagination justify-content-center"></ul>
+					</nav>
+				</div>
             </div>
         </div>
 		<!-- 로트 등록 모달 -->

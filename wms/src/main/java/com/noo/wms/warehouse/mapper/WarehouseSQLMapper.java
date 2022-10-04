@@ -1,6 +1,9 @@
 package com.noo.wms.warehouse.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.noo.wms.vo.AreaVo;
 import com.noo.wms.vo.CellVo;
@@ -34,5 +37,14 @@ public interface WarehouseSQLMapper {
 	public ArrayList<CellVo> selectCellByWarehouse (String warehouseCode);
 	public ArrayList<RackVo> selectRackByWarehouse (String warehouseCode);
 	public ArrayList<AreaVo> selectAreaByWarehouse (String warehouseCode);
-	
+	//새로운 리스트
+	public ArrayList<RackVo> newRackList(
+			@Param("areaCode") String areaCode,
+			@Param("startList") int startList);
+	public int rackListCount (String areaCode);
+	public ArrayList<CellVo> newCellList(
+			@Param("rackCode") String rackCode,
+			@Param("startList") int startList);
+	public int cellListCount (String rackCode);
+	public ArrayList<HashMap<String, Object>> stockInCell(String cellCode);	
 }

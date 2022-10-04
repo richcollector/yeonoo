@@ -87,4 +87,17 @@ public class LotServiceImpl {
 		lotMapper.lotDelete(lotVo);
 	}
 	
+	public ArrayList<HashMap<String, Object>> newListLot(String companyCode, String searchType, String searchWord, int pageNum ){
+		
+		int startList = (pageNum-1)*15;
+		
+		return lotMapper.newLotList(companyCode, searchType, searchWord, startList);
+	}
+	
+	public int lotCount(String companyCode) {
+		
+		return lotMapper.lotListCount(companyCode);
+		
+	}
+	
 }

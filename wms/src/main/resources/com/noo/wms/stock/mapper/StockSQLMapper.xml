@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.noo.wms.stock.mapper.StockSQLMapper">
+
+	<insert id="insertStockAuto">
+		INSERT INTO Stock(
+		lot_code,
+		company_code,
+		product_code,
+		warehouse_code,
+		warehouse_area_code,
+		warehouse_rack_code,
+		warehouse_cell_code,
+		stock_amount,
+		stock_register_date,
+		stock_register_employee,
+		stock_update_date,
+		stock_update_employee,
+		stock_memo
+		)values(
+		#{lot_code},
+		#{company_code},
+		#{product_code},
+		#{warehouse_code},
+		#{warehouse_area_code},
+		#{warehouse_rack_code},
+		#{warehouse_cell_code},
+		#{stock_amount},
+		SYSDATE(),
+		#{stock_register_employee},
+		NULL,
+		NULL,
+		#{stock_memo}
+		)
+		
+		<selectKey keyColumn="stock_code" keyProperty="stock_code" resultType="com.noo.wms.vo.StockVo" order="AFTER">
+		      select stock_code from Stock
+    		  ORDER BY stock_code DESC LIMIT 1
+		</selectKey>
+					
+	</insert>
+	
+	<update id="updateStockAuto">
+		UPDATE Stock
+			SET lot_code = #{lot_code},
+			product_code = #{product_code},
+			warehouse_code = #{warehouse_code},
+			warehouse_area_code = #{warehouse_area_code},
+			warehouse_rack_code = #{warehouse_rack_code},
+			warehouse_cell_code = #{warehouse_cell_code},
+			stock_update_date = SYSDATE(),
+			stock_amount = #{stock_amount},
+			stock_memo = #{stock_memo}
+		WHERE stock_code = #{stock_code}
+	</update>
+	
+	<delete id="deleteStockAuto">
+		DELETE FROM Stock
+		WHERE stock_code = #{stock_code}
+	</delete>
+	
+	<update id="decreaseAuto">
+		UPDATE Stock
+			SET stock_amount = #{stock_amount}
+		WHERE stock_code = #{stock_code}
+	</update>
+	
+	<select id="stockValue" resultType="int">
+		SELECT stock_amount FROM Stock
+		WHERE stock_code = #{stock_code}
+	</select>
+	
+	<select id="basicStockList" resultType="com.noo.wms.vo.StockVo">
+		SELECT * FROM Stock
+		WHERE company_code = #{company_code}
+	</select>
+	
+	<select id="stockSearch" resultType="com.noo.wms.vo.StockVo">
+		SELECT * FROM Stock
+		WHERE company_code = #{company_code}
+		AND lot_code LIKE CONCAT('%',#{lot_code},'%')
+	</select>
+	
+	<select id="totalStockAmount" resultType="map">
+		SELECT SUM(stock_amount)AS amountSum ,p.product_name FROM Stock s, Product p
+		WHERE s.product_code = p.product_code
+		AND lot_code = #{lot_code}
+	</select>
+	
+	<select id="productSearch" resultType="map">
+		SELECT * FROM Stock s , Product p
+		WHERE s.product_code = p.product_code
+		AND s.company_code = #{company_code}
+		AND p.product_name LIKE CONCAT('%',#{product_name},'%')
+	</select>
+	
+	<select id="totalProductAmount" resultType="map">
+		SELECT SUM(stock_amount)AS amountSum ,p.product_name FROM Stock s , Product p
+		WHERE s.product_code = p.product_code
+		AND s.company_code = #{company_code}
+		AND p.product_name LIKE CONCAT('%',#{product_name},'%')
+	</select>
+
+	<select id="warehouseSearch" resultType="map">
+		SELECT s.*,p.product_name,w.warehouse_name FROM Stock s , Warehouse w , Product p
+		WHERE w.warehouse_code = s.warehouse_code
+		AND p.product_code = s.product_code 
+		AND s.company_code = #{company_code}
+		AND w.warehouse_name  LIKE CONCAT('%',#{warehouse_name},'%')
+	</select>
+	
+	<select id="totalWarehouseStock" resultType="map">
+		SELECT w.warehouse_name, COUNT(DISTINCT s.lot_code) AS lotCount, SUM(s.stock_amount) AS amountSum
+		FROM Stock s , Warehouse w , Product p
+		WHERE w.warehouse_code = s.warehouse_code
+		AND p.product_code = s.product_code 
+		AND s.company_code = #{company_code}
+		AND w.warehouse_name  LIKE CONCAT('%',#{warehouse_name},'%')
+		GROUP BY w.warehouse_name	
+	</select>
+	
+	<select id="warehouseSearchHelp" resultType="map">
+		SELECT p.product_name, COUNT(s.lot_code) AS whLotCount, s.lot_code, SUM(s.stock_amount) AS whAmountSum
+		FROM Stock s , Warehouse w , Product p
+		WHERE w.warehouse_code = s.warehouse_code
+		AND p.product_code = s.product_code 
+		AND s.company_code = #{company_code}
+		AND w.warehouse_name LIKE CONCAT('%',#{warehouse_name},'%')
+		GROUP BY s.lot_code
+	</select>
+	
+	<select id="areaSearch" resultType="map">
+		SELECT s.*,p.product_name, wa.warehouse_area_name FROM Stock s , Warehouse_area wa , Product p
+		WHERE wa.warehouse_area_code = s.warehouse_area_code
+		AND p.product_code = s.product_code 
+		AND s.company_code = #{company_code}
+		AND wa.warehouse_area_name  LIKE CONCAT('%',#{warehouse_area_name},'%')
+	</select>
+	
+	<select id="totalAreaStock" resultType="map">
+		SELECT wa.warehouse_area_name, COUNT(DISTINCT s.lot_code) AS lotCount, SUM(s.stock_amount) AS amountSum
+		FROM Stock s , Warehouse_area wa , Product p
+		WHERE wa.warehouse_area_code = s.warehouse_area_code
+		AND p.product_code = s.product_code 
+		AND s.company_code = #{company_code}
+		AND wa.warehouse_area_name  LIKE CONCAT('%',#{warehouse_area_name},'%')
+		GROUP BY wa.warehouse_area_name	
+	</select>
+	
+	<select id="areaSearchHelp" resultType="map">
+		SELECT p.product_name, COUNT(s.lot_code) AS arLotCount, s.lot_code, SUM(s.stock_amount) AS arAmountSum
+		FROM Stock s , Warehouse_area wa , Product p
+		WHERE wa.warehouse_area_code = s.warehouse_area_code
+		AND p.product_code = s.product_code 
+		AND s.company_code = #{company_code}
+		AND wa.warehouse_area_name LIKE CONCAT('%',#{warehouse_area_name},'%')
+		GROUP BY s.lot_code
+	</select>
+	
+	<select id="rackSearch" resultType="map">
+		SELECT s.*,p.product_name, wr.warehouse_rack_name FROM Stock s , Warehouse_rack wr , Product p
+		WHERE wr.warehouse_rack_code = s.warehouse_rack_code
+		AND p.product_code = s.product_code 
+		AND s.company_code = #{company_code}
+		AND wr.warehouse_rack_name  LIKE CONCAT('%', #{warehouse_rack_name},'%')
+	</select>
+	
+	<select id="totalRackStock" resultType="map">
+		SELECT wr.warehouse_rack_name, COUNT(DISTINCT s.lot_code) AS lotCount, SUM(s.stock_amount) AS amountSum
+		FROM Stock s , Warehouse_rack wr , Product p
+		WHERE wr.warehouse_rack_code = s.warehouse_rack_code
+		AND p.product_code = s.product_code 
+		AND s.company_code = #{company_code}
+		AND wr.warehouse_rack_name  LIKE CONCAT('%',#{warehouse_rack_name},'%')
+		GROUP BY wr.warehouse_rack_name	
+	</select>
+	
+	<select id="rackSearchHelp" resultType="map">
+		SELECT p.product_name, s.lot_code, SUM(s.stock_amount) AS rkAmountSum
+		FROM Stock s , Warehouse_rack wr , Product p
+		WHERE wr.warehouse_rack_code = s.warehouse_rack_code
+		AND p.product_code = s.product_code 
+		AND s.company_code = #{company_code}
+		AND wr.warehouse_rack_name LIKE CONCAT('%',#{warehouse_rack_name},'%')
+		GROUP BY s.lot_code	
+	</select>
+	
+</mapper>

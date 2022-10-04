@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.noo.wms.company.mapper.CompanySQLMapper">
+
+	<!-- 관리자가 회사 등록 -->
+	
+	<insert id="insertCompany">
+		INSERT into Company (
+			company_name,
+			company_registration_number,
+			company_corporate_registration_number,
+			company_representative,
+			company_phone,
+			company_pax_number,
+			company_email,
+			company_email_tax,
+			company_post_number,
+			company_address,
+			company_address_detail,
+			company_rogo,
+			company_wallpaper,
+			company_registration,
+			company_memo
+			) values (
+			#{company_name},
+			#{company_registration_number},
+			#{company_corporate_registration_number},
+			#{company_representative},
+			#{company_phone},
+			#{company_pax_number},
+			#{company_email},
+			#{company_email_tax},
+			#{company_post_number},
+			#{company_address},
+			#{company_address_detail},
+			NULL,
+			NULL,
+			SYSDATE(),
+			#{company_memo})
+	</insert>
+	
+	
+	<!-- 회사 등록시 자동으로 어드민 정보에 회사 코드 들어가게 업데이트 -->
+	
+	<update id="whenRegistCompany">
+		UPDATE Admin
+		SET company_code = #{companyCode}
+		WHERE admin_code = #{adminCode}
+	</update>
+	
+	<!-- 마지막 회사 등록 정보에서 code가져오기 -->
+	
+	<select id="findLatestRegist" resultType="com.noo.wms.vo.CompanyVo">
+		select * from Company 
+		ORDER BY company_code DESC LIMIT 1;
+	</select>
+	
+	<!-- 회사 정보 셀렉트 -->
+	
+	<select id="companyInfo" resultType="com.noo.wms.vo.CompanyVo">
+		SELECT * FROM Company
+		WHERE company_code = #{companyCode};
+	</select>
+	
+	<!-- session 새로고침-->
+	
+	<select id="refreshSession" resultType="com.noo.wms.vo.AdminVo">
+		select * from Admin
+		where admin_email = #{adminEmail}
+		and admin_password = #{adminPassword}
+	</select>
+	
+	<!-- 회사 정보 수정  -->
+	
+	<update id="updateCompany">
+		UPDATE Company
+			set company_name = #{company_name},
+				company_registration_number = #{company_registration_number},
+				company_corporate_registration_number = #{company_corporate_registration_number},
+				company_representative = #{company_representative},
+				company_phone = #{company_phone},
+				company_pax_number = #{company_pax_number},
+				company_email = #{company_email},
+				company_email_tax = #{company_email_tax},
+				company_post_number = #{company_post_number},
+				company_address = #{company_address},
+				company_address_detail = #{company_address_detail},
+				company_rogo = #{company_rogo},
+				company_wallpaper = #{company_wallpaper},
+				company_memo = #{company_memo}
+			Where company_code = #{company_code}
+	</update>
+	
+	<!-- 부서 등록 -->
+	<insert id="insertDepartment">
+		INSERT INTO Department(
+			company_code,
+			department_name,
+			department_register_date,
+			department_update_date
+		) values (
+			#{company_code},
+			#{department_name},
+			SYSDATE(),
+			SYSDATE()
+		)
+	</insert>
+	
+	<!-- 부서코드로 불러오기 -->
+ 	<select id="selectDepartmentByCompanyCode" resultType="com.noo.wms.vo.DepartmentVo">
+		select * from Department
+		where company_code = #{company_code}
+	</select>
+	
+	<!-- 부서 목록 전체 불러오기 및 검색 -->
+	<select id="departmentInfo" resultType="com.noo.wms.vo.DepartmentVo">		
+		SELECT * FROM Department
+			<trim prefix="WHERE" prefixOverrides="AND|OR">			
+				<if test="searchType=='department_code' and searchWord != null and searchWord != '' ">				
+					AND department_code like CONCAT('%', #{searchWord}, '%')			
+				</if>			
+				<if test="searchType=='department_name' and searchWord != null and searchWord != '' ">				
+					AND department_name like CONCAT('%', #{searchWord}, '%')			
+				</if>						
+			</trim>		
+		WHERE company_code = #{company_code}
+		LIMIT #{startList}, 15
+	</select>
+
+	<!-- 부서목록 페이징 -->
+	<select id="departmentInfoCount" resultType="int">
+		SELECT COUNT(*) FROM Department
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchWord != null and searchWord != '' ">			
+				<if test="searchType=='department_code'">				
+					AND department_code like CONCAT('%', #{searchWord}, '%')			
+				</if>			
+				<if test="searchType=='department_name'">				
+					AND department_name like CONCAT('%', #{searchWord}, '%')			
+				</if>			
+			</if>
+		</trim>
+		WHERE company_code = #{company_code}
+	</select>
+	
+	<!-- 부서 목록 체크박스 선택 -->
+	<select id="selectDepartmentInfo" resultType="com.noo.wms.vo.DepartmentVo">
+		SELECT * FROM Department
+		WHERE department_code = #{department_code}
+		and company_code = #{company_code}
+	</select>
+	
+	<!-- 부서 정보 수정 -->
+	<update id="updateDepartmentInfo">
+		UPDATE Department 
+		SET department_name = #{department_name}, 
+			department_update_date = SYSDATE()
+		WHERE department_code = #{department_code}
+		AND company_code = #{company_code}
+	</update>
+	
+	<!-- 부서 정보 삭제 -->
+	<delete id="deleteDepartmentInfo">
+		DELETE FROM Department
+		WHERE department_code = #{department_code}
+		AND company_code = #{company_code}
+	</delete>
+	
+	<!-- 직급 등록 -->
+	<insert id="insertEmployeeRank">
+		INSERT INTO Employee_rank(
+			company_code,
+			employee_rank_name,
+			employee_rank_register_date,
+			employee_rank_update_date
+		) values (
+			#{company_code},
+			#{employee_rank_name},
+			SYSDATE(),
+			SYSDATE()
+		)
+	</insert>
+	
+	<!-- 직급코드로 불러오기 -->
+ 	<select id="selectEmployeeRankByCompanyCode" resultType="com.noo.wms.vo.EmployeeRankVo">
+		select * from Employee_rank
+		where employee_rank_code = #{employee_rank_code}
+	</select>
+	
+	<!-- 직급 목록 전체 불러오기 및 검색 -->
+	<select id="employeeRankInfo" resultType="com.noo.wms.vo.EmployeeRankVo">		
+		SELECT * FROM Employee_rank
+			<trim prefix="WHERE" prefixOverrides="AND|OR">			
+				<if test="searchType=='employee_rank_code' and searchWord != null and searchWord != '' ">				
+					AND employee_rank_code like CONCAT('%', #{searchWord}, '%')			
+				</if>			
+				<if test="searchType=='employee_rank_name' and searchWord != null and searchWord != '' ">				
+					AND employee_rank_name like CONCAT('%', #{searchWord}, '%')			
+				</if>						
+			</trim>		
+		WHERE company_code = #{company_code}
+		LIMIT #{startList}, 15
+	</select>
+
+	<!-- 직급목록 페이징 -->
+	<select id="employeeRankInfoCount" resultType="int">
+		SELECT COUNT(*) FROM Employee_rank
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchWord != null and searchWord != '' ">			
+				<if test="searchType=='employee_rank_code'">				
+					AND employee_rank_code like CONCAT('%', #{searchWord}, '%')			
+				</if>			
+				<if test="searchType=='employee_rank_name'">				
+					AND employee_rank_name like CONCAT('%', #{searchWord}, '%')			
+				</if>			
+			</if>
+		</trim>
+		WHERE company_code = #{company_code}
+	</select>
+	
+	<!-- 직급 목록 체크박스 선택 -->
+	<select id="selectEmployeeRankInfo" resultType="com.noo.wms.vo.EmployeeRankVo">
+		SELECT * FROM Employee_rank
+		WHERE employee_rank_code = #{employee_rank_code}
+		and company_code = #{company_code}
+	</select>
+	
+	<!-- 직급 정보 수정 -->
+	<update id="updateEmployeeRankInfo">
+		UPDATE Employee_rank 
+		SET employee_rank_name = #{employee_rank_name},
+			employee_rank_update_date = SYSDATE()
+		WHERE employee_rank_code = #{employee_rank_code}
+		AND company_code = #{company_code}
+	</update>
+	
+	<!-- 직급 정보 삭제 -->
+	<delete id="deleteEmployeeRankInfo">
+		DELETE FROM Employee_rank
+		WHERE employee_rank_code = #{employee_rank_code}
+		AND company_code = #{company_code}
+	</delete>
+	
+</mapper>

@@ -186,6 +186,38 @@ public class WarehouseServiceImpl {
 		warehouseMapper.deleteWarehouse(warehouseCode);
 	}
 	
+	//새로운 리스트	
+	public ArrayList<RackVo> newListRack(String areaCode, int pageNum){
+		
+		int startList = (pageNum-1)*15;
+		
+		return warehouseMapper.newRackList(areaCode, startList);
+		
+	}
+	
+	//페이징용 카운트
+	public int rackCount (String areacode) {
+		
+		return warehouseMapper.rackListCount(areacode);
+	}
+	
+	public ArrayList<CellVo> newListCell(String rackCode, int pageNum){
+		
+		int startList = (pageNum-1)*15;
+		
+		return warehouseMapper.newCellList(rackCode, startList);
+		
+	}
+	
+	public int cellCount (String rackCode) {
+		
+		return warehouseMapper.cellListCount(rackCode);
+	}
+	
+	public ArrayList<HashMap<String, Object>> stockCell(String cellCode){
+		
+		return warehouseMapper.stockInCell(cellCode);
+	}
 	
 	
 }

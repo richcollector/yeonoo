@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noo.wms.lot.service.LotServiceImpl;
@@ -59,16 +60,6 @@ public class LotRestController {
 		return map;
 	}
 	
-	@RequestMapping("lotListAll")
-	public HashMap<String,Object> lotListAll(String companyCode, HttpSession session){
-		
-		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("result", "sucess");
-		map.put("lL", lotService.showLotList(companyCode, session));
-		
-		return map; 
-	}
-	
 	@RequestMapping("lotItemUpdate")
 	public HashMap<String, Object> lotItemUpdate(LotVo lotVo){
 		
@@ -97,5 +88,41 @@ public class LotRestController {
 		return map;
 	}
 	
+	@RequestMapping("newLotList")
+	public HashMap<String, Object> newLotList(String companyCode,HttpSession session, String searchType, String searchWord,
+			@RequestParam(value="pageNum", defaultValue = "1") int pageNum){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		String coCode = ((AdminVo) session.getAttribute("adminInfo")).getCompany_code();
+		
+		int lotCount = lotService.lotCount(coCode);
+		
+		int totalPageCount = (int)Math.ceil(lotCount/15.0);
+		int startPage = ((pageNum-1)/5)*5 + 1;
+		int endPage = ((pageNum-1)/5+1)*5;
+			
+		if(endPage > totalPageCount) {
+			endPage = totalPageCount;
+		}
+	
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("currentPageNum", pageNum);
+		map.put("totalPageCount", totalPageCount);
+		
+		String additionalParamType = "";
+		String additionalParamWord = "";
+		if(searchType != null && searchWord != null) {
+			additionalParamType +=  searchType;
+			additionalParamWord += searchWord;
+		}		
+		
+		map.put("additionalParamType", additionalParamType);
+		map.put("additionalParamWord", additionalParamWord);
+		map.put("lL", lotService.newListLot(coCode, searchType, searchWord, pageNum));
+			
+		return map;
+	}
 	
 }

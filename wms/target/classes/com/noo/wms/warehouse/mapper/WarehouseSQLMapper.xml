@@ -150,4 +150,33 @@
 		AND wa.warehouse_code = #{warehouseCode}
 	</select>
 
+	<select id="newRackList" resultType="com.noo.wms.vo.RackVo">
+		SELECT * FROM Warehouse_rack
+		WHERE warehouse_area_code = #{areaCode}
+		LIMIT #{startList}, 15
+	</select>
+
+	<select id="rackListCount" resultType="int">
+		SELECT COUNT(*) FROM Warehouse_rack
+		WHERE warehouse_area_code = #{areaCode}
+	</select>
+
+	<select id="newCellList" resultType="com.noo.wms.vo.CellVo">
+		SELECT * FROM Warehouse_cell
+		WHERE warehouse_rack_code = #{rackCode}
+		LIMIT #{startList}, 15
+	</select>
+	
+	<select id="cellListCount" resultType="int">
+		SELECT COUNT(*) FROM Warehouse_cell
+		WHERE warehouse_rack_code = #{rackCode}
+	</select>
+
+	<select id="stockInCell" resultType="map">
+		SELECT s.stock_code,s.product_code,p.product_name, s.stock_amount,stock_memo, s.stock_register_date, s.stock_update_date  
+		FROM Stock s, Product p
+		WHERE p.product_code = s.product_code
+		AND warehouse_cell_code = #{cellCode}
+	</select>
+
 </mapper>

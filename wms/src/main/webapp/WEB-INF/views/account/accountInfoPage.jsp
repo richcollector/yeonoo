@@ -146,20 +146,31 @@
 			document.getElementById("account_name_Alert").innerHTML = "";
 		}
 		
+		var registerNumRule = /^(\d{3,3})+[-]+(\d{2,2})+[-]+(\d{5,5})$/i;
+		
 		if(document.getElementById("account_registration_number").value == ""){
 			document.getElementById("account_registration_number_Alert").innerText = "사업자번호를 입력해주셔야 합니다.";
 			document.getElementById("account_registration_number_Alert").classList.add("text-danger");
 			document.getElementById("account_registration_number").focus();
 			return;
+		}else if(!registerNumRule.test(document.getElementById("account_registration_number").value)){
+			document.getElementById("account_registration_number_Alert").innerText = "사업자등록번호가 올바르지 않습니다. (ex : 110-11-11111)";
+			document.getElementById("account_registration_number_Alert").classList.add("text-danger");
+			return;
 		}else{
 			document.getElementById("account_registration_number_Alert").innerHTML = "";
 		}
 		
+		var corporateNumRule = /^(\d{6,6})+[-]+(\d{7,7})$/i;
 		
 		if(document.getElementById("account_corporate_registration_number").value == ""){
 			document.getElementById("account_corporate_registration_number_Alert").innerText = "법인등록번호를 입력해주셔야 합니다.";
 			document.getElementById("account_corporate_registration_number_Alert").classList.add("text-danger");
 			document.getElementById("account_corporate_registration_number").focus();
+			return;
+		}else if(!corporateNumRule.test(document.getElementById("account_corporate_registration_number").value)){
+			document.getElementById("account_corporate_registration_number_Alert").innerText = "법인등록번호가 올바르지 않습니다. (ex : 111111-1111111)";
+			document.getElementById("account_corporate_registration_number_Alert").classList.add("text-danger");
 			return;
 		}else{
 			document.getElementById("account_corporate_registration_number_Alert").innerHTML = "";
@@ -504,6 +515,10 @@
 			document.getElementById("account_email_update_Alert").classList.add("text-danger");
 			document.getElementById("account_email_update").focus();
 			return;
+		}else if(!emailRule.test(document.getElementById("account_email_update").value)){
+			document.getElementById("account_email_update_Alert").innerText = "이메일(일반) 형식이 올바르지 않습니다.";
+			document.getElementById("account_email_update_Alert").classList.add("text-danger");
+			return;
 		}else{
 			document.getElementById("account_email_update_Alert").innerHTML = "";
 		}
@@ -513,6 +528,10 @@
 			document.getElementById("account_email_tax_update_Alert").innerText = "이메일(세금계산서)를 입력해주셔야 합니다.";
 			document.getElementById("account_email_tax_update_Alert").classList.add("text-danger");
 			document.getElementById("account_email_tax_update").focus();
+			return;
+		}else if(!emailRule.test(document.getElementById("account_email_tax_update").value)){
+			document.getElementById("account_email_tax_update_Alert").innerText = "이메일(세금계산서) 형식이 올바르지 않습니다.";
+			document.getElementById("account_email_tax_update_Alert").classList.add("text-danger");
 			return;
 		}else{
 			document.getElementById("account_email_tax_update_Alert").innerHTML = "";

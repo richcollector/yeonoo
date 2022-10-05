@@ -43,6 +43,30 @@
 	
 <script type="text/javascript">
 
+	//원 표시 자동변환 script
+	function changeMoneyUnit() {
+	    var moneyValue = document.querySelectorAll(".money");
+	    const moneyUnit = "원"
+	    var regex = /[^0-9]/g;
+	    for(i of moneyValue){
+	        result = i.innerText.toString().replace(regex,"").replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	        result = result.concat(moneyUnit);
+	        i.innerText = result;
+	    }
+	}
+	
+	// 자동변환 script
+	function changeAmountUnit() {
+	    var moneyValue = document.querySelectorAll(".amount");
+	    const moneyUnit = ""
+	    var regex = /[^0-9]/g;
+	    for(i of moneyValue){
+	        result = i.innerText.toString().replace(regex,"").replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	        result = result.concat(moneyUnit);
+	        i.innerText = result;
+	    }
+	}
+
 	
 
 	function findProduct(){
@@ -1853,10 +1877,12 @@
 
 				var td6 = document.createElement("td");
 				td6.innerText = commentData.product_price;
+				td6.classList.add("money");
 				trIn1.appendChild(td6);
 				
 				var td7 = document.createElement("td");
 				td7.innerText = commentData.product_amount;
+				td7.classList.add("amount");
 				trIn1.appendChild(td7);
 				
 				
@@ -1973,7 +1999,8 @@
 					inSpan3.textContent = ">>";
 					inA3.appendChild(inSpan3);
 				}
-
+				changeMoneyUnit();
+				changeAmountUnit();
 			}
 		}
 		
@@ -2204,10 +2231,12 @@
 
 				var td6 = document.createElement("td");
 				td6.innerText = commentData.product_price;
+				td6.classList.add("money");
 				trIn1.appendChild(td6);
 				
 				var td7 = document.createElement("td");
 				td7.innerText = commentData.product_amount;
+				td7.classList.add("amount");
 				trIn1.appendChild(td7);
 				
 				
@@ -2324,7 +2353,8 @@
 					inSpan3.textContent = ">>";
 					inA3.appendChild(inSpan3);
 				}
-
+				changeMoneyUnit();
+				changeAmountUnit();
 			}
 		}
 		

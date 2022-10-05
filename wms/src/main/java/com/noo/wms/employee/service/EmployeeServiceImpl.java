@@ -44,14 +44,14 @@ public class EmployeeServiceImpl {
 	private JavaMailSender javaMailSender; 
 	
 	//공통
-	public ArrayList<ProductVo> findProductNumName (String productName) {
-		ArrayList<ProductVo> productList = employeeSQLMapper.findProductNumName(productName);
+	public ArrayList<ProductVo> findProductNumName (String productName, String company_code) {
+		ArrayList<ProductVo> productList = employeeSQLMapper.findProductNumName(productName, company_code);
 		
 		return productList;
 	}
 	
-	public ArrayList<AccountVo> findAccountNum (String accountName) {
-		ArrayList<AccountVo> productList = employeeSQLMapper.findAccountNum(accountName);
+	public ArrayList<AccountVo> findAccountNum (String accountName, String company_code) {
+		ArrayList<AccountVo> productList = employeeSQLMapper.findAccountNum(accountName, company_code);
 		
 		return productList;
 	}

@@ -39,19 +39,45 @@ public class EmployeeRestController {
 	//공통 (제품찾기)
 	
 	@RequestMapping("findProductNumName")
-	public ArrayList<ProductVo> findProductNumName(String productName){
+	public ArrayList<ProductVo> findProductNumName(HttpSession session, String productName){
+		
+		String company_code = null;
+		
+		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
+		EmployeeVo employeeInfo = (EmployeeVo)session.getAttribute("employeeInfo");
+		
+		if(adminInfo != null) {
+			company_code = adminInfo.getCompany_code();
+		}
+		
+		if(employeeInfo != null) {
+			company_code = employeeInfo.getCompany_code();
+		}
 		
 		System.out.println("키보드업");
-		ArrayList<ProductVo> productList = employeeService.findProductNumName(productName);
+		ArrayList<ProductVo> productList = employeeService.findProductNumName(productName,company_code);
 		
 		return productList;
 	}
 	
 	@RequestMapping("findAccountNum")
-	public ArrayList<AccountVo> findAccountNum(String accountName){
+	public ArrayList<AccountVo> findAccountNum(HttpSession session, String accountName){
+		
+		String company_code = null;
+		
+		AdminVo adminInfo = (AdminVo)session.getAttribute("adminInfo");
+		EmployeeVo employeeInfo = (EmployeeVo)session.getAttribute("employeeInfo");
+		
+		if(adminInfo != null) {
+			company_code = adminInfo.getCompany_code();
+		}
+		
+		if(employeeInfo != null) {
+			company_code = employeeInfo.getCompany_code();
+		}
 		
 		System.out.println("키보드업");
-		ArrayList<AccountVo> productList = employeeService.findAccountNum(accountName);
+		ArrayList<AccountVo> productList = employeeService.findAccountNum(accountName, company_code);
 		
 		return productList;
 	}

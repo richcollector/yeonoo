@@ -22,8 +22,11 @@ import com.noo.wms.vo.PurchaseVo;
 public interface EmployeeSQLMapper {
 	
 	//공통
-	public ArrayList<ProductVo> findProductNumName(@Param("productName") String productName);
-	public ArrayList<AccountVo> findAccountNum(@Param("accountName") String accountName);
+	public ArrayList<ProductVo> findProductNumName(@Param("productName") String productName,
+													@Param("company_code") String company_code);
+	
+	public ArrayList<AccountVo> findAccountNum(@Param("accountName") String accountName,
+												@Param("company_code") String company_code);
 
 	
 	

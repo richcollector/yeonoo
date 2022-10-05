@@ -9,6 +9,7 @@
 	<select id="findAccountNum" resultType="com.noo.wms.vo.AccountVo">
 		SELECT * FROM Account
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
+					AND company_code like CONCAT('%', #{company_code}, '%')	
 				<if test="accountName != null and accountName != ''">				
 					AND account_name like CONCAT('%', #{accountName}, '%')			
 				</if>
@@ -18,6 +19,7 @@
 	<select id="findProductNumName" resultType="com.noo.wms.vo.ProductVo">
 		SELECT * FROM Product
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
+					AND company_code like CONCAT('%', #{company_code}, '%')	
 				<if test="productName != null and productName != ''">				
 					AND product_name like CONCAT('%', #{productName}, '%')			
 				</if>

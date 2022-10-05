@@ -528,7 +528,7 @@
 			document.getElementById("companyCorporateRegistrationNumber").focus();
 			return;
 		}else{
-			insertCompanyInfo();
+			
 		}
 		
 	}

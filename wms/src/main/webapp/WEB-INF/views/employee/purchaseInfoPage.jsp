@@ -3067,12 +3067,10 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">주문상태</span>
-                                        <c:if test="${!empty adminInfo }">
 	                                    <select id="purchase_state_update" class="border rounded-end" style="width:100px;" onchange="checkUpdateRemove()">
 	                                       	<option value="F">승인보류</option>
 	                                       	<option value="T">승인</option>
 	                                    </select>
-	                                    </c:if>
 <!--                                         <input id="purchase_state_update"  onblur="checkUpdateRemove()" type="text" class="form-control"> -->
                                     </div>
 									<div id="purchase_state_update_Alert" class="mb-3"></div>

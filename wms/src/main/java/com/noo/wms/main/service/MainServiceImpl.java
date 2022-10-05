@@ -63,7 +63,8 @@ public class MainServiceImpl {
 			text += "<h1>[WMS] 회원가입이 완료되었습니다.</h1>";
 			//text += "인증 번호 :" + uuid;
 			text += "아래 인증하기 링크를 클릭하셔서 인증 후 사이트 이용이 가능합니다.<br>";
-			text += "<a href='http://localhost:8181/wms/main/mailAuthProcess?auth_key="+uuid+"'>";
+			//text += "<a href='http://localhost:8181/wms/main/mailAuthProcess?auth_key="+uuid+"'>";
+			text += "<a href='http://15.164.165.147:8080/wms/main/mailAuthProcess?auth_key="+uuid+"'>";
 			text += "인증하기";
 			text += "</a>";
 			

@@ -2091,13 +2091,11 @@
 	        </div>
 	     </div>
 	     <div class="row">
-            <div class="form-control mt-3">
                 <div class="row">
                     <div class="col">
                     	<i class="bi bi-list fs-5">&nbsp;</i><span class="fs-5" id="infoBox">창고 목록</span>
                     </div>
                     <div class="col-4">
-                    <form action="./accountInfoPage" method="get">
 						<div class="input-group mb-3">
 								<select name="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 									<option selected>선택</option>

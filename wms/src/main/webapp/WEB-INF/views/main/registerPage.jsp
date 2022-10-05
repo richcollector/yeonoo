@@ -19,14 +19,13 @@
 	
 	<script type="text/javascript">
 
-			function chageCompanySelect(){
+			function companyInput(){
 				
 				var company_code = document.getElementById("company_code");
-				var companyCode = company_code.options[company_code.selectedIndex].value;
 				var dep_selectBox = document.getElementById("dep_selectBox");
 				var company_code_alert = document.getElementById("company_code_alert");
 				
-				if(company_code.value != "회사 코드를 선택해주세요."){
+				if(company_code.value != ""){
 					company_code_alert.innerHTML = "";
 				}
 				
@@ -34,39 +33,48 @@
 				xhr.onreadystatechange = function () {
 					if(xhr.readyState == 4 && xhr.status == 200){
 						var result = JSON.parse(xhr.responseText); //xhr.responseText = 응답 결과 텍스트(JSON)
-						dep_selectBox.innerHTML = "";
 						
-						var label = document.createElement("label");
-						label.classList = "form-lable";
-						label.classList = "my-2 fw-bold";
-						label.innerText = "부서 코드";
-						dep_selectBox.appendChild(label);
-						
-						var dep_select = document.createElement("select");
-						dep_select.classList = "form-select";
-						dep_select.setAttribute("id" , "department_code");
-						dep_select.setAttribute("name" , "department_code");
-						dep_select.setAttribute("onchange" , "dep_change()");
-						dep_selectBox.appendChild(dep_select);
-						
-						var optionDisabled = document.createElement("option");
-						optionDisabled.innerText = "부서 코드를 선택해주세요";
-						optionDisabled.value = "0";
-						optionDisabled.disabled = true;
-						optionDisabled.selected = true;
-						dep_select.appendChild(optionDisabled);
-						
-						for(depList of result.data){
-							var dep_select_List = document.createElement("option");
-							dep_select_List.value = depList.departmentVo.department_code;
-							dep_select_List.name = depList.departmentVo.department_code;
-							dep_select_List.innerText = depList.departmentVo.department_code;
+						if(result.data.length == 0){
+							company_code_alert.classList.add("text-danger");
+							company_code_alert.innerText = "회사 코드를 확인해주세요.";
+							company_code_alert.focus();
+							return;
+						} else {
+							company_code_alert.innerHTML = "";
+							dep_selectBox.innerHTML = "";
 							
-							dep_select.appendChild(dep_select_List);
+							var label = document.createElement("label");
+							label.classList = "form-lable";
+							label.classList = "my-2 fw-bold";
+							label.innerText = "부서 코드";
+							dep_selectBox.appendChild(label);
+							
+							var dep_select = document.createElement("select");
+							dep_select.classList = "form-select";
+							dep_select.setAttribute("id" , "department_code");
+							dep_select.setAttribute("name" , "department_code");
+							dep_select.setAttribute("onchange" , "dep_change()");
+							dep_selectBox.appendChild(dep_select);
+							
+							var optionDisabled = document.createElement("option");
+							optionDisabled.innerText = "부서 코드를 선택해주세요";
+							optionDisabled.value = "0";
+							optionDisabled.disabled = true;
+							optionDisabled.selected = true;
+							dep_select.appendChild(optionDisabled);
+							
+							for(depList of result.data){
+								var dep_select_List = document.createElement("option");
+								dep_select_List.value = depList.departmentVo.department_code;
+								dep_select_List.name = depList.departmentVo.department_code;
+								dep_select_List.innerText = depList.departmentVo.department_code;
+								
+								dep_select.appendChild(dep_select_List);
+							}
 						}
 					}
 				}
-				xhr.open("get" , "./getDepCodeProcess?company_code=" + companyCode); //리퀘스트 세팅..
+				xhr.open("get" , "./getDepCodeProcess?company_code=" + company_code.value); //리퀘스트 세팅..
 				//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); //Post
 				xhr.send(); //AJAX로 리퀘스트함..
 			}
@@ -176,8 +184,8 @@
 				var check1Input = document.getElementById("check1");
 				var check2Input = document.getElementById("check2");
 				
-				if(company_code.value == "회사 코드를 선택해주세요."){
-					company_code_alert.innerText = "필수 항목입니다.";
+				if(company_code.value == ""){
+					company_code_alert.innerText = "회사 코드를 확인해주세요.";
 					company_code_alert.classList.add("text-danger");
 					company_code.focus();
 					return;
@@ -310,12 +318,13 @@
 					<div class="col">
 				         <div>
 				             <label for="companyCode" class="form-label fw-bold">회사 코드</label>
-				         	 <select id="company_code" name="company_code" onchange="chageCompanySelect()" class="form-select" aria-label="Default select example">
+				         	 <%-- <select id="company_code" name="company_code" onchange="chageCompanySelect()" class="form-select" aria-label="Default select example">
 							   <option selected disabled>회사 코드를 선택해주세요.</option>
 							   <c:forEach items="${companyCodeDataList}" var="data">
 							     <option value="${data.companyVo.company_code }">${data.companyVo.company_code }</option>
 							   </c:forEach>
-							 </select>
+							 </select> --%>
+							 <input type="text" onblur="companyInput()" class="form-control" value="" id="company_code" name="company_code" placeholder="회사 코드를 입력해주세요." aria-label="CompanyCode" aria-describedby="addon-wrapping">
 							 <div id="company_code_alert"></div>
 				         </div>
 				         <div id="dep_selectBox">
@@ -326,7 +335,7 @@
 			<div class="row mb-2">
 					<div class="col">
 						<label for="employee_email" class="form-label fw-bold">이메일</label>
-							<input id="employee_email" onblur="emailCheck()" name="employee_email" type="text" class="form-control" placeholder="인증메일을 받기 위해 정확한 이메일 주소를 입력해주세요." aria-label="Recipient's username" aria-describedby="button-addon2">
+							<input id="employee_email" onblur="emailCheck()" name="employee_email" type="text" class="form-control" placeholder="인증 메일을 받기 위해 정확한 이메일 주소를 입력해주세요." aria-label="Recipient's username" aria-describedby="button-addon2">
 							<!-- <button class="btn btn-outline-primary mt-2" type="button" id="button-addon2">인증 번호 받기</button> -->
 					</div>
 					<div id="employee_email_alert"></div>

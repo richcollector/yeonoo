@@ -3036,12 +3036,10 @@
                                 <div class="col">
                                 	<div class="input-group" class="form-control">
                                     <span class="input-group-text">수주상태</span>
-                                    <c:if test="${!empty adminInfo }">
 	                               		<select id="obtain_order_state_update" class="border rounded-end" style="width:100px;" onchange="checkUpdateRemove()">
 	                                       	<option value="F">승인보류</option>
 	                                       	<option value="T">승인</option>
 	                                    </select>
-                                    </c:if>
                                 	<div id="obtain_order_state_update_Alert" class="mb-3"></div>
                                 	</div>
                                 </div>

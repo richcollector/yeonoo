@@ -31,7 +31,7 @@
 </style>
 
 <script>
-
+	
 	function vanillaStockList(){
 		
 		var xhr = new XMLHttpRequest();

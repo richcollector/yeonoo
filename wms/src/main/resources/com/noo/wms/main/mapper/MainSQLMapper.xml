@@ -41,6 +41,20 @@
     		  ORDER BY employee_code DESC LIMIT 1
 		</selectKey>
 	</insert>
+	
+	<select id="selectRankCode" resultType="string">
+		select employee_rank_code
+		from Employee_rank
+		where company_code = #{company_code}
+		LIMIT 1
+	</select>
+	
+	<update id="updateRankCode">
+		update Employee
+		set employee_rank_code = #{employee_rank_code}
+		where company_code = #{company_code}
+		and employee_code = #{employee_code}
+	</update>
 		
 	<!-- 사원 로그인 -->
 	<select id="selectByEmployeeEmailAndPw" resultType="com.noo.wms.vo.EmployeeVo">

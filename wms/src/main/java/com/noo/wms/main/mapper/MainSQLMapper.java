@@ -24,6 +24,10 @@ public interface MainSQLMapper {
 	//사원 회원가입
 	public void insertEmployee(EmployeeVo employeeVo);
 	
+	public String selectRankCode(String company_code);
+	
+	public void updateRankCode(EmployeeVo employeeVo);
+	
 	//회원가입시 회사코드 불러오기
 	public ArrayList<CompanyVo> selectCompanyCode();
 	

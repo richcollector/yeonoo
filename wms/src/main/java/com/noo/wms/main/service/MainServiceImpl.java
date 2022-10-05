@@ -43,6 +43,11 @@ public class MainServiceImpl {
 		
 		mainSQLMapper.insertEmployee(employeeVo);
 		
+		String companyCode = employeeVo.getCompany_code();
+		String RankCode = mainSQLMapper.selectRankCode(companyCode);
+		employeeVo.setEmployee_rank_code(RankCode);
+		mainSQLMapper.updateRankCode(employeeVo);
+		
 		System.out.println("test2 : " + employeeVo.getEmployee_code());
 		
 		//인증 메일 전송.... 

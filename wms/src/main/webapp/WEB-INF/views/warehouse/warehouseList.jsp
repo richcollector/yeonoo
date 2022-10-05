@@ -2091,6 +2091,7 @@
 	        </div>
 	     </div>
 	     <div class="row">
+	     	<div class="form-control mt-3">
                 <div class="row">
                     <div class="col">
                     	<i class="bi bi-list fs-5">&nbsp;</i><span class="fs-5" id="infoBox">창고 목록</span>
@@ -2106,7 +2107,6 @@
 								<input name="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button">
 								<button class="input-group-text bi bi-search" id="basic-addon1"></button>
 						</div>
-						</form>
                 	</div>
                	</div>
                	<div class="row">
@@ -2135,9 +2135,11 @@
 					</nav>
 				</div>
             </div>
-        </div>
-	    <div class="row" id="stockListBase">
-        </div> 
+	            <div class="row" id="stockListBase">
+	        	</div>
+        	</div> 
+         </div>
+	    
 	     <!-- 창고등록 모달 -->
 	     <div class="modal fade" id="warehouseRegist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			 <div class="modal-dialog">
@@ -2471,6 +2473,7 @@
 				    </div>
 			  </div>
 		 </div>
+
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script> 

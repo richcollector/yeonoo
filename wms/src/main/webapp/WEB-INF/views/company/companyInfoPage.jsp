@@ -372,8 +372,166 @@
 		
 	function keepThisForm(){
 		
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		var registerNumRule = /^(\d{3,3})+[-]+(\d{2,2})+[-]+(\d{5,5})$/i;
+		var corporateNumRule = /^(\d{6,6})+[-]+(\d{7,7})$/i;	
+		
+		if(document.getElementById("companyName").value == ""){
+			document.getElementById("companyNameAlert").innerText = "회사명을 입력해주십시오.";
+			document.getElementById("companyNameAlert").classList.add("text-danger");
+			document.getElementById("companyName").focus();
+			return;
+		}else if(document.getElementById("companyRepresentative").value == ""){
+			document.getElementById("companyRepresentativeAlert").innerText = "성명을 입력해주십시오.";
+			document.getElementById("companyRepresentativeAlert").classList.add("text-danger");
+			document.getElementById("companyRepresentative").focus();
+			return;
+		}else if(document.getElementById("companyPhone").value == ""){
+			document.getElementById("companyPhoneAlert").innerText = "기업 전화번호를 입력해주십시오.";
+			document.getElementById("companyPhoneAlert").classList.add("text-danger");
+			document.getElementById("companyPhone").focus();
+			return;
+		}else if(document.getElementById("companyPaxNumber").value == ""){
+			document.getElementById("companyPaxNumberAlert").innerText = "기업 팩스번호를 입력해주십시오.";
+			document.getElementById("companyPaxNumberAlert").classList.add("text-danger");
+			document.getElementById("companyPaxNumber").focus();
+			return;
+		}else if(document.getElementById("companyPostNumber").value == "" || document.getElementById("companyAddress").value = ""){
+			document.getElementById("addressAlert").innerText = "주소 검색 기능을 이용해주십시오";
+			document.getElementById("addressAlert").classList.add("text-danger");
+			document.getElementById("companyPostNumber").focus();
+			return;
+		}else if(document.getElementById("companyAddressDetail").value == ""){
+			document.getElementById("companyAddressDetailAlert").innerText = "상세 주소를 입력해주십시오.";
+			document.getElementById("companyAddressDetailAlert").classList.add("text-danger");
+			document.getElementById("companyAddressDetail").focus();
+			return;
+		}else if(document.getElementById("companyEmail").value == ""){
+			document.getElementById("companyEmailAlert").innerText = "이메일을 입력해주십시오.";
+			document.getElementById("companyEmailAlert").classList.add("text-danger");
+			document.getElementById("companyEmail").focus();
+			return
+		}else if(document.getElementById("companyEmailTax").value == ""){
+			document.getElementById("companyEmailTaxAlert").innerText = "세금계산서 이메일을 입력해주십시오.";
+			document.getElementById("companyEmailTaxAlert").classList.add("text-danger");
+			document.getElementById("companyEmailTax").focus();
+			return;
+		}else if(!emailRule.test(document.getElementById("companyEmail").value)){
+			document.getElementById("companyEmailFormAlert").innerText = "이메일 형식이 올바르지 않습니다.";
+			document.getElementById("companyEmailFormAlert").classList.add("text-danger");
+			document.getElementById("companyEmail").focus();
+			return;
+		}else if(!emailRule.test(document.getElementById("companyEmailTax").value)){
+			document.getElementById("companyEmailTaxFormAlert").innerText = "세금계산서 이메일 형식이 올바르지 않습니다.";
+			document.getElementById("companyEmailTaxFormAlert").classList.add("text-danger");
+			document.getElementById("companyEmailTax").focus();
+			return;
+		}else if(!registerNumRule.test(document.getElementById("companyRegistrationNumber").value)){
+			document.getElementById("companyRegistrationNumberFormAlert").innerText = "사업자등록번호가 올바르지 않습니다. (ex : 110-11-11111)";
+			document.getElementById("companyRegistrationNumberFormAlert").classList.add("text-danger");
+			document.getElementById("companyRegistrationNumber").focus();
+			return;
+		}else if(document.getElementById("companyRegistrationNumber").value == ""){
+			document.getElementById("companyRegistrationNumberAlert").innerText = "사업자등록번호를 입력해주십시오.";
+			document.getElementById("companyRegistrationNumberAlert").classList.add("text-danger");
+			document.getElementById("companyRegistrationNumber").focus();
+			return;
+		}else if(document.getElementById("companyCorporateRegistrationNumber").value == ""){
+			document.getElementById("companyCorporateRegistrationNumberAlert").innerText = "법인등록번호를 입력해주십시오.";
+			document.getElementById("companyCorporateRegistrationNumberAlert").classList.add("text-danger");
+			document.getElementById("companyCorporateRegistrationNumber").focus();	
+			return;
+		}else if(!corporateNumRule.test(document.getElementById("companyCorporateRegistrationNumber").value)){
+			document.getElementById("companyCorporateRegistrationNumberFormAlert").innerText = "법인등록번호가 올바르지 않습니다. (ex : 110-11-11111)";
+			document.getElementById("companyCorporateRegistrationNumberFormAlert").classList.add("text-danger");
+			document.getElementById("companyCorporateRegistrationNumber").focus();
+			return;
+		}else{
+			insertCompanyInfo();
+		}
 	}
 	
+	function keepThisUpdateForm(){
+		
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		var registerNumRule = /^(\d{3,3})+[-]+(\d{2,2})+[-]+(\d{5,5})$/i;
+		var corporateNumRule = /^(\d{6,6})+[-]+(\d{7,7})$/i;	
+		
+		if(document.getElementById("companyName").value == ""){
+			document.getElementById("companyNameAlert").innerText = "회사명을 입력해주십시오.";
+			document.getElementById("companyNameAlert").classList.add("text-danger");
+			document.getElementById("companyName").focus();
+			return;
+		}else if(document.getElementById("companyRepresentative").value == ""){
+			document.getElementById("companyRepresentativeAlert").innerText = "성명을 입력해주십시오.";
+			document.getElementById("companyRepresentativeAlert").classList.add("text-danger");
+			document.getElementById("companyRepresentative").focus();
+			return;
+		}else if(document.getElementById("companyPhone").value == ""){
+			document.getElementById("companyPhoneAlert").innerText = "기업 전화번호를 입력해주십시오.";
+			document.getElementById("companyPhoneAlert").classList.add("text-danger");
+			document.getElementById("companyPhone").focus();
+			return;
+		}else if(document.getElementById("companyPaxNumber").value == ""){
+			document.getElementById("companyPaxNumberAlert").innerText = "기업 팩스번호를 입력해주십시오.";
+			document.getElementById("companyPaxNumberAlert").classList.add("text-danger");
+			document.getElementById("companyPaxNumber").focus();
+			return;
+		}else if(document.getElementById("companyPostNumber").value == "" || document.getElementById("companyAddress").value = ""){
+			document.getElementById("addressAlert").innerText = "주소 검색 기능을 이용해주십시오";
+			document.getElementById("addressAlert").classList.add("text-danger");
+			document.getElementById("companyPostNumber").focus();
+			return;
+		}else if(document.getElementById("companyAddressDetail").value == ""){
+			document.getElementById("companyAddressDetailAlert").innerText = "상세 주소를 입력해주십시오.";
+			document.getElementById("companyAddressDetailAlert").classList.add("text-danger");
+			document.getElementById("companyAddressDetail").focus();
+			return;
+		}else if(document.getElementById("companyEmail").value == ""){
+			document.getElementById("companyEmailAlert").innerText = "이메일을 입력해주십시오.";
+			document.getElementById("companyEmailAlert").classList.add("text-danger");
+			document.getElementById("companyEmail").focus();
+			return
+		}else if(document.getElementById("companyEmailTax").value == ""){
+			document.getElementById("companyEmailTaxAlert").innerText = "세금계산서 이메일을 입력해주십시오.";
+			document.getElementById("companyEmailTaxAlert").classList.add("text-danger");
+			document.getElementById("companyEmailTax").focus();
+			return;
+		}else if(!emailRule.test(document.getElementById("companyEmail").value)){
+			document.getElementById("companyEmailFormAlert").innerText = "이메일 형식이 올바르지 않습니다.";
+			document.getElementById("companyEmailFormAlert").classList.add("text-danger");
+			document.getElementById("companyEmail").focus();
+			return;
+		}else if(!emailRule.test(document.getElementById("companyEmailTax").value)){
+			document.getElementById("companyEmailTaxFormAlert").innerText = "세금계산서 이메일 형식이 올바르지 않습니다.";
+			document.getElementById("companyEmailTaxFormAlert").classList.add("text-danger");
+			document.getElementById("companyEmailTax").focus();
+			return;
+		}else if(!registerNumRule.test(document.getElementById("companyRegistrationNumber").value)){
+			document.getElementById("companyRegistrationNumberFormAlert").innerText = "사업자등록번호가 올바르지 않습니다. (ex : 110-11-11111)";
+			document.getElementById("companyRegistrationNumberFormAlert").classList.add("text-danger");
+			document.getElementById("companyRegistrationNumber").focus();
+			return;
+		}else if(document.getElementById("companyRegistrationNumber").value == ""){
+			document.getElementById("companyRegistrationNumberAlert").innerText = "사업자등록번호를 입력해주십시오.";
+			document.getElementById("companyRegistrationNumberAlert").classList.add("text-danger");
+			document.getElementById("companyRegistrationNumber").focus();
+			return;
+		}else if(document.getElementById("companyCorporateRegistrationNumber").value == ""){
+			document.getElementById("companyCorporateRegistrationNumberAlert").innerText = "법인등록번호를 입력해주십시오.";
+			document.getElementById("companyCorporateRegistrationNumberAlert").classList.add("text-danger");
+			document.getElementById("companyCorporateRegistrationNumber").focus();	
+			return;
+		}else if(!corporateNumRule.test(document.getElementById("companyCorporateRegistrationNumber").value)){
+			document.getElementById("companyCorporateRegistrationNumberFormAlert").innerText = "법인등록번호가 올바르지 않습니다. (ex : 110-11-11111)";
+			document.getElementById("companyCorporateRegistrationNumberFormAlert").classList.add("text-danger");
+			document.getElementById("companyCorporateRegistrationNumber").focus();
+			return;
+		}else{
+			insertCompanyInfo();
+		}
+		
+	}
 	
 	window.addEventListener("DOMContentLoaded" , function (){
 			
@@ -545,6 +703,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text">대표명</span>
                                         <input type="text" class="form-control" id="companyRepresentative">
+                                        <div id="companyRepresentativeAlert"></div>
                                     </div>
                                 </div>
                             </div>
@@ -553,6 +712,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text">회사명</span>
                                         <input type="text" class="form-control" id="companyName">
+                                        <div id="companyNameAlert"></div>
                                     </div>
                                 </div>                               
                             </div>
@@ -569,6 +729,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">법인등록번호</span>
                                         <input type="text" class="form-control" id="companyCorporateRegistrationNumber">
+                                        <div id="companyCorporateRegistrationNumberAlert"></div>
+                                        <div id="companyCorporateRegistrationNumberFormAlert"></div>
                                     </div>
                                 </div>
                             </div>
@@ -577,6 +739,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text">전화번호</span>
                                         <input type="text" class="form-control" id="companyPhone">
+                                        <div id="companyPhoneAlert"></div>
                                     </div>
                                 </div>
                             </div>
@@ -585,6 +748,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text">팩스번호</span>
                                         <input type="text" class="form-control" id="companyPaxNumber">
+                                        <div id="companyPaxNumberAlert"> </div>
                                     </div>
                                 </div>
                             </div>
@@ -593,6 +757,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(일반)</span>
                                         <input type="text" class="form-control" id="companyEmail">
+                                        <div id="companyEmailAlert"></div>
+                                        <div id="companyEmailFormAlert"></div>
                                     </div>
                                 </div>
                             </div>
@@ -601,6 +767,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">이메일(세금계산서)</span>
                                         <input type="text" class="form-control" id="companyEmailTax">
+                                        <div id="companyEmailTaxAlert"></div>
+                                        <div id="companyEmailTaxFormAlert"> </div>
                                     </div>
                                 </div>
                             </div>
@@ -618,11 +786,13 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="addressAlert"></div>
                             <div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">상세주소</span>
                                         <input type="text" class="form-control" id="companyAddressDetail">
+                                        <div id="companyAddressDetailAlert"></div>
                                     </div>
                                 </div>
                             </div>
@@ -798,8 +968,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          
+          </div>      
+    	
     </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>     
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>     

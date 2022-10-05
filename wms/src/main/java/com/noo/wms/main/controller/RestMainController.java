@@ -28,7 +28,6 @@ public class RestMainController {
 	public HashMap<String, Object> getDepCodeProcess(String company_code){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		
 		map.put("result", "success");
 		map.put("data", mainService.getDepCode(company_code));
 		

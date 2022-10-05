@@ -62,12 +62,38 @@ public class OutstockRestController {
 	}
 	
 	@RequestMapping("outstockList")
-	public HashMap<String, Object> outstockList(String searchOsType, String searchOsWord,HttpSession session){
-
+	public HashMap<String, Object> outstockList(String searchOsType, String searchOsWord,HttpSession session,
+			@RequestParam(value="pageNum", defaultValue = "1") int pageNum){
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		map.put("result", "sucess");
-		map.put("outstockList",outstockService.outstockSearcher(searchOsType, searchOsWord, session));
+		String coCode = ((AdminVo) session.getAttribute("adminInfo")).getCompany_code();
+		
+		int outstockCount = outstockService.outstockCount(coCode);
+		
+		int totalPageCount = (int)Math.ceil(outstockCount/15.0);
+		int startPage = ((pageNum-1)/5)*5 + 1;
+		int endPage = ((pageNum-1)/5+1)*5;
+			
+		if(endPage > totalPageCount) {
+			endPage = totalPageCount;
+		}
+	
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("currentPageNum", pageNum);
+		map.put("totalPageCount", totalPageCount);
+		
+		String additionalParamType = "";
+		String additionalParamWord = "";
+		if(searchOsType != null && searchOsWord != null) {
+			additionalParamType +=  searchOsType;
+			additionalParamWord += searchOsWord;
+		}		
+		
+		map.put("additionalParamType", additionalParamType);
+		map.put("additionalParamWord", additionalParamWord);
+		map.put("outstockList",outstockService.outstockSearcher(searchOsType, searchOsWord, coCode, pageNum));
 		
 		return map;
 	}

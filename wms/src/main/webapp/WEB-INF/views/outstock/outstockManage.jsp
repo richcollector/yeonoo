@@ -491,12 +491,118 @@
 					stockDateTd.innerText = moment(osList.outstock_resiter_date).format('YYYY.MM.DD');
 					searchTr.appendChild(stockDateTd);
 					
+				}
 					
-				}	
-	
+					var pageController = document.getElementById("pageUi");
+					pageController.innerHTML = "";
+					pageController.setAttribute("id","pageUi");
+					pageController.classList.add("pagination");
+					pageController.classList.add("justify-content-center");
+					
+					if (jsonObj.startPage <= 1){
+										
+						var inLi1 = document.createElement("li"); 
+						inLi1.classList.add("page-item");
+						inLi1.classList.add("disabled");
+						pageController.appendChild(inLi1);
+						
+						var inA1 = document.createElement("a");
+						inA1.setAttribute("href","#");
+						inA1.setAttribute("aria-label","Previous");
+						inA1.classList.add("page-link");
+						inLi1.appendChild(inA1);
+		
+						var inSpan1 = document.createElement("span");
+						inSpan1.setAttribute("aria-hidden","true");
+						inSpan1.textContent = "<<";
+						inA1.appendChild(inSpan1);	
+					
+					}else{
+						
+						var inLi1 = document.createElement("li"); 
+						inLi1.classList.add("page-item");
+						pageController.appendChild(inLi1);
+						
+						var inA1 = document.createElement("a");
+						inA1.classList.add("page-link");
+						inA1.setAttribute("aria-label","Previous");					
+						inA1.setAttribute("href","javascript:outstockListPagenation("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inLi1.appendChild(inA1);
+						
+						var inSpan1 = document.createElement("span");
+						inSpan1.setAttribute("aria-hidden","true");
+						inSpan1.textContent = "<<";
+						inA1.appendChild(inSpan1);
+						
+					}
+					
+					for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
+										
+						if(i == jsonObj.currentPageNum){
+							
+							var inLi2 = document.createElement("li");
+							inLi2.classList.add("page-item");
+							inLi2.classList.add("active");
+							pageController.appendChild(inLi2);
+							
+							var inA2 = document.createElement("a");
+							inA2.classList.add("page-link");
+							inA2.setAttribute("href","javascript:outstockListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+							inA2.innerText = i;
+							inLi2.appendChild(inA2);
+											
+						}else{
+												
+							var inLi2 = document.createElement("li");
+							inLi2.classList.add("page-item");
+							pageController.appendChild(inLi2);
+							
+							var inA2 = document.createElement("a");
+							inA2.classList.add("page-link");
+							inA2.setAttribute("href","javascript:outstockListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+							inA2.innerText = i;
+							inLi2.appendChild(inA2);
+						}	
+					}
+					
+					if(jsonObj.endPage >= jsonObj.totalPageCount){
+						
+						var inLi3 = document.createElement("li"); 
+						inLi3.classList.add("page-item");
+						inLi3.classList.add("disabled");
+						pageController.appendChild(inLi3);
+
+						var inA3 = document.createElement("a");
+						inA3.classList.add("page-link");
+						inA3.setAttribute("href","#");
+						inA3.setAttribute("aria-label","Next");
+						inLi3.appendChild(inA3);
+
+						var inSpan3 = document.createElement("span");
+						inSpan3.setAttribute("aria-hidden","true");
+						inSpan3.textContent = ">>";
+						inA3.appendChild(inSpan3);
+					
+					}else{
+						
+						var inLi3 = document.createElement("li"); 
+						inLi3.classList.add("page-item");
+						pageController.appendChild(inLi3);
+
+						var inA3 = document.createElement("a");
+						inA3.classList.add("page-link");
+						inA3.setAttribute("href","javascript:outstockListPagenation("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA3.setAttribute("aria-label","Next");
+						inLi3.appendChild(inA3);
+
+						var inSpan3 = document.createElement("span");
+						inSpan3.setAttribute("aria-hidden","true");
+						inSpan3.textContent = ">>";
+						inA3.appendChild(inSpan3);				
+						
+					}				
+				}		
 			}
-			
-		}
 		
 		xhr.open("get" , "./outstockList?searchOsType=" + searchOsTypeVal + "&searchOsWord=" +searchOsWordVal);
 		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -504,6 +610,242 @@
 					
 	}
 	
+	function outstockListPagenation(pageNumVal){
+		
+		var searchOsTypeVal = document.getElementById("searchOsType").value;
+		var searchOsWordVal = document.getElementById("searchOsWord").value;		
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var jsonObj = JSON.parse(xhr.responseText);
+				
+				var searchOsList = document.getElementById("outstockList");
+				searchOsList.innerHTML = "";				
+				
+				var thead = document.createElement("thead");
+				searchOsList.appendChild(thead);
+				
+				var headTr = document.createElement("tr");
+				thead.appendChild(headTr)	
+						
+				var headTh1 = document.createElement("th");
+				headTh1.innerText = "출고 코드";
+				headTr.appendChild(headTh1);
+				
+				var headTh11 = document.createElement("th");
+				headTh11.innerText = "재고 코드";
+				headTr.appendChild(headTh11);
+				
+				var headTh2 = document.createElement("th");
+				headTh2.innerText = "로트 코드";
+				headTr.appendChild(headTh2);
+				
+				var headTh3 = document.createElement("th");
+				headTh3.innerText = "상품 코드";
+				headTr.appendChild(headTh3);
+		
+				var headT4 = document.createElement("th");
+				headT4.innerText = "창고 코드";
+				headTr.appendChild(headT4);
+				
+				var headT5 = document.createElement("th");
+				headT5.innerText = "구역 코드";
+				headTr.appendChild(headT5);
+				
+				var headT6 = document.createElement("th");
+				headT6.innerText = "랙 코드";
+				headTr.appendChild(headT6);
+				
+				var headT7 = document.createElement("th");
+				headT7.innerText = "셀 코드";
+				headTr.appendChild(headT7);
+				
+				var headT8 = document.createElement("th");
+				headT8.innerText = "출고량";
+				headTr.appendChild(headT8);
+			
+				var headT9 = document.createElement("th");
+				headT9.innerText = "출고 담당자";
+				headTr.appendChild(headT9);
+	
+				var headT10 = document.createElement("th");
+				headT10.innerText = "출고 등록일";
+				headTr.appendChild(headT10);
+				
+				for(osList of jsonObj.outstockList){
+					
+					var tBody = document.createElement("tbody");
+					searchOsList.appendChild(tBody);
+					
+					var searchTr = document.createElement("tr");
+					tBody.appendChild(searchTr);
+									
+					var outStockCodeTh = document.createElement("th");
+					outStockCodeTh.innerText = osList.outstock_code;
+					searchTr.appendChild(outStockCodeTh);
+					
+					var stockCodeTh = document.createElement("th");
+					stockCodeTh.innerText = osList.stock_code;
+					searchTr.appendChild(stockCodeTh);
+					
+					var lotCodeTd = document.createElement("td");
+					lotCodeTd.innerText = osList.lot_code;
+					searchTr.appendChild(lotCodeTd);
+					
+					var pdCodeTd = document.createElement("td");
+					pdCodeTd.innerText = osList.product_code;
+					searchTr.appendChild(pdCodeTd);
+					
+					var whCodeTd = document.createElement("td");
+					whCodeTd.innerText = osList.warehouse_code;
+					searchTr.appendChild(whCodeTd);
+					
+					var arCodeTd = document.createElement("td");
+					arCodeTd.innerText = osList.warehouse_area_code;
+					searchTr.appendChild(arCodeTd);
+					
+					var rkCodeTd = document.createElement("td");
+					rkCodeTd.innerText = osList.warehouse_rack_code;
+					searchTr.appendChild(rkCodeTd);
+					
+					var clCodeTd = document.createElement("td");
+					clCodeTd.innerText = osList.warehouse_cell_code;
+					searchTr.appendChild(clCodeTd);
+					
+					var stockAmountTd = document.createElement("td");
+					stockAmountTd.innerText = osList.outstock_amount;
+					searchTr.appendChild(stockAmountTd);
+					
+					var stockManager = document.createElement("td");
+					stockManager.innerText = osList.outstock_register_employee;
+					searchTr.appendChild(stockManager);
+					
+					var stockDateTd = document.createElement("td");
+					stockDateTd.innerText = moment(osList.outstock_resiter_date).format('YYYY.MM.DD');
+					searchTr.appendChild(stockDateTd);
+					
+				}
+					
+					var pageController = document.getElementById("pageUi");
+					pageController.innerHTML = "";
+					pageController.setAttribute("id","pageUi");
+					pageController.classList.add("pagination");
+					pageController.classList.add("justify-content-center");
+					
+					if (jsonObj.startPage <= 1){
+										
+						var inLi1 = document.createElement("li"); 
+						inLi1.classList.add("page-item");
+						inLi1.classList.add("disabled");
+						pageController.appendChild(inLi1);
+						
+						var inA1 = document.createElement("a");
+						inA1.setAttribute("href","#");
+						inA1.setAttribute("aria-label","Previous");
+						inA1.classList.add("page-link");
+						inLi1.appendChild(inA1);
+		
+						var inSpan1 = document.createElement("span");
+						inSpan1.setAttribute("aria-hidden","true");
+						inSpan1.textContent = "<<";
+						inA1.appendChild(inSpan1);	
+					
+					}else{
+						
+						var inLi1 = document.createElement("li"); 
+						inLi1.classList.add("page-item");
+						pageController.appendChild(inLi1);
+						
+						var inA1 = document.createElement("a");
+						inA1.classList.add("page-link");
+						inA1.setAttribute("aria-label","Previous");					
+						inA1.setAttribute("href","javascript:outstockListPagenation("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inLi1.appendChild(inA1);
+						
+						var inSpan1 = document.createElement("span");
+						inSpan1.setAttribute("aria-hidden","true");
+						inSpan1.textContent = "<<";
+						inA1.appendChild(inSpan1);
+						
+					}
+					
+					for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
+										
+						if(i == jsonObj.currentPageNum){
+							
+							var inLi2 = document.createElement("li");
+							inLi2.classList.add("page-item");
+							inLi2.classList.add("active");
+							pageController.appendChild(inLi2);
+							
+							var inA2 = document.createElement("a");
+							inA2.classList.add("page-link");
+							inA2.setAttribute("href","javascript:outstockListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+							inA2.innerText = i;
+							inLi2.appendChild(inA2);
+											
+						}else{
+												
+							var inLi2 = document.createElement("li");
+							inLi2.classList.add("page-item");
+							pageController.appendChild(inLi2);
+							
+							var inA2 = document.createElement("a");
+							inA2.classList.add("page-link");
+							inA2.setAttribute("href","javascript:outstockListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+							inA2.innerText = i;
+							inLi2.appendChild(inA2);
+						}	
+					}
+					
+					if(jsonObj.endPage >= jsonObj.totalPageCount){
+						
+						var inLi3 = document.createElement("li"); 
+						inLi3.classList.add("page-item");
+						inLi3.classList.add("disabled");
+						pageController.appendChild(inLi3);
+
+						var inA3 = document.createElement("a");
+						inA3.classList.add("page-link");
+						inA3.setAttribute("href","#");
+						inA3.setAttribute("aria-label","Next");
+						inLi3.appendChild(inA3);
+
+						var inSpan3 = document.createElement("span");
+						inSpan3.setAttribute("aria-hidden","true");
+						inSpan3.textContent = ">>";
+						inA3.appendChild(inSpan3);
+					
+					}else{
+						
+						var inLi3 = document.createElement("li"); 
+						inLi3.classList.add("page-item");
+						pageController.appendChild(inLi3);
+
+						var inA3 = document.createElement("a");
+						inA3.classList.add("page-link");
+						inA3.setAttribute("href","javascript:outstockListPagenation("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA3.setAttribute("aria-label","Next");
+						inLi3.appendChild(inA3);
+
+						var inSpan3 = document.createElement("span");
+						inSpan3.setAttribute("aria-hidden","true");
+						inSpan3.textContent = ">>";
+						inA3.appendChild(inSpan3);				
+						
+					}				
+				}		
+			}
+		
+		xhr.open("get" , "./outstockList?searchOsType=" + searchOsTypeVal + "&searchOsWord=" +searchOsWordVal + "&pageNum=" + pageNumVal);
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.send();
+					
+	}
+	
+	
+		
 	window.addEventListener("DOMContentLoaded" , function (){			
 		
 		outstockList()
@@ -606,6 +948,11 @@
 						</div>						
 					</div>
                	</div>
+             	<div class="page mt-3">
+					<nav aria-label="Page navigation example">
+						<ul id="pageUi" class="pagination justify-content-center"></ul>
+					</nav>
+				</div>
             </div>
           </div>
           <!--  -->

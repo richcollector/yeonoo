@@ -394,7 +394,7 @@
 				document.getElementById("inboundAmount").value = "";
 				document.getElementById("inboundMemo").value = "";				
 			
-				inboundList()
+				newInboundList()
 				
 			}
 		}
@@ -406,7 +406,7 @@
 		
 	}
 	
-	function inboundList(){
+	/* function inboundList(){
 				
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -545,7 +545,7 @@
 		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhr.send();
 		
-	}	
+	}	 */
 	
 	function allCheck(){
 
@@ -1031,7 +1031,7 @@
 				document.getElementById("upInboundMemo").value = "";
 				document.getElementById("upStockCode").firstChild.value = "";
 				
-				inboundList()
+				newInboundList()
 				
 			}
 		}
@@ -1067,7 +1067,7 @@
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
 					
-				inboundList()
+				newInboundList()
 				
 			}
 		}
@@ -1078,9 +1078,525 @@
 	
 	}
 	
+	function newInboundList(){
+		
+		var searchTypeValue = document.getElementById("searchType").value;
+		var searchWordValue = document.getElementById("searchWord").value;
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var jsonObj = JSON.parse(xhr.responseText);	
+				
+				var ibList = document.getElementById("inboundList");
+				ibList.innerHTML = "";
+				
+				var thead = document.createElement("thead");
+				ibList.appendChild(thead);
+				
+				var headTr = document.createElement("tr");
+				thead.appendChild(headTr)
+				
+				var headCheckBox = document.createElement("input");
+				headCheckBox.setAttribute("type","checkbox");
+				headCheckBox.id = "checkAll";
+				headCheckBox.setAttribute("onclick","allCheck()")
+				headTr.appendChild(headCheckBox);		
+						
+				var headTh1 = document.createElement("th");
+				headTh1.innerText = "입고 코드";
+				headTr.appendChild(headTh1);
+				
+				var headTh2 = document.createElement("th");
+				headTh2.innerText = "로트 코드";
+				headTr.appendChild(headTh2);
+				
+				var headTh3 = document.createElement("th");
+				headTh3.innerText = "제품 코드";
+				headTr.appendChild(headTh3);
+				
+				var headTh11 = document.createElement("th");
+				headTh11.innerText = "제품명";
+				headTr.appendChild(headTh11);
+				
+				var headT4 = document.createElement("th");
+				headT4.innerText = "창고코드";
+				headTr.appendChild(headT4);
+				
+				var headT5 = document.createElement("th");
+				headT5.innerText = "구역코드";
+				headTr.appendChild(headT5);
+				
+				var headT6 = document.createElement("th");
+				headT6.innerText = "랙코드";
+				headTr.appendChild(headT6);
+				
+				var headT7 = document.createElement("th");
+				headT7.innerText = "셀코드";
+				headTr.appendChild(headT7);
+				
+				var headT8 = document.createElement("th");
+				headT8.innerText = "입고량";
+				headTr.appendChild(headT8);
+			
+				var headT9 = document.createElement("th");
+				headT9.innerText = "입고담당자";
+				headTr.appendChild(headT9);
+	
+				var headT10 = document.createElement("th");
+				headT10.innerText = "입고등록일";
+				headTr.appendChild(headT10);
+							
+				for(inboundListNew of jsonObj.inboundList){
+					
+					var tBody = document.createElement("tbody");
+					ibList.appendChild(tBody);
+					
+					var bodyTr = document.createElement("tr");
+					tBody.appendChild(bodyTr);
+									
+					var bodyTd1 = document.createElement("td1");
+					bodyTr.appendChild(bodyTd1);
+					
+					var bodyCheckBox = document.createElement("input");
+					bodyCheckBox.setAttribute("type","checkbox");
+					bodyCheckBox.setAttribute("name","selectedIb");
+					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyCheckBox.value = inboundListNew.inbound_code;
+					bodyTd1.appendChild(bodyCheckBox);
+					
+					var cbHidden = document.createElement("input");
+					cbHidden.setAttribute("type","hidden");
+					cbHidden.value = inboundListNew.stock_code;
+					bodyCheckBox.appendChild(cbHidden);
+					
+					var inboundCodeTh = document.createElement("th");
+					inboundCodeTh.innerText = inboundListNew.inbound_code;
+					bodyTr.appendChild(inboundCodeTh)			
+					
+					var lotCodeTd = document.createElement("td");
+					lotCodeTd.innerText = inboundListNew.lot_code;
+					bodyTr.appendChild(lotCodeTd);
+					
+					var pdCode = document.createElement("td");
+					pdCode.innerText = inboundListNew.product_code;
+					bodyTr.appendChild(pdCode);
+					
+					var pdName = document.createElement("td");
+					pdName.innerText = inboundListNew.product_name;
+					bodyTr.appendChild(pdName);
+					
+					var whCode = document.createElement("td");
+					whCode.innerText = inboundListNew.warehouse_code;
+					bodyTr.appendChild(whCode);
+					
+					var arCode = document.createElement("td");
+					arCode.innerText = inboundListNew.warehouse_area_code;
+					bodyTr.appendChild(arCode);
+					
+					var rkCode = document.createElement("td");
+					rkCode.innerText = inboundListNew.warehouse_rack_code;
+					bodyTr.appendChild(rkCode);
+					
+					var clCode = document.createElement("td");
+					clCode.innerText = inboundListNew.warehouse_cell_code;
+					bodyTr.appendChild(clCode);
+					
+					var ibAmount = document.createElement("td");
+					ibAmount.innerText = inboundListNew.inbound_amount;
+					bodyTr.appendChild(ibAmount);
+					
+					var ibManager = document.createElement("td");
+					ibManager.innerText = inboundListNew.inbound_restiger_employee;
+					bodyTr.appendChild(ibManager);
+					
+					var ibDate = document.createElement("td");
+					ibDate.innerText = moment(inboundListNew.inbound_resiter_date).format('YYYY.MM.DD');
+					bodyTr.appendChild(ibDate);		
+				
+				}
+				
+				
+				var pageController = document.getElementById("pageUi");
+				pageController.innerHTML = "";
+				pageController.setAttribute("id","pageUi");
+				pageController.classList.add("pagination");
+				pageController.classList.add("justify-content-center");
+				
+				if (jsonObj.startPage <= 1){
+									
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					inLi1.classList.add("disabled");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.setAttribute("href","#");
+					inA1.setAttribute("aria-label","Previous");
+					inA1.classList.add("page-link");
+					inLi1.appendChild(inA1);
+	
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);	
+				
+				}else{
+					
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.classList.add("page-link");
+					inA1.setAttribute("aria-label","Previous");					
+					inA1.setAttribute("href","javascript:newInboundListPagenation("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inLi1.appendChild(inA1);
+					
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);
+					
+				}
+				
+				for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
+									
+					if(i == jsonObj.currentPageNum){
+						
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						inLi2.classList.add("active");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newInboundListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+										
+					}else{
+											
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newInboundListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+					}	
+				}
+				
+				if(jsonObj.endPage >= jsonObj.totalPageCount){
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					inLi3.classList.add("disabled");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","#");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+				
+				}else{
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","javascript:newInboundListPagenation("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);				
+					
+				}				
+			}		
+		}
+		
+		
+		xhr.open("get" , "./newInboundList?searchType=" + searchTypeValue +"&searchWord="+searchWordValue);
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.send();
+		
+	}	
+	
+	function newInboundListPagenation(pageNumVal){
+		
+		var searchTypeValue = document.getElementById("searchType").value;
+		var searchWordValue = document.getElementById("searchWord").value;
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			
+			if(xhr.readyState == 4 && xhr.status == 200){				
+				var jsonObj = JSON.parse(xhr.responseText);	
+				
+				var ibList = document.getElementById("inboundList");
+				ibList.innerHTML = "";
+				
+				var thead = document.createElement("thead");
+				ibList.appendChild(thead);
+				
+				var headTr = document.createElement("tr");
+				thead.appendChild(headTr)
+				
+				var headCheckBox = document.createElement("input");
+				headCheckBox.setAttribute("type","checkbox");
+				headCheckBox.id = "checkAll";
+				headCheckBox.setAttribute("onclick","allCheck()")
+				headTr.appendChild(headCheckBox);		
+						
+				var headTh1 = document.createElement("th");
+				headTh1.innerText = "입고 코드";
+				headTr.appendChild(headTh1);
+				
+				var headTh2 = document.createElement("th");
+				headTh2.innerText = "로트 코드";
+				headTr.appendChild(headTh2);
+				
+				var headTh3 = document.createElement("th");
+				headTh3.innerText = "제품 코드";
+				headTr.appendChild(headTh3);
+				
+				var headTh11 = document.createElement("th");
+				headTh11.innerText = "제품명";
+				headTr.appendChild(headTh11);
+				
+				var headT4 = document.createElement("th");
+				headT4.innerText = "창고코드";
+				headTr.appendChild(headT4);
+				
+				var headT5 = document.createElement("th");
+				headT5.innerText = "구역코드";
+				headTr.appendChild(headT5);
+				
+				var headT6 = document.createElement("th");
+				headT6.innerText = "랙코드";
+				headTr.appendChild(headT6);
+				
+				var headT7 = document.createElement("th");
+				headT7.innerText = "셀코드";
+				headTr.appendChild(headT7);
+				
+				var headT8 = document.createElement("th");
+				headT8.innerText = "입고량";
+				headTr.appendChild(headT8);
+			
+				var headT9 = document.createElement("th");
+				headT9.innerText = "입고담당자";
+				headTr.appendChild(headT9);
+	
+				var headT10 = document.createElement("th");
+				headT10.innerText = "입고등록일";
+				headTr.appendChild(headT10);
+							
+				for(newInboundList of jsonObj.inboundList){
+					
+					var tBody = document.createElement("tbody");
+					ibList.appendChild(tBody);
+					
+					var bodyTr = document.createElement("tr");
+					tBody.appendChild(bodyTr);
+									
+					var bodyTd1 = document.createElement("td1");
+					bodyTr.appendChild(bodyTd1);
+					
+					var bodyCheckBox = document.createElement("input");
+					bodyCheckBox.setAttribute("type","checkbox");
+					bodyCheckBox.setAttribute("name","selectedIb");
+					bodyCheckBox.setAttribute("onclick","isChecked()");
+					bodyCheckBox.value = newInboundList.inbound_code;
+					bodyTd1.appendChild(bodyCheckBox);
+					
+					var cbHidden = document.createElement("input");
+					cbHidden.setAttribute("type","hidden");
+					cbHidden.value = newInboundList.stock_code;
+					bodyCheckBox.appendChild(cbHidden);
+					
+					var inboundCodeTh = document.createElement("th");
+					inboundCodeTh.innerText = newInboundList.inbound_code;
+					bodyTr.appendChild(inboundCodeTh)			
+					
+					var lotCodeTd = document.createElement("td");
+					lotCodeTd.innerText = newInboundList.lot_code;
+					bodyTr.appendChild(lotCodeTd);
+					
+					var pdCode = document.createElement("td");
+					pdCode.innerText = newInboundList.product_code;
+					bodyTr.appendChild(pdCode);
+					
+					var pdName = document.createElement("td");
+					pdName.innerText = newInboundList.product_name;
+					bodyTr.appendChild(pdName);
+					
+					var whCode = document.createElement("td");
+					whCode.innerText = newInboundList.warehouse_code;
+					bodyTr.appendChild(whCode);
+					
+					var arCode = document.createElement("td");
+					arCode.innerText = newInboundList.warehouse_area_code;
+					bodyTr.appendChild(arCode);
+					
+					var rkCode = document.createElement("td");
+					rkCode.innerText = newInboundList.warehouse_rack_code;
+					bodyTr.appendChild(rkCode);
+					
+					var clCode = document.createElement("td");
+					clCode.innerText = newInboundList.warehouse_cell_code;
+					bodyTr.appendChild(clCode);
+					
+					var ibAmount = document.createElement("td");
+					ibAmount.innerText = newInboundList.inbound_amount;
+					bodyTr.appendChild(ibAmount);
+					
+					var ibManager = document.createElement("td");
+					ibManager.innerText = newInboundList.inbound_restiger_employee;
+					bodyTr.appendChild(ibManager);
+					
+					var ibDate = document.createElement("td");
+					ibDate.innerText = moment(newInboundList.inbound_resiter_date).format('YYYY.MM.DD');
+					bodyTr.appendChild(ibDate);		
+				
+				}
+						
+				var pageController = document.getElementById("pageUi");
+				pageController.innerHTML = "";
+				pageController.setAttribute("id","pageUi");
+				pageController.classList.add("pagination");
+				pageController.classList.add("justify-content-center");
+				
+				if (jsonObj.startPage <= 1){
+									
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					inLi1.classList.add("disabled");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.setAttribute("href","#");
+					inA1.setAttribute("aria-label","Previous");
+					inA1.classList.add("page-link");
+					inLi1.appendChild(inA1);
+	
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);	
+				
+				}else{
+					
+					var inLi1 = document.createElement("li"); 
+					inLi1.classList.add("page-item");
+					pageController.appendChild(inLi1);
+					
+					var inA1 = document.createElement("a");
+					inA1.classList.add("page-link");
+					inA1.setAttribute("aria-label","Previous");					
+					inA1.setAttribute("href","javascript:newLotListPagenation("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inLi1.appendChild(inA1);
+					
+					var inSpan1 = document.createElement("span");
+					inSpan1.setAttribute("aria-hidden","true");
+					inSpan1.textContent = "<<";
+					inA1.appendChild(inSpan1);
+					
+				}
+				
+				for(var i = jsonObj.startPage ; i <= jsonObj.endPage ; i++){
+									
+					if(i == jsonObj.currentPageNum){
+						
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						inLi2.classList.add("active");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newInboundListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+										
+					}else{
+											
+						var inLi2 = document.createElement("li");
+						inLi2.classList.add("page-item");
+						pageController.appendChild(inLi2);
+						
+						var inA2 = document.createElement("a");
+						inA2.classList.add("page-link");
+						inA2.setAttribute("href","javascript:newInboundListPagenation("+i+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+						inA2.innerText = i;
+						inLi2.appendChild(inA2);
+					}	
+				}
+				
+				if(jsonObj.endPage >= jsonObj.totalPageCount){
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					inLi3.classList.add("disabled");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","#");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);
+				
+				}else{
+					
+					var inLi3 = document.createElement("li"); 
+					inLi3.classList.add("page-item");
+					pageController.appendChild(inLi3);
+
+					var inA3 = document.createElement("a");
+					inA3.classList.add("page-link");
+					inA3.setAttribute("href","javascript:newInboundListPagenation("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("aria-label","Next");
+					inLi3.appendChild(inA3);
+
+					var inSpan3 = document.createElement("span");
+					inSpan3.setAttribute("aria-hidden","true");
+					inSpan3.textContent = ">>";
+					inA3.appendChild(inSpan3);				
+					
+				}				
+			}		
+		}
+		
+		
+		xhr.open("get" , "./newInboundList?searchType=" + searchTypeValue +"&searchWord="+searchWordValue +"&pageNum=" + pageNumVal);
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.send();
+		
+	}	
+
+	
 	window.addEventListener("DOMContentLoaded" , function (){			
 		
-		inboundList()
+		newInboundList()
 		warehouseSelector()
 		upWarehouseSelector()
 		
@@ -1178,13 +1694,17 @@
                     <div class="col-4">
                     <form action="./accountInfoPage" method="get">
 						<div class="input-group mb-3">
-								<select name="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
+								<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 									<option selected>선택</option>
-									<option value="account_code"></option>
-									<option value="account_name"><option>
-									<option value="account_representative"></option>
+									<option value="p.product_name">제품명</option>
+									<option value="i.inbound_code">입고 코드</option>
+									<option value="i.lot_code">로트 코드</option>
+									<option value="i.warehouse_code">창고 코드</option>
+									<option value="i.warehouse_area_code">구역 코드</option>
+									<option value="i.warehouse_rack_code">랙 코드</option>
+									<option value="i.warehouse_cell_code">셀 코드</option>
 								  </select>
-								<input name="" type="text" class="form-control" aria-label="Text input with dropdown button">
+								<input id="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button" onkeyup="newInboundList()">
 								<button class="input-group-text bi bi-search" id="basic-addon1"></button>
 						</div>
 						</form>
@@ -1216,6 +1736,11 @@
 						</div>
 					</div>
                	</div>
+               	<div class="page mt-3" >
+					<nav aria-label="Page navigation example">
+						<ul id="pageUi" class="pagination justify-content-center"></ul>
+					</nav>
+				</div>
             </div>
         </div>
  

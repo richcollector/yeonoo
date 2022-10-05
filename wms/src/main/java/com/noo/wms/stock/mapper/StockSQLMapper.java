@@ -13,7 +13,10 @@ public interface StockSQLMapper {
 	public void updateStockAuto (StockVo stockVo);
 	public void deleteStockAuto (StockVo stockVo);
 	public int stockValue (String stock_code);
-	public ArrayList<StockVo> basicStockList (String stock_code);
+	public ArrayList<StockVo> basicStockList (
+			@Param("company_code")String company_code,
+			@Param("startList")int startList);
+	public int basicListCount (String company_code);
 	public ArrayList<StockVo> stockSearch (
 			@Param("company_code") String company_code, 
 			@Param("lot_code") String lot_code);
@@ -55,5 +58,6 @@ public interface StockSQLMapper {
 	public ArrayList<HashMap<String,Object>> rackSearchHelp(
 			@Param("company_code") String company_code,
 			@Param("warehouse_rack_name") String warehouse_rack_name);
+	
 	
 }

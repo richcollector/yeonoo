@@ -28,6 +28,7 @@ public interface OutstockSQLMapper {
 	public ArrayList<OutstockVo> outstockList(
 			@Param("company_code") String outstockCode,
 			@Param("searchOsType") String searchOsType,
-			@Param("searchOsWord") String searchOsWord);
-	
+			@Param("searchOsWord") String searchOsWord,
+			@Param("startList")int startList);
+	public int outStockCount (String company_code);
 }

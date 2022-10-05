@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noo.wms.inbound.service.InboundServiceImpl;
@@ -175,6 +176,43 @@ public class InboundRestController {
 		
 	}
 	
+	@RequestMapping("newInboundList")
+	public HashMap<String, Object> newInboundList(HttpSession session, String searchType, String searchWord,
+			@RequestParam(value="pageNum", defaultValue = "1") int pageNum){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		String coCode = ((AdminVo) session.getAttribute("adminInfo")).getCompany_code();
+		
+		int inboundCount = inboundService.inboundCount(coCode);
+		
+		int totalPageCount = (int)Math.ceil(inboundCount/15.0);
+		int startPage = ((pageNum-1)/5)*5 + 1;
+		int endPage = ((pageNum-1)/5+1)*5;
+			
+		if(endPage > totalPageCount) {
+			endPage = totalPageCount;
+		}
+	
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("currentPageNum", pageNum);
+		map.put("totalPageCount", totalPageCount);
+		
+		String additionalParamType = "";
+		String additionalParamWord = "";
+		if(searchType != null && searchWord != null) {
+			additionalParamType +=  searchType;
+			additionalParamWord += searchWord;
+		}		
+		
+		map.put("additionalParamType", additionalParamType);
+		map.put("additionalParamWord", additionalParamWord);
+		map.put("inboundList",inboundService.newListInbound(coCode, searchType, searchWord, pageNum));
+		
+		return map;
+		
+	}
 	
 	
 	

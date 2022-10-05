@@ -156,6 +156,19 @@ public class InboundServiceImpl {
 	}
 	
 	
+	public ArrayList<HashMap<String, Object>> newListInbound(String companyCode, String searchType, String searchWord, int pageNum){
+		
+		int startList = (pageNum-1)*15;
+		
+		return inboundMapper.newInboundList(companyCode, searchType, searchWord, startList);
+		
+	}
+	
+	public int inboundCount(String companyCode) {
+		
+		return inboundMapper.inboundListCount(companyCode);
+	}
+	
 	
 }
 

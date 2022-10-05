@@ -75,6 +75,12 @@
 	<select id="basicStockList" resultType="com.noo.wms.vo.StockVo">
 		SELECT * FROM Stock
 		WHERE company_code = #{company_code}
+		LIMIT #{startList}, 15
+	</select>
+	
+	<select id="basicListCount" resultType="int">
+		SELECT COUNT(*) FROM Stock
+		WHERE company_code = #{company_code}
 	</select>
 	
 	<select id="stockSearch" resultType="com.noo.wms.vo.StockVo">
@@ -186,5 +192,5 @@
 		AND wr.warehouse_rack_name LIKE CONCAT('%',#{warehouse_rack_name},'%')
 		GROUP BY s.lot_code	
 	</select>
-	
+		
 </mapper>

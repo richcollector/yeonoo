@@ -56,14 +56,19 @@ public class OutStockServiceImpl {
 		return stock;
 	}
 	
-	public ArrayList<OutstockVo> outstockSearcher(String searchOsType, String searchOsWord,HttpSession session){
+	public ArrayList<OutstockVo> outstockSearcher(String searchOsType, String searchOsWord, String outstockCode, int pageNum){
 		
-		String coCode = ((AdminVo) session.getAttribute("adminInfo")).getCompany_code();
+		int startList = (pageNum-1)*15;
 		
-		ArrayList <OutstockVo> outstock = outstockMapper.outstockList(coCode, searchOsType, searchOsWord);
+		ArrayList <OutstockVo> outstock = outstockMapper.outstockList(outstockCode, searchOsType, searchOsWord, startList);
 		
 		return outstock;
 		
+	}
+	
+	public int outstockCount (String companyCode) {
+		
+		return outstockMapper.outStockCount(companyCode);
 	}
 	
 }

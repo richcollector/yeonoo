@@ -19,15 +19,19 @@ public class StockServiceImpl {
 	@Autowired
 	private StockSQLMapper stockMapper;
 	
-	public ArrayList<StockVo> basicStockList(HttpSession session){	
+	public ArrayList<StockVo> basicStockList(String company_code, int pageNum){	
 		
-		String coCode = ((AdminVo) session.getAttribute("adminInfo")).getCompany_code();
-		
-		ArrayList<StockVo> stock = stockMapper.basicStockList(coCode);		
+		int startList = (pageNum-1)*15;
 	
-		return stock;
+		return stockMapper.basicStockList(company_code, startList);
 		
 	}
+	
+	public int stockCount(String company_code) {
+		
+		return stockMapper.basicListCount(company_code);
+	}
+	
 	
 	public ArrayList<StockVo> stockSearch(HttpSession session, String lot_code){
 		

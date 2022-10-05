@@ -79,6 +79,40 @@
 		DELETE FROM Inbound
 		WHERE inbound_code = #{inbound_code}
 	</delete>
-
+	
+	<select id="newInboundList" resultType="map">
+		SELECT i.*, p.product_name FROM Inbound i, Product p		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			AND i.company_code  = #{companyCode}
+			AND i.product_code = p.product_code
+			<if test="searchType=='p.product_name' and searchWord != null and searchWord != '' ">				
+				AND p.product_name like CONCAT('%', #{searchWord}, '%')			
+			</if>			
+			<if test="searchType=='i.inbound_code' and searchWord != null and searchWord != '' ">				
+				AND i.inbound_code like CONCAT('%', #{searchWord}, '%')			
+			</if>
+			<if test="searchType=='i.lot_code' and searchWord != null and searchWord != '' ">				
+				AND i.lot_code like CONCAT('%', #{searchWord}, '%')			
+			</if>
+			<if test="searchType=='i.warehouse_code' and searchWord != null and searchWord != '' ">				
+				AND i.warehouse_code like CONCAT('%', #{searchWord}, '%')			
+			</if>
+			<if test="searchType=='i.warehouse_area_code' and searchWord != null and searchWord != '' ">				
+				AND i.warehouse_area_code like CONCAT('%', #{searchWord}, '%')			
+			</if>	
+			<if test="searchType=='i.warehouse_rack_code' and searchWord != null and searchWord != '' ">				
+				AND i.warehouse_rack_code like CONCAT('%', #{searchWord}, '%')			
+			</if>	
+			<if test="searchType=='i.warehouse_cell_code' and searchWord != null and searchWord != '' ">				
+				AND i.warehouse_cell_code like CONCAT('%', #{searchWord}, '%')			
+			</if>				
+		</trim>	
+		LIMIT #{startList}, 15
+	</select>
+	
+	<select id="inboundListCount" resultType="int">
+		SELECT COUNT(*) FROM Inbound
+		WHERE company_code = #{companyCode}
+	</select>
 
 </mapper>

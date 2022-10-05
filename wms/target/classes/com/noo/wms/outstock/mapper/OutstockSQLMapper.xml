@@ -70,7 +70,11 @@
 					AND outstock_register_date like CONCAT('%', #{searchOsWord}, '%')			
 				</if>			
 		</trim>
+		LIMIT #{startList}, 15
 	</select>
 		
-	
+	<select id="outStockCount" resultType="int">
+		SELECT COUNT(*) FROM Outstock
+		WHERE company_code = #{companyCode}
+	</select>
 </mapper>

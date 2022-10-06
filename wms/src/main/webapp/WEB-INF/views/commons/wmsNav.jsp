@@ -130,7 +130,7 @@
                       <c:if test="${adminInfo != null && employeeInfo == null}">
                         <a href="../company/employeeRankInfoPage">직급정보</a><br>           
                         <a href="../company/departmentInfoPage">부서정보</a><br>     
-                        <a href="../main/employeeInfoManagePage">직원정보</a><br>
+                        <a href="../main/employeeInfoManagePage">사원정보</a><br>
                       </c:if> 
                     </div>
                 </div>              

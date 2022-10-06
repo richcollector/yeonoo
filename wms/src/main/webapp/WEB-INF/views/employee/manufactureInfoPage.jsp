@@ -663,7 +663,6 @@
 				"&manufacture_memo=" + manufactureMemoVal);
 
 
-		document.getElementById("manufacture_state").value = "";
 		document.getElementById("manufacture_manager").value = "";
 		document.getElementById("manufacture_date").value = "";
 		document.getElementById("manufacture_due_date").value = "";

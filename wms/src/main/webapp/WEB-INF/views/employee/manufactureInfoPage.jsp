@@ -2737,7 +2737,9 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">생산상태</span>
-                                        <input id="manufacture_state" onblur="checkRemove()" type="text" class="form-control">
+                                        <input hidden id="manufacture_state" value="F" onblur="checkRemove()" type="text" class="form-control">
+                                    	<input value="승인보류" type="text" class="form-control">
+                                    	
                                     </div>
                                     <div id="manufacture_state_Alert" class="mb-3"></div>
                                 </div>                               
@@ -2834,19 +2836,21 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">생산상태</span>
-                                        <input id="manufacture_state_update" onblur="checkUpdateRemove()" type="text" class="form-control">
+<!--                                         <input id="manufacture_state_update" type="text" class="form-control"> -->
+                                    	<select id="manufacture_state_update" onchange="checkUpdateRemove()" class="border rounded-end" style="width:100px;" onchange="checkUpdateRemove()">
+	                                       	<option value="F">승인보류</option>
+	                                       	<option value="T">승인</option>
+	                                    </select>
                                     </div>
                                     <div id="manufacture_state_update_Alert" class="mb-3"></div>
-                                </div>                               
-                            </div>
-                            <div class="row mt-3">
+                                </div>   
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">생산담당자</span>
                                         <input id="manufacture_manager_update" onblur="checkUpdateRemove()" type="text" class="form-control">
                                     </div>
                                     <div id="manufacture_manager_update_Alert" class="mb-3"></div>
-                                </div>                               
+                                </div>                                   
                             </div>
                             <div class="row mt-3">
                                 <div class="col">

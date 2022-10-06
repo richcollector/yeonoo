@@ -794,11 +794,9 @@ function uploadProductUpdate(product_name,product_code){
 				var result = JSON.parse(xhr.responseText);	
 					
 				document.getElementById("account_code").value = "";
-				document.getElementById("purchase_state").value = "";
 				document.getElementById("purchase_manager").value = "";
 				document.getElementById("purchase_date").value = "";
 				document.getElementById("purchase_due_date").value = "";
-				document.getElementById("purchase_register_employee").value = "";
 				document.getElementById("purchase_memo").value = "";
 				refreshPurchaseInfo();
 			}
@@ -2979,9 +2977,12 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">주문상태</span>
-                                      	<select id="purchase_state" class="border rounded-end" style="width:100px;" onchange="checkRemove()">
-	                                       	<option value="F">승인보류</option>
-	                                    </select>
+                                      	<input hidden id="purchase_state" onblur="checkRemove()" value="F" type="text" class="form-control">
+                                      	<input value="승인보류" type="text" class="form-control">
+                                      	
+<!--                                       	<select id="purchase_state" class="border rounded-end" style="width:100px;" onchange="checkRemove()"> -->
+<!-- 	                                       	<option value="F">승인보류</option> -->
+<!-- 	                                    </select> -->
 <!--                                         <input id="purchase_state" onblur="checkRemove()" type="text" class="form-control"> -->
                                     </div>
 									<div id="purchase_state_Alert" class="mb-3"></div>

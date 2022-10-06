@@ -328,7 +328,11 @@
 				trIn1.appendChild(t10);
 				
 				var td11 = document.createElement("td");
-				td11.innerText = moment(commentData.employee_leave_date).format('YYYY.MM.DD');
+				if(commentData.employee_leave_date == null){
+					td11.innerText = "-";
+				} else{
+					td11.innerText = moment(commentData.employee_leave_date).format('YYYY.MM.DD');
+				}
 				trIn1.appendChild(td11);
 				
 				}
@@ -576,7 +580,11 @@
 					trIn1.appendChild(t10);
 					
 					var td11 = document.createElement("td");
-					td11.innerText = moment(commentData.employee_leave_date).format('YYYY.MM.DD');
+					if(commentData.employee_leave_date == null){
+						td11.innerText = "-";
+					} else{
+						td11.innerText = moment(commentData.employee_leave_date).format('YYYY.MM.DD');
+					}
 					trIn1.appendChild(td11);
 					
 					}

@@ -696,7 +696,7 @@
 							<div class="input-group mb-3">
 									<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 										<option selected>선택</option>
-										<option value="department_code">부서번호</option>
+										<option value="department_code">부서코드</option>
 										<option value="department_name">부서명</option>
 									  </select>
 									<input id="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button">

@@ -796,7 +796,6 @@
 				var result = JSON.parse(xhr.responseText);	
 					
 				document.getElementById("account_code").value = "";
-				document.getElementById("obtain_order_state").value = "";
 				document.getElementById("obtain_order_manager").value = "";
 				document.getElementById("obtain_order_date").value = "";
 				document.getElementById("obtain_order_due_date").value = "";

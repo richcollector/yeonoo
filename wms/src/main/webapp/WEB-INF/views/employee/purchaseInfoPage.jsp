@@ -43,6 +43,29 @@
 	
 <script type="text/javascript">
 
+//원 표시 자동변환 script
+function changeMoneyUnit() {
+	var moneyValue = document.querySelectorAll(".money");
+	const moneyUnit = "원"
+	var regex = /[^0-9]/g;
+	for(i of moneyValue){
+		result = i.innerText.toString().replace(regex,"").replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		result = result.concat(moneyUnit);
+		i.innerText = result;
+	}
+}
+
+// 자동변환 script
+function changeAmountUnit() {
+	var moneyValue = document.querySelectorAll(".amount");
+	const moneyUnit = ""
+	var regex = /[^0-9]/g;
+	for(i of moneyValue){
+		result = i.innerText.toString().replace(regex,"").replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		result = result.concat(moneyUnit);
+		i.innerText = result;
+	}
+}
 
 function findAccount(){
 	console.log("파프옴?")
@@ -771,11 +794,9 @@ function uploadProductUpdate(product_name,product_code){
 				var result = JSON.parse(xhr.responseText);	
 					
 				document.getElementById("account_code").value = "";
-				document.getElementById("purchase_state").value = "";
 				document.getElementById("purchase_manager").value = "";
 				document.getElementById("purchase_date").value = "";
 				document.getElementById("purchase_due_date").value = "";
-				document.getElementById("purchase_register_employee").value = "";
 				document.getElementById("purchase_memo").value = "";
 				refreshPurchaseInfo();
 			}
@@ -2064,10 +2085,12 @@ function refreshPurchaseDetailInfo(purchase_code){
 
 				var td6 = document.createElement("td");
 				td6.innerText = commentData.product_price;
+				td6.classList.add("money");
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
 				td7.innerText = commentData.product_amount;
+				td7.classList.add("amount");
 				trIn1.appendChild(td7);
 				
 				
@@ -2189,7 +2212,8 @@ function refreshPurchaseDetailInfo(purchase_code){
 					inSpan3.textContent = ">>";
 					inA3.appendChild(inSpan3);
 				}
-
+				changeMoneyUnit();
+				changeAmountUnit();
 			}
 		}
 		
@@ -2427,10 +2451,12 @@ function refreshPurchaseDetailInfo(purchase_code){
 
 				var td6 = document.createElement("td");
 				td6.innerText = commentData.product_price;
+				td6.classList.add("money");
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
 				td7.innerText = commentData.product_amount;
+				td7.classList.add("amount");
 				trIn1.appendChild(td7);
 				
 				}
@@ -2551,7 +2577,8 @@ function refreshPurchaseDetailInfo(purchase_code){
 					inSpan3.textContent = ">>";
 					inA3.appendChild(inSpan3);
 				}
-
+				changeMoneyUnit();
+				changeAmountUnit();
 			}
 		}
 		
@@ -2950,9 +2977,12 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">주문상태</span>
-                                      	<select id="purchase_state" class="border rounded-end" style="width:100px;" onchange="checkRemove()">
-	                                       	<option value="F">승인보류</option>
-	                                    </select>
+                                      	<input hidden id="purchase_state" onblur="checkRemove()" value="F" type="text" class="form-control">
+                                      	<input value="승인보류" type="text" class="form-control">
+                                      	
+<!--                                       	<select id="purchase_state" class="border rounded-end" style="width:100px;" onchange="checkRemove()"> -->
+<!-- 	                                       	<option value="F">승인보류</option> -->
+<!-- 	                                    </select> -->
 <!--                                         <input id="purchase_state" onblur="checkRemove()" type="text" class="form-control"> -->
                                     </div>
 									<div id="purchase_state_Alert" class="mb-3"></div>
@@ -3245,7 +3275,7 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품검색</span>
-                                        <input id="searchProductUpdate" readonly type="text" class="form-control" onkeyup="findProductUpdate()">
+                                        <input id="searchProductUpdate" type="text" class="form-control" onkeyup="findProductUpdate()">
                                     </div>
                                 </div>
                             </div>
@@ -3265,7 +3295,7 @@ function insertPurchaseDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품코드</span>
-                                        <input id="product_code_update" onblur="checkDetailUpdateRemove()"  type="text" class="form-control">
+                                        <input id="product_code_update" readonly onblur="checkDetailUpdateRemove()"  type="text" class="form-control">
                                     </div>
 									<div id="product_code_update_Alert" class="mb-3"></div>
                                 </div>

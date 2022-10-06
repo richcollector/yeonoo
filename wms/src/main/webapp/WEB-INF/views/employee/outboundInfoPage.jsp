@@ -43,6 +43,30 @@
 	
 <script type="text/javascript">
 
+//원 표시 자동변환 script
+function changeMoneyUnit() {
+	var moneyValue = document.querySelectorAll(".money");
+	const moneyUnit = "원"
+	var regex = /[^0-9]/g;
+	for(i of moneyValue){
+		result = i.innerText.toString().replace(regex,"").replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		result = result.concat(moneyUnit);
+		i.innerText = result;
+	}
+}
+
+// 자동변환 script
+function changeAmountUnit() {
+	var moneyValue = document.querySelectorAll(".amount");
+	const moneyUnit = ""
+	var regex = /[^0-9]/g;
+	for(i of moneyValue){
+		result = i.innerText.toString().replace(regex,"").replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		result = result.concat(moneyUnit);
+		i.innerText = result;
+	}
+}
+
 function findAccount(){
 	console.log("파프옴?")
 	var accountName = document.getElementById("searchAccount").value;
@@ -1917,10 +1941,12 @@ function checkDetailUpdateRemove(){
 
 				var td6 = document.createElement("td");
 				td6.innerText = commentData.product_price;
+				td6.classList.add("money");
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
 				td7.innerText = commentData.product_amount;
+				td7.classList.add("amount");
 				trIn1.appendChild(td7);
 				
 				
@@ -2037,7 +2063,8 @@ function checkDetailUpdateRemove(){
 					inSpan3.textContent = ">>";
 					inA3.appendChild(inSpan3);
 				}
-
+				changeMoneyUnit();
+				changeAmountUnit();
 			}
 		}
 		
@@ -2278,10 +2305,12 @@ function checkDetailUpdateRemove(){
 
 					var td6 = document.createElement("td");
 					td6.innerText = commentData.product_price;
+					td6.classList.add("money");
 					trIn1.appendChild(td6);
 
 					var td7 = document.createElement("td");
 					td7.innerText = commentData.product_amount;
+					td7.classList.add("amount");
 					trIn1.appendChild(td7);
 					
 					
@@ -2400,7 +2429,8 @@ function checkDetailUpdateRemove(){
 					
 					console.log("페이지지지이이이안들어오니.??")
 				}
-
+				changeMoneyUnit();
+				changeAmountUnit();
 			}
 		}
 		
@@ -2813,7 +2843,7 @@ function insertOutboundDetailInfo(){
                                         <span class="input-group-text">출하주문일</span>
                                         <input id="outbound_date" type="date" onblur="checkRemove()" class="form-control">
                                     </div>
-									<div id="account_code_Alert" class="mb-3"></div>
+									<div id="outbound_date_Alert" class="mb-3"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -2993,7 +3023,7 @@ function insertOutboundDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품명</span>
-                                        <input id="product_name"onblur="checkDetailRemove()"  type="text" class="form-control">
+                                        <input id="product_name" readonly onblur="checkDetailRemove()"  type="text" class="form-control">
                                     </div>
 									<div id="product_name_Alert" class="mb-3"></div>
                                 </div>
@@ -3002,7 +3032,7 @@ function insertOutboundDetailInfo(){
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text">제품코드</span>
-                                        <input id="product_code"onblur="checkDetailRemove()"  type="text" class="form-control">
+                                        <input id="product_code" readonly onblur="checkDetailRemove()"  type="text" class="form-control">
                                     </div>
 									<div id="product_code_Alert" class="mb-3"></div>
                                 </div>

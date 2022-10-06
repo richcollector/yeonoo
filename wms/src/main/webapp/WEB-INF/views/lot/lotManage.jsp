@@ -29,7 +29,7 @@
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var result = JSON.parse(xhr.responseText);	
 		
-				lotListAll();
+				newLotListAll();
 				
 			}
 		}

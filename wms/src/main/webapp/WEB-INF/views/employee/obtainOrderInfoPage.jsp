@@ -43,6 +43,30 @@
 	
 <script type="text/javascript">
 
+	// 원 표시 자동변환 script
+	function changeMoneyUnit() {
+	    var moneyValue = document.querySelectorAll(".money");
+	    const moneyUnit = "원"
+	    var regex = /[^0-9]/g;
+	    for(i of moneyValue){
+	        result = i.innerText.toString().replace(regex,"").replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	        result = result.concat(moneyUnit);
+	        i.innerText = result;
+	    }
+	}
+	
+	// 자동변환 script
+	function changeAmountUnit() {
+	    var moneyValue = document.querySelectorAll(".amount");
+	    const moneyUnit = ""
+	    var regex = /[^0-9]/g;
+	    for(i of moneyValue){
+	        result = i.innerText.toString().replace(regex,"").replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	        result = result.concat(moneyUnit);
+	        i.innerText = result;
+	    }
+	}
+
 
 	function findAccount(){
 		console.log("파프옴?")
@@ -1399,6 +1423,7 @@
  	
  	function refreshObtainOrderInfoPage(pageNumVal,clickSearchTypeVal,clickSearchWordVal){
  		
+ 			
 //  		console.log(pageNumVal);
 //  		var clickSearchType = document.getElementById("searchType");
 //  		var clickSearchTypeVal = clickSearchType.value;
@@ -2034,10 +2059,12 @@
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
+				td7.classList.add("money");
 				td7.innerText = commentData.product_price;
 				trIn1.appendChild(td7);
 				
 				var td8 = document.createElement("td");
+				td8.classList.add("amount");
 				td8.innerText = commentData.product_amount;
 				trIn1.appendChild(td8);
 				
@@ -2156,8 +2183,10 @@
 					inA3.appendChild(inSpan3);
 					console.log("end"+jsonObj.endPage);
 					console.log("start"+jsonObj.startPage);
+					
 				}
-
+				changeMoneyUnit();
+				changeAmountUnit();
 			}
 		}
 		
@@ -2394,10 +2423,12 @@
 
 					var td7 = document.createElement("td");
 					td7.innerText = commentData.product_price;
+					td7.classList.add("money");
 					trIn1.appendChild(td7);
 					
 					var td8 = document.createElement("td");
 					td8.innerText = commentData.product_amount;
+					td8.classList.add("amount");
 					trIn1.appendChild(td8);
 					
 					
@@ -2513,8 +2544,10 @@
 						inSpan3.setAttribute("aria-hidden","true");
 						inSpan3.textContent = ">>";
 						inA3.appendChild(inSpan3);
+						
 					}
-
+					changeMoneyUnit();
+					changeAmountUnit();
 				}
 			}
 			
@@ -2918,10 +2951,12 @@
                                 <div class="col">
                                     <div class="input-group" class="form-control">
                                     	<span class="input-group-text">수주상태</span>
+                                    	<input id="obtain_order_state" value="F" onblur="checkRemove()" type="text" class="form-control" hidden>
+                                    	<input value="승인보류" type="text" class="form-control">
                                     	
-                                        <select id="obtain_order_state" class="border rounded-end" style="width:100px;" onchange="checkRemove()">
-                                        	<option value="F">승인보류</option>
-                                        </select>
+<!--                                         <select id="obtain_order_state" class="border rounded-end" style="width:100px;" onchange="checkRemove()"> -->
+<!--                                         	<option value="F">승인보류</option> -->
+<!--                                         </select> -->
 <!--                                         <input id="obtain_order_state" onblur="checkRemove()" type="text" class="form-control"> -->
                                     </div>
                                     <div id="obtain_order_state_Alert" class="mb-3"></div>

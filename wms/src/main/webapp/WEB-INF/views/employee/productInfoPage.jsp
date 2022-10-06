@@ -719,7 +719,7 @@ function checkUpdateRemove(){
 
 					var inA1 = document.createElement("a");
 					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshProductInfoPage("+(i-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA1.setAttribute("href","javascript:refreshProductInfoPage("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA1.setAttribute("aria-label","Previous");
 					inLi1.appendChild(inA1);
@@ -790,7 +790,7 @@ function checkUpdateRemove(){
 
 					var inA3 = document.createElement("a");
 					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshProductInfoPage("+(i+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("href","javascript:refreshProductInfoPage("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA3.setAttribute("aria-label","Next");
 					inLi3.appendChild(inA3);
@@ -1003,7 +1003,7 @@ function checkUpdateRemove(){
 
 					var inA1 = document.createElement("a");
 					inA1.classList.add("page-link");
-					inA1.setAttribute("href","javascript:refreshProductInfoPage("+(i-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA1.setAttribute("href","javascript:refreshProductInfoPage("+(jsonObj.startPage-1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA1.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA1.setAttribute("aria-label","Previous");
 					inLi1.appendChild(inA1);
@@ -1076,7 +1076,7 @@ function checkUpdateRemove(){
 
 					var inA3 = document.createElement("a");
 					inA3.classList.add("page-link");
-					inA3.setAttribute("href","javascript:refreshProductInfoPage("+(i+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
+					inA3.setAttribute("href","javascript:refreshProductInfoPage("+(jsonObj.endPage+1)+",'"+jsonObj.additionalParamType+"','"+jsonObj.additionalParamWord+"');");
 // 					inA3.setAttribute("href","./accountInfo?pageNum="+startPage+-1+additionalParam);
 					inA3.setAttribute("aria-label","Next");
 					inLi3.appendChild(inA3);

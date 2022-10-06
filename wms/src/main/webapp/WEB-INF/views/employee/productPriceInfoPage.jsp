@@ -43,6 +43,30 @@
 	
 <script type="text/javascript">
 
+//원 표시 자동변환 script
+function changeMoneyUnit() {
+	var moneyValue = document.querySelectorAll(".money");
+	const moneyUnit = "원"
+	var regex = /[^0-9]/g;
+	for(i of moneyValue){
+		result = i.innerText.toString().replace(regex,"").replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		result = result.concat(moneyUnit);
+		i.innerText = result;
+	}
+}
+
+// 자동변환 script
+function changeAmountUnit() {
+	var moneyValue = document.querySelectorAll(".amount");
+	const moneyUnit = ""
+	var regex = /[^0-9]/g;
+	for(i of moneyValue){
+		result = i.innerText.toString().replace(regex,"").replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		result = result.concat(moneyUnit);
+		i.innerText = result;
+	}
+}
+
 function findProduct(){
 	console.log("파프옴?")
 	var productName = document.getElementById("searchProduct").value;
@@ -832,6 +856,7 @@ function uploadProductUpdate(product_name,product_code){
 
 				var td6 = document.createElement("td");
 				td6.innerText = commentData.product_price_purchase;
+				td6.classList.add("money");
 				trIn1.appendChild(td6);
 
 				var td7 = document.createElement("td");
@@ -840,6 +865,7 @@ function uploadProductUpdate(product_name,product_code){
 
 				var td8 = document.createElement("td");
 				td8.innerText = commentData.product_price_selling;
+				td8.classList.add("money");
 				trIn1.appendChild(td8);
 
 				var td9 = document.createElement("td");
@@ -963,7 +989,8 @@ function uploadProductUpdate(product_name,product_code){
 					inSpan3.textContent = ">>";
 					inA3.appendChild(inSpan3);
 				}
-
+				changeMoneyUnit();
+				changeAmountUnit();
 			}
 		}
 		
@@ -1088,6 +1115,7 @@ function uploadProductUpdate(product_name,product_code){
 
 				var td5 = document.createElement("td");
 				td5.innerText = commentData.product_price_purchase;
+				td5.classList.add("money");
 				trIn1.appendChild(td5);
 
 				var td6 = document.createElement("td");
@@ -1096,6 +1124,7 @@ function uploadProductUpdate(product_name,product_code){
 
 				var td7 = document.createElement("td");
 				td7.innerText = commentData.product_price_selling;
+				td7.classList.add("money");
 				trIn1.appendChild(td7);
 
 				var td8 = document.createElement("td");
@@ -1218,7 +1247,8 @@ function uploadProductUpdate(product_name,product_code){
 					inSpan3.textContent = ">>";
 					inA3.appendChild(inSpan3);
 				}
-
+				changeMoneyUnit();
+				changeAmountUnit();
 			}
 		}
 		

@@ -695,7 +695,7 @@
 							<div class="input-group mb-3">
 									<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
 										<option selected>선택</option>
-										<option value="employee_rank_code">직급번호</option>
+										<option value="employee_rank_code">직급코드</option>
 										<option value="employee_rank_name">직급명</option>
 									  </select>
 									<input id="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button">

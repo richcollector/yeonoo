@@ -4,6 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+    
+    <style>
+    
+	   	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
+	   	
+	   	body { 
+		font-family : pretendard; 
+		color: #404040; 
+		} 
+	
+	</style>
 <title>Insert title here</title>
 </head>
 <body>

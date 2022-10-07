@@ -2,7 +2,17 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+    
 <style>
+    
+	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
+  	
+  	* { 
+	font-family : pretendard; 
+	color: #404040; 
+	} 
+		
 	#wrapper{
 		width: 1200px;
 		margin: auto;

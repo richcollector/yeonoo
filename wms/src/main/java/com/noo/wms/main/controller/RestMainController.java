@@ -85,7 +85,6 @@ public class RestMainController {
 			map.put("data", employeeInfo);
 			map.put("result", "success");
 		}
-		
 		return map;
 	}
 	

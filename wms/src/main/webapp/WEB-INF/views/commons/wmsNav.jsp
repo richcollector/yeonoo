@@ -22,11 +22,6 @@
 	         margin: 0px;
 	         padding: 0px;
 	    }
-	        
-	    body { 
-	    font-family : pretendard; 
-	    color: #404040; 
-	    } 
 
         #wrapper{
             width: 1200px;

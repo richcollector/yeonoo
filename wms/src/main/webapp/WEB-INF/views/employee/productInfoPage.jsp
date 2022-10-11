@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
     
    	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
@@ -1136,10 +1135,17 @@ function checkUpdateRemove(){
 									<input type="button" value="Excel 다운로드" onclick="excelDowunload()" type="button" class="btn btn-light">
 								</form>
 		            		</div>
-		            		<div class="col-2 ps-0">
-       				             <form id="excelUploadForm" name="excelUploadFo" action="#" method="post">
-					             	<input type="hidden" name="code" value="">
-									<input type="button" value="Excel 업로드" onclick="excelUpload()" type="button" class="btn btn-light">
+		            		<div class="col ps-0">
+								<form id="excelUploadForm"  name="excelUploadForm" enctype="multipart/form-data" method="post" 
+								action= "../employee/product/excel/read_excel">
+									<div class="row">
+										<div class="col">
+	                                    	<input id="excelFile" name="excelFile" type="file" accept=".xlsx" class="form-control">
+										</div>
+										<div class="col-3 ps-0 ms-0">
+											<input type="submit" value="Excel 업로드" type="button" class="btn btn-light">
+										</div>
+									</div>
 								</form>
 		            		</div>
 		            		<div class="col-3">

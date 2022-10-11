@@ -484,7 +484,11 @@
 					searchTr.appendChild(stockAmountTd);
 					
 					var stockManager = document.createElement("td");
-					stockManager.innerText = osList.outstock_register_employee;
+					if(stockManager.innerText = osList.outstock_register_employee != null){
+						stockManager.innerText = osList.outstock_register_employee;
+					}else{
+						stockManager.innerText = "물류팀장";
+					}				
 					searchTr.appendChild(stockManager);
 					
 					var stockDateTd = document.createElement("td");

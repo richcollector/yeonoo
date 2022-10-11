@@ -1208,7 +1208,11 @@
 					bodyTr.appendChild(ibAmount);
 					
 					var ibManager = document.createElement("td");
-					ibManager.innerText = inboundListNew.inbound_restiger_employee;
+					if(inboundListNew.inbound_restiger_employee != null){
+						ibManager.innerText = inboundListNew.inbound_restiger_employee;
+					}else{
+						ibManager.innerText = "물류팀장";
+					}					
 					bodyTr.appendChild(ibManager);
 					
 					var ibDate = document.createElement("td");

@@ -241,4 +241,10 @@
 		WHERE company_code = #{company_code}
 	</select>
 	
+	<!-- nav shotcut -->
+	<select id="navShotCut" resultType="com.noo.wms.vo.ShotcutVo">
+		SELECT * FROM Shotcut
+		WHERE shotcut_name LIKE CONCAT('%',#{shotcut_name},'%')
+	</select>
+	
 </mapper>

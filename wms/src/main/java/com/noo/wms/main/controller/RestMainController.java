@@ -184,4 +184,14 @@ public class RestMainController {
 		return map;
 	}
 	
+	@RequestMapping("navShotcut")
+	public HashMap<String, Object> navShotcut(String shotcut_name){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("shotcutList",mainService.findNav(shotcut_name));
+		
+		return map;
+	}
+	
 }

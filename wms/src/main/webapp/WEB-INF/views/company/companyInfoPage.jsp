@@ -370,7 +370,7 @@
 		
 	}
 		
-	function keepThisForm(){
+	/* function keepThisForm(){
 		
 		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		var registerNumRule = /^(\d{3,3})+[-]+(\d{2,2})+[-]+(\d{5,5})$/i;
@@ -531,7 +531,7 @@
 			
 		}
 		
-	}
+	} */
 	
 	window.addEventListener("DOMContentLoaded" , function (){
 			

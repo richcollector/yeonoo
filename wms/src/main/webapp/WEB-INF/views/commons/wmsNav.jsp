@@ -6,9 +6,9 @@
 <head>
    <meta charset="UTF-8">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"> 
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+    
     <style>
     
 	   	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
@@ -125,7 +125,7 @@
                       <c:if test="${adminInfo != null && employeeInfo == null}">
                         <a href="../company/employeeRankInfoPage">직급정보</a><br>           
                         <a href="../company/departmentInfoPage">부서정보</a><br>     
-                        <a href="../main/employeeInfoManagePage">직원정보</a><br>
+                        <a href="../main/employeeInfoManagePage">사원정보</a><br>
                       </c:if> 
                     </div>
                 </div>              

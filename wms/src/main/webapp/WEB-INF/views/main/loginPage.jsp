@@ -2,7 +2,17 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+    
 <style>
+    
+	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
+  	
+  	* { 
+	font-family : pretendard; 
+	color: #404040; 
+	} 
+		
 	#wrapper{
 		width: 1200px;
 		margin: auto;
@@ -26,6 +36,13 @@ function doLogin(){
 				loginBoxAlert.classList.add("text-danger");
 				loginBoxAlert.setAttribute("style" , "font-size: 0.8rem;");
 				loginBoxAlert.innerText = "등록되지 않은 이메일, 비밀번호이거나 이메일 인증이 완료 되지 않은 계정입니다."
+				return;
+			}
+			
+			if(result.data.employee_state == "F"){
+				loginBoxAlert.classList.add("text-danger");
+				loginBoxAlert.setAttribute("style" , "font-size: 0.8rem;");
+				loginBoxAlert.innerText = "퇴사처리된 계정입니다. 관리자에게 문의 바랍니다."
 				return;
 			}
 			window.location.href = './mainPage';

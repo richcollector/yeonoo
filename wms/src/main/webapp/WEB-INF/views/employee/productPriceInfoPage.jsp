@@ -1298,12 +1298,12 @@ function uploadProductUpdate(product_name,product_code){
 									<input type="button" value="Excel 다운로드" onclick="excelDowunload()" type="button" class="btn btn-light">
 								</form>
 		            		</div>
-		            		<div class="col-2 ps-0">
-	      				             <form id="excelUploadForm" name="excelUploadFo" action="#" method="post">
-					             	<input type="hidden" name="code" value="">
-									<input type="button" value="Excel 업로드" onclick="excelUpload()" type="button" class="btn btn-light">
-								</form>
-		            		</div>
+<!-- 		            		<div class="col-2 ps-0"> -->
+<!-- 	      				             <form id="excelUploadForm" name="excelUploadFo" action="#" method="post"> -->
+<!-- 					             	<input type="hidden" name="code" value=""> -->
+<!-- <!-- 									<input type="button" value="Excel 업로드" onclick="excelUpload()" type="button" class="btn btn-light"> -->
+<!-- 								</form> -->
+<!-- 		            		</div> -->
 		            		<div class="col-3">
 			            		<span class="fs-5">제품 단가 관리</span>
 			            	</div>

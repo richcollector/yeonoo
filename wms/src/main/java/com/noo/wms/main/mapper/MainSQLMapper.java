@@ -12,6 +12,7 @@ import com.noo.wms.vo.EmployeeRankVo;
 import com.noo.wms.vo.EmployeeVo;
 import com.noo.wms.vo.MailAuthVo;
 import com.noo.wms.vo.NoticeVo;
+import com.noo.wms.vo.ShotcutVo;
 
 public interface MainSQLMapper {
 
@@ -75,4 +76,8 @@ public interface MainSQLMapper {
 	public void updateEmployeeRetire(EmployeeVo employeeVo);
 	
 	public ArrayList<DepartmentVo> selectDepByCompanyCode(String company_code);
+	
+	//바로가기
+	
+	public ArrayList<ShotcutVo> navShotCut(String shotcut_name);
 }

@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
     
    	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
@@ -937,6 +936,33 @@
 		refreshAccountInfo();
         
  	}
+ 	
+//  	function excelUpload(){
+
+// 	    var checkVal = new Array();
+	    
+//         console.log(checkVal);
+	    
+// 	    var obj_length = document.getElementsByName("checkAccount").length;
+// 	    console.log(obj_length);
+	    
+//         for (var i = 0; i < obj_length; i++) {
+
+//             if (document.getElementsByName("checkAccount")[i].checked == true) {
+            	
+//             	checkVal[i] = document.getElementsByName("checkAccount")[i].value;
+//             }
+//         }
+        
+		
+// 		document.excelFo.code.value = checkVal;
+		
+// 		var excelForm = document.getElementById("excelForm");
+// 		excelForm.submit();
+		
+// 		refreshAccountInfo();
+        
+//  	}
 
 	
 	function deleteAccountInfo(){
@@ -1681,6 +1707,33 @@
 		
  	}
  	
+// 	$( "#btn-bundle-regist" ).on( "click", function() {
+			
+// 	        $("#excelUploadForm").ajaxSubmit( {
+	        	
+// 	        	success : function(data) {
+	        		
+// 	        		if( !$.isArray( data ) || data.length == 0 ) {
+// 	        			alert( "추가된 사용자가 없습니다." );
+// 	        			return;
+// 	        		}
+	        		
+// 	            	if( data ) {
+// 	                	alert("수신자번호 추가가 완료되었습니다.");
+// 	            	} 
+// 	            	else {
+// 	            		alert("데이터 업로드에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+// 	            	}
+// 	            }
+// 	            ,type : "POST"
+// 	//            ,async : false
+// 	            ,error: function (e) {
+// 	            	console.log("ERROR : ", e);
+// 	            }
+// 	        } );
+		    
+// 		} );
+ 	
 
 
 	window.addEventListener("DOMContentLoaded" , function (){
@@ -1715,7 +1768,7 @@
 		            		삭제
 		            	 </button>
 		            </div>
-		            <div class="col-6 text-end mx-0">
+		            <div class="col-6 text-end mx-0 pt-1">
 		            	<div class="row">
 		            		<div class="col">
        				             <form id="excelForm" name="excelFo" action="../account/excel/download" method="post">
@@ -1723,10 +1776,17 @@
 									<input type="button" value="Excel 다운로드" onclick="excelDowunload()" type="button" class="btn btn-light">
 								</form>
 		            		</div>
-		            		<div class="col-2 ps-0">
-       				             <form id="excelUploadForm" name="excelUploadFo" action="../account/excel/download" method="post">
-					             	<input type="hidden" name="code" value="">
-									<input type="button" value="Excel 업로드" onclick="excelUpload()" type="button" class="btn btn-light">
+		            		<div class="col ps-0">
+								<form id="excelUploadForm"  name="excelUploadForm" enctype="multipart/form-data" method="post" 
+								action= "../account/excel/read_excel">
+									<div class="row">
+										<div class="col">
+	                                    	<input id="excelFile" name="excelFile" type="file" accept=".xlsx" class="form-control">
+										</div>
+										<div class="col-3 ps-0 ms-0">
+											<input type="submit" value="Excel 업로드" type="button" class="btn btn-light">
+										</div>
+									</div>
 								</form>
 		            		</div>
 		            		<div class="col-3">
@@ -2036,8 +2096,6 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="form-control mt-3">
-                       		</div>
                         	<div class="row mt-3">
                                 <div class="col">
                                     <div class="input-group">
@@ -2162,7 +2220,6 @@
                             </div>              
                         </div>
                     </div>
-                </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                   <button type="button" class="btn btn-primary" onclick="checkUpdate()">수정</button>
@@ -2173,7 +2230,7 @@
           </div>
           
           
-    </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>     
 </body>

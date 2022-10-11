@@ -19,6 +19,7 @@ import com.noo.wms.vo.EmployeeRankVo;
 import com.noo.wms.vo.EmployeeVo;
 import com.noo.wms.vo.MailAuthVo;
 import com.noo.wms.vo.NoticeVo;
+import com.noo.wms.vo.ShotcutVo;
 
 @Service
 public class MainServiceImpl {
@@ -229,4 +230,10 @@ public class MainServiceImpl {
 		return depdataList;
 	}
 
+	public ArrayList<ShotcutVo> findNav(String shotcut_name){
+		
+		return mainSQLMapper.navShotCut(shotcut_name);
+		
+	}
+	
 }

@@ -1,11 +1,18 @@
 package com.noo.wms.employee.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -15,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.noo.wms.employee.service.EmployeeServiceImpl;
 import com.noo.wms.vo.AccountVo;
@@ -221,6 +229,124 @@ public class EmployeeController {
 	      System.out.println("여기까진오니");
 	      
 	  }
+	  
+	//  @RequestMapping(value = "/execl/read_excel", method = RequestMethod.POST)
+	  @RequestMapping("product/excel/read_excel")
+	  public String excelUpload( @RequestParam("excelFile") MultipartFile excelFile )
+				throws Exception {
+		  
+		  	System.out.println("업로드되니");
+			if (excelFile == null || excelFile.isEmpty()) {
+				throw new RuntimeException("엑셀파일을 선택 해 주세요.");
+			}
+
+			String extension = FilenameUtils.getExtension(excelFile.getOriginalFilename());
+			if (!extension.equals("xlsx")) {
+				throw new IOException("등록된 양식에 엑셀파일만 업로드 해주세요.");
+			}
+
+			// 해당경로를 실제 경로로...
+			String finalFilePath = "/uploadFilesWms/" + excelFile.getOriginalFilename();
+			File destFile = new File(finalFilePath);
+			try {
+				excelFile.transferTo(destFile);
+			} catch (IllegalStateException | IOException e) {
+				throw new RuntimeException(e.getMessage(), e);
+			}
+
+			Workbook workbook = null;
+			if ( extension.equals("xlsx") ) {
+
+				InputStream is = new FileInputStream(finalFilePath);
+				workbook = new XSSFWorkbook(is);
+			}
+
+			Sheet worksheet = workbook.getSheetAt(0);
+
+			List<ProductVo> list = new ArrayList<ProductVo>();
+			System.out.println(worksheet.getPhysicalNumberOfRows());
+
+			// 0~3까지는 사용자 인풋값이 아님
+			for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) { // 4
+
+				Row row = worksheet.getRow(i);
+
+				ProductVo dto = new ProductVo();
+				
+				if (row.getCell(0) != null) {
+					System.out.println(row.getCell(0).getStringCellValue());
+					dto.setProduct_code(row.getCell(0).getStringCellValue());
+				}else {
+					
+				}
+				
+				// 번호는 필수입력사항입니다. 필수입력사항이 입력되었을 때만 list에 add
+				if (row.getCell(1) != null) {
+					dto.setCompany_code(row.getCell(1).getStringCellValue());
+				}
+
+				// 번호는 필수입력사항입니다. 필수입력사항이 입력되었을 때만 list에 add
+				if (row.getCell(2) != null) {
+					dto.setProduct_name(row.getCell(2).getStringCellValue());
+				}
+				
+				if (row.getCell(3) != null) {
+//					dto.setProduct_size(row.getCell(3).getStringCellValue());
+					dto.setProduct_size(100);
+				}
+				
+				if (row.getCell(4) != null) {
+//					dto.setProduct_version(row.getCell(4).getStringCellValue());
+					dto.setProduct_version(5);
+				}
+				
+				if (row.getCell(5) != null) {
+					dto.setProduct_type(row.getCell(5).getStringCellValue());
+				}
+				
+				if (row.getCell(6) != null) {
+					Date dateN = new Date();
+//					dto.setProduct_register_date(row.getCell(6).getStringCellValue());
+					dto.setProduct_register_date(dateN);
+				}
+				
+				if (row.getCell(7) != null) {
+					dto.setProduct_register_employee(row.getCell(7).getStringCellValue());
+				}
+				
+				if (row.getCell(8) != null) {
+					Date dateN = new Date();
+//					dto.setProduct_update_date(row.getCell(8).getStringCellValue());
+					dto.setProduct_update_date(dateN);
+				}
+				
+				if (row.getCell(9) != null) {
+//					System.out.println(row.getCell(8).getStringCellValue());
+//					System.out.println(row.getCell(8).getStringCellValue().getClass().getName());
+					dto.setProduct_update_employee(row.getCell(9).getStringCellValue());
+				}
+				
+				if (row.getCell(10) != null) {
+					dto.setProduct_memo(row.getCell(10).getStringCellValue());
+				}
+				
+				list.add(dto);
+
+			}
+
+			// 임시저장 삭제
+			/**
+			 * @TODO test 해야함 !!
+			 */
+			destFile.delete();
+			
+			System.out.println(list);
+			for(ProductVo productVo : list) {
+				System.out.println(productVo.getCompany_code());
+				employeeService.insertProductInfo(productVo);
+			}
+			return "redirect:/employee/productInfoPage";
+		}
 	  
 	  @RequestMapping("productPrice/excel/download")
 	  public void priceExcelDownload(HttpServletResponse response, String [] code) throws IOException {

@@ -129,16 +129,16 @@ public class EmployeeServiceImpl {
 		
 		productPriceVo.setProduct_code(purchaseDetailVo.getProduct_code());
 		productPriceVo.setProduct_name(purchaseDetailVo.getProduct_name());
-		productPriceVo.setProduct_price_selling(purchaseDetailVo.getProduct_price());
-		productPriceVo.setProduct_price_selling_date(time);
+		productPriceVo.setProduct_price_purchase(purchaseDetailVo.getProduct_price());
+		productPriceVo.setProduct_price_purchase_date(time);
 		
 		if(productPriceList.isEmpty()) {
-			productPriceVo.setProduct_price_purchase(0);
-			productPriceVo.setProduct_price_purchase_date(time);
+			productPriceVo.setProduct_price_selling(0);
+			productPriceVo.setProduct_price_selling_date(time);
 			productPriceVo.setProduct_price_memo("");
 		}else {
-			productPriceVo.setProduct_price_purchase(productPriceList.get(length).getProduct_price_purchase());
-			productPriceVo.setProduct_price_purchase_date(productPriceList.get(length).getProduct_price_purchase_date());
+			productPriceVo.setProduct_price_selling(productPriceList.get(length).getProduct_price_selling());
+			productPriceVo.setProduct_price_selling_date(productPriceList.get(length).getProduct_price_selling_date());
 			productPriceVo.setProduct_price_memo(productPriceList.get(length).getProduct_price_memo());
 		}
 
@@ -317,16 +317,16 @@ public class EmployeeServiceImpl {
 		
 		productPriceVo.setProduct_code(obtainOrderDetailVo.getProduct_code());
 		productPriceVo.setProduct_name(obtainOrderDetailVo.getProduct_name());
-		productPriceVo.setProduct_price_purchase(obtainOrderDetailVo.getProduct_price());
-		productPriceVo.setProduct_price_purchase_date(time);
+		productPriceVo.setProduct_price_selling(obtainOrderDetailVo.getProduct_price());
+		productPriceVo.setProduct_price_selling_date(time);
 		
 		if(productPriceList.isEmpty()) {
-			productPriceVo.setProduct_price_selling(0);
-			productPriceVo.setProduct_price_selling_date(time);
+			productPriceVo.setProduct_price_purchase(0);
+			productPriceVo.setProduct_price_purchase_date(time);
 			productPriceVo.setProduct_price_memo("");
 		}else {
-			productPriceVo.setProduct_price_selling(productPriceList.get(length).getProduct_price_selling());
-			productPriceVo.setProduct_price_selling_date(productPriceList.get(length).getProduct_price_selling_date());
+			productPriceVo.setProduct_price_purchase(productPriceList.get(length).getProduct_price_purchase());
+			productPriceVo.setProduct_price_purchase_date(productPriceList.get(length).getProduct_price_purchase_date());
 			productPriceVo.setProduct_price_memo(productPriceList.get(length).getProduct_price_memo());
 		}
 
@@ -362,16 +362,16 @@ public class EmployeeServiceImpl {
 		
 		productPriceVo.setProduct_code(obtainOrderDetailVo.getProduct_code());
 		productPriceVo.setProduct_name(obtainOrderDetailVo.getProduct_name());
-		productPriceVo.setProduct_price_purchase(obtainOrderDetailVo.getProduct_price());
-		productPriceVo.setProduct_price_purchase_date(time);
+		productPriceVo.setProduct_price_selling(obtainOrderDetailVo.getProduct_price());
+		productPriceVo.setProduct_price_selling_date(time);
 		
 		if(productPriceList.isEmpty()) {
-			productPriceVo.setProduct_price_selling(0);
-			productPriceVo.setProduct_price_selling_date(time);
+			productPriceVo.setProduct_price_purchase(0);
+			productPriceVo.setProduct_price_purchase_date(time);
 			productPriceVo.setProduct_price_memo("");
 		}else {
-			productPriceVo.setProduct_price_selling(productPriceList.get(length).getProduct_price_selling());
-			productPriceVo.setProduct_price_selling_date(productPriceList.get(length).getProduct_price_selling_date());
+			productPriceVo.setProduct_price_purchase(productPriceList.get(length).getProduct_price_purchase());
+			productPriceVo.setProduct_price_purchase_date(productPriceList.get(length).getProduct_price_purchase_date());
 			productPriceVo.setProduct_price_memo(productPriceList.get(length).getProduct_price_memo());
 		}
 

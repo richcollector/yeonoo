@@ -101,6 +101,48 @@
          }
       }
     
+      function navShotcut(){
+  		
+  		var keyword = document.getElementById("navSearch").value;
+  		console.log(keyword);
+  		
+  		var xhr = new XMLHttpRequest();
+  		xhr.onreadystatechange = function () {
+  			if(xhr.readyState == 4 && xhr.status == 200){				
+  				var jsonObj = JSON.parse(xhr.responseText);					
+  		
+  				var upAddUi = document.getElementById("navSearch"); 				
+  				upAddUi.innerHTML = "";
+  				
+  				upSearchResult = document.createElement("div");
+  				upSearchResult.classList.add("col");
+  				upAddUi.appendChild(upSearchResult);
+  				
+  				upResultUl = document.createElement("ul");
+  				upResultUl.classList.add("list-group");
+  				upSearchResult.appendChild(upResultUl);
+  									
+  				for (findShotcut of jsonObj.shotcutList){
+  					
+  					console.log(jsonObj.shotcutList);
+  					
+  					resultLi = document.createElement("li");
+  					resultLi.classList.add("list-group-item");
+  					resultLi.innerText = findShotcut.shotcut_name;
+  					resultLi.setAttribute("onclick", "location.href='../'");
+  					upResultUl.appendChild(resultLi);			  					
+  					
+  				}	
+  				
+  			}		
+  		}
+  					
+  		xhr.open("get" , "../main/navShotcut?shotcut_name=" + keyword );
+  		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  		xhr.send();
+  		
+  	}
+      
     </script>
 
 </head>
@@ -181,7 +223,7 @@
             </div>
             <div class="col-2">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="검색" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" placeholder="검색" aria-label="Username" aria-describedby="basic-addon1" id="navSearch" onkeyup="navShotcut()">
                     <span class="input-group-text bi bi-search" id="basic-addon1"></s>
                 </div>
             </div>

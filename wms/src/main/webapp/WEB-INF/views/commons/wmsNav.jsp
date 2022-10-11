@@ -89,7 +89,8 @@
          }
 		
 		#searchmenu-content{
-
+			
+			z-index : 2;
             position: absolute;
             background-color: white;
       		border: 1px;

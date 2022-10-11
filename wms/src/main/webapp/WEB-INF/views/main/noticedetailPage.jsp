@@ -31,16 +31,16 @@
 	  공지사항
 	  </div>
 		<div class="col border">
-		  <div class="row">
-  		    <div class="col fw-bold mt-3">${data.notice_title }<div class="col" style="float: right; font-size:0.8rem"><fmt:formatDate value="${data.notice_write_date }"/></div>
-  		    </div>
+		  <div class="row mb-5 fw-bold mt-3 fs-2">
+  		    <div class="col-10">${data.notice_title }</div>
+  		    <div class="col" style="float: right; font-size:0.8rem; text-align: end; align-self: flex-end;"><fmt:formatDate value="${data.notice_write_date }"/></div>
 		  </div>
-		  <div class="row mt-3">
+		  <div class="row my-5 mb-5">
 				<div class="col">
 					${data.notice_content }
 				</div>
 		  </div>
-		  <div class="row">
+		  <div class="row pt-5 mb-3">
 		    <div class="col">
 		      <button type="button" onclick="location.href='./mainPage'" class="btn btn-primary ms-2" style="float: right;">메인페이지로</button>
 		      <c:if test="${adminInfo != null}">

@@ -108,7 +108,7 @@
 	</div>
 	
 	<!-- offcanvas 공지사항 작성 -->
-	<div class="offcanvas offcanvas-bottom" style="height: 70%;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+	<div class="offcanvas offcanvas-bottom" style="height: 45%;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
 	  <div class="offcanvas-header">
 	    <h5 class="offcanvas-title fw-bold" style="color:#008FFF;" id="offcanvasBottomLabel">공지사항 등록</h5>
 	    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>

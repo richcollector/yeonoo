@@ -319,7 +319,7 @@
 <body>
     <div id="wrapper">
     	<div class="row border-bottom mt-3 mb-3">
-    		<h2 class="fb-bold">회원가입</h2>
+    		<h2 class="fb-bold ms-3" style="color:#008FFF;">WMS 회원가입</h2>
     	</div>
 		<div id="info" class="row border p-3">
 			<form id="employeeRegister" action="employeeRegisterProcess" method="post">

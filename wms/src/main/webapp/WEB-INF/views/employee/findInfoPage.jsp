@@ -439,7 +439,7 @@
 <body>
     <div id="wrapper">
     	<div class="row border-bottom mt-3 mb-3">
-    		<h2 class="fb-bold">비밀번호 찾기</h2>
+    		<h2 class="fb-bold ms-3" style="color:#008FFF;">비밀번호 찾기</h2>
     	</div>
 		<div id="info" class="row border p-3">
 			<!-- <form action="">

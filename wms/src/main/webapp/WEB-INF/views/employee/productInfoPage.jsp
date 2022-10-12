@@ -1289,7 +1289,7 @@ function checkUpdateRemove(){
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">재품 등록</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">제품 등록</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -1377,7 +1377,7 @@ function checkUpdateRemove(){
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">거래처 수정</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">제품 수정</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

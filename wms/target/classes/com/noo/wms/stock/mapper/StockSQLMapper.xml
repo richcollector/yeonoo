@@ -4,8 +4,74 @@
 
 <mapper namespace="com.noo.wms.stock.mapper.StockSQLMapper">
 
+	<insert id="insertStockAuto">
+		INSERT INTO Stock(
+		lot_code,
+		company_code,
+		product_code,
+		warehouse_code,
+		warehouse_area_code,
+		warehouse_rack_code,
+		warehouse_cell_code,
+		stock_amount,
+		stock_register_date,
+		stock_register_employee,
+		stock_update_date,
+		stock_update_employee,
+		stock_memo
+		)values(
+		#{lot_code},
+		#{company_code},
+		#{product_code},
+		#{warehouse_code},
+		#{warehouse_area_code},
+		#{warehouse_rack_code},
+		#{warehouse_cell_code},
+		#{stock_amount},
+		SYSDATE(),
+		#{stock_register_employee},
+		NULL,
+		NULL,
+		#{stock_memo}
+		)
+		
+		<selectKey keyColumn="stock_code" keyProperty="stock_code" resultType="com.noo.wms.vo.StockVo" order="AFTER">
+		      select stock_code from Stock
+    		  ORDER BY stock_code DESC LIMIT 1
+		</selectKey>
+					
+	</insert>
 	
-<<<<<<< Updated upstream
+	<update id="updateStockAuto">
+		UPDATE Stock
+			SET lot_code = #{lot_code},
+			product_code = #{product_code},
+			warehouse_code = #{warehouse_code},
+			warehouse_area_code = #{warehouse_area_code},
+			warehouse_rack_code = #{warehouse_rack_code},
+			warehouse_cell_code = #{warehouse_cell_code},
+			stock_update_date = SYSDATE(),
+			stock_amount = #{stock_amount},
+			stock_memo = #{stock_memo}
+		WHERE stock_code = #{stock_code}
+	</update>
+	
+	<delete id="deleteStockAuto">
+		DELETE FROM Stock
+		WHERE stock_code = #{stock_code}
+	</delete>
+	
+	<update id="decreaseAuto">
+		UPDATE Stock
+			SET stock_amount = #{stock_amount}
+		WHERE stock_code = #{stock_code}
+	</update>
+	
+	<select id="stockValue" resultType="int">
+		SELECT stock_amount FROM Stock
+		WHERE stock_code = #{stock_code}
+	</select>
+	
 	<select id="basicStockList" resultType="com.noo.wms.vo.StockVo">
 		SELECT * FROM Stock
 		WHERE company_code = #{company_code}
@@ -127,7 +193,4 @@
 		GROUP BY s.lot_code	
 	</select>
 		
-=======
-
->>>>>>> Stashed changes
 </mapper>

@@ -146,12 +146,9 @@
 							resultLi.innerText = findShotcut.shotcut_name;
 							resultLi.setAttribute("onclick", "location.href='../'+ findShotcut.shotcut_value");
 							upAddUi.appendChild(resultLi);			  					  						
-	  						
-						
+							
 				  		}
-			  		}		
-				
-					
+			  		}				
   			}		
   		}
   					

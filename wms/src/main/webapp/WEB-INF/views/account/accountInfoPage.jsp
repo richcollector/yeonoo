@@ -508,6 +508,8 @@
 			document.getElementById("account_pax_number_update_Alert").innerHTML = "";
 		}
 		
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
 		
 		if(document.getElementById("account_email_update").value == ""){
 			document.getElementById("account_email_update_Alert").innerText = "이메일(일반)을 입력해주셔야 합니다.";

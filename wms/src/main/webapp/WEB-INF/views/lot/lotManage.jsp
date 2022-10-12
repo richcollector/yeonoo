@@ -42,7 +42,7 @@
 
 	function findPdToRegi(){
 		
-		var keyword = document.getElementById("searchWord").value;
+		var keyword = document.getElementById("searchItemWord").value;
 			
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -927,7 +927,7 @@ window.addEventListener("DOMContentLoaded" , function (){
                         				<span>제품 이름 입력</span>
 		                                <div class="col mt-3">
 		                                    <div class="input-group">		                                        
-		                                        <input type="text" class="form-control" placeholder="검색 후 선택 버튼을 눌러주세요" id="searchWord" onkeyup="findPdToRegi()">
+		                                        <input type="text" class="form-control" placeholder="검색 후 선택 버튼을 눌러주세요" id="searchItemWord" onkeyup="findPdToRegi()">
   												<button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
   											</div>
 		                                </div>

@@ -8,7 +8,6 @@
 		INSERT INTO Inbound(
 		lot_code,
 		company_code,
-		stock_code,
 		product_code,
 		warehouse_code,
 		warehouse_area_code,
@@ -21,7 +20,6 @@
 		)values(
 		#{lot_code},
 		#{company_code},
-		#{stock_code},
 		#{product_code},
 		#{warehouse_code},
 		#{warehouse_area_code},
@@ -32,7 +30,6 @@
 		#{inbound_register_employee},
 		#{inbound_memo}
 		)
-		
 	</insert>
 
 	<select id="findLot" resultType="com.noo.wms.vo.LotVo">

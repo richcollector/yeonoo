@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package com.noo.wms.main.mapper;
 
 import java.util.ArrayList;
@@ -81,3 +82,5 @@ public interface MainSQLMapper {
 	
 	public ArrayList<ShotcutVo> navShotCut(String shotcut_name);
 }
+=======
+>>>>>>> Stashed changes

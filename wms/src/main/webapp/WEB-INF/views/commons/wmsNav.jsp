@@ -54,7 +54,14 @@
 	        position: relative;
 	        display: inline-block;
         }
-
+		
+		#searchmenu{
+	        z-index : 2;
+	        width: 100%;
+	        position: relative;
+	        display: inline-block;
+        }
+		
         .usermenu-content{
          	overflow: hidden;
             max-height: 0;
@@ -80,7 +87,17 @@
          text-decoration-line: none;
          color: #404040;
          }
-
+		
+		#searchmenu-content{
+			
+			z-index : 2;
+            position: absolute;
+            background-color: white;
+      		border: 1px;
+      		
+            -webkit-box-shadow: 0 4px 4px 0 rgb(0 0 0 / 12%);
+		}
+				
     </style>
     
     <script type="text/javascript">
@@ -103,37 +120,38 @@
     
       function navShotcut(){
   		
-  		var keyword = document.getElementById("navSearch").value;
-  		console.log(keyword);
+  		var keyword = document.getElementById("searchText").value;
   		
   		var xhr = new XMLHttpRequest();
   		xhr.onreadystatechange = function () {
   			if(xhr.readyState == 4 && xhr.status == 200){				
   				var jsonObj = JSON.parse(xhr.responseText);					
-  		
-  				var upAddUi = document.getElementById("navSearch"); 				
-  				upAddUi.innerHTML = "";
   				
-  				upSearchResult = document.createElement("div");
-  				upSearchResult.classList.add("col");
-  				upAddUi.appendChild(upSearchResult);
-  				
-  				upResultUl = document.createElement("ul");
-  				upResultUl.classList.add("list-group");
-  				upSearchResult.appendChild(upResultUl);
-  									
-  				for (findShotcut of jsonObj.shotcutList){
-  					
-  					console.log(jsonObj.shotcutList);
-  					
-  					resultLi = document.createElement("li");
-  					resultLi.classList.add("list-group-item");
-  					resultLi.innerText = findShotcut.shotcut_name;
-  					resultLi.setAttribute("onclick", "location.href='../'");
-  					upResultUl.appendChild(resultLi);			  					
-  					
-  				}	
-  				
+				var upAddUi = document.getElementById("searchmenu-content"); 				
+				upAddUi.innerHTML = "";
+				
+					if(keyword == ""){							
+						
+						var resultLi = document.createElement("li");
+						resultLi.classList.add("list-group-item");
+						resultLi.innerText = "검색어를 입력하세요.";
+						upAddUi.appendChild(resultLi);
+		
+			  		}else{
+		
+						for(findShotcut of jsonObj.shotcutList){
+							
+							var resultLi = document.createElement("li");
+							resultLi.classList.add("list-group-item");
+							resultLi.innerText = findShotcut.shotcut_name;
+							resultLi.setAttribute("onclick", "location.href='../'+ findShotcut.shotcut_value");
+							upAddUi.appendChild(resultLi);			  					  						
+	  						
+						
+				  		}
+			  		}		
+				
+					
   			}		
   		}
   					
@@ -223,9 +241,11 @@
             </div>
             <div class="col-2">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="검색" aria-label="Username" aria-describedby="basic-addon1" id="navSearch" onkeyup="navShotcut()">
-                    <span class="input-group-text bi bi-search" id="basic-addon1"></s>
-                </div>
+                    <input type="text" class="form-control" placeholder="검색" onkeyup="navShotcut()" id="searchText">
+                    <span class="input-group-text bi bi-search"></span>               
+                </div> 
+                <ul class="list-group" id="searchmenu-content">
+				</ul>
             </div>
         </div>
     </div>

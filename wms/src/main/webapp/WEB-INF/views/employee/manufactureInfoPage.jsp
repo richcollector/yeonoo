@@ -2736,7 +2736,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text">생산상태</span>
                                         <input hidden id="manufacture_state" value="F" onblur="checkRemove()" type="text" class="form-control">
-                                    	<input value="승인보류" type="text" class="form-control">
+                                    	<input readonly value="승인보류" type="text" class="form-control">
                                     	
                                     </div>
                                     <div id="manufacture_state_Alert" class="mb-3"></div>

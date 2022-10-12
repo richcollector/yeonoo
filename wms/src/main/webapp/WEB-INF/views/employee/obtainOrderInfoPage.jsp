@@ -2950,7 +2950,7 @@
                                     <div class="input-group" class="form-control">
                                     	<span class="input-group-text">수주상태</span>
                                     	<input id="obtain_order_state" value="F" onblur="checkRemove()" type="text" class="form-control" hidden>
-                                    	<input value="승인보류" type="text" class="form-control">
+                                    	<input readonly value="승인보류" type="text" class="form-control">
                                     	
 <!--                                         <select id="obtain_order_state" class="border rounded-end" style="width:100px;" onchange="checkRemove()"> -->
 <!--                                         	<option value="F">승인보류</option> -->

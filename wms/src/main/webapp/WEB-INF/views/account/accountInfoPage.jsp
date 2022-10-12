@@ -1756,7 +1756,7 @@
 		<div class="row">
 	        <div class="col form-control mt-3">
 	        	<div class="row">
-		        	<div class="col-6 mx-0">
+		        	<div class="col-4 mx-0">
 			             <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#accountRegist">
 			                등록
 			             </button>
@@ -1770,7 +1770,7 @@
 		            		삭제
 		            	 </button>
 		            </div>
-		            <div class="col-6 text-end mx-0 pt-1">
+		            <div class="col-8 text-end mx-0 pt-1">
 		            	<div class="row">
 		            		<div class="col">
        				             <form id="excelForm" name="excelFo" action="../account/excel/download" method="post">
@@ -1791,7 +1791,7 @@
 									</div>
 								</form>
 		            		</div>
-		            		<div class="col-3">
+		            		<div class="col-2">
 		            			<span class="fs-5">거래처 관리</span>
 		            		</div>
 		            	</div>

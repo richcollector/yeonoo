@@ -81,51 +81,54 @@ public class AccountController {
       // Header
       row = sheet.createRow(rowNum++);
       cell = row.createCell(0);
-      cell.setCellValue("거래처번호");
+      cell.setCellValue("거래처코드");
       
       cell = row.createCell(1);
-      cell.setCellValue("회사이름");
+      cell.setCellValue("회사코드");
       
       cell = row.createCell(2);
-      cell.setCellValue("사업자등록번호");
+      cell.setCellValue("회사명");
       
       cell = row.createCell(3);
-      cell.setCellValue("법인등록번호");
+      cell.setCellValue("사업자등록번호");
       
       cell = row.createCell(4);
-      cell.setCellValue("대표명");
+      cell.setCellValue("법인등록번호");
       
       cell = row.createCell(5);
-      cell.setCellValue("전화번호");
+      cell.setCellValue("대표명");
       
       cell = row.createCell(6);
-      cell.setCellValue("팩스번호");
+      cell.setCellValue("전화번호");
       
       cell = row.createCell(7);
-      cell.setCellValue("이메일번호");
+      cell.setCellValue("팩스번호");
       
       cell = row.createCell(8);
-      cell.setCellValue("이메일번호(세금)");
+      cell.setCellValue("이메일번호");
       
       cell = row.createCell(9);
-      cell.setCellValue("우편번호");
+      cell.setCellValue("이메일번호(세금)");
       
       cell = row.createCell(10);
-      cell.setCellValue("주소");
+      cell.setCellValue("우편번호");
       
       cell = row.createCell(11);
-      cell.setCellValue("상세주소");
+      cell.setCellValue("주소");
       
       cell = row.createCell(12);
-      cell.setCellValue("거래처분류");
+      cell.setCellValue("상세주소");
       
       cell = row.createCell(13);
-      cell.setCellValue("거래처등록일");
+      cell.setCellValue("거래처분류");
       
       cell = row.createCell(14);
-      cell.setCellValue("메모");
+      cell.setCellValue("거래처등록일");
       
       cell = row.createCell(15);
+      cell.setCellValue("메모");
+      
+      cell = row.createCell(16);
       cell.setCellValue("사업자등록증");
       
       

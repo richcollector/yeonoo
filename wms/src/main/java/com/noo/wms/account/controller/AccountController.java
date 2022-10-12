@@ -198,8 +198,6 @@ public class AccountController {
 	          
 	          cell = row.createCell(16);
 	          cell.setCellValue(accountVo.getAccount_registration_jpg());
-	          
-	          System.out.println("메모" + accountVo.getAccount_memo());
     	  }
       }
 

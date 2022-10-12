@@ -874,13 +874,13 @@ window.addEventListener("DOMContentLoaded" , function (){
                     </div>
                     <div class="col-4">
 						<div class="input-group mb-3">
-								<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
-									<option selected>선택</option>
-									<option value="l.lot_code">로트 코드</option>
-									<option value="p.product_name">제품 이름</option>
-								  </select>
-								<input id="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button" onkeyup="deleteLotLog()">
-								<button class="input-group-text bi bi-search"></button>
+							<select id="searchType" style="width: 10px;" class="form-select" aria-label="Default select example">
+								<option selected>선택</option>
+								<option value="l.lot_code">로트 코드</option>
+								<option value="p.product_name">제품 이름</option>
+							  </select>
+							<input id="searchWord" type="text" class="form-control" aria-label="Text input with dropdown button" onkeyup="deleteLotLog()">
+							<button class="input-group-text bi bi-search"></button>
 						</div>
                 	</div>
                	</div>

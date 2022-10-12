@@ -22,7 +22,7 @@
 	
 	function findLotToRegi(){
 		
-		var keyword = document.getElementById("searchWord").value;
+		var keyword = document.getElementById("searchItemWord").value;
 			
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -1764,7 +1764,7 @@
                         				<span>로트 번호로 정보 입력</span>
 		                                <div class="col mt-3">
 		                                    <div class="input-group">		                                        
-		                                        <input type="text" class="form-control" placeholder="검색 후 로트 번호를 클릭하세요" id="searchWord" onkeyup="findLotToRegi()">
+		                                        <input type="text" class="form-control" placeholder="검색 후 로트 번호를 클릭하세요" id="searchItemWord" onkeyup="findLotToRegi()">
   												<button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
   											</div>
 		                                </div>

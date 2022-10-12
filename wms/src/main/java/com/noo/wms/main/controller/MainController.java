@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 package com.noo.wms.main.controller;
 
 import java.util.ArrayList;
@@ -140,5 +139,3 @@ public class MainController {
 	}
 	
 }
-=======
->>>>>>> Stashed changes

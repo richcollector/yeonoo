@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 package com.noo.wms.main.service;
 
 import java.util.ArrayList;
@@ -238,5 +237,3 @@ public class MainServiceImpl {
 	}
 	
 }
-=======
->>>>>>> Stashed changes

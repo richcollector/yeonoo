@@ -438,8 +438,13 @@
 </head>
 <body>
     <div id="wrapper">
-    	<div class="row border-bottom mt-3 mb-3">
-    		<h2 class="fb-bold ms-3" style="color:#008FFF;">비밀번호 찾기</h2>
+    	<div class="row mt-3 mb-3">
+    	  <div class="col-10">
+    		<h2 class="ms-3" style="color:#008FFF;">비밀번호 찾기</h2>
+    	  </div>
+    	  <div class="col" style="text-align: end;">
+    		<input type="button" onclick="location.href='../main/loginPage'" class="btn btn-outline-primary" value="뒤로가기">
+    	  </div>
     	</div>
 		<div id="info" class="row border p-3">
 			<!-- <form action="">

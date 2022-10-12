@@ -409,6 +409,7 @@
    
    			<div class="row">
 				<div class="col text-center">
+					<input type="button" onclick="location.href='./loginPage'" class="btn btn-outline-primary" value="뒤로가기">
 					<input type="button" onclick="doSubmit()" class="btn btn-primary" value="가입하기">
 				</div>
 			</div>
